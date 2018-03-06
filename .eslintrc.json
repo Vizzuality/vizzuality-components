@@ -1,0 +1,18 @@
+{
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true
+  },
+  "extends": "vizzuality",
+  "parser": "babel-eslint",
+  "plugins": [
+    "babel"
+  ],
+  "settings": {
+    "import/resolver": {
+      "babel-module": {
+      }
+    }
+  }
+}

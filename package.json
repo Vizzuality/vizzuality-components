@@ -1,0 +1,45 @@
+{
+  "name": "wri-api-components",
+  "version": "1.0.0",
+  "description": "Components to use with WRI's API",
+  "main": "dist/bundle.js",
+  "module": "dist/bundle.js",
+  "files": [
+    "dist/"
+  ],
+  "repository": "git@github.com:resource-watch/widget-editor.git",
+  "author": "Clément Prod'homme <clement.prodhomme@vizzuality.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "npm run styleguide",
+    "styleguide": "styleguidist server",
+    "styleguide:build": "styleguidist build",
+    "build": ""
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.2.2",
+    "babel-plugin-module-resolver": "^3.1.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "eslint": "^4.18.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-config-vizzuality": "^1.0.14",
+    "eslint-import-resolver-babel-module": "^4.0.0",
+    "eslint-plugin-babel": "^4.1.2",
+    "eslint-plugin-import": "^2.9.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.7.0",
+    "react-styleguidist": "^6.2.5",
+    "webpack": "^3.11.0"
+  },
+  "dependencies": {
+    "leaflet": "^1.2.0",
+    "prop-types": "^15.6.0",
+    "react": "^15.6.2",
+    "react-dom": "^15.6.2",
+    "redux": "^3.7.2",
+    "vega": "^3.1.0",
+    "wri-json-api-serializer": "^1.0.1"
+  }
+}

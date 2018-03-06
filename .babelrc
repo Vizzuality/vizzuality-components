@@ -1,0 +1,8 @@
+{
+  "presets": [["env", { "modules": false }], "react"],
+  "plugins": [
+    ["module-resolver", {
+      "root": [".", "./src"]
+    }]
+  ]
+}
