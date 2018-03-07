@@ -1,0 +1,62 @@
+@import 'settings';
+
+.c-legend-item {
+  position: relative;
+  z-index: 10;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 14px 15px 14px 10px; // We reduce the left padding because of the handle
+  border-bottom: 1px solid $border-color-1;
+
+  &:last-child {
+    border-bottom: 0;
+  }
+
+  .legend-info {
+    flex-grow: 1;
+    padding-left: 20px;
+  }
+
+  .legend-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    > h3 {
+      font-weight: $font-weight-bold;
+      flex-grow: 1;
+      flex-shrink: 1;
+    }
+  }
+
+  .handler {
+    position: absolute;
+    cursor: move;
+    top: 13px;
+
+    svg { fill: $color-dark-1; }
+  }
+
+  h3 {
+    font-size: $font-size-default;
+    color: $color-dark-1;
+    margin: 0;
+    margin-bottom: 3px;
+
+    &.-dark { color: $color-dark-1; }
+
+    .category {
+      font-weight: 400;
+      text-transform: capitalize;
+      padding: 0 8px 0 0;
+    }
+  }
+
+  &.-sort {
+    background-color: rgba(255, 255, 255, .9);
+    border-radius: 4px;
+  }
+}

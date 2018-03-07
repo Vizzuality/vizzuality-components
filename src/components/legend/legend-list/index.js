@@ -42,7 +42,7 @@ class LegendList extends PureComponent {
       <ul styleName="c-legend-list">
         {items.map((value, index) => (
           <LegendListItem
-            key={index}
+            key={value.dataset}
             index={index}
             value={value}
             readonly={this.props.readonly}
@@ -59,4 +59,6 @@ class LegendList extends PureComponent {
   }
 }
 
-export default CSSModules(SortableContainer(LegendList), styles, { allowMultiple: true });
+const LegendListStyled = CSSModules(LegendList, styles, { allowMultiple: true });
+
+export default SortableContainer(LegendListStyled);
