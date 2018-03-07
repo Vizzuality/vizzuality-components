@@ -22,9 +22,7 @@ class LegendOpacityTooltip extends React.Component {
     step: 0.01
   }
 
-  state = {
-    value: this.props.activeLayer.opacity || 1
-  }
+  state = { value: this.props.activeLayer.opacity || 1 }
 
   onChange = (v) => {
     const { activeLayer } = this.props;
@@ -34,13 +32,8 @@ class LegendOpacityTooltip extends React.Component {
   }
 
   render() {
-    const {
-      min, max, step
-    } = this.props;
-
-    const {
-      value
-    } = this.state;
+    const { min, max, step } = this.props;
+    const { value } = this.state;
 
     return (
       <div className="c-explore-slider-tooltip" ref={(node) => { this.el = node; }}>
@@ -59,15 +52,6 @@ class LegendOpacityTooltip extends React.Component {
             onAfterChange={this.onChange}
           />
         </div>
-
-        {/* <div className="slider-tooltip-actions">
-          <button
-            className="c-button -secondary -compressed"
-            onClick={() => this.onChange(max)}
-          >
-            Reset
-          </button>
-        </div> */}
       </div>
     );
   }

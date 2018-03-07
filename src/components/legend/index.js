@@ -12,7 +12,7 @@ import LegendList from './legend-list';
 
 import styles from './styles.scss';
 
-class Legend extends React.PureComponent {
+export class Legend extends React.PureComponent {
   static propTypes = {
     layerGroups: PropTypes.array,
     expanded: PropTypes.bool,
@@ -20,11 +20,17 @@ class Legend extends React.PureComponent {
     interaction: PropTypes.bool,
 
     // ACTIONS
+    /** ```(currentLayer) => {}``` */
     onChangeInfo: PropTypes.func,
+    /** ```(currentLayer) => {}``` */
     onChangeLayer: PropTypes.func,
+    /** ```(currentLayer, visibility) => {}``` */
     onChangeVisibility: PropTypes.func,
+    /** ```(currentLayer, opacity) => {}``` */
     onChangeOpacity: PropTypes.func,
+    /** ```(layerGroupsIds) => {}``` */
     onChangeOrder: PropTypes.func,
+    /** ```(currentLayer) => {}``` */
     onRemoveLayer: PropTypes.func
   }
 
@@ -50,7 +56,6 @@ class Legend extends React.PureComponent {
    * onToggleLegend
    * onSortEnd
   */
-
   onToggleLegend = (bool) => {
     this.setState({ expanded: bool });
   }

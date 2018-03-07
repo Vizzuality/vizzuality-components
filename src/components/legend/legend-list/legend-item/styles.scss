@@ -10,6 +10,7 @@
   width: 100%;
   padding: 14px 15px 14px 10px; // We reduce the left padding because of the handle
   border-bottom: 1px solid $border-color-1;
+  background: rgba($color-white, 0.75);
 
   &:last-child {
     border-bottom: 0;
@@ -30,14 +31,6 @@
       flex-grow: 1;
       flex-shrink: 1;
     }
-  }
-
-  .handler {
-    position: absolute;
-    cursor: move;
-    top: 13px;
-
-    svg { fill: $color-dark-1; }
   }
 
   h3 {

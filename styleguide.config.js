@@ -1,6 +1,9 @@
 const path = require('path');
+const camelCase = require('lodash/camelCase');
+const upperFirst = require('lodash/upperFirst');
+
 const webpackConfig = require('./styleguide.webpack.js');
-const { version } = require('./package.json');
+const { name, version } = require('./package.json');
 
 module.exports = {
   title: `WRI components | ${version}`,
@@ -22,5 +25,11 @@ module.exports = {
   showUsage: true,
   showCode: true,
   skipComponentsWithoutExample: true,
+  getComponentPathLine: (componentPath) => {
+    const dirname = path.dirname(componentPath, '.js');
+    const componentName = upperFirst(camelCase(dirname.split('/').slice(-1)[0]));
+
+    return `import { ${componentName} } from '${name}'`;
+  },
   webpackConfig
 };
