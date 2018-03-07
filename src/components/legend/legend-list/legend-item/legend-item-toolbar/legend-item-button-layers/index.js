@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import sortBy from 'lodash/sortBy';
 import CSSModules from 'react-css-modules';
 
 // Components
@@ -27,8 +28,26 @@ class LegendItemButtonLayers extends PureComponent {
     onChangeLayer: () => {}
   }
 
+  /**
+   * HELPERS
+   * - getTimelineLayers
+  */
+  getTimelineLayers = () => {
+    const { layers } = this.props;
+
+    return sortBy(
+      layers.filter(l => l.layerConfig.timeline),
+      l => l.layerConfig.order
+    );
+  }
+
   render() {
     const { layers, activeLayer } = this.props;
+    const timelineLayers = this.getTimelineLayers();
+
+    if (layers.length === 1 || timelineLayers.length) {
+      return null;
+    }
 
     return (
       <Tooltip

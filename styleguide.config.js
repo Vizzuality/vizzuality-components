@@ -23,7 +23,6 @@ module.exports = {
     }
   ],
   showUsage: true,
-  showCode: true,
   skipComponentsWithoutExample: true,
   getComponentPathLine: (componentPath) => {
     const dirname = path.dirname(componentPath, '.js');

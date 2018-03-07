@@ -16,9 +16,14 @@
     border-bottom: 0;
   }
 
+  &.-sortable {
+    .legend-info {
+      padding-left: 20px;
+    }
+  }
+
   .legend-info {
     flex-grow: 1;
-    padding-left: 20px;
   }
 
   .legend-item-header {

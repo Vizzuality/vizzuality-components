@@ -1,43 +1,62 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import CSSModules from 'react-css-modules';
+import classnames from 'classnames';
 import { SortableElement } from 'react-sortable-hoc';
 
 // Components
 import LegendItemType from './legend-item-type';
 import LegendItemDrag from './legend-item-drag';
 import LegendItemTimeline from './legend-item-timeline';
-import LegendItemButtons from './legend-item-buttons';
 
 import styles from './styles.scss';
 
 class LegendItem extends PureComponent {
   static propTypes = {
     dataset: PropTypes.string,
-    layers: PropTypes.array
+    layers: PropTypes.array,
+    sortable: PropTypes.boolean,
+
+    // Custom components
+    LegendItemToolbar: PropTypes.element
   }
 
   static defaultProps = {
     dataset: '',
-    layers: []
+    layers: [],
+    sortable: true,
+    LegendItemToolbar: null
   }
 
   render() {
-    const { layers } = this.props;
+    const { layers, sortable, LegendItemToolbar } = this.props;
+
     const activeLayer = layers.find(l => l.active);
 
     return (
-      <li styleName="c-legend-item">
-        <LegendItemDrag />
+      <li
+        styleName={classnames({
+          'c-legend-item': true,
+          '-sortable': sortable
+        })}
+      >
+        {sortable &&
+          <LegendItemDrag />
+        }
 
         <div styleName="legend-info">
           <header styleName="legend-item-header">
             <h3>{activeLayer.name}</h3>
 
-            <LegendItemButtons
-              {...this.props}
-              activeLayer={activeLayer}
-            />
+            {!!LegendItemToolbar &&
+              React.cloneElement(
+                LegendItemToolbar,
+                {
+                  ...this.props,
+                  activeLayer
+                }
+              )
+            }
           </header>
 
           <LegendItemType

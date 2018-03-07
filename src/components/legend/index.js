@@ -19,9 +19,10 @@ export class Legend extends React.PureComponent {
     /** Should the legend be expanded by default? */
     expanded: PropTypes.bool,
     /** Disable all interactions but info */
-    readonly: PropTypes.bool,
-    /** Disable all interactions including info */
-    interaction: PropTypes.bool,
+    sortable: PropTypes.bool,
+
+    // COMPONENTS
+    LegendItemToolbar: PropTypes.element.isRequired,
 
     // ACTIONS
     /** ```onChangeInfo = (currentLayer) => {}``` */
@@ -41,8 +42,7 @@ export class Legend extends React.PureComponent {
   static defaultProps = {
     layerGroups: [],
     expanded: true,
-    readonly: false,
-    interaction: true,
+    sortable: true,
 
     // FUNCTIONS
     onChangeInfo: l => console.info(l),
@@ -74,10 +74,11 @@ export class Legend extends React.PureComponent {
 
 
   render() {
-    const { layerGroups } = this.props;
+    const { layerGroups, sortable, LegendItemToolbar } = this.props;
 
     return (
       <div styleName="c-legend-map">
+        {/* LEGEND OPENED */}
         <div
           styleName={`open-legend ${classnames({ '-active': this.state.expanded })}`}
         >
@@ -95,8 +96,12 @@ export class Legend extends React.PureComponent {
             lockToContainerEdges
             lockOffset="50%"
             useDragHandle
-            readonly={this.props.readonly}
-            interaction={this.props.interaction}
+            sortable={sortable}
+
+            // COMPONENTS
+            LegendItemToolbar={LegendItemToolbar}
+
+            // ACTIONS
             onChangeInfo={this.props.onChangeInfo}
             onChangeLayer={this.props.onChangeLayer}
             onChangeOpacity={this.props.onChangeOpacity}
@@ -105,6 +110,7 @@ export class Legend extends React.PureComponent {
           />
         </div>
 
+        {/* LEGEND CLOSED */}
         <div
           styleName={`close-legend ${classnames({ '-active': !this.state.expanded })}`}
           onClick={() => this.onToggleLegend(true)}

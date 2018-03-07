@@ -12,10 +12,12 @@ import styles from './styles.scss';
 class LegendList extends PureComponent {
   static propTypes = {
     items: PropTypes.array,
-    readonly: PropTypes.bool,
-    interaction: PropTypes.bool,
+    sortable: PropTypes.bool,
 
-    // FUNC
+    // COMPONENTS
+    LegendItemToolbar: PropTypes.element.isRequired,
+
+    // ACTIONS
     onChangeLayer: PropTypes.func,
     onChangeOpacity: PropTypes.func,
     onChangeVisibility: PropTypes.func,
@@ -25,8 +27,7 @@ class LegendList extends PureComponent {
 
   static defaultProps = {
     items: [],
-    readonly: false,
-    interaction: false,
+    sortable: true,
 
     onChangeLayer: () => {},
     onChangeOpacity: () => {},
@@ -45,8 +46,12 @@ class LegendList extends PureComponent {
             key={value.dataset}
             index={index}
             value={value}
-            readonly={this.props.readonly}
-            interaction={this.props.interaction}
+            sortable={this.props.sortable}
+
+            // COMPONENTS
+            LegendItemToolbar={this.props.LegendItemToolbar}
+
+            // ACTIONS
             onChangeInfo={this.props.onChangeInfo}
             onChangeLayer={this.props.onChangeLayer}
             onChangeOpacity={this.props.onChangeOpacity}
