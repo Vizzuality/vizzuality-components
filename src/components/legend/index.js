@@ -14,23 +14,27 @@ import styles from './styles.scss';
 
 export class Legend extends React.PureComponent {
   static propTypes = {
+    /** LayerGroupsSpec. Check it here */
     layerGroups: PropTypes.array,
+    /** Should the legend be expanded by default? */
     expanded: PropTypes.bool,
+    /** Disable all interactions but info */
     readonly: PropTypes.bool,
+    /** Disable all interactions including info */
     interaction: PropTypes.bool,
 
     // ACTIONS
-    /** ```(currentLayer) => {}``` */
+    /** ```onChangeInfo = (currentLayer) => {}``` */
     onChangeInfo: PropTypes.func,
-    /** ```(currentLayer) => {}``` */
+    /** ```onChangeLayer = (currentLayer) => {}``` */
     onChangeLayer: PropTypes.func,
-    /** ```(currentLayer, visibility) => {}``` */
+    /** ```onChangeVisibility = (currentLayer, visibility) => {}``` */
     onChangeVisibility: PropTypes.func,
-    /** ```(currentLayer, opacity) => {}``` */
+    /** ```onChangeOpacity = (currentLayer, opacity) => {}``` */
     onChangeOpacity: PropTypes.func,
-    /** ```(layerGroupsIds) => {}``` */
+    /** ```onChangeOrder = (layerGroupsIds) => {}``` */
     onChangeOrder: PropTypes.func,
-    /** ```(currentLayer) => {}``` */
+    /** ```onRemoveLayer = (currentLayer) => {}``` */
     onRemoveLayer: PropTypes.func
   }
 

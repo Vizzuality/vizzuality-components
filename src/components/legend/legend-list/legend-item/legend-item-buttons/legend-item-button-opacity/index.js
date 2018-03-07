@@ -44,9 +44,7 @@ class LegendItemButtonOpacity extends PureComponent {
             />
         }
         overlayClassName={`c-rc-tooltip ${classnames({ '-default': visible })}`}
-        overlayStyle={{
-          color: '#fff'
-        }}
+        overlayStyle={{ color: '#fff' }}
         placement="top"
         trigger={['hover', 'click']}
         destroyTooltipOnHide

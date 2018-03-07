@@ -40,9 +40,7 @@ class LegendItemButtonLayers extends PureComponent {
           />
         }
         overlayClassName="c-rc-tooltip -default"
-        overlayStyle={{
-          color: '#fff'
-        }}
+        overlayStyle={{ color: '#fff' }}
         placement="top"
         trigger={['hover', 'click']}
         destroyTooltipOnHide
