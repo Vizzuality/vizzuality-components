@@ -4,6 +4,7 @@ const { version } = require('./package.json');
 
 module.exports = {
   title: `WRI components | ${version}`,
+  template: './styleguide.template.html',
   sections: [
     {
       name: 'Components',
@@ -14,7 +15,7 @@ module.exports = {
     {
       name: 'Legend',
       components: () => ([
-        path.resolve(__dirname, 'src/components/legend', 'legend-component.js')
+        path.resolve(__dirname, 'src/components/legend', 'index.js')
       ])
     }
   ],

@@ -1,3 +1,6 @@
+const path = require('path');
+const glob = require('glob');
+
 module.exports = {
   devtool: 'eval',
   resolve: { extensions: ['.js', '.jsx', '.json'] },
@@ -11,11 +14,19 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        loader: [
+        use: [
           'style-loader',
           'css-loader?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]',
           'resolve-url-loader',
-          'sass-loader'
+          {
+            loader: 'sass-loader',
+            options: {
+              includePaths: ['./node_modules', './src/css']
+                .map(d => path.join(__dirname, d))
+                .map(g => glob.sync(g))
+                .reduce((a, c) => a.concat(c), [])
+            }
+          }
         ]
       },
       {

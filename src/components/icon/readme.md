@@ -1,4 +1,4 @@
 
 ```js
-<Icon name="icon-name" className="-small" />
+<Icon name="icon-search" className="-small" />
 ```
