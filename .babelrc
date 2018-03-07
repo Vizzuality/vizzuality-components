@@ -1,8 +1,16 @@
 {
-  "presets": [["env", { "modules": false }], "react"],
+  "presets": ["env", "react", "stage-0"],
   "plugins": [
-    ["module-resolver", {
-      "root": [".", "./src"]
-    }]
+    [
+      "module-resolver",
+      {
+        "root": [".", "./src"],
+        "alias": {
+          "components": "./src/components",
+          "css": "./src/css"
+        },
+        "cwd": "babelrc"
+      }
+    ]
   ]
 }
