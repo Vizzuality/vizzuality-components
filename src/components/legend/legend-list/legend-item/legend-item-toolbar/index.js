@@ -24,8 +24,22 @@ export class LegendItemToolbar extends PureComponent {
     children: []
   }
 
+  state = {
+    tooltipOpened: false
+  }
+
+  onTooltipVisibilityChange = (tooltipOpened) => {
+    this.setState({ tooltipOpened });
+  }
+
   render() {
     const { children } = this.props;
+
+    const props = {
+      ...this.props,
+      tooltipOpened: this.state.tooltipOpened,
+      onTooltipVisibilityChange: this.onTooltipVisibilityChange
+    };
 
     return (
       <div styleName="c-legend-item-toolbar">
@@ -33,17 +47,21 @@ export class LegendItemToolbar extends PureComponent {
           React.Children.map(children, c =>
             React.cloneElement(
               c,
-              { ...this.props }
+              {
+                ...props,
+                tooltipOpened: this.state.tooltipOpened,
+                onTooltipVisibilityChange: this.onTooltipVisibilityChange
+              }
             ))
         }
 
         {/* If there is no children defined, let's use the components we had */}
-        {!React.Children.count(children) && <LegendItemButtonBBox {...this.props} />}
-        {!React.Children.count(children) && <LegendItemButtonLayers {...this.props} />}
-        {!React.Children.count(children) && <LegendItemButtonOpacity {...this.props} />}
-        {!React.Children.count(children) && <LegendItemButtonVisibility {...this.props} />}
-        {!React.Children.count(children) && <LegendItemButtonInfo {...this.props} />}
-        {!React.Children.count(children) && <LegendItemButtonRemove {...this.props} /> }
+        {!React.Children.count(children) && <LegendItemButtonBBox {...props} />}
+        {!React.Children.count(children) && <LegendItemButtonLayers {...props} />}
+        {!React.Children.count(children) && <LegendItemButtonOpacity {...props} />}
+        {!React.Children.count(children) && <LegendItemButtonVisibility {...props} />}
+        {!React.Children.count(children) && <LegendItemButtonInfo {...props} />}
+        {!React.Children.count(children) && <LegendItemButtonRemove {...props} /> }
 
       </div>
     );

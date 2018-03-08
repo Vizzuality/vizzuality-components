@@ -6,7 +6,7 @@ import CSSModules from 'react-css-modules';
 import Icon from 'components/icon';
 
 // Tooltip
-import Tooltip from 'rc-tooltip/dist/rc-tooltip';
+import Tooltip from 'components/tooltip';
 
 // Styles
 import styles from '../styles-button.scss';
@@ -14,6 +14,7 @@ import styles from '../styles-button.scss';
 class LegendItemButtonRemove extends PureComponent {
   static propTypes = {
     activeLayer: PropTypes.object,
+    tooltipOpened: PropTypes.bool,
 
     // ACTIONS
     onRemoveLayer: PropTypes.func
@@ -21,21 +22,21 @@ class LegendItemButtonRemove extends PureComponent {
 
   static defaultProps = {
     activeLayer: {},
+    tooltipOpened: false,
 
     // ACTIONS
     onRemoveLayer: () => {}
   }
 
   render() {
-    const { activeLayer } = this.props;
+    const { activeLayer, tooltipOpened } = this.props;
 
     return (
       <Tooltip
         overlay="Remove"
         overlayClassName="c-rc-tooltip -default"
-        overlayStyle={{ color: '#fff' }}
         placement="top"
-        trigger={['hover', 'click']}
+        trigger={tooltipOpened ? '' : 'hover'}
         mouseLeaveDelay={0}
         destroyTooltipOnHide
       >

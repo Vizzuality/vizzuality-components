@@ -7,7 +7,7 @@ import CSSModules from 'react-css-modules';
 import Icon from 'components/icon';
 
 // Tooltip
-import Tooltip from 'rc-tooltip/dist/rc-tooltip';
+import Tooltip from 'components/tooltip';
 import LegendLayersTooltip from './legend-item-button-layers-tooltip';
 
 // Styles
@@ -17,15 +17,30 @@ class LegendItemButtonLayers extends PureComponent {
   static propTypes = {
     layers: PropTypes.array,
     activeLayer: PropTypes.object,
+    tooltipOpened: PropTypes.bool,
 
-    onChangeLayer: PropTypes.func
+    onChangeLayer: PropTypes.func,
+    onTooltipVisibilityChange: PropTypes.func
   }
 
   static defaultProps = {
     layers: [],
     activeLayer: {},
+    tooltipOpened: false,
 
-    onChangeLayer: () => {}
+    onChangeLayer: () => {},
+    onTooltipVisibilityChange: () => {}
+  }
+
+  state = {
+    visibilityHover: false,
+    visibilityClick: false
+  }
+
+  onTooltipVisibilityChange = (visible) => {
+    this.setState({ visibilityHover: false });
+    this.setState({ visibilityClick: visible });
+    this.props.onTooltipVisibilityChange(visible);
   }
 
   /**
@@ -42,7 +57,8 @@ class LegendItemButtonLayers extends PureComponent {
   }
 
   render() {
-    const { layers, activeLayer } = this.props;
+    const { layers, activeLayer, tooltipOpened } = this.props;
+    const { visibilityClick, visibilityHover } = this.state;
     const timelineLayers = this.getTimelineLayers();
 
     if (layers.length === 1 || timelineLayers.length) {
@@ -59,19 +75,30 @@ class LegendItemButtonLayers extends PureComponent {
           />
         }
         overlayClassName="c-rc-tooltip -default"
-        overlayStyle={{ color: '#fff' }}
         placement="top"
-        trigger={['hover', 'click']}
+        trigger={['click']}
         destroyTooltipOnHide
+        onVisibleChange={this.onTooltipVisibilityChange}
       >
-        <button
-          type="button"
-          styleName="c-legend-button layers"
-          aria-label="Select other layer"
+        <Tooltip
+          visible={!visibilityClick && visibilityHover}
+          overlay="Layers"
+          overlayClassName="c-rc-tooltip -default"
+          placement="top"
+          trigger={tooltipOpened ? '' : 'hover'}
+          onVisibleChange={visible => this.setState({ visibilityHover: visible })}
+          destroyTooltipOnHide
         >
-          <Icon name="icon-layers" className="-small" />
-        </button>
+          <button
+            type="button"
+            styleName="c-legend-button layers"
+            aria-label="Select other layer"
+          >
+            <Icon name="icon-layers" className="-small" />
+          </button>
+        </Tooltip>
       </Tooltip>
+
     );
   }
 }

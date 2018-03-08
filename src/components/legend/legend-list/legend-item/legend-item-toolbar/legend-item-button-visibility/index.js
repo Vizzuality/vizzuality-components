@@ -6,7 +6,7 @@ import CSSModules from 'react-css-modules';
 import Icon from 'components/icon';
 
 // Tooltip
-import Tooltip from 'rc-tooltip/dist/rc-tooltip';
+import Tooltip from 'components/tooltip';
 
 // Styles
 import styles from '../styles-button.scss';
@@ -15,25 +15,26 @@ class LegendItemButtonVisibility extends PureComponent {
   static propTypes = {
     activeLayer: PropTypes.object,
     visible: PropTypes.bool,
+    tooltipOpened: PropTypes.bool,
     onChangeVisibility: PropTypes.func
   }
 
   static defaultProps = {
     activeLayer: {},
     visible: true,
+    tooltipOpened: false,
     onChangeVisibility: () => {}
   }
 
   render() {
-    const { activeLayer, visible } = this.props;
+    const { activeLayer, visible, tooltipOpened } = this.props;
 
     return (
       <Tooltip
         overlay="Visibility"
         overlayClassName="c-rc-tooltip -default"
-        overlayStyle={{ color: '#fff' }}
         placement="top"
-        trigger={['hover', 'click']}
+        trigger={tooltipOpened ? '' : 'hover'}
         mouseLeaveDelay={0}
         destroyTooltipOnHide
       >

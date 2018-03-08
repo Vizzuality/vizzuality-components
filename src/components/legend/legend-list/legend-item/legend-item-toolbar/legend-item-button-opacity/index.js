@@ -7,7 +7,7 @@ import CSSModules from 'react-css-modules';
 import Icon from 'components/icon';
 
 // Tooltip
-import Tooltip from 'rc-tooltip/dist/rc-tooltip';
+import Tooltip from 'components/tooltip';
 import LegendOpacityTooltip from './legend-item-button-opacity-tooltip';
 
 // Styles
@@ -18,20 +18,36 @@ class LegendItemButtonOpacity extends PureComponent {
     layers: PropTypes.array,
     activeLayer: PropTypes.object,
     visible: PropTypes.bool,
+    tooltipOpened: PropTypes.bool,
 
-    onChangeOpacity: PropTypes.func
+    onChangeOpacity: PropTypes.func,
+    onTooltipVisibilityChange: PropTypes.func
   }
 
   static defaultProps = {
     layers: [],
     activeLayer: {},
     visible: true,
+    tooltipOpened: false,
 
-    onChangeOpacity: () => {}
+    onChangeOpacity: () => {},
+    onTooltipVisibilityChange: () => {}
+  }
+
+  state = {
+    visibilityHover: false,
+    visibilityClick: false
+  }
+
+  onTooltipVisibilityChange = (visible) => {
+    this.setState({ visibilityHover: false });
+    this.setState({ visibilityClick: visible });
+    this.props.onTooltipVisibilityChange(visible);
   }
 
   render() {
-    const { layers, visible, activeLayer } = this.props;
+    const { layers, visible, activeLayer, tooltipOpened } = this.props;
+    const { visibilityClick, visibilityHover } = this.state;
 
     return (
       <Tooltip
@@ -44,18 +60,29 @@ class LegendItemButtonOpacity extends PureComponent {
             />
         }
         overlayClassName={`c-rc-tooltip ${classnames({ '-default': visible })}`}
-        overlayStyle={{ color: '#fff' }}
         placement="top"
-        trigger={['hover', 'click']}
+        trigger={['click']}
+        onVisibleChange={this.onTooltipVisibilityChange}
         destroyTooltipOnHide
       >
-        <button
-          type="button"
-          styleName={`c-legend-button opacity ${classnames({ '-disabled': !visible })}`}
-          aria-label="Change opacity"
+        <Tooltip
+          visible={!visibilityClick && visibilityHover}
+          overlay="Opacity"
+          overlayClassName={`c-rc-tooltip ${classnames({ '-default': visible })}`}
+          placement="top"
+          trigger={tooltipOpened ? '' : 'hover'}
+          onVisibleChange={v => this.setState({ visibilityHover: v })}
+          destroyTooltipOnHide
         >
-          <Icon name="icon-opacity" className="-small" />
-        </button>
+          <button
+            type="button"
+            styleName={`c-legend-button opacity ${classnames({ '-disabled': !visible })}`}
+            aria-label="Change opacity"
+          >
+            <Icon name="icon-opacity" className="-small" />
+          </button>
+        </Tooltip>
+
       </Tooltip>
     );
   }

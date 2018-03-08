@@ -1,8 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import CSSModules from 'react-css-modules';
 
 // Components
-import Slider from 'rc-slider/lib/Slider';
+import InputRange from 'react-input-range';
+
+// Styles
+import styles from './styles.scss';
 
 class LegendOpacityTooltip extends React.Component {
   static propTypes = {
@@ -36,18 +40,23 @@ class LegendOpacityTooltip extends React.Component {
     const { value } = this.state;
 
     return (
-      <div className="c-explore-slider-tooltip" ref={(node) => { this.el = node; }}>
+      <div styleName="c-legend-item-button-opacity-tooltip" ref={(node) => { this.el = node; }}>
         Opacity
 
-        <div className="slider-tooltip-container">
-          <Slider
-            min={min}
-            max={max}
+        <div styleName="slider-tooltip-container">
+          <InputRange
+            minValue={min}
+            maxValue={max}
             step={step}
             value={value}
-            defaultValue={value}
+            formatLabel={(v, string) => {
+              if (string === 'value') {
+                return null;
+              }
+
+              return v.toFixed(2);
+            }}
             onChange={this.onChange}
-            onAfterChange={this.onChange}
           />
         </div>
       </div>
@@ -55,4 +64,4 @@ class LegendOpacityTooltip extends React.Component {
   }
 }
 
-export default LegendOpacityTooltip;
+export default CSSModules(LegendOpacityTooltip, styles, { allowMultiple: true });

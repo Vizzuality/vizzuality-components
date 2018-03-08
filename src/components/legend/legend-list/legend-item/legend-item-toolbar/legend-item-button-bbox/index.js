@@ -6,7 +6,7 @@ import CSSModules from 'react-css-modules';
 import Icon from 'components/icon';
 
 // Tooltip
-import Tooltip from 'rc-tooltip/dist/rc-tooltip';
+import Tooltip from 'components/tooltip';
 
 // Styles
 import styles from '../styles-button.scss';
@@ -14,16 +14,20 @@ import styles from '../styles-button.scss';
 class LegendItemButtonBBox extends PureComponent {
   static propTypes = {
     activeLayer: PropTypes.object,
+    tooltipOpened: PropTypes.bool,
+
     onChangeBBox: PropTypes.func
   }
 
   static defaultProps = {
     activeLayer: {},
+    tooltipOpened: false,
+
     onChangeBBox: () => {}
   }
 
   render() {
-    const { activeLayer } = this.props;
+    const { activeLayer, tooltipOpened } = this.props;
 
     if (activeLayer.layerConfig && !activeLayer.layerConfig.bbox) {
       return null;
@@ -31,11 +35,10 @@ class LegendItemButtonBBox extends PureComponent {
 
     return (
       <Tooltip
-        overlay="Info"
+        overlay="Fit to bounds"
         overlayClassName="c-rc-tooltip -default"
-        overlayStyle={{ color: '#fff' }}
         placement="top"
-        trigger={['hover', 'click']}
+        trigger={tooltipOpened ? '' : 'hover'}
         mouseLeaveDelay={0}
         destroyTooltipOnHide
       >

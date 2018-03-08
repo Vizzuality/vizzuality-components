@@ -27,6 +27,7 @@ class LegendLayersTooltip extends React.Component {
       <div className="c-explore-layers-tooltip">
         Layers
 
+        {options.map(l => l.label)}
         {/* <RadioGroup
           name="layers"
           properties={{ default: activeLayer.id }}

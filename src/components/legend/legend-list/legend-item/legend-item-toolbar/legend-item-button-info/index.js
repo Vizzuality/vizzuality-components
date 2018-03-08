@@ -12,24 +12,28 @@ import styles from '../styles-button.scss';
 class LegendItemButtonInfo extends PureComponent {
   static propTypes = {
     activeLayer: PropTypes.object,
+    tooltipOpened: PropTypes.bool,
+
+    // ACTIONS
     onChangeInfo: PropTypes.func
   }
 
   static defaultProps = {
     activeLayer: {},
+    tooltipOpened: false,
+
     onChangeInfo: () => {}
   }
 
   render() {
-    const { activeLayer } = this.props;
+    const { activeLayer, tooltipOpened } = this.props;
 
     return (
       <Tooltip
         overlay="Info"
         overlayClassName="c-rc-tooltip -default"
-        overlayStyle={{ color: '#fff' }}
         placement="top"
-        trigger={['hover', 'click']}
+        trigger={tooltipOpened ? '' : 'hover'}
         mouseLeaveDelay={0}
         destroyTooltipOnHide
       >
