@@ -25,9 +25,7 @@ class LegendLayersTooltip extends React.Component {
 
     return (
       <div className="c-explore-layers-tooltip">
-        <h4>
-          Layers
-        </h4>
+        Layers
 
         {/* <RadioGroup
           name="layers"

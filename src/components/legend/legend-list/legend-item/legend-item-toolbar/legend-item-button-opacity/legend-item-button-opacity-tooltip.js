@@ -37,9 +37,7 @@ class LegendOpacityTooltip extends React.Component {
 
     return (
       <div className="c-explore-slider-tooltip" ref={(node) => { this.el = node; }}>
-        <h4>
-          Opacity
-        </h4>
+        Opacity
 
         <div className="slider-tooltip-container">
           <Slider

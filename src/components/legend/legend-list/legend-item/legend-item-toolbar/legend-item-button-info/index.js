@@ -4,9 +4,7 @@ import CSSModules from 'react-css-modules';
 
 // Components
 import Icon from 'components/icon';
-
-// Tooltip
-import Tooltip from 'rc-tooltip/dist/rc-tooltip';
+import Tooltip from 'components/tooltip';
 
 // Styles
 import styles from '../styles-button.scss';
