@@ -4,71 +4,71 @@ export const layerGroups = [
     visible: true,
     layers: [
       {
-        "active": true,
-        "id": "acfc2b99-a06b-4763-83e5-7e14539940b3",
-        "type": "layer",
-        "name": "Probabilities of Urban Expansion 2030",
-        "slug": "Probabilities-of-Urban-Expansion-2030",
-        "dataset": "0a59f415-ee0b-4d19-96f7-c7304c152e1b",
-        "description": "The Global Grid of Probabilities of Urban Expansion details likely future areas of urban expansion up to 2030.",
-        "application": ["rw"],
-        "iso": [],
-        "provider": "cartodb",
-        "userId": "58fde4354eecd9073107af0f",
-        "default": true,
-        "protected": false,
-        "env": "production",
-        "layerConfig": {
-          "body": {
-            "layers": [
+        active: true,
+        id: 'acfc2b99-a06b-4763-83e5-7e14539940b3',
+        type: 'layer',
+        name: 'Probabilities of Urban Expansion 2030',
+        slug: 'Probabilities-of-Urban-Expansion-2030',
+        dataset: '0a59f415-ee0b-4d19-96f7-c7304c152e1b',
+        description: 'The Global Grid of Probabilities of Urban Expansion details likely future areas of urban expansion up to 2030.',
+        application: ['rw'],
+        iso: [],
+        provider: 'cartodb',
+        userId: '58fde4354eecd9073107af0f',
+        default: true,
+        protected: false,
+        env: 'production',
+        layerConfig: {
+          body: {
+            layers: [
               {
-                "options": {
-                  "raster_band": 1,
-                  "geom_type": "raster",
-                  "geom_column": "the_raster_webmercator",
-                  "cartocss_version": "2.3.0",
-                  "cartocss": "#layer {raster-opacity:1; raster-scaling:near; raster-colorizer-default-mode: linear; raster-colorizer-default-color:  transparent; raster-colorizer-epsilon:0.11; raster-colorizer-stops: stop(0.1, #fef0d9) stop(20, #fdd49e) stop(40, #fdbb84) stop(60, #fc8d59) stop(80, #e34a33) stop(100, #b30000) stop(101, #7f0000)}",
-                  "sql": "SELECT * FROM global_grid_prob_urban_expansion_2030_wgs84"
+                options: {
+                  raster_band: 1,
+                  geom_type: 'raster',
+                  geom_column: 'the_raster_webmercator',
+                  cartocss_version: '2.3.0',
+                  cartocss: '#layer {raster-opacity:1; raster-scaling:near; raster-colorizer-default-mode: linear; raster-colorizer-default-color:  transparent; raster-colorizer-epsilon:0.11; raster-colorizer-stops: stop(0.1, #fef0d9) stop(20, #fdd49e) stop(40, #fdbb84) stop(60, #fc8d59) stop(80, #e34a33) stop(100, #b30000) stop(101, #7f0000)}',
+                  sql: 'SELECT * FROM global_grid_prob_urban_expansion_2030_wgs84'
                 },
-                "type": "cartodb"
+                type: 'cartodb'
               }
             ],
-            "minzoom": 3,
-            "maxzoom": 18
+            minzoom: 3,
+            maxzoom: 18
           },
-          "account": "insights"
+          account: 'insights'
         },
-        "legendConfig": {
-          "items": [
+        legendConfig: {
+          items: [
             {
-              "color": "#fef0d9",
-              "name": "1%"
+              color: '#fef0d9',
+              name: '1%'
             }, {
-              "color": "#fef0d9",
-              "name": "20%"
+              color: '#fef0d9',
+              name: '20%'
             }, {
-              "color": "#fdbb84",
-              "name": "40%"
+              color: '#fdbb84',
+              name: '40%'
             }, {
-              "color": "#fc8d59",
-              "name": "60%"
+              color: '#fc8d59',
+              name: '60%'
             }, {
-              "color": "#e34a33",
-              "name": "80%"
+              color: '#e34a33',
+              name: '80%'
             }, {
-              "color": "#b30000",
-              "name": "100%"
+              color: '#b30000',
+              name: '100%'
             }, {
-              "color": "#7f0000",
-              "name": "Urban"
+              color: '#7f0000',
+              name: 'Urban'
             }
           ],
-          "type": "gradient"
+          type: 'gradient'
         },
-        "interactionConfig": {},
-        "applicationConfig": {},
-        "staticImageConfig": {},
-        "updatedAt": "2017-11-28T18:38:01.097Z"
+        interactionConfig: {},
+        applicationConfig: {},
+        staticImageConfig: {},
+        updatedAt: '2017-11-28T18:38:01.097Z'
       }
     ]
   }, {
@@ -142,53 +142,283 @@ export const layerGroups = [
     visible: true,
     layers: [
       {
-        id: '24808bb8-1dbf-450e-8f6b-c090533f5d14',
         active: true,
-        name: 'Cumulative Climate Impacts on Marine Ecosystems',
-        slug: 'Cumulative-Climate-Impacts-on-Marine-Ecosystems',
-        dataset: '3c82c421-8964-444e-86f2-df800174d8b9',
-        description: 'Index of cumulative impact of equally weighted changes in sea surface temperature (1980–2014), chlorophyll (1979–2014), and ocean currents (1980–2014). Colors represent a dimensionless index of global impact (Cumulative Impact Index), ranging from 0 (no change) to 1 (maximum change), highlighting marine areas that have undergone the largest changes in their environmental conditions.',
-        application: ['rw'],
+        id: '2a022fc2-bfed-477e-9a16-75a1fb594620',
+        type: 'layer',
+
+        name: '2017 African and Asian Conflict and Protest Events',
+        slug: 'African-and-Asian-Conflict-and-Protest-Events',
+        dataset: 'ea208a8b-4559-434b-82ee-95e041596a3a',
+        description: '',
+        application: [
+          'rw'
+        ],
         iso: [],
-        provider: 'gee',
-        userId: '5980838ae24e6a1dae3dd446',
-        default: true,
+        provider: 'cartodb',
+        userId: '58f63c81bd32c60206ed6b12',
+        default: false,
         protected: false,
         env: 'production',
         layerConfig: {
+          account: 'rw-nrt',
           body: {
-            sldValue: "<RasterSymbolizer>    <ColorMap  type=\"ramp\" extended=\"false\" >      '<ColorMapEntry color=\"#f1eef6\" quantity=\"-9999\"  opacity=\"0\" />' +   '<ColorMapEntry color=\"#440154\" quantity=\"0\"  opacity=\"1\" />' +   '<ColorMapEntry color=\"#404387\" quantity=\"0.2\"  />' +    '<ColorMapEntry color=\"#29788E\" quantity=\"0.4\"  />' +  '<ColorMapEntry color=\"#22A784\" quantity=\"0.6\"  />' +   '<ColorMapEntry color=\"#79D151\" quantity=\"0.8\"  />' +   '<ColorMapEntry color=\"#FDE724\" quantity=\"1\"  />' +  </ColorMap></RasterSymbolizer>",
-            styleType: 'sld'
+            maxzoom: 18,
+            minzoom: 3,
+            layers: [
+              {
+                type: 'mapnik',
+                options: {
+                  sql: 'SELECT * FROM soc_016_conflict_protest_events WHERE year=2017 ORDER by event_type desc ',
+                  cartocss: '#layer {marker-width:4; marker-opacity:1; marker-line-width:0.3; marker-line-color:#FFF; marker-line-opacity:1; marker-allow-overlap: true} [event_type="Violence against civilians"]{marker-fill:#6a3d9a;}  [event_type = "Riots/Protests"]{marker-fill:#cab2d6;} [event_type = "Violence against civilians"]{marker-fill:#8dd3c7;}  [event_type = "Battle-No change of territory"]{marker-fill:#b15928;} [event_type = "Remote violence"]{marker-fill:#e31a1c;} [event_type = "Strategic development"]{marker-fill:#fb9a99;}  [event_type = "Battle-Government regains territory"]{marker-fill:#33a02c;} [event_type="Battle-Non-state actor overtakes territory"]{marker-fill:#b2df8a;}  [event_type="Non-violent transfer of territory"]{marker-fill:#1f78b4;}  [event_type="Headquarters or base established"]{marker-fill:#a6cee3;} ',
+                  cartocss_version: '2.3.0'
+                }
+              }
+            ]
           },
-          assetId: 'users/resourcewatch/bio_008_cumulative_climate_impacts',
-          type: 'gee'
+          pulseConfig: {
+            type: 'imageOverlay',
+            values: {
+              format: 'png',
+              bbox: [
+                -110,
+                -65,
+                110,
+                65
+              ],
+              width: 2048,
+              height: 1024
+            },
+            sql: 'SELECT st_transform(the_geom_webmercator,32663) as the_geom_webmercator, year, time_precision, event_type, event_date, actor1, actor2, country, location, source, notes, fatalities FROM soc_016_conflict_protest_events WHERE year=2017 ORDER by event_type desc ',
+            urlTemplate: 'https://{{account}}.carto.com/api/v1/map/static/bbox/{{token_groupid}}/{{bbox}}/{{width}}/{{height}}.{{format}}'
+          }
         },
         legendConfig: {
           items: [
             {
-              color: '#404387',
-              name: '≤0.2'
-            }, {
-              color: '#29788E',
-              name: '≤0.4'
-            }, {
-              color: '#22A784',
-              name: '≤0.6'
-            }, {
-              color: '#79D151',
-              name: '≤0.8'
-            }, {
-              color: '#FDE724',
-              name: '≤1'
+              color: '#cab2d6',
+              name: 'Riots/Protests'
+            },
+            {
+              color: '#8dd3c7',
+              name: 'Violence against civilians'
+            },
+            {
+              color: '#b15928',
+              name: 'Battle-No change of territory'
+            },
+            {
+              color: '#e31a1c',
+              name: 'Remote violence'
+            },
+            {
+              color: '#fb9a99',
+              name: 'Strategic development'
+            },
+            {
+              color: '#33a02c',
+              name: 'Battle-Government regains territory'
+            },
+            {
+              color: '#b2df8a',
+              name: 'Battle-Non-state actor overtakes territory'
+            },
+            {
+              color: '#1f78b4',
+              name: 'Non-violent transfer of territory'
+            },
+            {
+              color: '#a6cee3',
+              name: 'Headquarters or base established'
             }
           ],
-          type: 'choropleth'
+          type: 'basic'
         },
-        interactionConfig: {},
+        interactionConfig: {
+          output: [
+            {
+              type: 'date',
+              suffix: '',
+              property: 'Event date',
+              prefix: '',
+              format: null,
+              column: 'event_date'
+            },
+            {
+              type: 'string',
+              suffix: '',
+              property: 'Event Type',
+              prefix: '',
+              format: null,
+              column: 'event_type'
+            },
+            {
+              type: 'string',
+              suffix: '',
+              property: 'Actor 1',
+              prefix: '',
+              format: null,
+              column: 'actor1'
+            },
+            {
+              type: 'string',
+              suffix: '',
+              property: 'Associate Actor 1',
+              prefix: '',
+              format: null,
+              column: 'assoc_actor_1'
+            },
+            {
+              type: 'string',
+              suffix: '',
+              property: 'Country',
+              prefix: '',
+              format: null,
+              column: 'country'
+            },
+            {
+              type: 'number',
+              suffix: '',
+              property: 'Fatalities',
+              prefix: '',
+              format: null,
+              column: 'fatalities'
+            },
+            {
+              type: 'string',
+              suffix: '',
+              property: 'Actor 2',
+              prefix: '',
+              format: null,
+              column: 'actor2'
+            }
+          ]
+        },
         applicationConfig: {},
         staticImageConfig: {},
-        updatedAt: '2018-01-15T23:28:12.625Z',
-        order: 2
+        updatedAt: '2018-03-07T16:20:26.088Z'
+      },
+      {
+        id: '2da3bbb8-a8b7-47b7-b3bc-823ddc330960',
+        type: 'layer',
+
+        name: 'African and Asian Conflict and Protest Events (past 30 days)',
+        slug: 'African-and-Asian-Conflict-and-Protest-Events-past-30-days',
+        dataset: 'ea208a8b-4559-434b-82ee-95e041596a3a',
+        description: '',
+        application: [
+          'rw'
+        ],
+        iso: [],
+        provider: 'cartodb',
+        userId: '58f63c81bd32c60206ed6b12',
+        default: true,
+        protected: false,
+        env: 'production',
+        layerConfig: {
+          pulseConfig: {
+            urlTemplate: 'https://{{account}}.carto.com/api/v1/map/static/bbox/{{token_groupid}}/{{bbox}}/{{width}}/{{height}}.{{format}}',
+            sql: 'SELECT st_transform(the_geom_webmercator,32663) as the_geom_webmercator, year, time_precision, event_type, event_date, actor1, actor2, country, location, source, notes, fatalities FROM soc_016_conflict_protest_events WHERE year=2017 ORDER by event_type desc ',
+            values: {
+              height: 1024,
+              width: 2048,
+              bbox: [
+                -110,
+                -65,
+                110,
+                65
+              ],
+              format: 'png'
+            },
+            type: 'imageOverlay'
+          },
+          body: {
+            layers: [
+              {
+                options: {
+                  cartocss_version: '2.3.0',
+                  cartocss: '#layer {marker-width:4; marker-opacity:1; marker-line-width:0.3; marker-line-color:#FFF; marker-line-opacity:1; marker-allow-overlap: true} [event_type="Violence against civilians"]{marker-fill:#6a3d9a;}  [event_type = "Riots/Protests"]{marker-fill:#cab2d6;} [event_type = "Violence against civilians"]{marker-fill:#8dd3c7;}  [event_type = "Battle-No change of territory"]{marker-fill:#b15928;} [event_type = "Remote violence"]{marker-fill:#e31a1c;} [event_type = "Strategic development"]{marker-fill:#fb9a99;}  [event_type = "Battle-Government regains territory"]{marker-fill:#33a02c;} [event_type="Battle-Non-state actor overtakes territory"]{marker-fill:#b2df8a;}  [event_type="Non-violent transfer of territory"]{marker-fill:#1f78b4;}  [event_type="Headquarters or base established"]{marker-fill:#a6cee3;} ',
+                  sql: "SELECT * FROM soc_016_conflict_protest_events WHERE (event_date > current_date - interval '30 day') "
+                },
+                type: 'mapnik'
+              }
+            ],
+            minzoom: 3,
+            maxzoom: 18
+          },
+          account: 'rw-nrt'
+        },
+        legendConfig: {
+          type: 'basic',
+          items: [
+            {
+              name: 'Riots/Protests',
+              color: '#cab2d6'
+            },
+            {
+              name: 'Violence against civilians',
+              color: '#8dd3c7'
+            },
+            {
+              name: 'Battle-No change of territory',
+              color: '#b15928'
+            },
+            {
+              name: 'Remote violence',
+              color: '#e31a1c'
+            },
+            {
+              name: 'Strategic development',
+              color: '#fb9a99'
+            },
+            {
+              name: 'Battle-Government regains territory',
+              color: '#33a02c'
+            },
+            {
+              name: 'Battle-Non-state actor overtakes territory',
+              color: '#b2df8a'
+            },
+            {
+              name: 'Non-violent transfer of territory',
+              color: '#1f78b4'
+            },
+            {
+              name: 'Headquarters or base established',
+              color: '#a6cee3'
+            }
+          ]
+        },
+        interactionConfig: {
+          output: [
+            {
+              type: 'date',
+              suffix: '',
+              property: 'Event Date',
+              prefix: '',
+              format: null,
+              column: 'event_date'
+            },
+            {
+              type: 'string',
+              suffix: '',
+              property: 'Event Type',
+              prefix: '',
+              format: null,
+              column: 'event_type'
+            },
+            {
+              type: 'number',
+              suffix: '',
+              property: 'Fatalities',
+              prefix: '',
+              format: null,
+              column: 'fatalities'
+            }
+          ]
+        },
+        applicationConfig: {},
+        staticImageConfig: {},
+        updatedAt: '2018-03-07T16:20:18.241Z'
       }
     ]
   }, {

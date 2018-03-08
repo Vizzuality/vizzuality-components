@@ -1,6 +1,6 @@
 .c-legend-item {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
 
   font-family: 'Helvetica Neue', Arial, sans-serif;
   font-size: 12px;
@@ -20,6 +20,7 @@
   .custom-icon {
     display: block;
     margin-right: 5px;
+    margin-top: 2px;
   }
 
   > .icon-square {
