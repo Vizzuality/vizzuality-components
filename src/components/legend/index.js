@@ -22,7 +22,7 @@ export class Legend extends React.PureComponent {
     sortable: PropTypes.bool,
 
     // COMPONENTS
-    LegendItemToolbar: PropTypes.element.isRequired,
+    LegendItemToolbar: PropTypes.element,
 
     // ACTIONS
     /** ```onChangeInfo = (currentLayer) => {}``` */
@@ -43,6 +43,9 @@ export class Legend extends React.PureComponent {
     layerGroups: [],
     expanded: true,
     sortable: true,
+
+    // COMPONENTS
+    LegendItemToolbar: null,
 
     // FUNCTIONS
     onChangeInfo: l => console.info(l),

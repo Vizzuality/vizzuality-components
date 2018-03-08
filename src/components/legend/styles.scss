@@ -26,10 +26,10 @@
     right: 0px;
     width: 40px;
     height: 32px;
-    top: -28px;
+    bottom: 100%;
     border: 0;
     border-radius: 2px 2px 0 0;
-    background-color: rgba($color-white, .2);
+    background-color: rgba($color-black, .2);
     cursor: pointer;
 
     &:focus { outline: none; }
@@ -67,6 +67,7 @@
 
     &.-active {
       display: inherit;
+      cursor: pointer;
     }
 
     .toggle-legend {

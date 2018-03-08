@@ -15,7 +15,7 @@ class LegendItem extends PureComponent {
   static propTypes = {
     dataset: PropTypes.string,
     layers: PropTypes.array,
-    sortable: PropTypes.boolean,
+    sortable: PropTypes.bool,
 
     // Custom components
     LegendItemToolbar: PropTypes.element

@@ -15,7 +15,7 @@ class LegendList extends PureComponent {
     sortable: PropTypes.bool,
 
     // COMPONENTS
-    LegendItemToolbar: PropTypes.element.isRequired,
+    LegendItemToolbar: PropTypes.element,
 
     // ACTIONS
     onChangeLayer: PropTypes.func,
@@ -29,6 +29,10 @@ class LegendList extends PureComponent {
     items: [],
     sortable: true,
 
+    // COMPONENTS
+    LegendItemToolbar: null,
+
+    // ACTIONS
     onChangeLayer: () => {},
     onChangeOpacity: () => {},
     onChangeVisibility: () => {},
