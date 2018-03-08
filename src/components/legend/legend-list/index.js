@@ -18,6 +18,7 @@ class LegendList extends PureComponent {
     LegendItemToolbar: PropTypes.element,
 
     // ACTIONS
+    onChangeBBox: PropTypes.func,
     onChangeLayer: PropTypes.func,
     onChangeOpacity: PropTypes.func,
     onChangeVisibility: PropTypes.func,
@@ -33,6 +34,7 @@ class LegendList extends PureComponent {
     LegendItemToolbar: null,
 
     // ACTIONS
+    onChangeBBox: () => {},
     onChangeLayer: () => {},
     onChangeOpacity: () => {},
     onChangeVisibility: () => {},
@@ -56,6 +58,7 @@ class LegendList extends PureComponent {
             LegendItemToolbar={this.props.LegendItemToolbar}
 
             // ACTIONS
+            onChangeBBox={this.props.onChangeBBox}
             onChangeInfo={this.props.onChangeInfo}
             onChangeLayer={this.props.onChangeLayer}
             onChangeOpacity={this.props.onChangeOpacity}

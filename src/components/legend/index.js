@@ -25,6 +25,8 @@ export class Legend extends React.PureComponent {
     LegendItemToolbar: PropTypes.element,
 
     // ACTIONS
+    /** ```onChangeBBox = (currentLayer) => {}``` */
+    onChangeBBox: PropTypes.func,
     /** ```onChangeInfo = (currentLayer) => {}``` */
     onChangeInfo: PropTypes.func,
     /** ```onChangeLayer = (currentLayer) => {}``` */
@@ -48,6 +50,7 @@ export class Legend extends React.PureComponent {
     LegendItemToolbar: null,
 
     // FUNCTIONS
+    onChangeBBox: l => console.info(l),
     onChangeInfo: l => console.info(l),
     onChangeLayer: l => console.info(l),
     onChangeVisibility: (l, v) => console.info(l, v),
@@ -105,6 +108,7 @@ export class Legend extends React.PureComponent {
             LegendItemToolbar={LegendItemToolbar}
 
             // ACTIONS
+            onChangeBBox={this.props.onChangeBBox}
             onChangeInfo={this.props.onChangeInfo}
             onChangeLayer={this.props.onChangeLayer}
             onChangeOpacity={this.props.onChangeOpacity}

@@ -11,19 +11,23 @@ import Tooltip from 'rc-tooltip/dist/rc-tooltip';
 // Styles
 import styles from '../styles-button.scss';
 
-class LegendItemButtonInfo extends PureComponent {
+class LegendItemButtonBBox extends PureComponent {
   static propTypes = {
     activeLayer: PropTypes.object,
-    onChangeInfo: PropTypes.func
+    onChangeBBox: PropTypes.func
   }
 
   static defaultProps = {
     activeLayer: {},
-    onChangeInfo: () => {}
+    onChangeBBox: () => {}
   }
 
   render() {
     const { activeLayer } = this.props;
+
+    if (activeLayer.layerConfig && !activeLayer.layerConfig.bbox) {
+      return null;
+    }
 
     return (
       <Tooltip
@@ -38,14 +42,14 @@ class LegendItemButtonInfo extends PureComponent {
         <button
           type="button"
           styleName="c-legend-button"
-          aria-label="More information"
-          onClick={() => this.props.onChangeInfo(activeLayer)}
+          aria-label="Fit to bounds"
+          onClick={() => this.props.onChangeBBox(activeLayer)}
         >
-          <Icon name="icon-info" className="-small" />
+          <Icon name="icon-bbox" className="-small" />
         </button>
       </Tooltip>
     );
   }
 }
 
-export default CSSModules(LegendItemButtonInfo, styles, { allowMultiple: true });
+export default CSSModules(LegendItemButtonBBox, styles, { allowMultiple: true });

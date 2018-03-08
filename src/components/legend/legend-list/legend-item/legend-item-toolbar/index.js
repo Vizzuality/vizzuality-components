@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import CSSModules from 'react-css-modules';
 
 // Components
+import LegendItemButtonBBox from './legend-item-button-bbox';
 import LegendItemButtonLayers from './legend-item-button-layers';
 import LegendItemButtonOpacity from './legend-item-button-opacity';
 import LegendItemButtonVisibility from './legend-item-button-visibility';
@@ -33,6 +34,7 @@ export class LegendItemToolbar extends PureComponent {
 export default CSSModules(LegendItemToolbar, styles, { allowMultiple: true });
 
 export {
+  LegendItemButtonBBox,
   LegendItemButtonLayers,
   LegendItemButtonOpacity,
   LegendItemButtonVisibility,

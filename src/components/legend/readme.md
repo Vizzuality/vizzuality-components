@@ -2,6 +2,7 @@
 
 ```jsx
 const LegendItemToolbar = require('./legend-list/legend-item/legend-item-toolbar').default;
+const LegendItemButtonBBox = require('./legend-list/legend-item/legend-item-toolbar').LegendItemButtonBBox;
 const LegendItemButtonLayers = require('./legend-list/legend-item/legend-item-toolbar').LegendItemButtonLayers;
 const LegendItemButtonOpacity = require('./legend-list/legend-item/legend-item-toolbar').LegendItemButtonOpacity;
 const LegendItemButtonVisibility = require('./legend-list/legend-item/legend-item-toolbar').LegendItemButtonVisibility;
@@ -11,6 +12,7 @@ const LegendItemButtonRemove = require('./legend-list/legend-item/legend-item-to
 <Legend
   LegendItemToolbar={
     <LegendItemToolbar>
+      <LegendItemButtonBBox />
       <LegendItemButtonLayers />
       <LegendItemButtonOpacity />
       <LegendItemButtonVisibility />
