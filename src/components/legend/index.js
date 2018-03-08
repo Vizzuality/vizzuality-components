@@ -16,6 +16,10 @@ export class Legend extends React.PureComponent {
   static propTypes = {
     /** LayerGroupsSpec. Check it here */
     layerGroups: PropTypes.array,
+    /** Max width */
+    maxWidth: PropTypes.number,
+    /** Max height */
+    maxHeight: PropTypes.number,
     /** Should the legend be expanded by default? */
     expanded: PropTypes.bool,
     /** Disable all interactions but info */
@@ -46,6 +50,9 @@ export class Legend extends React.PureComponent {
     layerGroups: [],
     expanded: true,
     sortable: true,
+
+    maxWidth: null,
+    maxHeight: null,
 
     // COMPONENTS
     LegendItemToolbar: null,
@@ -82,13 +89,21 @@ export class Legend extends React.PureComponent {
 
 
   render() {
-    const { layerGroups, sortable, LegendItemToolbar, LegendItemTypes } = this.props;
+    const {
+      layerGroups,
+      sortable,
+      maxWidth,
+      maxHeight,
+      LegendItemToolbar,
+      LegendItemTypes
+    } = this.props;
 
     return (
-      <div styleName="c-legend-map">
+      <div styleName="c-legend-map" style={{ maxWidth }}>
         {/* LEGEND OPENED */}
         <div
           styleName={`open-legend ${classnames({ '-active': this.state.expanded })}`}
+          style={{ maxHeight }}
         >
           {/* Toggle button */}
           <button type="button" styleName="toggle-legend" onClick={() => this.onToggleLegend(false)}>

@@ -3,7 +3,7 @@
 .c-legend-map {
   position: relative;
   width: 100%;
-  max-width: 400px;
+  // max-width: 400px;
   background: $color-white;
   z-index: 2;
   border-radius: 4px;
@@ -44,7 +44,7 @@
   .open-legend {
     display: flex;
     flex-flow: column;
-    max-height: 300px;
+    // max-height: 300px;
     height: 0;
     overflow: hidden;
     opacity: 0;
