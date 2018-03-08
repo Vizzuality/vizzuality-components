@@ -20,6 +20,11 @@
     height: 3px;
   }
 
+  .input-range__track--background {
+    margin-left: 12px;
+    margin-right: 12px;
+  }
+
   .input-range__track--active {
     background-color: $color-primary;
   }
