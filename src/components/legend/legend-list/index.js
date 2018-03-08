@@ -16,6 +16,7 @@ class LegendList extends PureComponent {
 
     // COMPONENTS
     LegendItemToolbar: PropTypes.element,
+    LegendItemTypes: PropTypes.element,
 
     // ACTIONS
     onChangeBBox: PropTypes.func,
@@ -32,6 +33,7 @@ class LegendList extends PureComponent {
 
     // COMPONENTS
     LegendItemToolbar: null,
+    LegendItemTypes: null,
 
     // ACTIONS
     onChangeBBox: () => {},
@@ -56,6 +58,7 @@ class LegendList extends PureComponent {
 
             // COMPONENTS
             LegendItemToolbar={this.props.LegendItemToolbar}
+            LegendItemTypes={this.props.LegendItemTypes}
 
             // ACTIONS
             onChangeBBox={this.props.onChangeBBox}

@@ -23,6 +23,7 @@ export class Legend extends React.PureComponent {
 
     // COMPONENTS
     LegendItemToolbar: PropTypes.element,
+    LegendItemTypes: PropTypes.element,
 
     // ACTIONS
     /** ```onChangeBBox = (currentLayer) => {}``` */
@@ -48,6 +49,7 @@ export class Legend extends React.PureComponent {
 
     // COMPONENTS
     LegendItemToolbar: null,
+    LegendItemTypes: null,
 
     // FUNCTIONS
     onChangeBBox: l => console.info(l),
@@ -80,7 +82,7 @@ export class Legend extends React.PureComponent {
 
 
   render() {
-    const { layerGroups, sortable, LegendItemToolbar } = this.props;
+    const { layerGroups, sortable, LegendItemToolbar, LegendItemTypes } = this.props;
 
     return (
       <div styleName="c-legend-map">
@@ -106,6 +108,7 @@ export class Legend extends React.PureComponent {
 
             // COMPONENTS
             LegendItemToolbar={LegendItemToolbar}
+            LegendItemTypes={LegendItemTypes}
 
             // ACTIONS
             onChangeBBox={this.props.onChangeBBox}

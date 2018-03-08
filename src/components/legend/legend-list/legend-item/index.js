@@ -5,7 +5,6 @@ import classnames from 'classnames';
 import { SortableElement } from 'react-sortable-hoc';
 
 // Components
-import LegendItemType from './legend-item-type';
 import LegendItemDrag from './legend-item-drag';
 import LegendItemTimeline from './legend-item-timeline';
 
@@ -18,18 +17,20 @@ class LegendItem extends PureComponent {
     sortable: PropTypes.bool,
 
     // Custom components
-    LegendItemToolbar: PropTypes.element
+    LegendItemToolbar: PropTypes.element,
+    LegendItemTypes: PropTypes.element
   }
 
   static defaultProps = {
     dataset: '',
     layers: [],
     sortable: true,
-    LegendItemToolbar: null
+    LegendItemToolbar: null,
+    LegendItemTypes: null
   }
 
   render() {
-    const { layers, sortable, LegendItemToolbar } = this.props;
+    const { layers, sortable, LegendItemToolbar, LegendItemTypes } = this.props;
 
     const activeLayer = layers.find(l => l.active);
 
@@ -59,9 +60,15 @@ class LegendItem extends PureComponent {
             }
           </header>
 
-          <LegendItemType
-            activeLayer={activeLayer}
-          />
+          {!!LegendItemTypes &&
+            React.cloneElement(
+              LegendItemTypes,
+              {
+                ...this.props,
+                activeLayer
+              }
+            )
+          }
 
           <LegendItemTimeline
             {...this.props}
