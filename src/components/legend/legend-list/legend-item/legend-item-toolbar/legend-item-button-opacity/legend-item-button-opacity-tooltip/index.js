@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import CSSModules from 'react-css-modules';
 
 // Components
-import InputRange from 'react-input-range';
+import InputRange from 'components/form/input-range';
 
 // Styles
 import styles from './styles.scss';

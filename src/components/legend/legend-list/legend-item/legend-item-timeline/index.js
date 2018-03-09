@@ -7,7 +7,7 @@ import CSSModules from 'react-css-modules';
 
 // Components
 import Icon from 'components/icon';
-import InputRange from 'react-input-range';
+import InputRange from 'components/form/input-range';
 
 // Styles
 import styles from './styles.scss';
