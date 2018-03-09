@@ -7,7 +7,7 @@ import CSSModules from 'react-css-modules';
 
 // Components
 import Icon from 'components/icon';
-import InputRange from 'components/form/input-range';
+import Range from 'components/form/range';
 
 // Styles
 import styles from './styles.scss';
@@ -128,7 +128,7 @@ class LegendItemTimeline extends PureComponent {
         }
 
         {!!timelineLayers.length &&
-          <InputRange
+          <Range
             minValue={first}
             maxValue={last}
             formatLabel={(value) => {

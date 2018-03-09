@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import CSSModules from 'react-css-modules';
 
 // Components
-import InputRange from 'components/form/input-range';
+import Range from 'components/form/range';
 
 // Styles
 import styles from './styles.scss';
@@ -44,7 +44,7 @@ class LegendOpacityTooltip extends React.Component {
         Opacity
 
         <div styleName="slider-tooltip-container">
-          <InputRange
+          <Range
             minValue={min}
             maxValue={max}
             step={step}

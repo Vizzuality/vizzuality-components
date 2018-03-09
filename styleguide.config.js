@@ -19,7 +19,7 @@ module.exports = {
     {
       name: 'Form',
       components: () => ([
-        path.resolve(__dirname, 'src/components/form/input-range', 'index.js')
+        path.resolve(__dirname, 'src/components/form/range', 'index.js')
       ])
     },
     {

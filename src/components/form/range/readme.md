@@ -2,7 +2,7 @@
 ```js
 initialState = { value: 100 };
 
-<InputRange
+<Range
   minValue={0}
   maxValue={100}
   step={1}
