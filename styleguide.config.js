@@ -19,6 +19,7 @@ module.exports = {
     {
       name: 'Form',
       components: () => ([
+        path.resolve(__dirname, 'src/components/form/radio', 'index.js'),
         path.resolve(__dirname, 'src/components/form/range', 'index.js')
       ])
     },

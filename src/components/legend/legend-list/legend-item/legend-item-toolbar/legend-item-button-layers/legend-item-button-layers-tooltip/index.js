@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
+import CSSModules from 'react-css-modules';
 
-// Components
-// import RadioGroup from 'components/form/RadioGroup';
+// Styles
+import styles from './styles.scss';
 
 class LegendLayersTooltip extends React.Component {
   static propTypes = {
@@ -17,28 +19,28 @@ class LegendLayersTooltip extends React.Component {
   render() {
     const { layers, activeLayer } = this.props;
 
-    const options = layers.map(layer => ({
-      label: layer.name,
-      value: layer.id,
-      dataset: layer.dataset
-    }));
-
     return (
-      <div className="c-explore-layers-tooltip">
+      <div styleName="c-legend-item-button-layers-tooltip">
         Layers
 
-        {options.map(l => l.label)}
-        {/* <RadioGroup
-          name="layers"
-          properties={{ default: activeLayer.id }}
-          options={options}
-          onChange={id =>
-            this.props.onChangeLayer(layers.find(l => l.id === id))
-          }
-        /> */}
+        <ul styleName="layers-list">
+          {layers.map(l => (
+            <li
+              key={l.id}
+              styleName={classnames({
+                'layers-list-item': true,
+                '-active': l.id === activeLayer.id
+              })}
+              onClick={() => this.props.onChangeLayer(l)}
+            >
+              {l.name}
+            </li>
+          ))}
+        </ul>
+
       </div>
     );
   }
 }
 
-export default LegendLayersTooltip;
+export default CSSModules(LegendLayersTooltip, styles, { allowMultiple: true });
