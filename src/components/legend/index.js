@@ -112,7 +112,7 @@ export class Legend extends React.PureComponent {
 
           <LegendList
             items={layerGroups}
-            helperClass="c-legend-item -sort"
+            helperClass="c-legend-item -sortable"
             onSortEnd={this.onSortEnd}
             axis="y"
             lockAxis="y"
