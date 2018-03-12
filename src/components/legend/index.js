@@ -98,6 +98,10 @@ export class Legend extends React.PureComponent {
       LegendItemTypes
     } = this.props;
 
+    if (!layerGroups.length) {
+      return null;
+    }
+
     return (
       <div styleName="c-legend-map" style={{ maxWidth }}>
         {/* LEGEND OPENED */}

@@ -13,7 +13,7 @@ export class LegendTypeBasic extends React.PureComponent {
 
   static defaultProps = {
     activeLayer: {},
-    mode: 'columns'
+    mode: 'vertical'
   };
 
   render() {

@@ -1,3 +1,28 @@
+### Components available
+<pre>
+import {
+  // Legend
+  Legend,
+
+  // Toolbar
+  LegendItemToolbar,
+  LegendItemButtonBBox,
+  LegendItemButtonLayers,
+  LegendItemButtonOpacity,
+  LegendItemButtonVisibility,
+  LegendItemButtonInfo,
+  LegendItemButtonRemove,
+
+  // Types
+  LegendItemTypes,
+  LegendItemTypeBasic,
+  LegendItemTypeChoropleth,
+  LegendItemTypeGradient,
+  LegendItemTypeProportional
+
+} from 'wri-api-components';
+</pre>
+
 ### Full legend
 ```jsx
 const layerGroups = require('./mocks').layerGroups;
