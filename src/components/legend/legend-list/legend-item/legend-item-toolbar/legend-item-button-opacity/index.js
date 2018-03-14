@@ -68,7 +68,7 @@ class LegendItemButtonOpacity extends PureComponent {
         <Tooltip
           visible={!visibilityClick && visibilityHover}
           overlay="Opacity"
-          overlayClassName={`c-rc-tooltip ${classnames({ '-default': visible })}`}
+          overlayClassName="c-rc-tooltip -default"
           placement="top"
           trigger={tooltipOpened ? '' : 'hover'}
           onVisibleChange={v => this.setState({ visibilityHover: v })}

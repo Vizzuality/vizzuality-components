@@ -41,38 +41,45 @@ class LegendItem extends PureComponent {
           '-sortable': sortable
         })}
       >
-        {sortable &&
-          <LegendItemDrag />
-        }
+        <div
+          styleName={classnames({
+            'legend-item-container': true,
+            '-sortable': sortable
+          })}
+        >
+          {sortable &&
+            <LegendItemDrag />
+          }
 
-        <div styleName="legend-info">
-          <header styleName="legend-item-header">
-            <h3>{activeLayer.name}</h3>
+          <div styleName="legend-info">
+            <header styleName="legend-item-header">
+              <h3>{activeLayer.name}</h3>
 
-            {!!LegendItemToolbar &&
+              {!!LegendItemToolbar &&
+                React.cloneElement(
+                  LegendItemToolbar,
+                  {
+                    ...this.props,
+                    activeLayer
+                  }
+                )
+              }
+            </header>
+
+            {!!LegendItemTypes &&
               React.cloneElement(
-                LegendItemToolbar,
+                LegendItemTypes,
                 {
                   ...this.props,
                   activeLayer
                 }
               )
             }
-          </header>
 
-          {!!LegendItemTypes &&
-            React.cloneElement(
-              LegendItemTypes,
-              {
-                ...this.props,
-                activeLayer
-              }
-            )
-          }
-
-          <LegendItemTimeline
-            {...this.props}
-          />
+            <LegendItemTimeline
+              {...this.props}
+            />
+          </div>
         </div>
       </li>
     );

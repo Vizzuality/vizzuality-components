@@ -8,7 +8,6 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  padding: $space-1 * 2;
   border-bottom: 1px solid $border-color-1;
   background: rgba($color-white, 0.75);
 
@@ -16,9 +15,13 @@
     border-bottom: 0;
   }
 
-  &.-sortable {
-    .legend-info {
-      padding-left: 20px;
+
+  .legend-item-container {
+    width: 100%;
+    padding: $space-1 * 2;
+
+    &.-sortable {
+      padding-left: 28px;
     }
   }
 
