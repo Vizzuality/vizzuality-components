@@ -15,7 +15,9 @@
     "styleguide": "styleguidist server",
     "styleguide:build": "styleguidist build",
     "watch": "webpack --colors --progress --watch",
-    "build": "webpack --colors --progress"
+    "build": "webpack --colors --progress",
+    "prepublish": "webpack --colors --progress",
+    "preyalc": "webpack --colors --progress"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
@@ -64,6 +66,7 @@
     "prop-types": "^15.6.0",
     "react": "^15.6.2",
     "react-dom": "^15.6.2",
-    "vega": "^3.2.1"
+    "vega": "^3.2.1",
+    "react-sortable-hoc": "^0.6.8"
   }
 }

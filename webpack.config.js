@@ -57,43 +57,14 @@ const config = {
     ]
   },
 
-  externals: {
-    react: {
-      root: 'React',
-      commonjs2: 'react',
-      commonjs: 'react',
-      amd: 'react',
-      umd: 'react'
-    },
-    'react-dom': {
-      root: 'ReactDOM',
-      commonjs2: 'react-dom',
-      commonjs: 'react-dom',
-      amd: 'react-dom',
-      umd: 'react-dom'
-    },
-    'react-css-modules': {
-      root: 'ReactCSSModules',
-      commonjs2: 'react-css-modules',
-      commonjs: 'react-css-modules',
-      amd: 'react-css-modules',
-      umd: 'react-css-modules'
-    },
-    leaflet: {
-      root: 'L',
-      commonjs2: 'leaflet',
-      commonjs: 'leaflet',
-      amd: 'leaflet',
-      umd: 'leaflet'
-    },
-    vega: {
-      root: 'vega',
-      commonjs2: 'vega',
-      commonjs: 'vega',
-      amd: 'vega',
-      umd: 'vega'
-    }
-  },
+  externals: [
+    'react',
+    'react-dom',
+    'react-css-modules',
+    'react-sortable-hoc',
+    'leaflet',
+    'vega'
+  ],
 
   resolve: { extensions: ['.js', '.jsx', '.json'] },
 
