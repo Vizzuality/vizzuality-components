@@ -30,7 +30,7 @@ class LegendItemButtonInfo extends PureComponent {
 
     return (
       <Tooltip
-        overlay="Info"
+        overlay="Layer info"
         overlayClassName="c-rc-tooltip -default"
         placement="top"
         trigger={tooltipOpened ? '' : 'hover'}
