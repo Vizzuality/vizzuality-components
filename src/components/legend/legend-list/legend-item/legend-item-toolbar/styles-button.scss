@@ -1,0 +1,35 @@
+@import 'settings';
+
+.c-legend-button {
+  display: inline-block; // Needed to solve height issues
+  padding: 0;
+  border: 0;
+  background-color: transparent;
+  cursor: pointer;
+  outline: none;
+
+  svg {
+    fill: $color-dark-1;
+  }
+
+  &:hover svg {
+    fill: $color-secondary;
+  }
+
+  &.-disabled {
+    cursor: default;
+    opacity: .5;
+
+    &:hover svg {
+      fill: $color-dark-1;
+    }
+  }
+
+  // Icons
+  // This is shit....we should have good icons instead of doing this
+  &.info { svg { width: 14px; } }
+  &.close { svg { width: 11px; } }
+  &.toggle { svg { width: 16px; } }
+  &.opacity { svg { width: 11px; } }
+  &.layers { svg { width: 15px; } }
+}

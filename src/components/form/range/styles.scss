@@ -1,0 +1,53 @@
+@import 'settings';
+
+// Input range styles
+:global {
+  @import 'react-input-range/src/scss/index.scss';
+
+  .input-range__label {
+    font-size: 8px;
+    color: $color-dark-2;
+    top: -24px;
+  }
+
+  .input-range__slider {
+    border: 0;
+    background-color: $color-primary;
+    width: 14px;
+    height: 14px;
+    margin-top: -9px;
+  }
+
+  .input-range__track {
+    height: 3px;
+
+    &:before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      height: 1000%;
+      width: 100%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  .input-range__track--background {
+    margin-left: 12px;
+    margin-right: 12px;
+  }
+
+  .input-range__track--active {
+    background-color: $color-primary;
+  }
+
+  .input-range__label--min, .input-range__label--max {
+    font-size: 10px;
+    top: auto;
+    bottom: -16px;
+
+    .input-range__label-container {
+      left: 0;
+    }
+  }
+}
