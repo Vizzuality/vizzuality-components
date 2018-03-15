@@ -14,10 +14,10 @@
     "start": "npm run styleguide",
     "styleguide": "styleguidist server",
     "styleguide:build": "styleguidist build",
-    "watch": "webpack --colors --progress --watch",
+    "watch": "nodemon -x 'yalc publish --push' --ignore 'dist/'",
     "build": "webpack --colors --progress",
     "prepublish": "webpack --colors --progress",
-    "preyalc": "webpack --colors --progress"
+    "preyalc": "webpack --colors --progress --watch"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
@@ -42,6 +42,7 @@
     "isomorphic-style-loader": "^4.0.0",
     "json-loader": "^0.5.7",
     "node-sass": "^4.7.2",
+    "nodemon": "^1.17.2",
     "postcss-loader": "^2.1.1",
     "raw-loader": "^0.5.1",
     "react-styleguidist": "^6.2.5",
@@ -66,7 +67,7 @@
     "prop-types": "^15.6.0",
     "react": "^15.6.2",
     "react-dom": "^15.6.2",
-    "vega": "^3.2.1",
-    "react-sortable-hoc": "^0.6.8"
+    "react-sortable-hoc": "^0.6.8",
+    "vega": "^3.2.1"
   }
 }
