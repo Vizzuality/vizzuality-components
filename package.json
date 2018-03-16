@@ -14,7 +14,7 @@
     "start": "npm run styleguide",
     "styleguide": "styleguidist server",
     "styleguide:build": "styleguidist build",
-    "watch": "nodemon -x 'yalc publish --push' --ignore 'dist/'",
+    "watch": "webpack --colors --progress --watch",
     "build": "webpack --colors --progress",
     "prepublish": "webpack --colors --progress",
     "preyalc": "webpack --colors --progress --watch"

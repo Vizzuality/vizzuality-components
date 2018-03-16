@@ -29,10 +29,14 @@
     bottom: 100%;
     border: 0;
     border-radius: 2px 2px 0 0;
-    background-color: rgba($color-black, .2);
+    background-color: rgba($color-dark-2, .8);
     cursor: pointer;
 
     &:focus { outline: none; }
+
+    &:hover {
+      background-color: rgba(darken($color-dark-2, 5%), .8);
+    }
 
     svg {
       margin-top: 4px;

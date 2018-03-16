@@ -61,12 +61,17 @@ const config = {
     'react',
     'react-dom',
     'react-css-modules',
+    'react-input-range',
     'react-sortable-hoc',
+    'rc-tooltip',
     'leaflet',
     'vega'
   ],
 
-  resolve: { extensions: ['.js', '.jsx', '.json'] },
+  resolve: {
+    extensions: ['.js', '.jsx', '.json'],
+    symlinks: false
+  },
 
   plugins: [
     new ExtractTextPlugin({
