@@ -22,8 +22,11 @@ export class Legend extends React.PureComponent {
     maxHeight: PropTypes.number,
     /** Should the legend be expanded by default? */
     expanded: PropTypes.bool,
-    /** Disable all interactions but info */
+    /** Should the legend be sortable? */
     sortable: PropTypes.bool,
+    /** Should the legend be collapsable */
+    collapsable: PropTypes.bool,
+
 
     // COMPONENTS
     LegendItemToolbar: PropTypes.element,
@@ -50,6 +53,7 @@ export class Legend extends React.PureComponent {
     layerGroups: [],
     expanded: true,
     sortable: true,
+    collapsable: true,
 
     maxWidth: null,
     maxHeight: null,
@@ -92,6 +96,7 @@ export class Legend extends React.PureComponent {
     const {
       layerGroups,
       sortable,
+      collapsable,
       maxWidth,
       maxHeight,
       LegendItemToolbar,
@@ -110,9 +115,11 @@ export class Legend extends React.PureComponent {
           style={{ maxHeight }}
         >
           {/* Toggle button */}
-          <button type="button" styleName="toggle-legend" onClick={() => this.onToggleLegend(false)}>
-            <Icon name="icon-arrow-down" className="-small" />
-          </button>
+          {collapsable &&
+            <button type="button" styleName="toggle-legend" onClick={() => this.onToggleLegend(false)}>
+              <Icon name="icon-arrow-down" className="-small" />
+            </button>
+          }
 
           <LegendList
             items={layerGroups}
