@@ -124,6 +124,9 @@ export class Legend extends React.PureComponent {
           <LegendList
             items={layerGroups}
             helperClass="c-legend-item -sortable"
+            onSortStart={(_, event) =>
+              event.preventDefault() // It fixes user select in Safari and IE
+            }
             onSortEnd={this.onSortEnd}
             axis="y"
             lockAxis="y"
