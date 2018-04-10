@@ -13,6 +13,7 @@ module.exports = {
       name: 'Components',
       components: () => ([
         path.resolve(__dirname, 'src/components/icon', 'index.js'),
+        path.resolve(__dirname, 'src/components/icons', 'index.js'),
         path.resolve(__dirname, 'src/components/tooltip', 'index.js')
       ])
     },
