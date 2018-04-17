@@ -72,9 +72,7 @@ class LegendItemTimeline extends PureComponent {
           this.props.onChangeLayer(currentLayer);
         });
 
-        return this.setState({
-          step: timelineLayers[currentIndex + 1].layerConfig.order
-        });
+        return this.setState({ step: timelineLayers[currentIndex + 1].layerConfig.order });
       }, 3000, true);
     }
 
@@ -87,7 +85,9 @@ class LegendItemTimeline extends PureComponent {
     const currentLayer = timelineLayers.find(l =>
       l.layerConfig.order === step);
 
-    this.props.onChangeLayer(currentLayer);
+    if (currentLayer) {
+      this.props.onChangeLayer(currentLayer);
+    }
   }, 500)
 
   render() {
@@ -103,7 +103,7 @@ class LegendItemTimeline extends PureComponent {
 
     return (
       <div styleName="c-legend-timeline">
-        {this.state.isPlaying &&
+        {/* {this.state.isPlaying &&
           <button
             styleName="timeline-play-button"
             type="button"
@@ -113,9 +113,9 @@ class LegendItemTimeline extends PureComponent {
           >
             <Icon name="icon-stop2" className="-small" />
           </button>
-        }
+        } */}
 
-        {!this.state.isPlaying &&
+        {/* {!this.state.isPlaying &&
           <button
             styleName="timeline-play-button"
             type="button"
@@ -125,7 +125,7 @@ class LegendItemTimeline extends PureComponent {
           >
             <Icon name="icon-play3" className="-small" />
           </button>
-        }
+        } */}
 
         {!!timelineLayers.length &&
           <Range
@@ -133,7 +133,7 @@ class LegendItemTimeline extends PureComponent {
             maxValue={last}
             formatLabel={(value) => {
               const layer = timelineLayers.find(l => l.layerConfig.order === value);
-              return layer.layerConfig.timelineLabel;
+              return (layer) ? layer.layerConfig.timelineLabel : null;
             }}
             value={this.state.step || first}
             onChange={(step) => {
