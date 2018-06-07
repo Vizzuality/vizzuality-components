@@ -41,7 +41,11 @@ class LegendItemButtonLayers extends PureComponent {
   onTooltipVisibilityChange = (visible) => {
     this.setState({ visibilityHover: false });
     this.setState({ visibilityClick: visible });
-    this.setState({ multiLayersActive: false });
+
+    if (this.state.multiLayersActive) {
+      this.setState({ multiLayersActive: false });
+    }
+
     this.props.onTooltipVisibilityChange(visible);
   }
 
