@@ -38,6 +38,13 @@ class LegendItemButtonLayers extends PureComponent {
     multiLayersActive: this.props.layers.length > 1
   }
 
+  componentWillReceiveProps() {
+    // XXX : Whenever the user fiddles with the legend, make sure to hide the multi layer popup
+    if (this.state.multiLayersActive) {
+      this.setState({ multiLayersActive: false });
+    }
+  }
+
   onTooltipVisibilityChange = (visible) => {
     this.setState({ visibilityHover: false });
     this.setState({ visibilityClick: visible });
