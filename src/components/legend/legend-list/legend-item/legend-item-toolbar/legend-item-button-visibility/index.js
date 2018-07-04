@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import CSSModules from 'react-css-modules';
+import cx from 'classnames';
 
 // Components
 import Icon from 'components/icon';
@@ -27,7 +27,8 @@ class LegendItemButtonVisibility extends PureComponent {
   }
 
   render() {
-    const { activeLayer, visible, tooltipOpened } = this.props;
+    const { activeLayer, visible, tooltipOpened, theme } = this.props;
+    const style = { ...styles, ...theme };
 
     return (
       <Tooltip
@@ -40,7 +41,7 @@ class LegendItemButtonVisibility extends PureComponent {
       >
         <button
           type="button"
-          styleName="c-legend-button toggle"
+          className={cx(style.cLegendButton, style.toggle)}
           onClick={() => this.props.onChangeVisibility(activeLayer, !visible)}
           aria-label="Toggle the visibility"
         >
@@ -51,4 +52,4 @@ class LegendItemButtonVisibility extends PureComponent {
   }
 }
 
-export default CSSModules(LegendItemButtonVisibility, styles, { allowMultiple: true });
+export default LegendItemButtonVisibility;

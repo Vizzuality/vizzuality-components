@@ -25,12 +25,14 @@ import {
 
 ### Full legend
 ```jsx
+const theme = require('./theme.scss');
 const layerGroups = require('./mocks').layerGroups;
 
 const LegendItemToolbar = require('./legend-list/legend-item/legend-item-toolbar').default;
 const LegendItemTypes = require('./legend-list/legend-item/legend-item-types').default;
 
 <Legend
+  theme={theme}
   LegendItemToolbar={<LegendItemToolbar />}
   LegendItemTypes={<LegendItemTypes />}
   layerGroups={layerGroups}

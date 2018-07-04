@@ -7,16 +7,22 @@
   background-color: transparent;
   cursor: pointer;
   outline: none;
+  border: 1px solid black;
+  border-radius: 10px;
+  width: 20px;
+  height: 20px;
 
   svg {
     fill: $color-dark-1;
+    width: 10px;
+    height: 10px;
   }
 
   &:hover svg {
     fill: $color-secondary;
   }
 
-  &.-disabled {
+  &.disabled {
     cursor: default;
     opacity: .5;
 
@@ -27,7 +33,7 @@
 
   // Icons
   // This is shit....we should have good icons instead of doing this
-  &.info { svg { width: 14px; } }
+  &.info { background-color: red; svg { width: 14px; } }
   &.close { svg { width: 11px; } }
   &.toggle { svg { width: 16px; } }
   &.opacity { svg { width: 11px; } }

@@ -27,7 +27,8 @@ class LegendItemButtonBBox extends PureComponent {
   }
 
   render() {
-    const { activeLayer, tooltipOpened } = this.props;
+    const { activeLayer, tooltipOpened, theme } = this.props;
+    const style = { ...styles, ...theme };
 
     if (activeLayer.layerConfig && !activeLayer.layerConfig.bbox) {
       return null;
@@ -44,7 +45,7 @@ class LegendItemButtonBBox extends PureComponent {
       >
         <button
           type="button"
-          styleName="c-legend-button"
+          className={style.cLegendButton}
           aria-label="Fit to bounds"
           onClick={() => this.props.onChangeBBox(activeLayer)}
         >
@@ -55,4 +56,4 @@ class LegendItemButtonBBox extends PureComponent {
   }
 }
 
-export default CSSModules(LegendItemButtonBBox, styles, { allowMultiple: true });
+export default LegendItemButtonBBox;

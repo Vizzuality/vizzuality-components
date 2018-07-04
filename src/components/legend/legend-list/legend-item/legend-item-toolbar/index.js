@@ -33,7 +33,8 @@ export class LegendItemToolbar extends PureComponent {
   }
 
   render() {
-    const { children } = this.props;
+    const { children, theme } = this.props;
+    const style = { ...styles, ...theme };
 
     const props = {
       ...this.props,
@@ -42,7 +43,7 @@ export class LegendItemToolbar extends PureComponent {
     };
 
     return (
-      <div styleName="c-legend-item-toolbar">
+      <div className={style.cLegendItemToolbar}>
         {!!React.Children.count(children) &&
           React.Children.map(children, c =>
             React.cloneElement(
@@ -67,7 +68,7 @@ export class LegendItemToolbar extends PureComponent {
     );
   }
 }
-export default CSSModules(LegendItemToolbar, styles, { allowMultiple: true });
+export default LegendItemToolbar;
 
 export {
   LegendItemButtonBBox,

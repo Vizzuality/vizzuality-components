@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
-import CSSModules from 'react-css-modules';
+import cx from 'classnames';
 
 // Styles
 import styles from './styles.scss';
@@ -17,20 +16,21 @@ class LegendLayersTooltip extends React.Component {
   };
 
   render() {
-    const { layers, activeLayer } = this.props;
+    const { layers, activeLayer, theme } = this.props;
+    const style = { ...styles, ...theme };
 
     return (
-      <div styleName="c-legend-item-button-layers-tooltip">
+      <div>
         Layers
 
-        <ul styleName="layers-list">
+        <ul className={style.layersList}>
           {layers.map(l => (
             <li
               key={l.id}
-              styleName={classnames({
-                'layers-list-item': true,
-                '-active': l.id === activeLayer.id
-              })}
+              className={cx(
+                styles.layersListItem,
+                l.id === activeLayer.id ? styles.active : null
+              )}
               onClick={() => this.props.onChangeLayer(l)}
             >
               {l.name}
@@ -43,4 +43,4 @@ class LegendLayersTooltip extends React.Component {
   }
 }
 
-export default CSSModules(LegendLayersTooltip, styles, { allowMultiple: true });
+export default LegendLayersTooltip;

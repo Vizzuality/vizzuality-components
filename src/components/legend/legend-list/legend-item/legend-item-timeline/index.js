@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
 import sortBy from 'lodash/sortBy';
 
-import CSSModules from 'react-css-modules';
-
 // Components
 import Icon from 'components/icon';
 import Range from 'components/form/range';
@@ -91,6 +89,8 @@ class LegendItemTimeline extends PureComponent {
   }, 500)
 
   render() {
+    const { theme } = this.props;
+    const style = { ...styles, ...theme };
     const timelineLayers = this.getTimelineLayers();
 
     // Return null if timeline doesn not exist
@@ -102,10 +102,10 @@ class LegendItemTimeline extends PureComponent {
     const last = timelineLayers[timelineLayers.length - 1].layerConfig.order;
 
     return (
-      <div styleName="c-legend-timeline">
+      <div className={style.cLegendTimeline}>
         {/* {this.state.isPlaying &&
           <button
-            styleName="timeline-play-button"
+            className="timeline-play-button"
             type="button"
             onClick={() => {
               this.setPlay(false, first, last);
@@ -117,7 +117,7 @@ class LegendItemTimeline extends PureComponent {
 
         {/* {!this.state.isPlaying &&
           <button
-            styleName="timeline-play-button"
+            className="timeline-play-button"
             type="button"
             onClick={() => {
               this.setPlay(true, first, last);
@@ -148,4 +148,4 @@ class LegendItemTimeline extends PureComponent {
   }
 }
 
-export default CSSModules(LegendItemTimeline, styles, { allowMultiple: true });
+export default LegendItemTimeline;

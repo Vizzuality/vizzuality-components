@@ -26,8 +26,8 @@ class LegendItemButtonInfo extends PureComponent {
   }
 
   render() {
-    const { activeLayer, tooltipOpened } = this.props;
-
+    const { activeLayer, tooltipOpened, theme } = this.props;
+    const style = { ...styles, ...theme };
     return (
       <Tooltip
         overlay="Layer info"
@@ -39,7 +39,7 @@ class LegendItemButtonInfo extends PureComponent {
       >
         <button
           type="button"
-          styleName="c-legend-button"
+          className={style.cLegendButton}
           aria-label="More information"
           onClick={() => this.props.onChangeInfo(activeLayer)}
         >
@@ -50,4 +50,4 @@ class LegendItemButtonInfo extends PureComponent {
   }
 }
 
-export default CSSModules(LegendItemButtonInfo, styles, { allowMultiple: true });
+export default LegendItemButtonInfo;

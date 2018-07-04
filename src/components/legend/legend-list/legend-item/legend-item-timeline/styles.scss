@@ -1,6 +1,6 @@
 @import 'settings';
 
-.c-legend-timeline {
+.cLegendTimeline {
   display: flex;
   margin: $space-1 * 3 $space-1 * 3 $space-1 * 2 0;
 
@@ -8,9 +8,9 @@
     padding: 0;
     cursor: pointer;
   }
+}
 
-  .timeline-play-button {
-    border: none;
-    fill: $color-dark-1;
-  }
+.timelinePlayButton {
+  border: none;
+  fill: $color-dark-1;
 }

@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import CSSModules from 'react-css-modules';
-import classnames from 'classnames';
+import cx from 'classnames';
 import { SortableElement } from 'react-sortable-hoc';
 
 // Components
@@ -30,29 +29,29 @@ class LegendItem extends PureComponent {
   }
 
   render() {
-    const { layers, sortable, LegendItemToolbar, LegendItemTypes } = this.props;
-
+    const { layers, sortable, LegendItemToolbar, LegendItemTypes, theme } = this.props;
+    const style = { ...styles, ...theme };
     const activeLayer = layers.find(l => l.active);
 
     return (
       <li
-        styleName={classnames({
-          'c-legend-item': true,
-          '-sortable': sortable
-        })}
+        className={cx(
+          style.cLegendItem,
+          sortable ? style.sortable : null
+        )}
       >
         <div
-          styleName={classnames({
-            'legend-item-container': true,
-            '-sortable': sortable
-          })}
+          className={cx(
+            style.legendItemContainer,
+            sortable ? style.sortable : null
+          )}
         >
           {sortable &&
-            <LegendItemDrag />
+            <LegendItemDrag theme={theme} />
           }
 
-          <div styleName="legend-info">
-            <header styleName="legend-item-header">
+          <div className={style.legendInfo}>
+            <header className={style.legendItemHeader}>
               <h3>{activeLayer.name}</h3>
 
               {!!LegendItemToolbar &&
@@ -86,7 +85,5 @@ class LegendItem extends PureComponent {
   }
 }
 
-const LegendItemStyled = CSSModules(LegendItem, styles, { allowMultiple: true });
-
 export default SortableElement(({ value, ...props }) =>
-  <LegendItemStyled key={props.dataset} {...value} {...props} />);
+  <LegendItem key={props.dataset} {...value} {...props} />);

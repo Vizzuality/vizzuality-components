@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react';
-import CSSModules from 'react-css-modules';
 
 import { SortableHandle } from 'react-sortable-hoc';
 
@@ -11,14 +10,14 @@ import styles from './styles.scss';
 
 class LegendItemDrag extends PureComponent {
   render() {
+    const { theme } = this.props;
+    const style = { ...styles, ...theme };
     return (
-      <span styleName="c-legend-handler">
+      <span className={style.cLegendHandler}>
         <Icon name="icon-drag-dots" className="-small" />
       </span>
     );
   }
 }
 
-const LegendItemDragStyled = CSSModules(LegendItemDrag, styles, { allowMultiple: true });
-
-export default SortableHandle(LegendItemDragStyled);
+export default SortableHandle(LegendItemDrag);

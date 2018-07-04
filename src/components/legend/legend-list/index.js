@@ -2,7 +2,6 @@ import { SortableContainer } from 'react-sortable-hoc';
 
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import CSSModules from 'react-css-modules';
 
 // Components
 import LegendListItem from './legend-item';
@@ -45,12 +44,13 @@ class LegendList extends PureComponent {
   }
 
   render() {
-    const { items } = this.props;
-
+    const { items, theme } = this.props;
+    const style = { ...styles, theme };
     return (
-      <ul styleName="c-legend-list">
+      <ul className={style.cLegendList}>
         {items.map((value, index) => (
           <LegendListItem
+            theme={theme}
             key={value.dataset}
             index={index}
             value={value}
@@ -74,6 +74,4 @@ class LegendList extends PureComponent {
   }
 }
 
-const LegendListStyled = CSSModules(LegendList, styles, { allowMultiple: true });
-
-export default SortableContainer(LegendListStyled);
+export default SortableContainer(LegendList);

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
-import CSSModules from 'react-css-modules';
+// import CSSModules from 'react-css-modules';
+import cx from 'classnames';
 
 import { arrayMove } from 'react-sortable-hoc';
 
@@ -100,28 +100,36 @@ export class Legend extends React.PureComponent {
       maxWidth,
       maxHeight,
       LegendItemToolbar,
-      LegendItemTypes
+      LegendItemTypes,
+      theme
     } = this.props;
 
     if (!layerGroups.length) {
       return null;
     }
 
+    const style = {
+      ...styles,
+      ...theme
+    };
+
     return (
-      <div styleName="c-legend-map" style={{ maxWidth }}>
+      <div className={style.cLegendMap} style={{ maxWidth }}>
         {/* LEGEND OPENED */}
         <div
-          styleName={`open-legend ${classnames({ '-active': this.state.expanded })}`}
+          className={cx(style.openLegend, this.state.expanded ? style.active : '')}
+          // styleName={`open-legend ${cx({ '-active': this.state.expanded })}`}
           style={{ maxHeight }}
         >
           {/* Toggle button */}
           {collapsable &&
-            <button type="button" styleName="toggle-legend" onClick={() => this.onToggleLegend(false)}>
+            <button type="button" className={style.toggleLegend} onClick={() => this.onToggleLegend(false)}>
               <Icon name="icon-arrow-down" className="-small" />
             </button>
           }
 
           <LegendList
+            theme={theme}
             items={layerGroups}
             helperClass="c-legend-item -sortable"
             onSortStart={(_, event) =>
@@ -151,14 +159,14 @@ export class Legend extends React.PureComponent {
 
         {/* LEGEND CLOSED */}
         <div
-          styleName={`close-legend ${classnames({ '-active': !this.state.expanded })}`}
+          className={cx(style.closeLegend, !this.state.expanded && style.active )}
           onClick={() => this.onToggleLegend(true)}
         >
-          <h1 styleName="legend-title">
+          <h1 className={style.legendTitle}>
             Legend
 
             {/* Toggle button */}
-            <button type="button" styleName="toggle-legend">
+            <button type="button" className={style.toggleLegend}>
               <Icon name="icon-arrow-up" className="-small" />
             </button>
           </h1>
@@ -168,4 +176,4 @@ export class Legend extends React.PureComponent {
   }
 }
 
-export default CSSModules(Legend, styles, { allowMultiple: true });
+export default Legend;

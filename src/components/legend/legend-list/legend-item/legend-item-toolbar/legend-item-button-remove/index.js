@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import CSSModules from 'react-css-modules';
+import cx from 'classnames';
 
 // Components
 import Icon from 'components/icon';
@@ -29,7 +29,8 @@ class LegendItemButtonRemove extends PureComponent {
   }
 
   render() {
-    const { activeLayer, tooltipOpened } = this.props;
+    const { activeLayer, tooltipOpened, theme } = this.props;
+    const style = { ...styles, ...theme };
 
     return (
       <Tooltip
@@ -42,7 +43,7 @@ class LegendItemButtonRemove extends PureComponent {
       >
         <button
           type="button"
-          styleName="c-legend-button close"
+          className={cx(style.cLegendButton, style.close)}
           onClick={() => this.props.onRemoveLayer(activeLayer)}
           aria-label="Remove"
         >
@@ -53,4 +54,4 @@ class LegendItemButtonRemove extends PureComponent {
   }
 }
 
-export default CSSModules(LegendItemButtonRemove, styles, { allowMultiple: true });
+export default LegendItemButtonRemove;
