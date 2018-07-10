@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 // import CSSModules from 'react-css-modules';
 import cx from 'classnames';
+import { themr } from 'react-css-themr';
 
 import { arrayMove } from 'react-sortable-hoc';
 
@@ -108,22 +109,17 @@ export class Legend extends React.PureComponent {
       return null;
     }
 
-    const style = {
-      ...styles,
-      ...theme
-    };
-
     return (
-      <div className={style.cLegendMap} style={{ maxWidth }}>
+      <div className={theme.cLegendMap} style={{ maxWidth }}>
         {/* LEGEND OPENED */}
         <div
-          className={cx(style.openLegend, this.state.expanded ? style.active : '')}
+          className={cx(theme.openLegend, this.state.expanded ? theme.active : '')}
           // styleName={`open-legend ${cx({ '-active': this.state.expanded })}`}
           style={{ maxHeight }}
         >
           {/* Toggle button */}
           {collapsable &&
-            <button type="button" className={style.toggleLegend} onClick={() => this.onToggleLegend(false)}>
+            <button type="button" className={theme.toggleLegend} onClick={() => this.onToggleLegend(false)}>
               <Icon name="icon-arrow-down" className="-small" />
             </button>
           }
@@ -159,14 +155,14 @@ export class Legend extends React.PureComponent {
 
         {/* LEGEND CLOSED */}
         <div
-          className={cx(style.closeLegend, !this.state.expanded && style.active )}
+          className={cx(theme.closeLegend, !this.state.expanded && theme.active )}
           onClick={() => this.onToggleLegend(true)}
         >
-          <h1 className={style.legendTitle}>
+          <h1 className={theme.legendTitle}>
             Legend
 
             {/* Toggle button */}
-            <button type="button" className={style.toggleLegend}>
+            <button type="button" className={theme.toggleLegend}>
               <Icon name="icon-arrow-up" className="-small" />
             </button>
           </h1>
@@ -176,4 +172,4 @@ export class Legend extends React.PureComponent {
   }
 }
 
-export default Legend;
+export default themr('Legend', styles)(Legend);

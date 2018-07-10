@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CSSModules from 'react-css-modules';
+import { themr } from 'react-css-themr';
 
 import LegendItem from './legend-item-type-basic-item';
 import styles from './styles.scss';
@@ -17,7 +17,7 @@ export class LegendTypeBasic extends React.PureComponent {
   };
 
   render() {
-    const { activeLayer, mode } = this.props;
+    const { activeLayer, mode, theme } = this.props;
     const { legendConfig } = activeLayer;
 
     if (!legendConfig || legendConfig.type !== 'basic') {
@@ -25,8 +25,8 @@ export class LegendTypeBasic extends React.PureComponent {
     }
 
     return (
-      <div styleName="c-legend-type-basic">
-        <ul styleName={mode}>
+      <div className={theme.cLegendTypeBasic}>
+        <ul className={theme[mode]}>
           {legendConfig.items.map(item => (
             <li key={`legend-basic-item-${item.name}`}>
               <LegendItem {...item} />
@@ -38,4 +38,4 @@ export class LegendTypeBasic extends React.PureComponent {
   }
 }
 
-export default CSSModules(LegendTypeBasic, styles, { allowMultiple: true });
+export default themr('LegendTypeBasic', styles)(LegendTypeBasic);

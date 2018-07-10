@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CSSModules from 'react-css-modules';
+import { themr } from 'react-css-themr';
 
 import styles from './styles.scss';
 
@@ -20,12 +20,12 @@ export class LegendItem extends React.PureComponent {
   };
 
   getIconHtml = (iconName) => {
-    const { name, color, size, icon } = this.props;
+    const { name, color, size, icon, theme } = this.props;
 
     if (iconName === 'triangle') {
       return (
         <div
-          styleName={`icon-${icon}`}
+          className={theme[`icon-${icon}`]}
           style={{
             boderRightWidth: (size / 2),
             boderLeftWidth: (size / 2),
@@ -37,35 +37,35 @@ export class LegendItem extends React.PureComponent {
     }
 
     if (iconName === 'line') {
-      return (<div styleName={`icon-${icon}`} style={{ width: size, backgroundColor: color }} />);
+      return (<div className={theme[`icon-${icon}`]} style={{ width: size, backgroundColor: color }} />);
     }
 
     if (iconName === 'square' || iconName === 'circle') {
       return (
         <div
-          styleName={`icon-${icon}`}
+          className={theme[`icon-${icon}`]}
           style={{ width: size, height: size, backgroundColor: color }}
         />
       );
     }
 
     return (
-      <div styleName="custom-icon">
+      <div className={theme.customIcon}>
         <img src={icon} alt={name} />
       </div>
     );
   };
 
   render() {
-    const { name, icon } = this.props;
+    const { name, icon, theme } = this.props;
 
     return (
-      <div styleName="c-legend-item">
+      <div className={theme.cLegendItem}>
         {this.getIconHtml(icon)}
-        <span styleName="name">{name}</span>
+        <span className={theme.name}>{name}</span>
       </div>
     );
   }
 }
 
-export default CSSModules(LegendItem, styles, { allowMultiple: true });
+export default themr('LegendItem', styles)(LegendItem);

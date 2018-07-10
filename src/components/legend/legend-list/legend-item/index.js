@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
 import { SortableElement } from 'react-sortable-hoc';
+import { themr } from 'react-css-themr';
 
 // Components
 import LegendItemDrag from './legend-item-drag';
@@ -30,28 +31,27 @@ class LegendItem extends PureComponent {
 
   render() {
     const { layers, sortable, LegendItemToolbar, LegendItemTypes, theme } = this.props;
-    const style = { ...styles, ...theme };
     const activeLayer = layers.find(l => l.active);
 
     return (
       <li
         className={cx(
-          style.cLegendItem,
-          sortable ? style.sortable : null
+          theme.cLegendItem,
+          sortable ? theme.sortable : null
         )}
       >
         <div
           className={cx(
-            style.legendItemContainer,
-            sortable ? style.sortable : null
+            theme.legendItemContainer,
+            sortable ? theme.sortable : null
           )}
         >
           {sortable &&
             <LegendItemDrag theme={theme} />
           }
 
-          <div className={style.legendInfo}>
-            <header className={style.legendItemHeader}>
+          <div className={theme.legendInfo}>
+            <header className={theme.legendItemHeader}>
               <h3>{activeLayer.name}</h3>
 
               {!!LegendItemToolbar &&
@@ -85,5 +85,4 @@ class LegendItem extends PureComponent {
   }
 }
 
-export default SortableElement(({ value, ...props }) =>
-  <LegendItem key={props.dataset} {...value} {...props} />);
+export default SortableElement(themr('LegendItem', styles)(({ value, ...props }) => <LegendItem key={props.dataset} {...value} {...props} />));

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CSSModules from 'react-css-modules';
+import { themr } from 'react-css-themr';
 
 // Styles
 import styles from './styles.scss';
@@ -22,10 +22,10 @@ class LegendItemTypes extends React.Component {
   }
 
   render() {
-    const { children } = this.props;
+    const { children, theme } = this.props;
 
     return (
-      <div styleName="c-legend-item-types">
+      <div className={theme.cLegendItemTypes}>
         {!!React.Children.count(children) &&
           React.Children.map(children, c =>
             React.cloneElement(
@@ -44,7 +44,7 @@ class LegendItemTypes extends React.Component {
   }
 }
 
-export default CSSModules(LegendItemTypes, styles, { allowMultiple: true });
+export default themr('LegendItemTypes', styles)(LegendItemTypes);
 
 export {
   LegendItemTypeBasic,

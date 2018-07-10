@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
 import sortBy from 'lodash/sortBy';
+import { themr } from 'react-css-themr';
 
 // Components
 import Icon from 'components/icon';
@@ -148,4 +149,4 @@ class LegendItemTimeline extends PureComponent {
   }
 }
 
-export default LegendItemTimeline;
+export default themr('LegendItemTimeline', styles)(LegendItemTimeline);

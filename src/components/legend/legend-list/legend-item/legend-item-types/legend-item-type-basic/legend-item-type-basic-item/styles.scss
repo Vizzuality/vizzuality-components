@@ -1,4 +1,4 @@
-.c-legend-item {
+.cLegendItem {
   display: flex;
   align-items: flex-start;
 
@@ -44,16 +44,16 @@
     border-right: 6px solid transparent;
     border-bottom: 9px solid black;
   }
+}
 
-  .custom-icon {
+.customIcon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+
+  img {
+    display: block;
     width: 14px;
     height: 14px;
-    flex-shrink: 0;
-
-    img {
-      display: block;
-      width: 14px;
-      height: 14px;
-    }
   }
 }

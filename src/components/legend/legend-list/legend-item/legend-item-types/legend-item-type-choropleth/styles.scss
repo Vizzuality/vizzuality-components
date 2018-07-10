@@ -1,6 +1,6 @@
 @import 'settings';
 
-.c-legend-type-choropleth {
+.cLegendTypeChoropleth {
   display: flex;
   margin: 0;
   padding: 0;
@@ -19,7 +19,7 @@
     text-align: center;
   }
 
-  .icon-choropleth {
+  .iconChoropleth {
     display: block;
     height: 5px;
     margin-bottom: 5px;
@@ -39,7 +39,7 @@
       margin-left: 5px;
     }
 
-    .icon-choropleth {
+    .iconChoropleth {
       position: relative;
       top: 1px;
       display: inline-block;

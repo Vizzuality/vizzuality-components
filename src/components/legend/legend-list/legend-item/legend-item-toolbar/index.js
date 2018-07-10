@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import CSSModules from 'react-css-modules';
+import { themr } from 'react-css-themr';
 
 // Components
 import LegendItemButtonBBox from './legend-item-button-bbox';
@@ -34,7 +34,6 @@ export class LegendItemToolbar extends PureComponent {
 
   render() {
     const { children, theme } = this.props;
-    const style = { ...styles, ...theme };
 
     const props = {
       ...this.props,
@@ -43,7 +42,7 @@ export class LegendItemToolbar extends PureComponent {
     };
 
     return (
-      <div className={style.cLegendItemToolbar}>
+      <div className={theme.cLegendItemToolbar}>
         {!!React.Children.count(children) &&
           React.Children.map(children, c =>
             React.cloneElement(
@@ -68,7 +67,7 @@ export class LegendItemToolbar extends PureComponent {
     );
   }
 }
-export default LegendItemToolbar;
+export default themr('LegendItemToolbar', styles)(LegendItemToolbar);
 
 export {
   LegendItemButtonBBox,

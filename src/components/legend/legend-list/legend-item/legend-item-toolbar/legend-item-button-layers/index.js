@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import sortBy from 'lodash/sortBy';
 import cx from 'classnames';
+import { themr } from 'react-css-themr';
 
 // Components
 import Icon from 'components/icon';
@@ -73,7 +74,6 @@ class LegendItemButtonLayers extends PureComponent {
     const { layers, activeLayer, tooltipOpened, theme } = this.props;
     const { visibilityClick, visibilityHover, multiLayersActive } = this.state;
     const timelineLayers = this.getTimelineLayers();
-    const style = { ...styles, ...theme };
 
     if (layers.length === 1 || timelineLayers.length) {
       return null;
@@ -106,7 +106,7 @@ class LegendItemButtonLayers extends PureComponent {
         >
           <button
             type="button"
-            className={cx(style.cLegendButton, style.layers)}
+            className={cx(theme.cLegendButton, theme.layers)}
             aria-label="Select other layer"
           >
             <Icon name="icon-layers" className="-small" />
@@ -118,4 +118,4 @@ class LegendItemButtonLayers extends PureComponent {
   }
 }
 
-export default LegendItemButtonLayers;
+export default themr('LegendItemButtonLayers', styles)(LegendItemButtonLayers);

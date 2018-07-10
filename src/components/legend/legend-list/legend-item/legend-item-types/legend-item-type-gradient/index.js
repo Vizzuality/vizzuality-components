@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CSSModules from 'react-css-modules';
+import { themr } from 'react-css-themr';
 
 import styles from './styles.scss';
 
@@ -16,7 +16,7 @@ export class LegendTypeGradient extends React.PureComponent {
   }
 
   render() {
-    const { activeLayer } = this.props;
+    const { activeLayer, theme } = this.props;
     const { legendConfig } = activeLayer;
 
     if (!legendConfig || legendConfig.type !== 'gradient') {
@@ -28,16 +28,16 @@ export class LegendTypeGradient extends React.PureComponent {
     const gradient = items.map(item => item.color);
 
     return (
-      <div styleName="c-legend-type-gradient">
-        <div styleName="legend-gradient-icon">
+      <div className={theme.cLegendTypeGradient}>
+        <div className={theme.legendGradientIcon}>
           {itemTransparent &&
             <div
               style={{ width: `${(1 / legendConfig.items.length) * 100}%` }}
-              styleName="icon-gradient-transparent"
+              className={theme.iconGradientTransparent}
             />
           }
           <div
-            styleName="icon-gradient"
+            className={theme.iconGradient}
             style={{
               width: `${(items.length / legendConfig.items.length) * 100}%`,
               backgroundImage: `linear-gradient(to right, ${gradient.join(',')})`
@@ -46,8 +46,8 @@ export class LegendTypeGradient extends React.PureComponent {
         </div>
         <ul>
           {legendConfig.items.map(({ name, color, value }) => (
-            <li key={`legend-gradient-item-${color}-${value}-${name}`}>
-              <span styleName="name">{name || value}</span>
+            <li key={`legendGradientItem-${color}-${value}-${name}`}>
+              <span className={theme.name}>{name || value}</span>
             </li>
           ))}
         </ul>
@@ -56,4 +56,4 @@ export class LegendTypeGradient extends React.PureComponent {
   }
 }
 
-export default CSSModules(LegendTypeGradient, styles, { allowMultiple: true });
+export default themr('LegendTypeGradient', styles)(LegendTypeGradient);

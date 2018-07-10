@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { themr } from 'react-css-themr';
 
 // Components
 import Range from 'components/form/range';
@@ -37,13 +38,12 @@ class LegendOpacityTooltip extends React.Component {
   render() {
     const { min, max, step, theme } = this.props;
     const { value } = this.state;
-    const style = { ...styles, ...theme };
 
     return (
       <div ref={(node) => { this.el = node; }}>
         Opacity
 
-        <div className={style.sliderTooltipContainer}>
+        <div className={theme.sliderTooltipContainer}>
           <Range
             minValue={min}
             maxValue={max}
@@ -64,4 +64,4 @@ class LegendOpacityTooltip extends React.Component {
   }
 }
 
-export default LegendOpacityTooltip;
+export default themr('LegendOpacityTooltip', styles)(LegendOpacityTooltip);

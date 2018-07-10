@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
+import { themr } from 'react-css-themr';
 
 // Components
 import Icon from 'components/icon';
@@ -47,7 +48,6 @@ class LegendItemButtonOpacity extends PureComponent {
   render() {
     const { layers, visible, activeLayer, tooltipOpened, theme } = this.props;
     const { visibilityClick, visibilityHover } = this.state;
-    const style = { ...styles, ...theme };
 
     return (
       <Tooltip
@@ -76,7 +76,7 @@ class LegendItemButtonOpacity extends PureComponent {
         >
           <button
             type="button"
-            className={cx(style.cLegendButton, style.opacity, !visible ? style.disabled : null)}
+            className={cx(theme.cLegendButton, theme.opacity, !visible ? theme.disabled : null)}
             aria-label="Change opacity"
           >
             <Icon name="icon-opacity" className="-small" />
@@ -88,4 +88,4 @@ class LegendItemButtonOpacity extends PureComponent {
   }
 }
 
-export default LegendItemButtonOpacity;
+export default themr('LegendItemButtonOpacity', styles)(LegendItemButtonOpacity);

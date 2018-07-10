@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CSSModules from 'react-css-modules';
+import { themr } from 'react-css-themr';
 
 import styles from './styles.scss';
 
@@ -16,7 +16,7 @@ export class LegendTypeGradient extends React.PureComponent {
   }
 
   render() {
-    const { activeLayer } = this.props;
+    const { activeLayer, theme } = this.props;
     const { legendConfig } = activeLayer;
 
     if (!legendConfig || legendConfig.type !== 'proportional') {
@@ -24,14 +24,14 @@ export class LegendTypeGradient extends React.PureComponent {
     }
 
     return (
-      <ul styleName="c-legend-type-proportional">
+      <ul className={theme.cLegendTypeProportional}>
         {legendConfig.items.map(({ name, color, size }) => (
-          <li key={`legend-proportional-item-${name}`}>
+          <li key={theme[`legendProportionalItem-${name}`]}>
             <div
-              styleName="icon-proportional"
+              className={theme.iconProportional}
               style={{ backgroundColor: color, width: size, height: size }}
             />
-            <span styleName="name">{name}</span>
+            <span className={theme.name}>{name}</span>
           </li>
         ))}
       </ul>
@@ -39,4 +39,4 @@ export class LegendTypeGradient extends React.PureComponent {
   }
 }
 
-export default CSSModules(LegendTypeGradient, styles, { allowMultiple: true });
+export default themr('LegendTypeGradient', styles)(LegendTypeGradient);

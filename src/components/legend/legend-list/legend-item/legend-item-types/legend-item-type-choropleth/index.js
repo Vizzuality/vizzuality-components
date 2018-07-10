@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CSSModules from 'react-css-modules';
+import { themr } from 'react-css-themr';
 
 import styles from './styles.scss';
 
@@ -16,7 +16,7 @@ export class LegendTypeChoropleth extends React.PureComponent {
   }
 
   render() {
-    const { activeLayer } = this.props;
+    const { activeLayer, theme } = this.props;
     const { legendConfig } = activeLayer;
 
     if (!legendConfig || legendConfig.type !== 'choropleth') {
@@ -24,11 +24,11 @@ export class LegendTypeChoropleth extends React.PureComponent {
     }
 
     return (
-      <ul styleName="c-legend-type-choropleth">
+      <ul className={theme.cLegendTypeChoropleth}>
         {legendConfig.items.map(({ name, value, color }) => (
           <li key={`legend-choropleth-item-${name || value}`}>
-            <div styleName="icon-choropleth" style={{ backgroundColor: color }} />
-            <span styleName="name">{name || value}</span>
+            <div className={theme.iconChoropleth} style={{ backgroundColor: color }} />
+            <span className={theme.name}>{name || value}</span>
           </li>
         ))}
       </ul>
@@ -36,4 +36,4 @@ export class LegendTypeChoropleth extends React.PureComponent {
   }
 }
 
-export default CSSModules(LegendTypeChoropleth, styles, { allowMultiple: true });
+export default themr('LegendTypeChoropleth', styles)(LegendTypeChoropleth);

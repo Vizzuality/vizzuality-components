@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import CSSModules from 'react-css-modules';
+import { themr } from 'react-css-themr';
 
 // Components
 import Icon from 'components/icon';
@@ -28,7 +28,6 @@ class LegendItemButtonBBox extends PureComponent {
 
   render() {
     const { activeLayer, tooltipOpened, theme } = this.props;
-    const style = { ...styles, ...theme };
 
     if (activeLayer.layerConfig && !activeLayer.layerConfig.bbox) {
       return null;
@@ -45,7 +44,7 @@ class LegendItemButtonBBox extends PureComponent {
       >
         <button
           type="button"
-          className={style.cLegendButton}
+          className={theme.cLegendButton}
           aria-label="Fit to bounds"
           onClick={() => this.props.onChangeBBox(activeLayer)}
         >
@@ -56,4 +55,4 @@ class LegendItemButtonBBox extends PureComponent {
   }
 }
 
-export default LegendItemButtonBBox;
+export default themr('LegendItemButtonBBox', styles)(LegendItemButtonBBox);

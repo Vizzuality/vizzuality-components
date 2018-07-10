@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import CSSModules from 'react-css-modules';
+import { themr } from 'react-css-themr';
 
 // Components
 import Icon from 'components/icon';
@@ -27,7 +27,6 @@ class LegendItemButtonInfo extends PureComponent {
 
   render() {
     const { activeLayer, tooltipOpened, theme } = this.props;
-    const style = { ...styles, ...theme };
     return (
       <Tooltip
         overlay="Layer info"
@@ -39,7 +38,7 @@ class LegendItemButtonInfo extends PureComponent {
       >
         <button
           type="button"
-          className={style.cLegendButton}
+          className={theme.cLegendButton}
           aria-label="More information"
           onClick={() => this.props.onChangeInfo(activeLayer)}
         >
@@ -50,4 +49,4 @@ class LegendItemButtonInfo extends PureComponent {
   }
 }
 
-export default LegendItemButtonInfo;
+export default themr('LegendItemButtonInfo', styles)(LegendItemButtonInfo);

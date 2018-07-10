@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cx from 'classnames';
+import { themr } from 'react-css-themr';
 
 // Styles
 import styles from './styles.scss';
@@ -17,19 +18,18 @@ class LegendLayersTooltip extends React.Component {
 
   render() {
     const { layers, activeLayer, theme } = this.props;
-    const style = { ...styles, ...theme };
 
     return (
       <div>
         Layers
 
-        <ul className={style.layersList}>
+        <ul className={theme.layersList}>
           {layers.map(l => (
             <li
               key={l.id}
               className={cx(
-                styles.layersListItem,
-                l.id === activeLayer.id ? styles.active : null
+                theme.layersListItem,
+                l.id === activeLayer.id ? theme.active : null
               )}
               onClick={() => this.props.onChangeLayer(l)}
             >
@@ -43,4 +43,4 @@ class LegendLayersTooltip extends React.Component {
   }
 }
 
-export default LegendLayersTooltip;
+export default themr('LegendLayersTooltip', styles)(LegendLayersTooltip);
