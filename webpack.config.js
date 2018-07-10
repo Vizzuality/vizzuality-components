@@ -34,7 +34,7 @@ const config = {
               options: {
                 modules: true,
                 importLoaders: 1,
-                localIdentName: '[local]'
+                localIdentName: 'wri_api__[local]'
               }
             },
             {

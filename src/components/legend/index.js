@@ -108,7 +108,7 @@ export class Legend extends React.PureComponent {
     }
 
     return (
-      <div styleName="c-wri-legend-map" style={{ maxWidth }}>
+      <div styleName="c-legend-map" style={{ maxWidth }}>
         {/* LEGEND OPENED */}
         <div
           styleName={`open-legend ${classnames({ '-active': this.state.expanded })}`}
