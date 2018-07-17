@@ -16,7 +16,7 @@ module.exports = {
         test: /\.scss$/,
         use: [
           'style-loader',
-          'css-loader?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]',
+          'css-loader?modules&importLoaders=1&localIdentName=wri_api__[local]',
           'resolve-url-loader',
           {
             loader: 'sass-loader',
