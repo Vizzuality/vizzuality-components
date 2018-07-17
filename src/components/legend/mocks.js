@@ -1,7 +1,7 @@
 export const layerGroups = [
   {
     dataset: '28dd2700-6de7-4345-830a-a5ffa0716bb2',
-    visible: true,
+    visibility: true,
     layers: [
       {
         active: true,
@@ -73,7 +73,7 @@ export const layerGroups = [
     ]
   }, {
     dataset: 'ccbcaf7b-1619-4298-8275-b135d1e8e04e',
-    visible: true,
+    visibility: true,
     layers: [
       {
         id: 'd787d894-f7af-47c4-af0f-0849b06686ee',
@@ -139,7 +139,7 @@ export const layerGroups = [
     ]
   }, {
     dataset: '3c82c421-8964-444e-86f2-df800174d8b9',
-    visible: true,
+    visibility: true,
     layers: [
       {
         active: true,
@@ -423,7 +423,7 @@ export const layerGroups = [
     ]
   }, {
     dataset: 'b8307c16-fd77-4e35-9b68-8726a025f401',
-    visible: true,
+    visibility: true,
     layers: [
       {
         id: 'f66acc52-455b-44d9-ad48-d10a301a0f4f',

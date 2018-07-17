@@ -15,6 +15,7 @@ class LegendItemButtonRemove extends PureComponent {
   static propTypes = {
     activeLayer: PropTypes.object,
     tooltipOpened: PropTypes.bool,
+    icon: PropTypes.string,
 
     // ACTIONS
     onRemoveLayer: PropTypes.func
@@ -23,13 +24,14 @@ class LegendItemButtonRemove extends PureComponent {
   static defaultProps = {
     activeLayer: {},
     tooltipOpened: false,
+    icon: '',
 
     // ACTIONS
     onRemoveLayer: () => {}
   }
 
   render() {
-    const { activeLayer, tooltipOpened } = this.props;
+    const { activeLayer, tooltipOpened, icon } = this.props;
 
     return (
       <Tooltip
@@ -46,7 +48,7 @@ class LegendItemButtonRemove extends PureComponent {
           onClick={() => this.props.onRemoveLayer(activeLayer)}
           aria-label="Remove"
         >
-          <Icon name="icon-cross" className="-small" />
+          <Icon name={icon || 'icon-cross'} className="-small" />
         </button>
       </Tooltip>
     );
