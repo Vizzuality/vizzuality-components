@@ -97,7 +97,8 @@ export class Legend extends React.PureComponent {
             useDragHandle
             sortable={sortable}
           >
-            {React.Children.map(children, (child, index) => (React.isValidElement(child) && child.type === 'LegendItemList' ?
+            {React.Children.map(children, (child, index) => (
+              React.isValidElement(child) && child.type === 'LegendItemList' ?
               React.cloneElement(child, { sortable, index })
               :
               child

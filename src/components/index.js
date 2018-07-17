@@ -8,6 +8,7 @@ export { default as Range } from './form/range';
 
 // Legend
 export { default as Legend } from './legend';
+export { default as LegendListItem } from './legend/components/legend-list-item';
 export {
   default as LegendItemToolbar,
   LegendItemButtonBBox,
