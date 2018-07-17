@@ -7,69 +7,39 @@ import { arrayMove } from 'react-sortable-hoc';
 
 // Components
 import Icon from 'components/icon';
-
-import LegendList from './legend-list';
+import LegendList from './components/legend-list';
 
 import styles from './styles.scss';
 
 export class Legend extends React.PureComponent {
   static propTypes = {
-    /** LayerGroupsSpec. Check it here */
-    layerGroups: PropTypes.array,
+    /** Sortable */
+    sortable: PropTypes.bool,
     /** Max width */
     maxWidth: PropTypes.number,
     /** Max height */
     maxHeight: PropTypes.number,
     /** Should the legend be expanded by default? */
     expanded: PropTypes.bool,
-    /** Should the legend be sortable? */
-    sortable: PropTypes.bool,
     /** Should the legend be collapsable */
     collapsable: PropTypes.bool,
-
-
-    // COMPONENTS
-    LegendItemToolbar: PropTypes.element,
-    LegendItemTypes: PropTypes.element,
-
-    // ACTIONS
-    /** ```onChangeBBox = (currentLayer) => {}``` */
-    onChangeBBox: PropTypes.func,
-    /** ```onChangeInfo = (currentLayer) => {}``` */
-    onChangeInfo: PropTypes.func,
-    /** ```onChangeLayer = (currentLayer) => {}``` */
-    onChangeLayer: PropTypes.func,
-    /** ```onChangeVisibility = (currentLayer, visibility) => {}``` */
-    onChangeVisibility: PropTypes.func,
-    /** ```onChangeOpacity = (currentLayer, opacity) => {}``` */
-    onChangeOpacity: PropTypes.func,
+    /** Layer groups for render */
+    layerGroups: PropTypes.array,
     /** ```onChangeOrder = (layerGroupsIds) => {}``` */
     onChangeOrder: PropTypes.func,
-    /** ```onRemoveLayer = (currentLayer) => {}``` */
-    onRemoveLayer: PropTypes.func
+    /** Children for render */
+    children: PropTypes.node
   }
 
   static defaultProps = {
-    layerGroups: [],
-    expanded: true,
     sortable: true,
+    expanded: true,
     collapsable: true,
-
     maxWidth: null,
     maxHeight: null,
-
-    // COMPONENTS
-    LegendItemToolbar: null,
-    LegendItemTypes: null,
-
-    // FUNCTIONS
-    onChangeBBox: l => console.info(l),
-    onChangeInfo: l => console.info(l),
-    onChangeLayer: l => console.info(l),
-    onChangeVisibility: (l, v) => console.info(l, v),
-    onChangeOpacity: (l, o) => console.info(l, o),
-    onChangeOrder: ids => console.info(ids),
-    onRemoveLayer: l => console.info(l)
+    layerGroups: [],
+    children: [],
+    onChangeOrder: ids => console.info(ids)
   }
 
   state = { expanded: this.props.expanded }
@@ -91,21 +61,14 @@ export class Legend extends React.PureComponent {
     this.props.onChangeOrder(layersDatasets);
   }
 
-
   render() {
     const {
-      layerGroups,
       sortable,
       collapsable,
       maxWidth,
       maxHeight,
-      LegendItemToolbar,
-      LegendItemTypes
+      children
     } = this.props;
-
-    if (!layerGroups.length) {
-      return null;
-    }
 
     return (
       <div styleName="c-legend-map" style={{ maxWidth }}>
@@ -122,7 +85,6 @@ export class Legend extends React.PureComponent {
           }
 
           <LegendList
-            items={layerGroups}
             helperClass="c-legend-item -sortable"
             onSortStart={(_, event) =>
               event.preventDefault() // It fixes user select in Safari and IE
@@ -134,23 +96,18 @@ export class Legend extends React.PureComponent {
             lockOffset="50%"
             useDragHandle
             sortable={sortable}
-
-            // COMPONENTS
-            LegendItemToolbar={LegendItemToolbar}
-            LegendItemTypes={LegendItemTypes}
-
-            // ACTIONS
-            onChangeBBox={this.props.onChangeBBox}
-            onChangeInfo={this.props.onChangeInfo}
-            onChangeLayer={this.props.onChangeLayer}
-            onChangeOpacity={this.props.onChangeOpacity}
-            onChangeVisibility={this.props.onChangeVisibility}
-            onRemoveLayer={this.props.onRemoveLayer}
-          />
+          >
+            {React.Children.map(children, (child, index) => (
+              React.isValidElement(child) && child.type === 'LegendItemList' ?
+              React.cloneElement(child, { sortable, index })
+              :
+              child
+            ))}
+          </LegendList>
         </div>
 
         {/* LEGEND CLOSED */}
-        <div
+        <button
           styleName={`close-legend ${classnames({ '-active': !this.state.expanded })}`}
           onClick={() => this.onToggleLegend(true)}
         >
@@ -158,11 +115,11 @@ export class Legend extends React.PureComponent {
             Legend
 
             {/* Toggle button */}
-            <button type="button" styleName="toggle-legend">
+            <div type="button" styleName="toggle-legend">
               <Icon name="icon-arrow-up" className="-small" />
-            </button>
+            </div>
           </h1>
-        </div>
+        </button>
       </div>
     );
   }

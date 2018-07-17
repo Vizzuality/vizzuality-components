@@ -16,12 +16,28 @@ import styles from './styles.scss';
 export class LegendItemToolbar extends PureComponent {
   static propTypes = {
     // Props
-    children: PropTypes.node
+    children: PropTypes.node,
+
+    // ACTIONS
+    onChangeBBox: PropTypes.func,
+    onChangeLayer: PropTypes.func,
+    onChangeOpacity: PropTypes.func,
+    onChangeVisibility: PropTypes.func,
+    onRemoveLayer: PropTypes.func,
+    onChangeInfo: PropTypes.func
   }
 
   static defaultProps = {
     // Props
-    children: []
+    children: [],
+
+    // ACTIONS
+    onChangeBBox: l => console.info(l),
+    onChangeInfo: l => console.info(l),
+    onChangeLayer: l => console.info(l),
+    onChangeVisibility: (l, v) => console.info(l, v),
+    onChangeOpacity: (l, o) => console.info(l, o),
+    onRemoveLayer: l => console.info(l)
   }
 
   state = {
@@ -33,10 +49,9 @@ export class LegendItemToolbar extends PureComponent {
   }
 
   render() {
-    const { children } = this.props;
-
+    const { children, ...rest } = this.props;
     const props = {
-      ...this.props,
+      ...rest,
       tooltipOpened: this.state.tooltipOpened,
       onTooltipVisibilityChange: this.onTooltipVisibilityChange
     };
@@ -44,16 +59,11 @@ export class LegendItemToolbar extends PureComponent {
     return (
       <div styleName="c-legend-item-toolbar">
         {!!React.Children.count(children) &&
-          React.Children.map(children, c =>
-            React.cloneElement(
-              c,
-              {
-                ...props,
-                tooltipOpened: this.state.tooltipOpened,
-                onTooltipVisibilityChange: this.onTooltipVisibilityChange
-              }
-            ))
-        }
+          React.Children.map(children, child => (React.isValidElement(child) && typeof child.type !== 'string' ?
+            React.cloneElement(child, { ...props })
+            :
+            child
+        ))}
 
         {/* If there is no children defined, let's use the components we had */}
         {!React.Children.count(children) && <LegendItemButtonBBox {...props} />}

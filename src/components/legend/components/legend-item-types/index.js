@@ -27,12 +27,11 @@ class LegendItemTypes extends React.Component {
     return (
       <div styleName="c-legend-item-types">
         {!!React.Children.count(children) &&
-          React.Children.map(children, c =>
-            React.cloneElement(
-              c,
-              { ...this.props }
-            ))
-        }
+          React.Children.map(children, child => (React.isValidElement(child) && typeof child.type !== 'string' ?
+            React.cloneElement(child, { ...this.props })
+            :
+            child
+        ))}
 
         {/* If there is no children defined, let's use the components we have */}
         {!React.Children.count(children) && <LegendItemTypeBasic {...this.props} />}

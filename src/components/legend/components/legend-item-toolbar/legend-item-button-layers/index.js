@@ -18,6 +18,7 @@ class LegendItemButtonLayers extends PureComponent {
     layers: PropTypes.array,
     activeLayer: PropTypes.object,
     tooltipOpened: PropTypes.bool,
+    icon: PropTypes.string,
 
     onChangeLayer: PropTypes.func,
     onTooltipVisibilityChange: PropTypes.func
@@ -27,6 +28,7 @@ class LegendItemButtonLayers extends PureComponent {
     layers: [],
     activeLayer: {},
     tooltipOpened: false,
+    icon: '',
 
     onChangeLayer: () => {},
     onTooltipVisibilityChange: () => {}
@@ -34,13 +36,26 @@ class LegendItemButtonLayers extends PureComponent {
 
   state = {
     visibilityHover: false,
-    visibilityClick: false
+    visibilityClick: false,
+    multiLayersActive: this.props.layers.length > 1
   }
 
-  onTooltipVisibilityChange = (visible) => {
+  componentWillReceiveProps() {
+    // XXX : Whenever the user fiddles with the legend, make sure to hide the multi layer popup
+    if (this.state.multiLayersActive) {
+      this.setState({ multiLayersActive: false });
+    }
+  }
+
+  onTooltipVisibilityChange = (visibility) => {
     this.setState({ visibilityHover: false });
-    this.setState({ visibilityClick: visible });
-    this.props.onTooltipVisibilityChange(visible);
+    this.setState({ visibilityClick: visibility });
+
+    if (this.state.multiLayersActive) {
+      this.setState({ multiLayersActive: false });
+    }
+
+    this.props.onTooltipVisibilityChange(visibility);
   }
 
   /**
@@ -57,8 +72,8 @@ class LegendItemButtonLayers extends PureComponent {
   }
 
   render() {
-    const { layers, activeLayer, tooltipOpened } = this.props;
-    const { visibilityClick, visibilityHover } = this.state;
+    const { layers, activeLayer, tooltipOpened, icon } = this.props;
+    const { visibilityClick, visibilityHover, multiLayersActive } = this.state;
     const timelineLayers = this.getTimelineLayers();
 
     if (layers.length === 1 || timelineLayers.length) {
@@ -78,15 +93,16 @@ class LegendItemButtonLayers extends PureComponent {
         placement="top"
         trigger={['click']}
         destroyTooltipOnHide
-        onVisibleChange={this.onTooltipVisibilityChange}
+        onVisibilityChange={this.onTooltipVisibilityChange}
       >
+
         <Tooltip
-          visible={!visibilityClick && visibilityHover}
-          overlay="Layers"
+          visibility={(!visibilityClick && visibilityHover) || multiLayersActive}
+          overlay={multiLayersActive ? `${layers.length} layers` : 'Layers'}
           overlayClassName="c-rc-tooltip -default"
           placement="top"
           trigger={tooltipOpened ? '' : 'hover'}
-          onVisibleChange={visible => this.setState({ visibilityHover: visible })}
+          onVisibilityChange={visibility => this.setState({ visibilityHover: visibility })}
           destroyTooltipOnHide
         >
           <button
@@ -94,7 +110,7 @@ class LegendItemButtonLayers extends PureComponent {
             styleName="c-legend-button layers"
             aria-label="Select other layer"
           >
-            <Icon name="icon-layers" className="-small" />
+            <Icon name={icon || 'icon-layers'} className="-small" />
           </button>
         </Tooltip>
       </Tooltip>
