@@ -16,7 +16,7 @@ export {
   LegendItemButtonVisibility,
   LegendItemButtonInfo,
   LegendItemButtonRemove
-} from './legend/legend-list/legend-item/legend-item-toolbar';
+} from './legend/components/legend-item-toolbar';
 
 export {
   default as LegendItemTypes,
@@ -24,4 +24,4 @@ export {
   LegendItemTypeChoropleth,
   LegendItemTypeGradient,
   LegendItemTypeProportional
-} from './legend/legend-list/legend-item/legend-item-types';
+} from './legend/components/legend-item-types';

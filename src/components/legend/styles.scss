@@ -68,6 +68,15 @@
   // CLOSED LEGEND
   .close-legend {
     display: none;
+    width: 100%;
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    padding: 0;
+
+    &:focus {
+      outline: none;
+    }
 
     &.-active {
       display: inherit;
