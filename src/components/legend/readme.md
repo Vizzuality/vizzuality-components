@@ -34,6 +34,7 @@ const LegendListItem = require('./components/legend-list-item').default;
 const LegendItemToolbar = require('./components/legend-item-toolbar').default;
 const LegendItemTypes = require('./components/legend-item-types').default;
 const LegendItemTimeline = require('./components/legend-item-timeline').default;
+const LegendItemVisibility = require('./components/legend-item-toolbar/legend-item-button-visibility').default;
 
 <Legend
   layerGroups={layerGroups}
@@ -44,7 +45,9 @@ const LegendItemTimeline = require('./components/legend-item-timeline').default;
       key={lg.dataset}
       layerGroup={lg}
       toolbar={
-        <LegendItemToolbar />
+        <LegendItemToolbar>
+          <LegendItemVisibility iconShow="icon-hide" iconHide="icon-show" />
+        </LegendItemToolbar>
       }
     >
       <LegendItemTypes />

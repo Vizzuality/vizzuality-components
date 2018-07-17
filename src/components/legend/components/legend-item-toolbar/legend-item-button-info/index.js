@@ -13,6 +13,7 @@ class LegendItemButtonInfo extends PureComponent {
   static propTypes = {
     activeLayer: PropTypes.object,
     tooltipOpened: PropTypes.bool,
+    icon: PropTypes.string,
 
     // ACTIONS
     onChangeInfo: PropTypes.func
@@ -21,12 +22,13 @@ class LegendItemButtonInfo extends PureComponent {
   static defaultProps = {
     activeLayer: {},
     tooltipOpened: false,
+    icon: '',
 
     onChangeInfo: () => {}
   }
 
   render() {
-    const { activeLayer, tooltipOpened } = this.props;
+    const { activeLayer, tooltipOpened, icon } = this.props;
 
     return (
       <Tooltip
@@ -43,7 +45,7 @@ class LegendItemButtonInfo extends PureComponent {
           aria-label="More information"
           onClick={() => this.props.onChangeInfo(activeLayer)}
         >
-          <Icon name="icon-info" className="-small" />
+          <Icon name={icon || 'icon-info'} className="-small" />
         </button>
       </Tooltip>
     );

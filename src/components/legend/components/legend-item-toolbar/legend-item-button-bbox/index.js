@@ -15,6 +15,7 @@ class LegendItemButtonBBox extends PureComponent {
   static propTypes = {
     activeLayer: PropTypes.object,
     tooltipOpened: PropTypes.bool,
+    icon: PropTypes.string,
 
     onChangeBBox: PropTypes.func
   }
@@ -22,12 +23,13 @@ class LegendItemButtonBBox extends PureComponent {
   static defaultProps = {
     activeLayer: {},
     tooltipOpened: false,
+    icon: '',
 
     onChangeBBox: () => {}
   }
 
   render() {
-    const { activeLayer, tooltipOpened } = this.props;
+    const { activeLayer, tooltipOpened, icon } = this.props;
 
     if (activeLayer.layerConfig && !activeLayer.layerConfig.bbox) {
       return null;
@@ -48,7 +50,7 @@ class LegendItemButtonBBox extends PureComponent {
           aria-label="Fit to bounds"
           onClick={() => this.props.onChangeBBox(activeLayer)}
         >
-          <Icon name="icon-bbox" className="-small" />
+          <Icon name={icon || 'icon-bbox'} className="-small" />
         </button>
       </Tooltip>
     );

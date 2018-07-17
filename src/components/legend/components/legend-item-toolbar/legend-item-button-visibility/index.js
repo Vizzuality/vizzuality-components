@@ -14,20 +14,28 @@ import styles from '../styles-button.scss';
 class LegendItemButtonVisibility extends PureComponent {
   static propTypes = {
     activeLayer: PropTypes.object,
-    visible: PropTypes.bool,
+    visibility: PropTypes.bool,
     tooltipOpened: PropTypes.bool,
-    onChangeVisibility: PropTypes.func
+    onChangeVisibility: PropTypes.func,
+    iconShow: PropTypes.string,
+    iconHide: PropTypes.string
   }
 
   static defaultProps = {
     activeLayer: {},
-    visible: true,
+    visibility: true,
     tooltipOpened: false,
+    iconShow: '',
+    iconHide: '',
     onChangeVisibility: () => {}
   }
 
   render() {
-    const { activeLayer, visible, tooltipOpened } = this.props;
+    const { activeLayer, visibility, tooltipOpened, iconShow, iconHide } = this.props;
+
+    const showIcon = iconShow || 'icon-show';
+    const hideIcon = iconHide || 'icon-hide';
+    const activeIcon = visibility ? hideIcon : showIcon;
 
     return (
       <Tooltip
@@ -41,10 +49,10 @@ class LegendItemButtonVisibility extends PureComponent {
         <button
           type="button"
           styleName="c-legend-button toggle"
-          onClick={() => this.props.onChangeVisibility(activeLayer, !visible)}
+          onClick={() => this.props.onChangeVisibility(activeLayer, !visibility)}
           aria-label="Toggle the visibility"
         >
-          <Icon name={visible ? 'icon-hide' : 'icon-show'} className="-small" />
+          <Icon name={activeIcon} className="-small" />
         </button>
       </Tooltip>
     );
