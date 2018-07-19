@@ -24,6 +24,12 @@ module.exports = {
       ])
     },
     {
+      name: 'Map',
+      components: () => ([
+        path.resolve(__dirname, 'src/components/map', 'index.js')
+      ])
+    },
+    {
       name: 'Legend',
       components: () => ([
         path.resolve(__dirname, 'src/components/legend', 'index.js')
