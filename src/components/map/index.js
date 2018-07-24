@@ -8,7 +8,7 @@ import styles from './styles.scss';
 
 const { L } = window;
 
-class Map extends PureComponent {
+export class MapComponent extends PureComponent {
   static propTypes = {
     children: PropTypes.node,
     mapOptions: PropTypes.object,
@@ -195,4 +195,4 @@ class Map extends PureComponent {
   }
 }
 
-export default CSSModules(Map, styles, { allowMultiple: true });
+export default CSSModules(MapComponent, styles, { allowMultiple: true });
