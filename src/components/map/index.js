@@ -53,6 +53,13 @@ class Map extends PureComponent {
   }
 
   componentDidMount() {
+    if (
+      typeof L === 'undefined' ||
+      !this.mapNode
+    ) {
+      return;
+    }
+
     this.setMap();
 
     this.setBasemap();
@@ -117,13 +124,6 @@ class Map extends PureComponent {
   }
 
   setMap = () => {
-    if (
-      typeof L === 'undefined' ||
-      !this.mapNode
-    ) {
-      return;
-    }
-
     const { mapOptions } = this.props;
     this.map = L.map(this.mapNode, mapOptions);
   }
