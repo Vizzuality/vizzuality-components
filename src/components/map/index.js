@@ -2,13 +2,13 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import CSSModules from 'react-css-modules';
 
-import { isEqual } from 'lodash/isEqual';
+import isEqual from 'lodash/isEqual';
 
 import styles from './styles.scss';
 
 const { L } = window;
 
-class Map extends PureComponent {
+export class MapComponent extends PureComponent {
   static propTypes = {
     children: PropTypes.node,
     mapOptions: PropTypes.object,
@@ -81,6 +81,9 @@ class Map extends PureComponent {
     if (!this.props.scrollZoomEnabled) {
       this.map.scrollWheelZoom.disable();
     }
+
+    // As this.map didn't exist before this function
+    this.forceUpdate();
   }
 
   componentDidUpdate(prevProps) {
@@ -195,4 +198,4 @@ class Map extends PureComponent {
   }
 }
 
-export default CSSModules(Map, styles, { allowMultiple: true });
+export default CSSModules(MapComponent, styles, { allowMultiple: true });

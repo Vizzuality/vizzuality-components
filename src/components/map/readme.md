@@ -15,7 +15,7 @@ import { Map } from 'wri-api-components';
 
 ### Full legend
 ```jsx
-<Map
+<MapComponent
   bounds={{
     bbox: [20, 50, 21, 51]
   }}
@@ -23,6 +23,5 @@ import { Map } from 'wri-api-components';
     zoomend: (e, map) => { console.info(e, map); },
     dragend: (e, map) => { console.info(e, map); }
   }}  
->
-</Map>
+/>
 ```
