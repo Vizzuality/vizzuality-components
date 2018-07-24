@@ -6,6 +6,9 @@ export { default as Tooltip } from './tooltip';
 // Form
 export { default as Range } from './form/range';
 
+// Map
+export { default as Map } from './map';
+
 // Legend
 export { default as Legend } from './legend';
 export { default as LegendListItem } from './legend/components/legend-list-item';
