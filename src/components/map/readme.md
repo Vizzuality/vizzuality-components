@@ -10,7 +10,7 @@
 
 ### Components available
 <pre>
-import { MapComponent } from 'wri-api-components';
+import { Map } from 'wri-api-components';
 </pre>
 
 ### Full legend
