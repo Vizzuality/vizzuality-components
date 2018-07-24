@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import CSSModules from 'react-css-modules';
 
-import { isEqual } from 'lodash/isEqual';
+import isEqual from 'lodash/isEqual';
 
 import styles from './styles.scss';
 
@@ -81,6 +81,9 @@ export class MapComponent extends PureComponent {
     if (!this.props.scrollZoomEnabled) {
       this.map.scrollWheelZoom.disable();
     }
+
+    // As this.map didn't exist before this function
+    this.forceUpdate();
   }
 
   componentDidUpdate(prevProps) {
