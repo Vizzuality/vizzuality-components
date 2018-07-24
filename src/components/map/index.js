@@ -192,7 +192,7 @@ export class MapComponent extends PureComponent {
           styleName="map-container"
         />
 
-        {this.map && this.props.children(this.map)}
+        {!!this.map && !!this.props.children && this.props.children(this.map)}
       </div>
     );
   }

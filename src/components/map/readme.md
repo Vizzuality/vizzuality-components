@@ -13,7 +13,7 @@
 import { Map } from 'wri-api-components';
 </pre>
 
-### Full legend
+### Map
 ```jsx
 <MapComponent
   bounds={{
