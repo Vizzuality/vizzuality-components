@@ -2,21 +2,26 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import CSSModules from 'react-css-modules';
 
+import { isEqual } from 'lodash/isEqual';
+
 import styles from './styles.scss';
 
 const { L } = window;
 
 class Map extends PureComponent {
   static propTypes = {
-    children: PropTypes.node.isRequired,
+    children: PropTypes.node,
     mapOptions: PropTypes.object,
     basemap: PropTypes.object,
     label: PropTypes.object,
     bounds: PropTypes.object,
-    events: PropTypes.object
+    events: PropTypes.object,
+    interactionEnabled: PropTypes.bool,
+    scrollZoomEnabled: PropTypes.bool
   }
 
   static defaultProps = {
+    children: null,
     mapOptions: {
       zoomControl: false,
       center: [27, 12],
@@ -42,14 +47,69 @@ class Map extends PureComponent {
       bbox: null,
       options: {} // fitBounds options
     },
-    events: {}
+    events: {},
+    interactionEnabled: true,
+    scrollZoomEnabled: true
   }
 
   componentDidMount() {
     this.setMap();
+
     this.setBasemap();
     this.setLabel();
+
+    this.setBounds();
+
     this.setMapEvents();
+
+    if (!this.props.interactionEnabled) {
+      this.map.dragging.disable();
+      this.map.touchZoom.disable();
+      this.map.doubleClickZoom.disable();
+      this.map.scrollWheelZoom.disable();
+      this.map.boxZoom.disable();
+      this.map.keyboard.disable();
+    }
+
+    if (!this.props.scrollZoomEnabled) {
+      this.map.scrollWheelZoom.disable();
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    const {
+      basemap: prevBasemap,
+      label: prevLabel,
+      bounds: prevBounds,
+      events: prevEvents
+    } = prevProps;
+
+    const {
+      basemap: nextBasemap,
+      label: nextLabel,
+      bounds: nextBounds,
+      events: nextEvents
+    } = this.props;
+
+    // Basemap
+    if (!isEqual(prevBasemap, nextBasemap)) {
+      this.setBasemap();
+    }
+
+    // Label
+    if (!isEqual(prevLabel, nextLabel)) {
+      this.setLabel();
+    }
+
+    // Bounds
+    if (!isEqual(prevBounds, nextBounds)) {
+      this.setBounds();
+    }
+
+    // Events
+    if (!isEqual(prevEvents, nextEvents)) {
+      this.setMapEvents();
+    }
   }
 
   componentWillUnmount() {
@@ -71,7 +131,9 @@ class Map extends PureComponent {
   setBasemap = () => {
     const { basemap } = this.props;
 
-    L.tileLayer(basemap.url, basemap.options)
+    if (this.basemapLayer) this.basemapLayer.remove();
+
+    this.basemapLayer = L.tileLayer(basemap.url, basemap.options)
       .addTo(this.map)
       .setZIndex(0);
   }
@@ -79,7 +141,9 @@ class Map extends PureComponent {
   setLabel = () => {
     const { label } = this.props;
 
-    L.tileLayer(label.url, label.options)
+    if (this.labelLayer) this.labelLayer.remove();
+
+    this.labelLayer = L.tileLayer(label.url, label.options)
       .addTo(this.map)
       .setZIndex(1100);
   }
@@ -87,16 +151,20 @@ class Map extends PureComponent {
   setBounds = () => {
     const { bbox, options } = this.props.bounds;
 
-    const bounds = [
-      [bbox[1], bbox[0]],
-      [bbox[3], bbox[2]]
-    ];
+    if (bbox) {
+      const bounds = [
+        [bbox[1], bbox[0]],
+        [bbox[3], bbox[2]]
+      ];
 
-    this.map.fitBounds(bounds, options);
+      this.map.fitBounds(bounds, options);
+    }
   }
 
   setMapEvents() {
     const { events } = this.props;
+
+    this.removeMapEvents();
 
     Object.keys(events).forEach((key) => {
       this.map.on(key, (e) => {
