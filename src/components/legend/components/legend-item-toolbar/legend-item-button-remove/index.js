@@ -4,33 +4,38 @@ import CSSModules from 'react-css-modules';
 
 // Components
 import Icon from 'components/icon';
+
+// Tooltip
 import Tooltip from 'components/tooltip';
 
 // Styles
 import styles from '../styles-button.scss';
 
-class LegendItemButtonInfo extends PureComponent {
+class LegendItemButtonRemove extends PureComponent {
   static propTypes = {
     activeLayer: PropTypes.object,
     tooltipOpened: PropTypes.bool,
+    icon: PropTypes.string,
 
     // ACTIONS
-    onChangeInfo: PropTypes.func
+    onRemoveLayer: PropTypes.func
   }
 
   static defaultProps = {
     activeLayer: {},
     tooltipOpened: false,
+    icon: '',
 
-    onChangeInfo: () => {}
+    // ACTIONS
+    onRemoveLayer: () => {}
   }
 
   render() {
-    const { activeLayer, tooltipOpened } = this.props;
+    const { activeLayer, tooltipOpened, icon } = this.props;
 
     return (
       <Tooltip
-        overlay="Layer info"
+        overlay="Remove"
         overlayClassName="c-rc-tooltip -default"
         placement="top"
         trigger={tooltipOpened ? '' : 'hover'}
@@ -39,15 +44,15 @@ class LegendItemButtonInfo extends PureComponent {
       >
         <button
           type="button"
-          styleName="c-legend-button"
-          aria-label="More information"
-          onClick={() => this.props.onChangeInfo(activeLayer)}
+          styleName="c-legend-button close"
+          onClick={() => this.props.onRemoveLayer(activeLayer)}
+          aria-label="Remove"
         >
-          <Icon name="icon-info" className="-small" />
+          <Icon name={icon || 'icon-cross'} className="-small" />
         </button>
       </Tooltip>
     );
   }
 }
 
-export default CSSModules(LegendItemButtonInfo, styles, { allowMultiple: true });
+export default CSSModules(LegendItemButtonRemove, styles, { allowMultiple: true });
