@@ -10,7 +10,7 @@ const { L } = window;
 
 export class MapComponent extends PureComponent {
   static propTypes = {
-    children: PropTypes.node,
+    children: PropTypes.func,
     mapOptions: PropTypes.object,
     basemap: PropTypes.object,
     label: PropTypes.object,

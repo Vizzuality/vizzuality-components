@@ -1,0 +1,29 @@
+@import 'settings';
+
+.c-map-controls {
+  position: absolute;
+  top: $space-1 * 2;
+  right: $space-1 * 2;
+  z-index: 999;
+
+  .map-controls-list {
+    position: relative;
+    margin: 0;
+    padding: 0;
+  }
+
+  .map-controls-list-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $color-white;
+    width: 100%;
+    padding: 0;
+    border: 1px solid $border-color-2;
+    border-radius: 3px;
+    
+    &:not(:first-child) {
+      margin: $space-1 / 2 0 0 0;
+    }
+  }
+}
