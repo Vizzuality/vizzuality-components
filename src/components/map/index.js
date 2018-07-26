@@ -77,10 +77,6 @@ export class MapComponent extends PureComponent {
       this.map.keyboard.disable();
     }
 
-    if (!this.props.scrollZoomEnabled) {
-      this.map.scrollWheelZoom.disable();
-    }
-
     // As this.map didn't exist before this function
     this.forceUpdate();
   }
