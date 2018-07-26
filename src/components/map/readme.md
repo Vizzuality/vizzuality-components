@@ -10,7 +10,7 @@
 
 ### Components available
 <pre>
-import { Map } from 'wri-api-components';
+import { Map, MapControls, ZoomControl } from 'wri-api-components';
 </pre>
 
 ### Map
@@ -29,7 +29,7 @@ const ZoomControl = require('./map-controls/zoom-control').default;
 >
   {(map) => (
     <MapControls map={map}>
-      <ZoomControl zoom={map.getZoom()}/>
+      <ZoomControl />
     </MapControls>
   )}
 </MapComponent>
