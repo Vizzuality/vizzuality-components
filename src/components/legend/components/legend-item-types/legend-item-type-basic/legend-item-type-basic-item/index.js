@@ -20,7 +20,7 @@ export class LegendItem extends React.PureComponent {
   };
 
   getIconHtml = (iconName) => {
-    const { name, color, size, icon } = this.props;
+    const { name, color, size, icon, value } = this.props;
 
     if (iconName === 'triangle') {
       return (
@@ -51,18 +51,18 @@ export class LegendItem extends React.PureComponent {
 
     return (
       <div styleName="custom-icon">
-        <img src={icon} alt={name} />
+        <img src={icon} alt={name || value} />
       </div>
     );
   };
 
   render() {
-    const { name, icon } = this.props;
+    const { name, icon, value } = this.props;
 
     return (
       <div styleName="c-legend-item">
         {this.getIconHtml(icon)}
-        <span styleName="name">{name}</span>
+        <span styleName="name">{name || value}</span>
       </div>
     );
   }

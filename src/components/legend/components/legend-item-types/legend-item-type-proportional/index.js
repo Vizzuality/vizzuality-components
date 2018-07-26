@@ -25,13 +25,13 @@ export class LegendTypeGradient extends React.PureComponent {
 
     return (
       <ul styleName="c-legend-type-proportional">
-        {legendConfig.items.map(({ name, color, size }) => (
+        {legendConfig.items.map(({ name, color, size, value }) => (
           <li key={`legend-proportional-item-${name}`}>
             <div
               styleName="icon-proportional"
               style={{ backgroundColor: color, width: size, height: size }}
             />
-            <span styleName="name">{name}</span>
+            <span styleName="name">{name || value}</span>
           </li>
         ))}
       </ul>
