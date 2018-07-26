@@ -48,8 +48,7 @@ export class MapComponent extends PureComponent {
       options: {} // fitBounds options
     },
     events: {},
-    interactionEnabled: true,
-    scrollZoomEnabled: true
+    interactionEnabled: true
   }
 
   componentDidMount() {
