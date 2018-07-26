@@ -18,7 +18,7 @@ export class ZoomControl extends PureComponent {
   state = { zoom: this.props.map.getZoom() }
 
   increaseZoom = () => {
-    const { zoom } = this.state;
+    const zoom = this.props.map.getZoom();
     const maxZoom = this.props.map.getMaxZoom();
 
     this.setState({ zoom: zoom === maxZoom ? zoom : zoom + 1 }, () => {
@@ -27,7 +27,7 @@ export class ZoomControl extends PureComponent {
   }
 
   decreaseZoom = () => {
-    const { zoom } = this.state;
+    const zoom = this.props.map.getZoom();
     const minZoom = this.props.map.getMinZoom();
 
     this.setState({ zoom: zoom === minZoom ? zoom : zoom - 1 }, () => {

@@ -5,10 +5,7 @@ import CSSModules from 'react-css-modules';
 import styles from './styles.scss';
 
 export class MapControls extends PureComponent {
-  static propTypes = {
-    children: PropTypes.node.isRequired,
-    map: PropTypes.object.isRequired
-  }
+  static propTypes = {children: PropTypes.node.isRequired}
 
   render() {
     return (
@@ -16,10 +13,7 @@ export class MapControls extends PureComponent {
         <ul styleName="map-controls-list">
           {React.Children.map(this.props.children, (c, i) => (
             <li styleName="map-controls-list-item" key={i}>
-              {React.cloneElement(
-                c,
-                { map: this.props.map }
-              )}
+              {React.cloneElement(c)}
             </li>
           ))}
         </ul>

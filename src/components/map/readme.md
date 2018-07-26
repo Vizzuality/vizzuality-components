@@ -28,8 +28,8 @@ const ZoomControl = require('./map-controls/zoom-control').default;
   }}  
 >
   {(map) => (
-    <MapControls map={map}>
-      <ZoomControl />
+    <MapControls>
+      <ZoomControl map={map} />
     </MapControls>
   )}
 </MapComponent>
