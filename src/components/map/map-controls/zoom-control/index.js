@@ -10,10 +10,14 @@ import styles from './styles.scss';
 export class ZoomControl extends PureComponent {
   static propTypes = {
     map: PropTypes.object.isRequired,
-    className: PropTypes.string
+    className: PropTypes.string,
+    customClass: PropTypes.string
   }
 
-  static defaultProps = { className: null }
+  static defaultProps = {
+    className: null,
+    customClass: null
+  }
 
   state = { zoom: this.props.map.getZoom() }
 
@@ -46,18 +50,21 @@ export class ZoomControl extends PureComponent {
   }
 
   render() {
-    const { className } = this.props;
+    const { className, customClass } = this.props;
     const { zoom } = this.state;
     const maxZoom = this.props.map.getMaxZoom();
     const minZoom = this.props.map.getMinZoom();
 
-    const classNames = classnames({ [className]: !!className });
-
+    const componentClass = classnames(
+      'c-zoom-control',
+      { [className]: !!className }
+    );
+    const externalClass = classnames({ [customClass]: !!customClass });
     const zoomInClass = classnames('zoom-control-btn', { '-disabled': zoom === maxZoom });
     const zoomOutClass = classnames('zoom-control-btn', { '-disabled': zoom === minZoom });
 
     return (
-      <div styleName="c-zoom-control" className={classNames}>
+      <div styleName={componentClass} className={externalClass}>
         <button
           styleName={zoomInClass}
           type="button"

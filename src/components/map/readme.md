@@ -25,7 +25,7 @@ const ZoomControl = require('./map-controls/zoom-control').default;
   events={{
     zoomend: (e, map) => { console.info(e, map); },
     dragend: (e, map) => { console.info(e, map); }
-  }}  
+  }}
 >
   {(map) => (
     <MapControls>
