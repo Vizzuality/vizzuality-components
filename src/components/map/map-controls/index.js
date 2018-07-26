@@ -5,7 +5,7 @@ import CSSModules from 'react-css-modules';
 import styles from './styles.scss';
 
 export class MapControls extends PureComponent {
-  static propTypes = {children: PropTypes.node.isRequired}
+  static propTypes = { children: PropTypes.node.isRequired }
 
   render() {
     return (
