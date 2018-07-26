@@ -1,4 +1,5 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
+import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import CSSModules from 'react-css-modules';
 
@@ -8,9 +9,10 @@ import styles from './styles.scss';
 
 const { L } = window;
 
-export class MapComponent extends PureComponent {
+export class MapComponent extends Component {
   static propTypes = {
-    children: PropTypes.node,
+    children: PropTypes.func,
+    customClass: PropTypes.string,
     mapOptions: PropTypes.object,
     basemap: PropTypes.object,
     label: PropTypes.object,
@@ -22,6 +24,7 @@ export class MapComponent extends PureComponent {
 
   static defaultProps = {
     children: null,
+    customClass: null,
     mapOptions: {
       zoomControl: false,
       center: [27, 12],
@@ -185,8 +188,11 @@ export class MapComponent extends PureComponent {
   }
 
   render() {
+    const { customClass } = this.props;
+    const externalClass = classnames({ [customClass]: !!customClass });
+
     return (
-      <div styleName="c-map">
+      <div styleName="c-map" className={externalClass}>
         <div
           ref={(node) => { this.mapNode = node; }}
           styleName="map-container"
