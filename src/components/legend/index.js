@@ -54,9 +54,8 @@ export class Legend extends React.PureComponent {
   }
 
   onSortEnd = ({ oldIndex, newIndex }) => {
-    const layers = [...this.props.layerGroups];
-    const layersDatasets = arrayMove(layers, oldIndex, newIndex)
-      .map(l => l.dataset);
+    const layers = [...this.props.children.map(c => c.props.layerGroup.dataset)];
+    const layersDatasets = arrayMove(layers, oldIndex, newIndex);
 
     this.props.onChangeOrder(layersDatasets);
   }
@@ -69,6 +68,10 @@ export class Legend extends React.PureComponent {
       maxHeight,
       children
     } = this.props;
+
+    if (children && !children.length) {
+      return null;
+    }
 
     return (
       <div styleName="c-legend-map" style={{ maxWidth }}>
@@ -115,9 +118,9 @@ export class Legend extends React.PureComponent {
             Legend
 
             {/* Toggle button */}
-            <div type="button" styleName="toggle-legend">
+            <button type="button" styleName="toggle-legend">
               <Icon name="icon-arrow-up" className="-small" />
-            </div>
+            </button>
           </h1>
         </button>
       </div>

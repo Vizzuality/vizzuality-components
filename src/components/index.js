@@ -31,3 +31,5 @@ export {
   LegendItemTypeGradient,
   LegendItemTypeProportional
 } from './legend/components/legend-item-types';
+
+export { default as LegendItemTimeline } from './legend/components/legend-item-timeline';

@@ -4,8 +4,6 @@ const webpack = require('webpack');
 const CompressionPlugin = require('compression-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
-const rootPath = process.cwd();
-
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const config = {

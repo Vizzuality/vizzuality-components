@@ -22,13 +22,15 @@ export class ZoomControl extends PureComponent {
   state = { zoom: this.props.map.getZoom() }
 
   componentWillMount() {
-    this.props.map.on('zoomend', () => {
-      this.setState({ zoom: this.props.map.getZoom() });
-    });
+    this.props.map.on('zoomend', this.getZoom);
   }
 
   componentWillUnmount() {
-    this.props.map.off('zoomend');
+    this.props.map.off('zoomend', this.getZoom);
+  }
+
+  getZoom = () => {
+    this.setState({ zoom: this.props.map.getZoom() });
   }
 
   increaseZoom = () => {
