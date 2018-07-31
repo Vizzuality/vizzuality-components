@@ -19,7 +19,8 @@ export class MapComponent extends Component {
     bounds: PropTypes.object,
     events: PropTypes.object,
     interactionEnabled: PropTypes.bool,
-    scrollZoomEnabled: PropTypes.bool
+    scrollZoomEnabled: PropTypes.bool,
+    onReady: PropTypes.func
   }
 
   static defaultProps = {
@@ -52,7 +53,8 @@ export class MapComponent extends Component {
     },
     events: {},
     interactionEnabled: true,
-    scrollZoomEnabled: true
+    scrollZoomEnabled: true,
+    onReady: () => {}
   }
 
   componentDidMount() {
@@ -84,6 +86,8 @@ export class MapComponent extends Component {
     if (!this.props.scrollZoomEnabled) {
       this.map.scrollWheelZoom.disable();
     }
+
+    this.props.onReady(this.map);
 
     // As this.map didn't exist before this function
     this.forceUpdate();

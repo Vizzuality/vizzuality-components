@@ -23,8 +23,6 @@ export class Legend extends React.PureComponent {
     expanded: PropTypes.bool,
     /** Should the legend be collapsable */
     collapsable: PropTypes.bool,
-    /** Layer groups for render */
-    layerGroups: PropTypes.array,
     /** ```onChangeOrder = (layerGroupsIds) => {}``` */
     onChangeOrder: PropTypes.func,
     /** Children for render */
@@ -37,7 +35,6 @@ export class Legend extends React.PureComponent {
     collapsable: true,
     maxWidth: null,
     maxHeight: null,
-    layerGroups: [],
     children: [],
     onChangeOrder: ids => console.info(ids)
   }
@@ -118,9 +115,9 @@ export class Legend extends React.PureComponent {
             Legend
 
             {/* Toggle button */}
-            <button type="button" styleName="toggle-legend">
+            <div styleName="toggle-legend">
               <Icon name="icon-arrow-up" className="-small" />
-            </button>
+            </div>
           </h1>
         </button>
       </div>
