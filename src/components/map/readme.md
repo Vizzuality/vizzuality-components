@@ -19,12 +19,7 @@ import { Map, MapControls, ZoomControl } from 'wri-api-components';
 const MapControls = require('./map-controls').default;
 const ZoomControl = require('./map-controls/zoom-control').default;
 
-<MapComponent
-  // events={{
-  //   zoomend: (e, map) => { console.info(e, map); },
-  //   dragend: (e, map) => { console.info(e, map); }
-  // }}
->
+<MapComponent>
   {(map) => (
     <MapControls>
       <ZoomControl map={map} />
