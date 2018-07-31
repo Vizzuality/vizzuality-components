@@ -1,4 +1,5 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
+import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import CSSModules from 'react-css-modules';
 
@@ -6,40 +7,43 @@ import isEqual from 'lodash/isEqual';
 
 import styles from './styles.scss';
 
-const { L } = window;
+const { L } = (typeof window !== 'undefined') ? window : {};
 
-export class MapComponent extends PureComponent {
+export class MapComponent extends Component {
   static propTypes = {
-    children: PropTypes.node,
+    children: PropTypes.func,
+    customClass: PropTypes.string,
     mapOptions: PropTypes.object,
     basemap: PropTypes.object,
     label: PropTypes.object,
     bounds: PropTypes.object,
     events: PropTypes.object,
     interactionEnabled: PropTypes.bool,
-    scrollZoomEnabled: PropTypes.bool
+    scrollZoomEnabled: PropTypes.bool,
+    onReady: PropTypes.func
   }
 
   static defaultProps = {
     children: null,
+    customClass: null,
     mapOptions: {
       zoomControl: false,
       center: [27, 12],
       zoom: 3,
-      maxZoom: 19,
+      maxZoom: 20,
       minZoom: 2
     },
     basemap: {
       url: 'http://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png',
       options: {
-        maxZoom: 19,
+        maxZoom: 20,
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
       }
     },
     label: {
       url: 'http://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}.png',
       options: {
-        maxZoom: 19,
+        maxZoom: 20,
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
       }
     },
@@ -49,7 +53,8 @@ export class MapComponent extends PureComponent {
     },
     events: {},
     interactionEnabled: true,
-    scrollZoomEnabled: true
+    scrollZoomEnabled: true,
+    onReady: () => {}
   }
 
   componentDidMount() {
@@ -67,7 +72,7 @@ export class MapComponent extends PureComponent {
 
     this.setBounds();
 
-    this.setMapEvents();
+    this.setEvents();
 
     if (!this.props.interactionEnabled) {
       this.map.dragging.disable();
@@ -81,6 +86,8 @@ export class MapComponent extends PureComponent {
     if (!this.props.scrollZoomEnabled) {
       this.map.scrollWheelZoom.disable();
     }
+
+    this.props.onReady(this.map);
 
     // As this.map didn't exist before this function
     this.forceUpdate();
@@ -118,17 +125,17 @@ export class MapComponent extends PureComponent {
 
     // Events
     if (!isEqual(prevEvents, nextEvents)) {
-      this.setMapEvents();
+      this.setEvents();
     }
   }
 
   componentWillUnmount() {
-    this.removeMapEvents();
+    this.removeEvents();
   }
 
   setMap = () => {
     const { mapOptions } = this.props;
-    this.map = L.map(this.mapNode, mapOptions);
+    this.map = L.map(this.mapNode, { ...MapComponent.defaultProps.mapOptions, ...mapOptions });
   }
 
   setBasemap = () => {
@@ -164,29 +171,42 @@ export class MapComponent extends PureComponent {
     }
   }
 
-  setMapEvents() {
+  setEvents() {
     const { events } = this.props;
 
-    this.removeMapEvents();
+    this.removeEvents();
 
     Object.keys(events).forEach((key) => {
-      this.map.on(key, (e) => {
-        events[key](e, this.map);
-      });
+      const eventsParsed = {
+        [`${key}-map`]: (e) => {
+          events[key](e, this.map);
+        }
+      };
+
+      this.map.on(key, eventsParsed[`${key}-map`]);
     });
   }
 
-  removeMapEvents() {
+  removeEvents() {
     const { events } = this.props;
 
     Object.keys(events).forEach((key) => {
-      this.map.off(key);
+      const eventsParsed = {
+        [`${key}-map`]: (e) => {
+          events[key](e, this.map);
+        }
+      };
+
+      this.map.off(key, eventsParsed[`${key}-map`]);
     });
   }
 
   render() {
+    const { customClass } = this.props;
+    const externalClass = classnames({ [customClass]: !!customClass });
+
     return (
-      <div styleName="c-map">
+      <div styleName="c-map" className={externalClass}>
         <div
           ref={(node) => { this.mapNode = node; }}
           styleName="map-container"

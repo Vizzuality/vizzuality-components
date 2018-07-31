@@ -23,8 +23,6 @@ export class Legend extends React.PureComponent {
     expanded: PropTypes.bool,
     /** Should the legend be collapsable */
     collapsable: PropTypes.bool,
-    /** Layer groups for render */
-    layerGroups: PropTypes.array,
     /** ```onChangeOrder = (layerGroupsIds) => {}``` */
     onChangeOrder: PropTypes.func,
     /** Children for render */
@@ -37,7 +35,6 @@ export class Legend extends React.PureComponent {
     collapsable: true,
     maxWidth: null,
     maxHeight: null,
-    layerGroups: [],
     children: [],
     onChangeOrder: ids => console.info(ids)
   }
@@ -54,9 +51,8 @@ export class Legend extends React.PureComponent {
   }
 
   onSortEnd = ({ oldIndex, newIndex }) => {
-    const layers = [...this.props.layerGroups];
-    const layersDatasets = arrayMove(layers, oldIndex, newIndex)
-      .map(l => l.dataset);
+    const layers = [...this.props.children.map(c => c.props.layerGroup.dataset)];
+    const layersDatasets = arrayMove(layers, oldIndex, newIndex);
 
     this.props.onChangeOrder(layersDatasets);
   }
@@ -69,6 +65,10 @@ export class Legend extends React.PureComponent {
       maxHeight,
       children
     } = this.props;
+
+    if (children && !children.length) {
+      return null;
+    }
 
     return (
       <div styleName="c-legend-map" style={{ maxWidth }}>
@@ -115,7 +115,7 @@ export class Legend extends React.PureComponent {
             Legend
 
             {/* Toggle button */}
-            <div type="button" styleName="toggle-legend">
+            <div styleName="toggle-legend">
               <Icon name="icon-arrow-up" className="-small" />
             </div>
           </h1>

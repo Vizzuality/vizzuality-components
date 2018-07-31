@@ -37,18 +37,14 @@ const LegendItemTimeline = require('./components/legend-item-timeline').default;
 const LegendItemButtonVisibility = require('./components/legend-item-toolbar/legend-item-button-visibility').default;
 
 <Legend
-  layerGroups={layerGroups}
+  onChangeOrder={(datasetIds) => { console.info(datasetIds)}}
 >
   {layerGroups.map((lg, i) => (
     <LegendListItem
       index={i}
       key={lg.dataset}
       layerGroup={lg}
-      toolbar={
-        <LegendItemToolbar>
-          <LegendItemButtonVisibility iconShow="icon-hide" iconHide="icon-show" />
-        </LegendItemToolbar>
-      }
+      toolbar={<LegendItemToolbar />}
     >
       <LegendItemTypes />
       <LegendItemTimeline onChangeLayer={l => console.info(l)} />
@@ -69,7 +65,6 @@ const LegendItemTimeline = require('./components/legend-item-timeline').default;
 <Legend
   maxWidth={500}
   maxHeight={300}
-  layerGroups={layerGroups}
 >
   {layerGroups.map((lg, i) => (
     <LegendListItem
@@ -99,7 +94,6 @@ const LegendItemTimeline = require('./components/legend-item-timeline').default;
 
 <Legend
   sortable={false}
-  layerGroups={layerGroups}
 >
   {layerGroups.map((lg, i) => (
     <LegendListItem
@@ -129,7 +123,6 @@ const LegendItemTimeline = require('./components/legend-item-timeline').default;
 <Legend
   expanded={false}
   sortable={false}
-  layerGroups={layerGroups}
 >
   {layerGroups.map((lg, i) => (
     <LegendListItem
