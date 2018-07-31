@@ -20,10 +20,10 @@ const MapControls = require('./map-controls').default;
 const ZoomControl = require('./map-controls/zoom-control').default;
 
 <MapComponent
-  events={{
-    zoomend: (e, map) => { console.info(e, map); },
-    dragend: (e, map) => { console.info(e, map); }
-  }}
+  // events={{
+  //   zoomend: (e, map) => { console.info(e, map); },
+  //   dragend: (e, map) => { console.info(e, map); }
+  // }}
 >
   {(map) => (
     <MapControls>
