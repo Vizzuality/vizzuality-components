@@ -57,10 +57,14 @@ export class MapPopup extends Component {
   setPopup = () => {
     const { map, latlng } = this.props;
 
-    this.popup
-      .setLatLng(latlng)
-      .setContent(this.buildPopup())
-      .openOn(map);
+    if (!latlng || !map) this.removePopup();
+
+    if (latlng && map) {
+      this.popup
+        .setLatLng(latlng)
+        .setContent(this.buildPopup())
+        .openOn(map);
+    }
   }
 
   buildPopup = () => {
@@ -85,7 +89,9 @@ export class MapPopup extends Component {
   }
 
   removePopup = () => {
-    this.popup.remove();
+    if (this.popup) {
+      this.popup.remove();
+    }
   }
 
   render() {
