@@ -51,6 +51,7 @@
     "webpack-bundle-analyzer": "^2.11.1"
   },
   "dependencies": {
+    "layer-manager": "^1.0.4",
     "prop-types": "^15.6.2",
     "rc-tooltip": "3.7.0",
     "react-css-modules": "^4.7.1",

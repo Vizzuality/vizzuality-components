@@ -9,7 +9,7 @@ import styles from './styles.scss';
 
 const { L } = (typeof window !== 'undefined') ? window : {};
 
-export class MapComponent extends Component {
+export class Maps extends Component {
   static propTypes = {
     children: PropTypes.func,
     customClass: PropTypes.string,
@@ -135,7 +135,7 @@ export class MapComponent extends Component {
 
   setMap = () => {
     const { mapOptions } = this.props;
-    this.map = L.map(this.mapNode, { ...MapComponent.defaultProps.mapOptions, ...mapOptions });
+    this.map = L.map(this.mapNode, { ...Maps.defaultProps.mapOptions, ...mapOptions });
   }
 
   setBasemap = () => {
@@ -218,4 +218,4 @@ export class MapComponent extends Component {
   }
 }
 
-export default CSSModules(MapComponent, styles, { allowMultiple: true });
+export default CSSModules(Maps, styles, { allowMultiple: true });
