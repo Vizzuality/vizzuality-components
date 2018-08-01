@@ -10,7 +10,7 @@ module.exports = {
   template: './styleguide.template.html',
   sections: [
     {
-      name: 'Components',
+      name: 'UI-components',
       components: () => ([
         path.resolve(__dirname, 'src/components/icon', 'index.js'),
         path.resolve(__dirname, 'src/components/icons', 'index.js'),
@@ -18,19 +18,21 @@ module.exports = {
       ])
     },
     {
-      name: 'Form',
+      name: 'Form-components',
       components: () => ([
         path.resolve(__dirname, 'src/components/form/range', 'index.js')
       ])
     },
     {
-      name: 'Map',
+      name: 'Map-components',
       components: () => ([
-        path.resolve(__dirname, 'src/components/map', 'index.js')
+        path.resolve(__dirname, 'src/components/map', 'index.js'),
+        path.resolve(__dirname, 'src/components/map/map-controls', 'index.js'),
+        path.resolve(__dirname, 'src/components/map/map-popup', 'index.js')
       ])
     },
     {
-      name: 'Legend',
+      name: 'Legend-components',
       components: () => ([
         path.resolve(__dirname, 'src/components/legend', 'index.js')
       ])

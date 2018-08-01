@@ -8,6 +8,7 @@ import styles from './styles.scss';
 export class MapControls extends PureComponent {
   static propTypes = {
     children: PropTypes.node.isRequired,
+    /** Custom css class for styling */
     customClass: PropTypes.string
   }
 
