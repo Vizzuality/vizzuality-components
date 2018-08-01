@@ -26,7 +26,7 @@ import {
 } from 'wri-api-components';
 </pre>
 
-### Full legend
+### Legend
 ```jsx
 const layerGroups = require('./mocks').layerGroups;
 

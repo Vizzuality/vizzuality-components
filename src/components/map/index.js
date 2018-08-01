@@ -9,17 +9,43 @@ import styles from './styles.scss';
 
 const { L } = (typeof window !== 'undefined') ? window : {};
 
-export class MapComponent extends Component {
+export class Maps extends Component {
   static propTypes = {
+    /** A function that returns the map instance */
     children: PropTypes.func,
+    /** Custom css class for styling */
     customClass: PropTypes.string,
+    /** Leaflet props for creating a map
+     * @see Check Leaflet documentation  https://leafletjs.com/reference-1.3.0.html#map
+    */
     mapOptions: PropTypes.object,
+    /** `{ url: 'http://example/{x}/{y}/{z}', options: {}}`
+     * @see Check Leaflet documentation  https://leafletjs.com/reference-1.3.0.html#tilelayer
+    */
     basemap: PropTypes.object,
+    /** `{ url: 'http://example/{x}/{y}/{z}', options: {} }` Options for L.tileLayer
+     * @see Check Leaflet documentation  https://leafletjs.com/reference-1.3.0.html#tilelayer
+    */
     label: PropTypes.object,
+    /** `{ bbox: [10, 5, 20, 10], options: {} }`
+     * @see Check Leaflet documentation  https://leafletjs.com/reference-1.3.0.html#fitbounds-options
+    */
     bounds: PropTypes.object,
+    /**
+     * `{ click: (e, map) => {} }` All the functions return 2 params
+     * @arg {Object} e event
+     * @arg {Object} map Map instance
+     * @see Cheack Leaflet documentation https://leafletjs.com/reference-1.3.0.html#map-event
+    */
     events: PropTypes.object,
+    /** Removes all interactions available on the map  */
     interactionEnabled: PropTypes.bool,
+    /** Removes only zoomScroll on the map  */
     scrollZoomEnabled: PropTypes.bool,
+    /**
+     * Return map instance when this one is ready
+     * @arg {Object} map Map instance
+    */
     onReady: PropTypes.func
   }
 
@@ -135,7 +161,7 @@ export class MapComponent extends Component {
 
   setMap = () => {
     const { mapOptions } = this.props;
-    this.map = L.map(this.mapNode, { ...MapComponent.defaultProps.mapOptions, ...mapOptions });
+    this.map = L.map(this.mapNode, { ...Maps.defaultProps.mapOptions, ...mapOptions });
   }
 
   setBasemap = () => {
@@ -218,4 +244,4 @@ export class MapComponent extends Component {
   }
 }
 
-export default CSSModules(MapComponent, styles, { allowMultiple: true });
+export default CSSModules(Maps, styles, { allowMultiple: true });

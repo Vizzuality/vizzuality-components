@@ -9,9 +9,15 @@ const { L } = (typeof window !== 'undefined') ? window : {};
 export class MapPopup extends Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
+    /** Map instance */
     map: PropTypes.object.isRequired,
+    /** `{ lat: 20, lng: 20 }` As soon as this changes, a popup will show up on the map */
     latlng: PropTypes.object,
+    /** As soon as this changes, a popup will be updated on the map */
     data: PropTypes.object,
+    /** Return a popup instace
+     * @param {Object} popup Popup instace
+     */
     onReady: PropTypes.func
   }
 

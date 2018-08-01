@@ -23,7 +23,9 @@ export class Legend extends React.PureComponent {
     expanded: PropTypes.bool,
     /** Should the legend be collapsable */
     collapsable: PropTypes.bool,
-    /** ```onChangeOrder = (layerGroupsIds) => {}``` */
+    /** `onChangeOrder = (layerGroupsIds) => {}`
+      * @arg {Array} layerGroupIds The new order
+    */
     onChangeOrder: PropTypes.func,
     /** Children for render */
     children: PropTypes.node
