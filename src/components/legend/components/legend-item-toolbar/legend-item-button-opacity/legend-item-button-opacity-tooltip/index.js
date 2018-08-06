@@ -15,6 +15,7 @@ class LegendOpacityTooltip extends React.Component {
     min: PropTypes.number,
     max: PropTypes.number,
     step: PropTypes.number,
+    color: PropTypes.string,
     // Callback to call when the layer changes with
     // the ID of the dataset and the ID of the layer
     onChangeOpacity: PropTypes.func.isRequired
@@ -23,21 +24,18 @@ class LegendOpacityTooltip extends React.Component {
   static defaultProps = {
     min: 0,
     max: 1,
-    step: 0.01
+    step: 0.01,
+    color: null
   }
-
-  state = { value: this.props.activeLayer.opacity || 1 }
 
   onChange = (v) => {
     const { activeLayer } = this.props;
 
-    this.setState({ value: v });
     this.props.onChangeOpacity(activeLayer, v);
   }
 
   render() {
-    const { min, max, step } = this.props;
-    const { value } = this.state;
+    const { min, max, step, color, activeLayer: { opacity } } = this.props;
 
     return (
       <div styleName="c-legend-item-button-opacity-tooltip" ref={(node) => { this.el = node; }}>
@@ -45,18 +43,20 @@ class LegendOpacityTooltip extends React.Component {
 
         <div styleName="slider-tooltip-container">
           <Range
-            minValue={min}
-            maxValue={max}
-            step={step}
-            value={value}
-            formatLabel={(v, string) => {
-              if (string === 'value') {
-                return null;
-              }
-
-              return v.toFixed(2);
+            marks={{
+              [min]: '0',
+              [max]: '1.00'
             }}
-            onChange={this.onChange}
+            min={min}
+            max={max}
+            step={step}
+            value={opacity}
+            trackStyle={[
+              { backgroundColor: color },
+              { backgroundColor: 'grey' }
+            ]}
+            color={color}
+            onAfterChange={this.onChange}
           />
         </div>
       </div>

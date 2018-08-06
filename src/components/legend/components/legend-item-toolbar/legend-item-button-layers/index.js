@@ -89,7 +89,7 @@ class LegendItemButtonLayers extends PureComponent {
             onChangeLayer={this.props.onChangeLayer}
           />
         }
-        overlayClassName="c-rc-tooltip -default"
+        overlayClassName="c-rc-tooltip -default -layers"
         placement="top"
         trigger={['click']}
         destroyTooltipOnHide
