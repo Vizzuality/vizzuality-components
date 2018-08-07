@@ -35,7 +35,7 @@ class LegendOpacityTooltip extends React.Component {
   }
 
   render() {
-    const { min, max, step, color, activeLayer: { opacity } } = this.props;
+    const { min, max, step, color, activeLayer: { opacity }, ...rest } = this.props;
 
     return (
       <div styleName="c-legend-item-button-opacity-tooltip" ref={(node) => { this.el = node; }}>
@@ -51,12 +51,9 @@ class LegendOpacityTooltip extends React.Component {
             max={max}
             step={step}
             value={opacity}
-            trackStyle={[
-              { backgroundColor: color },
-              { backgroundColor: 'grey' }
-            ]}
             color={color}
             onAfterChange={this.onChange}
+            {...rest}
           />
         </div>
       </div>

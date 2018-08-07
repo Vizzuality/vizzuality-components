@@ -17,12 +17,8 @@
   }
 
   &.-disabled {
-    cursor: default;
-    opacity: .5;
-
-    &:hover svg {
-      fill: $color-dark-1;
-    }
+    cursor: not-allowed;
+    pointer-events: none;
   }
 
   // Icons

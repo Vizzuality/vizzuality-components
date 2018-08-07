@@ -50,8 +50,9 @@ class LegendItemButtonOpacity extends PureComponent {
   }
 
   render() {
-    const { layers, visibility, activeLayer, tooltipOpened, icon, color } = this.props;
+    const { layers, visibility, activeLayer, tooltipOpened, icon, color, ...rest } = this.props;
     const { visibilityClick, visibilityHover } = this.state;
+    const { opacity } = activeLayer;
 
     return (
       <Tooltip
@@ -62,21 +63,22 @@ class LegendItemButtonOpacity extends PureComponent {
               activeLayer={activeLayer}
               onChangeOpacity={this.props.onChangeOpacity}
               color={color}
+              {...rest}
             />
         }
+        visible={visibility && visibilityClick}
         overlayClassName={`c-rc-tooltip ${classnames({ '-default': visibility })} -opacity`}
         placement="top"
         trigger={['click']}
-        onVisibilityChange={this.onTooltipVisibilityChange}
+        onVisibleChange={this.onTooltipVisibilityChange}
         destroyTooltipOnHide
       >
         <Tooltip
-          visibility={!visibilityClick && visibilityHover}
-          overlay="Opacity"
+          visible={visibilityHover && !visibilityClick}
+          overlay={`Opacity ${opacity ? `(${opacity})` : ''}`}
           overlayClassName="c-rc-tooltip -default"
           placement="top"
-          trigger={tooltipOpened ? '' : 'hover'}
-          onVisibilityChange={v => this.setState({ visibilityHover: v })}
+          onVisibleChange={v => this.setState({ visibilityHover: v })}
           destroyTooltipOnHide
         >
           <button
