@@ -50,7 +50,7 @@ class LegendItemButtonOpacity extends PureComponent {
   }
 
   render() {
-    const { layers, visibility, activeLayer, tooltipOpened, icon, color, ...rest } = this.props;
+    const { layers, visibility, activeLayer, tooltipOpened, icon, color, className, ...rest } = this.props;
     const { visibilityClick, visibilityHover } = this.state;
     const { opacity } = activeLayer;
 
@@ -67,7 +67,7 @@ class LegendItemButtonOpacity extends PureComponent {
             />
         }
         visible={visibility && visibilityClick}
-        overlayClassName={`c-rc-tooltip ${classnames({ '-default': visibility })} -opacity`}
+        overlayClassName={`c-rc-tooltip ${classnames({ '-default': visibility })} ${className || ''}`}
         placement="top"
         trigger={['click']}
         onVisibleChange={this.onTooltipVisibilityChange}
