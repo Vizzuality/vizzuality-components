@@ -8,21 +8,8 @@
   cursor: pointer;
   outline: none;
 
-  svg {
-    fill: $color-dark-1;
-  }
-
-  &:hover svg {
-    fill: $color-secondary;
-  }
-
   &.-disabled {
-    cursor: default;
-    opacity: .5;
-
-    &:hover svg {
-      fill: $color-dark-1;
-    }
+    cursor: not-allowed;
   }
 
   // Icons
@@ -30,6 +17,6 @@
   &.info { svg { width: 14px; } }
   &.close { svg { width: 11px; } }
   &.toggle { svg { width: 16px; } }
-  &.opacity { svg { width: 11px; } }
+  &.opacity { svg { width: 13px; } }
   &.layers { svg { width: 15px; } }
 }
