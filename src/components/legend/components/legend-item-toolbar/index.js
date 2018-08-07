@@ -17,6 +17,10 @@ export class LegendItemToolbar extends PureComponent {
   static propTypes = {
     // Props
     children: PropTypes.node,
+    enabledStyle: PropTypes.object,
+    defaultStyle: PropTypes.object,
+    disabledStyle: PropTypes.object,
+    focusStyle: PropTypes.object,
 
     // ACTIONS
     onChangeBBox: PropTypes.func,
@@ -30,6 +34,18 @@ export class LegendItemToolbar extends PureComponent {
   static defaultProps = {
     // Props
     children: [],
+    defaultStyle: {
+      fill: '#717171'
+    },
+    enabledStyle: {
+      fill: '#2C75B0'
+    },
+    disabledStyle: {
+      fill: '#CACCD0'
+    },
+    focusStyle: {
+      fill: '#393f44'
+    },
 
     // ACTIONS
     onChangeBBox: l => console.info(l),

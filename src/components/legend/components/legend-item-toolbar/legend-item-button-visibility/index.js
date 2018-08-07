@@ -18,7 +18,9 @@ class LegendItemButtonVisibility extends PureComponent {
     tooltipOpened: PropTypes.bool,
     onChangeVisibility: PropTypes.func,
     iconShow: PropTypes.string,
-    iconHide: PropTypes.string
+    iconHide: PropTypes.string,
+    focusStyle: PropTypes.object,
+    defaultStyle: PropTypes.object
   }
 
   static defaultProps = {
@@ -27,11 +29,19 @@ class LegendItemButtonVisibility extends PureComponent {
     tooltipOpened: false,
     iconShow: '',
     iconHide: '',
+    focusStyle: {},
+    defaultStyle: {},
+
     onChangeVisibility: () => {}
   }
 
+  state = {
+    visible: false
+  }
+
   render() {
-    const { activeLayer, visibility, tooltipOpened, iconShow, iconHide } = this.props;
+    const { activeLayer, visibility, tooltipOpened, iconShow, iconHide, focusStyle, defaultStyle } = this.props;
+    const { visible } = this.state;
 
     const showIcon = iconShow || 'icon-show';
     const hideIcon = iconHide || 'icon-hide';
@@ -45,6 +55,8 @@ class LegendItemButtonVisibility extends PureComponent {
         trigger={tooltipOpened ? '' : 'hover'}
         mouseLeaveDelay={0}
         destroyTooltipOnHide
+        onVisibleChange={v => this.setState({ visible: v })}
+        visible={visible}
       >
         <button
           type="button"
@@ -52,7 +64,7 @@ class LegendItemButtonVisibility extends PureComponent {
           onClick={() => this.props.onChangeVisibility(activeLayer, !visibility)}
           aria-label="Toggle the visibility"
         >
-          <Icon name={activeIcon} className="-small" />
+          <Icon name={activeIcon} className="-small" style={visible ? focusStyle : defaultStyle} />
         </button>
       </Tooltip>
     );

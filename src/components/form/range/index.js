@@ -14,15 +14,14 @@ export class Range extends React.PureComponent {
   }
 
   render() {
-    const { color } = this.props;
     return (
       <Slider
         trackStyle={[
-          { backgroundColor: color || '#c32d7b' },
+          { backgroundColor: '#c32d7b' },
           { backgroundColor: 'grey' }
         ]}
         handleStyle={[
-          { backgroundColor: color || '#c32d7b', width: '14px', height: '14px', border: 0 }
+          { backgroundColor: '#c32d7b', width: '14px', height: '14px', border: 0 }
         ]}
         activeDotStyle={{ display: 'none' }}
         dotStyle={{ display: 'none' }}

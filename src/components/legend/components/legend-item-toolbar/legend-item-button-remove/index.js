@@ -16,6 +16,8 @@ class LegendItemButtonRemove extends PureComponent {
     activeLayer: PropTypes.object,
     tooltipOpened: PropTypes.bool,
     icon: PropTypes.string,
+    focusStyle: PropTypes.object,
+    defaultStyle: PropTypes.object,
 
     // ACTIONS
     onRemoveLayer: PropTypes.func
@@ -25,13 +27,20 @@ class LegendItemButtonRemove extends PureComponent {
     activeLayer: {},
     tooltipOpened: false,
     icon: '',
+    focusStyle: {},
+    defaultStyle: {},
 
     // ACTIONS
     onRemoveLayer: () => {}
   }
 
+  state = {
+    visible: false
+  }
+
   render() {
-    const { activeLayer, tooltipOpened, icon } = this.props;
+    const { activeLayer, tooltipOpened, icon, focusStyle, defaultStyle } = this.props;
+    const { visible } = this.state;
 
     return (
       <Tooltip
@@ -41,6 +50,8 @@ class LegendItemButtonRemove extends PureComponent {
         trigger={tooltipOpened ? '' : 'hover'}
         mouseLeaveDelay={0}
         destroyTooltipOnHide
+        onVisibleChange={v => this.setState({ visible: v })}
+        visible={visible}
       >
         <button
           type="button"
@@ -48,7 +59,7 @@ class LegendItemButtonRemove extends PureComponent {
           onClick={() => this.props.onRemoveLayer(activeLayer)}
           aria-label="Remove"
         >
-          <Icon name={icon || 'icon-cross'} className="-small" />
+          <Icon name={icon || 'icon-cross'} className="-small" style={visible ? focusStyle : defaultStyle} />
         </button>
       </Tooltip>
     );
