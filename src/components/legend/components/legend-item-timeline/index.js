@@ -127,22 +127,22 @@ class LegendItemTimeline extends PureComponent {
           </button>
         } */}
 
-        {!!timelineLayers.length &&
-          <Range
-            minValue={first}
-            maxValue={last}
-            formatLabel={(value) => {
+        {!!timelineLayers.length && (
+        <Range
+          minValue={first}
+          maxValue={last}
+          formatLabel={(value) => {
               const layer = timelineLayers.find(l => l.layerConfig.order === value);
               return (layer) ? layer.layerConfig.timelineLabel : null;
             }}
-            value={this.state.step || first}
-            onChange={(step) => {
+          value={this.state.step || first}
+          onChange={(step) => {
               this.setState({ step });
 
               this.setStep(step);
             }}
-          />
-        }
+        />
+)}
       </div>
     );
   }

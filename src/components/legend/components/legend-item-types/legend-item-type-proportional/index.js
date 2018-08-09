@@ -31,7 +31,9 @@ export class LegendTypeGradient extends React.PureComponent {
               styleName="icon-proportional"
               style={{ backgroundColor: color, width: size, height: size }}
             />
-            <span styleName="name">{name}</span>
+            <span styleName="name">
+              {name}
+            </span>
           </li>
         ))}
       </ul>

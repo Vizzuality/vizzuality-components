@@ -48,7 +48,9 @@ class LegendListItem extends PureComponent {
 
           <div styleName="legend-info">
             <header styleName="legend-item-header">
-              <h3>{activeLayer.name}</h3>
+              <h3>
+                {activeLayer.name}
+              </h3>
               {React.isValidElement(toolbar) && typeof toolbar.type !== 'string' &&
                 React.cloneElement(toolbar, { ...props, layers, activeLayer })
               }

@@ -62,7 +62,9 @@ export class LegendItem extends React.PureComponent {
     return (
       <div styleName="c-legend-item">
         {this.getIconHtml(icon)}
-        <span styleName="name">{name}</span>
+        <span styleName="name">
+          {name}
+        </span>
       </div>
     );
   }

@@ -86,14 +86,14 @@ class LegendItemButtonOpacity extends PureComponent {
     return (
       <Tooltip
         overlay={
-          visibility &&
-            <LegendOpacityTooltip
-              layers={layers}
-              activeLayer={activeLayer}
-              onChangeOpacity={this.props.onChangeOpacity}
-              {...rest}
-            />
-        }
+          visibility && (
+          <LegendOpacityTooltip
+            layers={layers}
+            activeLayer={activeLayer}
+            onChangeOpacity={this.props.onChangeOpacity}
+            {...rest}
+          />
+)}
         visible={visibility && visibilityClick}
         overlayClassName={`c-rc-tooltip ${classnames({ '-default': visibility })} ${className || ''}`}
         placement="top"

@@ -86,13 +86,13 @@ class LegendItemButtonLayers extends PureComponent {
 
     return (
       <Tooltip
-        overlay={
+        overlay={(
           <LegendLayersTooltip
             layers={layers}
             activeLayer={activeLayer}
             onChangeLayer={this.props.onChangeLayer}
           />
-        }
+)}
         overlayClassName="c-rc-tooltip -default -layers"
         placement="top"
         trigger={['click']}
