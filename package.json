@@ -1,6 +1,6 @@
 {
   "name": "wri-api-components",
-  "version": "2.0.12",
+  "version": "2.0.13",
   "description": "Components to use with WRI's API",
   "main": "dist/bundle.js",
   "module": "dist/bundle.js",
@@ -16,7 +16,7 @@
     "styleguide:build": "styleguidist build",
     "watch": "webpack --colors --progress --watch",
     "build": "webpack --colors --progress",
-    "prepublish": "webpack --colors --progress",
+    "prepublishOnly": "webpack --colors --progress",
     "preyalc": "webpack --colors --progress --watch"
   },
   "devDependencies": {
