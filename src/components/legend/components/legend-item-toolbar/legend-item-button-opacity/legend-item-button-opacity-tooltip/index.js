@@ -42,8 +42,8 @@ class LegendOpacityTooltip extends React.Component {
         <div styleName="slider-tooltip-container">
           <Range
             marks={{
-              [min]: '0',
-              [max]: '1.00'
+              [min]: '0%',
+              [max]: '100%'
             }}
             min={min}
             max={max}

@@ -16,6 +16,7 @@ class LegendItemButtonInfo extends PureComponent {
     icon: PropTypes.string,
     focusStyle: PropTypes.object,
     defaultStyle: PropTypes.object,
+    tooltipText: PropTypes.string,
 
     // ACTIONS
     onChangeInfo: PropTypes.func
@@ -27,6 +28,7 @@ class LegendItemButtonInfo extends PureComponent {
     icon: '',
     focusStyle: {},
     defaultStyle: {},
+    tooltipText: '',
 
     onChangeInfo: () => {}
   }
@@ -36,12 +38,12 @@ class LegendItemButtonInfo extends PureComponent {
   }
 
   render() {
-    const { activeLayer, tooltipOpened, icon, focusStyle, defaultStyle } = this.props;
+    const { activeLayer, tooltipOpened, icon, focusStyle, defaultStyle, tooltipText } = this.props;
     const { visible } = this.state;
 
     return (
       <Tooltip
-        overlay="Layer info"
+        overlay={tooltipText || 'Layer info'}
         overlayClassName="c-rc-tooltip -default"
         placement="top"
         trigger={tooltipOpened ? '' : 'hover'}
