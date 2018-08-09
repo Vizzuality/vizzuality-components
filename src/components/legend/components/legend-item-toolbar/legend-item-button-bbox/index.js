@@ -18,6 +18,7 @@ class LegendItemButtonBBox extends PureComponent {
     icon: PropTypes.string,
     focusStyle: PropTypes.object,
     defaultStyle: PropTypes.object,
+    tooltipText: PropTypes.string,
 
     onChangeBBox: PropTypes.func
   }
@@ -28,6 +29,7 @@ class LegendItemButtonBBox extends PureComponent {
     icon: '',
     focusStyle: {},
     defaultStyle: {},
+    tooltipText: '',
 
     onChangeBBox: () => {}
   }
@@ -37,7 +39,7 @@ class LegendItemButtonBBox extends PureComponent {
   }
 
   render() {
-    const { activeLayer, tooltipOpened, icon, focusStyle, defaultStyle } = this.props;
+    const { activeLayer, tooltipOpened, icon, focusStyle, defaultStyle, tooltipText } = this.props;
     const { visible } = this.state;
     if (activeLayer.layerConfig && !activeLayer.layerConfig.bbox) {
       return null;
@@ -45,7 +47,7 @@ class LegendItemButtonBBox extends PureComponent {
 
     return (
       <Tooltip
-        overlay="Fit to bounds"
+        overlay={tooltipText || 'Fit to bounds'}
         overlayClassName="c-rc-tooltip -default"
         placement="top"
         trigger={tooltipOpened ? '' : 'hover'}
