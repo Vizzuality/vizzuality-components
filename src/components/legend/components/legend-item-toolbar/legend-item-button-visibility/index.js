@@ -20,7 +20,8 @@ class LegendItemButtonVisibility extends PureComponent {
     iconShow: PropTypes.string,
     iconHide: PropTypes.string,
     focusStyle: PropTypes.object,
-    defaultStyle: PropTypes.object
+    defaultStyle: PropTypes.object,
+    tooltipText: PropTypes.string
   }
 
   static defaultProps = {
@@ -31,6 +32,7 @@ class LegendItemButtonVisibility extends PureComponent {
     iconHide: '',
     focusStyle: {},
     defaultStyle: {},
+    tooltipText: '',
 
     onChangeVisibility: () => {}
   }
@@ -40,7 +42,7 @@ class LegendItemButtonVisibility extends PureComponent {
   }
 
   render() {
-    const { activeLayer, visibility, tooltipOpened, iconShow, iconHide, focusStyle, defaultStyle } = this.props;
+    const { activeLayer, visibility, tooltipOpened, iconShow, iconHide, focusStyle, defaultStyle, tooltipText } = this.props;
     const { visible } = this.state;
 
     const showIcon = iconShow || 'icon-show';
@@ -49,7 +51,7 @@ class LegendItemButtonVisibility extends PureComponent {
 
     return (
       <Tooltip
-        overlay="Visibility"
+        overlay={tooltipText || (visibility ? 'Hide layer' : 'Show layer')}
         overlayClassName="c-rc-tooltip -default"
         placement="top"
         trigger={tooltipOpened ? '' : 'hover'}

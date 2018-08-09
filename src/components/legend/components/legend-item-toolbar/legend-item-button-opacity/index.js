@@ -25,6 +25,7 @@ class LegendItemButtonOpacity extends PureComponent {
     defaultStyle: PropTypes.object,
     enabledStyle: PropTypes.object,
     disabledStyle: PropTypes.object,
+    tooltipText: PropTypes.string,
 
     onChangeOpacity: PropTypes.func,
     onTooltipVisibilityChange: PropTypes.func
@@ -41,6 +42,7 @@ class LegendItemButtonOpacity extends PureComponent {
     defaultStyle: {},
     enabledStyle: {},
     disabledStyle: {},
+    tooltipText: '',
 
     onChangeOpacity: () => {},
     onTooltipVisibilityChange: () => {}
@@ -69,6 +71,7 @@ class LegendItemButtonOpacity extends PureComponent {
       defaultStyle,
       disabledStyle,
       focusStyle,
+      tooltipText,
       ...rest
     } = this.props;
 
@@ -100,7 +103,7 @@ class LegendItemButtonOpacity extends PureComponent {
       >
         <Tooltip
           visible={visibilityHover && !visibilityClick && visibility}
-          overlay={`Opacity ${opacity ? `(${opacity})` : ''}`}
+          overlay={tooltipText || (`Opacity ${opacity ? `(${opacity * 100}%)` : ''}`)}
           overlayClassName="c-rc-tooltip -default"
           placement="top"
           onVisibleChange={v => this.setState({ visibilityHover: v })}

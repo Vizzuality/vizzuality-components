@@ -20,6 +20,7 @@ class LegendItemButtonLayers extends PureComponent {
     icon: PropTypes.string,
     focusStyle: PropTypes.object,
     defaultStyle: PropTypes.object,
+    tooltipText: PropTypes.string,
 
     onChangeLayer: PropTypes.func,
     onTooltipVisibilityChange: PropTypes.func
@@ -31,6 +32,7 @@ class LegendItemButtonLayers extends PureComponent {
     icon: '',
     focusStyle: {},
     defaultStyle: {},
+    tooltipText: '',
 
     onChangeLayer: () => {},
     onTooltipVisibilityChange: () => {}
@@ -74,7 +76,7 @@ class LegendItemButtonLayers extends PureComponent {
   }
 
   render() {
-    const { layers, activeLayer, icon, focusStyle, defaultStyle } = this.props;
+    const { layers, activeLayer, icon, focusStyle, defaultStyle, tooltipText } = this.props;
     const { visibilityClick, visibilityHover, multiLayersActive } = this.state;
     const timelineLayers = this.getTimelineLayers();
 
@@ -100,7 +102,7 @@ class LegendItemButtonLayers extends PureComponent {
 
         <Tooltip
           visibile={(!visibilityClick && visibilityHover) || multiLayersActive}
-          overlay={multiLayersActive ? `${layers.length} layers` : 'Layers'}
+          overlay={tooltipText || (multiLayersActive ? `${layers.length} layers` : 'Layers')}
           overlayClassName="c-rc-tooltip -default"
           placement="top"
           onVisibleChange={visibility => this.setState({ visibilityHover: visibility })}

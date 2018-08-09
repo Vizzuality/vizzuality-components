@@ -4,3 +4,10 @@
     min-width: 150px;
   }
 }
+
+:global {
+  .rc-slider-mark {
+    width: 90%;
+    margin-left: 5%;
+  }
+}

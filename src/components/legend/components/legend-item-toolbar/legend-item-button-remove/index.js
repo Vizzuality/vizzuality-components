@@ -18,6 +18,7 @@ class LegendItemButtonRemove extends PureComponent {
     icon: PropTypes.string,
     focusStyle: PropTypes.object,
     defaultStyle: PropTypes.object,
+    tooltipText: PropTypes.string,
 
     // ACTIONS
     onRemoveLayer: PropTypes.func
@@ -29,6 +30,7 @@ class LegendItemButtonRemove extends PureComponent {
     icon: '',
     focusStyle: {},
     defaultStyle: {},
+    tooltipText: '',
 
     // ACTIONS
     onRemoveLayer: () => {}
@@ -39,12 +41,12 @@ class LegendItemButtonRemove extends PureComponent {
   }
 
   render() {
-    const { activeLayer, tooltipOpened, icon, focusStyle, defaultStyle } = this.props;
+    const { activeLayer, tooltipOpened, icon, focusStyle, defaultStyle, tooltipText } = this.props;
     const { visible } = this.state;
 
     return (
       <Tooltip
-        overlay="Remove"
+        overlay={tooltipText || 'Remove layer'}
         overlayClassName="c-rc-tooltip -default"
         placement="top"
         trigger={tooltipOpened ? '' : 'hover'}
