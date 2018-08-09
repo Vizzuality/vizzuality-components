@@ -12,7 +12,7 @@ const VegaThumbnail = (props) => {
       height={height}
       data={data}
       spec={spec}
-      config={theme || configSpec}
+      theme={theme || configSpec}
     />
   );
 };
