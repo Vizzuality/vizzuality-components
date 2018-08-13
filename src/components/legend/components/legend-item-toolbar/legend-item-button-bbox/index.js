@@ -16,6 +16,9 @@ class LegendItemButtonBBox extends PureComponent {
     activeLayer: PropTypes.object,
     tooltipOpened: PropTypes.bool,
     icon: PropTypes.string,
+    focusStyle: PropTypes.object,
+    defaultStyle: PropTypes.object,
+    tooltipText: PropTypes.string,
 
     onChangeBBox: PropTypes.func
   }
@@ -24,25 +27,34 @@ class LegendItemButtonBBox extends PureComponent {
     activeLayer: {},
     tooltipOpened: false,
     icon: '',
+    focusStyle: {},
+    defaultStyle: {},
+    tooltipText: '',
 
     onChangeBBox: () => {}
   }
 
-  render() {
-    const { activeLayer, tooltipOpened, icon } = this.props;
+  state = {
+    visible: false
+  }
 
+  render() {
+    const { activeLayer, tooltipOpened, icon, focusStyle, defaultStyle, tooltipText } = this.props;
+    const { visible } = this.state;
     if (activeLayer.layerConfig && !activeLayer.layerConfig.bbox) {
       return null;
     }
 
     return (
       <Tooltip
-        overlay="Fit to bounds"
+        overlay={tooltipText || 'Fit to bounds'}
         overlayClassName="c-rc-tooltip -default"
         placement="top"
         trigger={tooltipOpened ? '' : 'hover'}
         mouseLeaveDelay={0}
         destroyTooltipOnHide
+        onVisibleChange={v => this.setState({ visible: v })}
+        visible={visible}
       >
         <button
           type="button"
@@ -50,7 +62,7 @@ class LegendItemButtonBBox extends PureComponent {
           aria-label="Fit to bounds"
           onClick={() => this.props.onChangeBBox(activeLayer)}
         >
-          <Icon name={icon || 'icon-bbox'} className="-small" />
+          <Icon name={icon || 'icon-bbox'} className="-small" style={visible ? focusStyle : defaultStyle} />
         </button>
       </Tooltip>
     );

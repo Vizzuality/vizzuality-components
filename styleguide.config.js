@@ -36,6 +36,12 @@ module.exports = {
       components: () => ([
         path.resolve(__dirname, 'src/components/legend', 'index.js')
       ])
+    },
+    {
+      name: 'Widgets-components',
+      components: () => ([
+        path.resolve(__dirname, 'src/components/widgets/vega-chart', 'index.js')
+      ])
     }
   ],
   showUsage: true,
