@@ -10,6 +10,8 @@ import styles from './styles.scss';
 const { L } = (typeof window !== 'undefined') ? window : {};
 
 export class Maps extends Component {
+  events = {}
+
   static propTypes = {
     /** A function that returns the map instance */
     children: PropTypes.func,
@@ -203,27 +205,17 @@ export class Maps extends Component {
     this.removeEvents();
 
     Object.keys(events).forEach((key) => {
-      const eventsParsed = {
-        [`${key}-map`]: (e) => {
-          events[key](e, this.map);
-        }
-      };
+      this.events[key] = (e) => {
+        events[key](e, this.map);
+      }
 
-      this.map.on(key, eventsParsed[`${key}-map`]);
+      this.map.on(key, this.events[key]);
     });
   }
 
   removeEvents() {
-    const { events } = this.props;
-
-    Object.keys(events).forEach((key) => {
-      const eventsParsed = {
-        [`${key}-map`]: (e) => {
-          events[key](e, this.map);
-        }
-      };
-
-      this.map.off(key, eventsParsed[`${key}-map`]);
+    Object.keys(this.events).forEach((key) => {
+      this.map.off(key, this.events[key]);
     });
   }
 
