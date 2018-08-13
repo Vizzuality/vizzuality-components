@@ -80,11 +80,11 @@ export class Legend extends React.PureComponent {
           style={{ maxHeight }}
         >
           {/* Toggle button */}
-          {collapsable &&
-            <button type="button" styleName="toggle-legend" onClick={() => this.onToggleLegend(false)}>
-              <Icon name="icon-arrow-down" className="-small" />
-            </button>
-          }
+          {collapsable && (
+          <button type="button" styleName="toggle-legend" onClick={() => this.onToggleLegend(false)}>
+            <Icon name="icon-arrow-down" className="-small" />
+          </button>
+)}
 
           <LegendList
             helperClass="c-legend-item -sortable"
