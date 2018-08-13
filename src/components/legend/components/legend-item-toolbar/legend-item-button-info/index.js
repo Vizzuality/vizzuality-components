@@ -14,6 +14,9 @@ class LegendItemButtonInfo extends PureComponent {
     activeLayer: PropTypes.object,
     tooltipOpened: PropTypes.bool,
     icon: PropTypes.string,
+    focusStyle: PropTypes.object,
+    defaultStyle: PropTypes.object,
+    tooltipText: PropTypes.string,
 
     // ACTIONS
     onChangeInfo: PropTypes.func
@@ -23,21 +26,32 @@ class LegendItemButtonInfo extends PureComponent {
     activeLayer: {},
     tooltipOpened: false,
     icon: '',
+    focusStyle: {},
+    defaultStyle: {},
+    tooltipText: '',
 
     onChangeInfo: () => {}
   }
 
+  state = {
+    visible: false
+  }
+
   render() {
-    const { activeLayer, tooltipOpened, icon } = this.props;
+    const { activeLayer, tooltipOpened, icon, focusStyle, defaultStyle, tooltipText } = this.props;
+    const { visible } = this.state;
 
     return (
       <Tooltip
-        overlay="Layer info"
+        overlay={tooltipText || 'Layer info'}
         overlayClassName="c-rc-tooltip -default"
         placement="top"
         trigger={tooltipOpened ? '' : 'hover'}
         mouseLeaveDelay={0}
         destroyTooltipOnHide
+        onVisibleChange={v => this.setState({ visible: v })}
+        visible={visible}
+
       >
         <button
           type="button"
@@ -45,7 +59,7 @@ class LegendItemButtonInfo extends PureComponent {
           aria-label="More information"
           onClick={() => this.props.onChangeInfo(activeLayer)}
         >
-          <Icon name={icon || 'icon-info'} className="-small" />
+          <Icon name={icon || 'icon-info'} className="-small" style={visible ? focusStyle : defaultStyle} />
         </button>
       </Tooltip>
     );

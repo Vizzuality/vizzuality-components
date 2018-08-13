@@ -15,6 +15,9 @@
     border-bottom: 0;
   }
 
+  &:hover {
+    z-index: 11;
+  }
 
   .legend-item-container {
     width: 100%;

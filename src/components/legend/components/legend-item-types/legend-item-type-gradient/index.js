@@ -30,12 +30,12 @@ export class LegendTypeGradient extends React.PureComponent {
     return (
       <div styleName="c-legend-type-gradient">
         <div styleName="legend-gradient-icon">
-          {itemTransparent &&
-            <div
-              style={{ width: `${(1 / legendConfig.items.length) * 100}%` }}
-              styleName="icon-gradient-transparent"
-            />
-          }
+          {itemTransparent && (
+          <div
+            style={{ width: `${(1 / legendConfig.items.length) * 100}%` }}
+            styleName="icon-gradient-transparent"
+          />
+)}
           <div
             styleName="icon-gradient"
             style={{
@@ -47,7 +47,9 @@ export class LegendTypeGradient extends React.PureComponent {
         <ul>
           {legendConfig.items.map(({ name, color, value }) => (
             <li key={`legend-gradient-item-${color}-${value}-${name}`}>
-              <span styleName="name">{name || value}</span>
+              <span styleName="name">
+                {name || value}
+              </span>
             </li>
           ))}
         </ul>

@@ -20,6 +20,12 @@ class LegendItemButtonOpacity extends PureComponent {
     visibility: PropTypes.bool,
     tooltipOpened: PropTypes.bool,
     icon: PropTypes.string,
+    className: PropTypes.string,
+    focusStyle: PropTypes.object,
+    defaultStyle: PropTypes.object,
+    enabledStyle: PropTypes.object,
+    disabledStyle: PropTypes.object,
+    tooltipText: PropTypes.string,
 
     onChangeOpacity: PropTypes.func,
     onTooltipVisibilityChange: PropTypes.func
@@ -31,6 +37,12 @@ class LegendItemButtonOpacity extends PureComponent {
     visibility: true,
     tooltipOpened: false,
     icon: '',
+    className: '',
+    focusStyle: {},
+    defaultStyle: {},
+    enabledStyle: {},
+    disabledStyle: {},
+    tooltipText: '',
 
     onChangeOpacity: () => {},
     onTooltipVisibilityChange: () => {}
@@ -48,40 +60,62 @@ class LegendItemButtonOpacity extends PureComponent {
   }
 
   render() {
-    const { layers, visibility, activeLayer, tooltipOpened, icon } = this.props;
+    const {
+      layers,
+      visibility,
+      activeLayer,
+      tooltipOpened,
+      icon,
+      className,
+      enabledStyle,
+      defaultStyle,
+      disabledStyle,
+      focusStyle,
+      tooltipText,
+      ...rest
+    } = this.props;
+
     const { visibilityClick, visibilityHover } = this.state;
+    const { opacity } = activeLayer;
+    let iconStyle = visibility ? defaultStyle : disabledStyle;
+    if (visibility && (visibilityHover || visibilityClick)) {
+      iconStyle = focusStyle;
+    }
+    if (visibility && opacity < 1) iconStyle = enabledStyle;
 
     return (
       <Tooltip
         overlay={
-          visibility &&
-            <LegendOpacityTooltip
-              layers={layers}
-              activeLayer={activeLayer}
-              onChangeOpacity={this.props.onChangeOpacity}
-            />
-        }
-        overlayClassName={`c-rc-tooltip ${classnames({ '-default': visibility })}`}
+          visibility && (
+          <LegendOpacityTooltip
+            layers={layers}
+            activeLayer={activeLayer}
+            onChangeOpacity={this.props.onChangeOpacity}
+            {...rest}
+          />
+)}
+        visible={visibility && visibilityClick}
+        overlayClassName={`c-rc-tooltip ${classnames({ '-default': visibility })} ${className || ''}`}
         placement="top"
         trigger={['click']}
-        onVisibilityChange={this.onTooltipVisibilityChange}
+        onVisibleChange={this.onTooltipVisibilityChange}
         destroyTooltipOnHide
       >
         <Tooltip
-          visibility={!visibilityClick && visibilityHover}
-          overlay="Opacity"
+          visible={visibilityHover && !visibilityClick && visibility}
+          overlay={tooltipText || (`Opacity ${opacity ? `(${opacity * 100}%)` : ''}`)}
           overlayClassName="c-rc-tooltip -default"
           placement="top"
-          trigger={tooltipOpened ? '' : 'hover'}
-          onVisibilityChange={v => this.setState({ visibilityHover: v })}
+          onVisibleChange={v => this.setState({ visibilityHover: v })}
           destroyTooltipOnHide
+          style={styles.tooltip}
         >
           <button
             type="button"
             styleName={`c-legend-button opacity ${classnames({ '-disabled': !visibility })}`}
             aria-label="Change opacity"
           >
-            <Icon name={icon || 'icon-opacity'} className="-small" />
+            <Icon name={icon || 'icon-opacity'} className="-small" style={iconStyle} />
           </button>
         </Tooltip>
 
