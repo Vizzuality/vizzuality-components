@@ -20,6 +20,7 @@ import { Map, MapControls, ZoomControl } from 'wri-api-components';
 const layers = require('./mocks').layers;
 
 initialState = {
+  drawing: false,
   latlng: null,
   interactions: {},
   interactionsLayer: layers.find(l => l.id === 'e1dc5626-c1c2-4d60-a6a9-746a33fe1cb7'),
@@ -35,6 +36,7 @@ const PluginLeaflet = require('layer-manager').PluginLeaflet;
 // CONTROLS
 const MapControls = require('./map-controls').default;
 const ZoomControl = require('./map-controls/zoom-control').default;
+const DrawControl = require('./map-controls/draw-control').default;
 
 
 // POPUP
@@ -51,29 +53,49 @@ const events = {
   {(map) => (
     <React.Fragment>
       <LayerManager map={map} plugin={PluginLeaflet}>
-        {layers.map((l, i) => (
-          <Layer
-            {...l}
-            zIndex={1000 - i}
-
-            // Interaction
-            {...!!l.interactionConfig && l.interactionConfig.output && l.interactionConfig.output.length && {
-              ...(l.provider === 'carto' || l.provider === 'cartodb') && { interactivity: l.interactionConfig.output.map(o => o.column) },
-              events: {
-                click: (e) => {
-                  setState({
-                    interactions: { ...state.interactions, [l.id]: e },
-                    latlng: e.latlng
-                  })
+        {(layerManager) => {
+          return layers.map((l, i) => (
+            <Layer
+              {...l}
+              layerManager={layerManager}
+              key={l.id}
+              zIndex={1000 - i}
+  
+              // Interaction
+              {...!!l.interactionConfig && l.interactionConfig.output && l.interactionConfig.output.length && {
+                ...(l.provider === 'carto' || l.provider === 'cartodb') && { interactivity: l.interactionConfig.output.map(o => o.column) },
+                events: {
+                  ...!state.drawing && {
+                    click: (e) => {
+                      setState({
+                        interactions: { ...state.interactions, [l.id]: e },
+                        latlng: e.latlng
+                      })
+                    }
+                  }
                 }
-              }
-            }}
-          />
-        ))}
+              }}
+            />
+          ))
+        }}
       </LayerManager>
 
       <MapControls>
         <ZoomControl map={map} />
+        <DrawControl
+          map={map}
+          draw={{}}
+          onDrawStart={() => {
+            this.popup.remove();
+            setState({ drawing: true });
+          }}
+          onDrawStop={() => {
+            setState({ drawing: false });
+          }}
+          onDrawComplete={() => {
+            setState({ drawing: false });
+          }}
+        />
       </MapControls>
 
       <MapPopup
@@ -82,6 +104,7 @@ const events = {
         data={{
           interactions: state.interactions
         }}
+        onReady={(popup) => { this.popup = popup; }}
       >
         {!!state.interactions[state.interactionsSelected] && !!state.interactions[state.interactionsSelected].data &&
           <table>

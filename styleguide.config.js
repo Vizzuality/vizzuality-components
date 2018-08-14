@@ -27,8 +27,15 @@ module.exports = {
       name: 'Map-components',
       components: () => ([
         path.resolve(__dirname, 'src/components/map', 'index.js'),
-        path.resolve(__dirname, 'src/components/map/map-controls', 'index.js'),
         path.resolve(__dirname, 'src/components/map/map-popup', 'index.js')
+      ])
+    },
+    {
+      name: 'Map-control-components',
+      components: () => ([
+        path.resolve(__dirname, 'src/components/map/map-controls', 'index.js'),
+        path.resolve(__dirname, 'src/components/map/map-controls/draw-control', 'index.js'),
+        path.resolve(__dirname, 'src/components/map/map-controls/zoom-control', 'index.js')
       ])
     },
     {

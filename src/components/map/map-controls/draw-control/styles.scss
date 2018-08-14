@@ -1,0 +1,15 @@
+@import 'settings';
+
+.c-draw-control {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  .draw-control-btn {
+    position: relative;
+
+    &.-disabled {
+      opacity: 0.5;
+    }
+  }
+}
