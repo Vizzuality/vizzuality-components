@@ -53,6 +53,7 @@ const events = {
       <LayerManager map={map} plugin={PluginLeaflet}>
         {layers.map((l, i) => (
           <Layer
+            key={l.id}
             {...l}
             zIndex={1000 - i}
 

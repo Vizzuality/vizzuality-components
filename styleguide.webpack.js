@@ -5,8 +5,7 @@ module.exports = {
   devtool: 'cheap-module-source-map',
   resolve: { extensions: ['.js', '.jsx', '.json'] },
   module: {
-    // Using loaders instead of rules to preserve webpack 1.x compatibility
-    loaders: [
+    rules: [
       {
         test: /\.jsx?$/,
         loader: 'babel-loader',
