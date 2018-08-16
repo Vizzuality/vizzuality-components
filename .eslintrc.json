@@ -6,7 +6,12 @@
   },
   "extends": "vizzuality",
   "rules": {
-    "import/no-named-as-default": 0
+    "import/no-named-as-default": 0,
+    "import/no-extraneous-dependencies": [2, {
+      "devDependencies": true,
+      "optionalDependencies": false,
+      "peerDependencies": false
+    }]
   },
   "parser": "babel-eslint",
   "plugins": [
