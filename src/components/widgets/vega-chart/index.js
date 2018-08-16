@@ -1,9 +1,7 @@
-import * as vega from 'vega-lib';
-
-import { capitalize, isDefined, isFunction } from './utils.js';
-
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
+import { parse, changeset, View } from 'vega-lib';
+import { capitalize, isDefined, isFunction } from './utils';
 
 const propTypes = {
   className: PropTypes.string,
@@ -122,8 +120,8 @@ class Vega extends React.Component {
       const props = this.props;
       // Parse the vega spec and create the view
       try {
-        const runtime = vega.parse(spec, props.theme);
-        const view = new vega.View(runtime)
+        const runtime = parse(spec, props.theme);
+        const view = new View(runtime)
           .initialize(this.element);
 
         // Attach listeners onto the signals
@@ -183,7 +181,7 @@ class Vega extends React.Component {
       } else {
         this.view.change(
           name,
-          vega.changeset()
+          changeset()
             .remove(() => true)
             .insert(value),
         );
