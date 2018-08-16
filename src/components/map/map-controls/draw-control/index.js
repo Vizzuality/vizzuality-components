@@ -78,11 +78,19 @@ export class DrawControl extends PureComponent {
   }
 
   componentDidMount() {
-    const { map } = this.props;
+    const { map, edit } = this.props;
 
     // Layer group
     this.LAYER_GROUP = new L.FeatureGroup();
     map.addLayer(this.LAYER_GROUP);
+
+    // Edit mode
+    this.EDIT = new L.EditToolbar.Edit(map, {
+      featureGroup: this.LAYER_GROUP,
+      selectedPathOptions: L.EditToolbar.prototype.options.edit.selectedPathOptions,
+      ...edit
+    });
+
 
     // Add events
     map.on('draw:created', this.onDrawComplete);
@@ -109,23 +117,21 @@ export class DrawControl extends PureComponent {
   }
 
   onDrawComplete = (e) => {
-    const { map, edit } = this.props;
+    const { onDrawComplete } = this.props;
 
     this.DRAW_TYPE.disable();
     this.LAYER_GROUP.addLayer(e.layer);
-    this.props.onDrawComplete && this.props.onDrawComplete(e);
-
-    this.EDIT = new L.EditToolbar.Edit(map, {
-      featureGroup: this.LAYER_GROUP,
-      selectedPathOptions: L.EditToolbar.prototype.options.edit.selectedPathOptions,
-      ...edit
-    });
-
-    this.EDIT.enable();
+    if (onDrawComplete) onDrawComplete(e);
   }
 
   onDrawPolygon = () => {
     const { map, draw } = this.props;
+
+    // If there is another this.DRAW_TYPE let's disable it
+    if (this.DRAW_TYPE) {
+      this.DRAW_TYPE.disable();
+    }
+
     this.DRAW_TYPE = new L.Draw.Polygon(map, draw.polygon)
     this.DRAW_TYPE.enable();
   }
