@@ -7,7 +7,24 @@ const { name, version } = require('./package.json');
 
 module.exports = {
   title: `WRI components | ${version}`,
-  template: './styleguide.template.html',
+  template: {
+    head: {
+      links: [{
+        rel: 'stylesheet',
+        href: 'https://unpkg.com/leaflet@1.3.1/dist/leaflet.css'
+      }],
+      scripts: [{
+        src: 'https://unpkg.com/leaflet@1.3.1/dist/leaflet.js'
+      }, {
+        src: 'https://unpkg.com/esri-leaflet/dist/esri-leaflet.js'
+      }, {
+        src: 'https://unpkg.com/leaflet-utfgrid/L.UTFGrid-min.js'
+      }]
+    }
+  },
+  styleguideComponents: {
+    StyleGuideRenderer: path.join(__dirname, 'src/styleGuide'),
+  },
   sections: [
     {
       name: 'UI-components',
@@ -44,7 +61,7 @@ module.exports = {
       ])
     }
   ],
-  showUsage: true,
+  // usageMode: true,
   skipComponentsWithoutExample: true,
   getComponentPathLine: (componentPath) => {
     const dirname = path.dirname(componentPath, '.js');
