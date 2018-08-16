@@ -75,6 +75,11 @@ const config = {
     'vega-lib'
   ],
 
+  performance: {
+    maxEntrypointSize: 512000,
+    maxAssetSize: 512000,
+  },
+
   optimization: {
     minimizer: [
       new UglifyJsPlugin({
