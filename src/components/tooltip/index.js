@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import CSSModules from 'react-css-modules';
 
 // Tooltip
-import RCTooltip from 'rc-tooltip/dist/rc-tooltip';
+import RCTooltip from 'rc-tooltip/lib';
 
 // Styles
 import styles from './styles.scss';

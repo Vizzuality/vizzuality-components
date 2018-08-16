@@ -1,6 +1,6 @@
 {
   "name": "wri-api-components",
-  "version": "2.0.18",
+  "version": "2.0.19",
   "description": "Components to use with WRI's API",
   "main": "dist/components.js",
   "module": "dist/components.js",
@@ -17,7 +17,7 @@
     "lint": "eslint ./src",
     "watch": "webpack --colors --progress --watch",
     "build": "NODE_ENV=production webpack --colors --progress",
-    "prepublishOnly": "webpack --colors --progress",
+    "prepublishOnly": "NODE_ENV=production webpack --colors --progress",
     "preyalc": "webpack --colors --progress --watch"
   },
   "devDependencies": {

@@ -71,7 +71,8 @@ const config = {
     'react-sortable-hoc',
     'rc-tooltip',
     'leaflet',
-    'vega'
+    'vega',
+    'vega-lib'
   ],
 
   optimization: {
@@ -120,7 +121,7 @@ const config = {
 };
 
 if (process.env.BUNDLE_ANALYZE) {
-  config.push(new BundleAnalyzerPlugin({ analyzerMode: 'static' }));
+  config.plugins.push(new BundleAnalyzerPlugin({ analyzerMode: 'static' }));
 }
 
 module.exports = config;
