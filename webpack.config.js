@@ -1,12 +1,15 @@
 const path = require('path');
 const glob = require('glob');
 const webpack = require('webpack');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const config = {
+
+  devtool: 'source-map',
 
   entry: { components: path.resolve(__dirname, 'src/components/index.js') },
 
@@ -19,7 +22,7 @@ const config = {
   module: {
     rules: [
       {
-        test: /\.jsx?$/,
+        test: /\.(jsx|js)?$/,
         loader: 'babel-loader',
         exclude: /(node_modules|bower_components|dist)/
       },
@@ -67,28 +70,17 @@ const config = {
   },
 
   plugins: [
+    new UglifyJsPlugin({ cache: true, parallel: true }),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('production')
+    }),
     new ExtractTextPlugin({
       disable: false,
       allChunks: true,
       filename: '[name].css'
     }),
     new webpack.optimize.ModuleConcatenationPlugin(),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false,
-        screw_ie8: true,
-        conditionals: true,
-        unused: true,
-        comparisons: true,
-        sequences: true,
-        dead_code: true,
-        evaluate: true,
-        if_return: true,
-        join_vars: true
-      },
-      output: { comments: false }
-    }),
-    new webpack.HashedModuleIdsPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
     new CompressionPlugin({
       asset: '[path].gz[query]',
       algorithm: 'gzip',
@@ -96,7 +88,7 @@ const config = {
       threshold: 10240,
       minRatio: 0.8
     }),
-    process.env.BUNDLE_ANALIZE ? new BundleAnalyzerPlugin({ analyzerMode: 'static' }) : () => {}
+    process.env.BUNDLE_ANALYZE ? new BundleAnalyzerPlugin({ excludeAssets: /vega-lib/, analyzerMode: 'static' }) : () => {}
   ]
 
 };

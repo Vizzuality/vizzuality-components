@@ -7,8 +7,8 @@
   "files": [
     "dist/"
   ],
-  "repository": "git@github.com:resource-watch/widget-editor.git",
-  "author": "Clément Prod'homme <clement.prodhomme@vizzuality.com>",
+  "repository": "git@github.com:resource-watch/wri-api-components.git",
+  "author": "Vizzuality <hello@vizzuality.com>",
   "license": "MIT",
   "scripts": {
     "start": "npm run styleguide",
@@ -16,7 +16,7 @@
     "styleguide:build": "styleguidist build",
     "lint": "eslint ./src",
     "watch": "webpack --colors --progress --watch",
-    "build": "webpack --colors --progress",
+    "build": "NODE_ENV=production webpack --colors --progress",
     "prepublishOnly": "webpack --colors --progress",
     "preyalc": "webpack --colors --progress --watch"
   },
@@ -41,6 +41,7 @@
     "eslint-plugin-prettier": "2.6.2",
     "eslint-plugin-react": "7.10.0",
     "extract-text-webpack-plugin": "^3.0.2",
+    "glob": "^7.1.2",
     "node-sass": "^4.9.0",
     "postcss-loader": "^2.1.1",
     "prettier": "^0.11.0",
@@ -51,6 +52,7 @@
     "resolve-url-loader": "^2.3.0",
     "sass-loader": "^6.0.7",
     "style-loader": "^0.20.2",
+    "uglifyjs-webpack-plugin": "^1.3.0",
     "vega": "^4.2.0",
     "webpack": "^3.11.0",
     "webpack-bundle-analyzer": "^2.11.1"
