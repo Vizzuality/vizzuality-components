@@ -103,7 +103,7 @@ class LegendItemButtonOpacity extends PureComponent {
       >
         <Tooltip
           visible={visibilityHover && !visibilityClick && visibility}
-          overlay={tooltipText || (`Opacity ${opacity ? `(${opacity * 100}%)` : ''}`)}
+          overlay={tooltipText || (`Opacity ${opacity ? `(${Math.round(opacity * 100)}%)` : ''}`)}
           overlayClassName="c-rc-tooltip -default"
           placement="top"
           onVisibleChange={v => this.setState({ visibilityHover: v })}
