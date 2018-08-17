@@ -34,13 +34,13 @@ const config = {
       {
         test: /\.scss$/,
         use: [
-          {
-            loader: isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
+          isDev ? 'style-loader' : ({
+            loader: MiniCssExtractPlugin.loader,
             options: {
-              filename: isDev ? '[name].css' : '[name].[hash].css',
-              chunkFilename: isDev ? '[id].css' : '[id].[hash].css',
+              filename: '[name].[hash].css',
+              chunkFilename: '[id].[hash].css'
             }
-          },
+          }),
           {
             loader: 'css-loader',
             options: {
