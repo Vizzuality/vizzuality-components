@@ -16,11 +16,20 @@ const config = {
 
   mode: env,
 
-  entry: { components: path.resolve(__dirname, 'src/components/index.js') },
+  entry: {
+    form: path.resolve(__dirname, 'src/components/form/index.js'),
+    icon: path.resolve(__dirname, 'src/components/icon/index.js'),
+    icons: path.resolve(__dirname, 'src/components/icons/index.js'),
+    legend: path.resolve(__dirname, 'src/components/legend/index.js'),
+    map: path.resolve(__dirname, 'src/components/map/index.js'),
+    tooltip: path.resolve(__dirname, 'src/components/tooltip/index.js'),
+    widgets: path.resolve(__dirname, 'src/components/widgets/index.js'),
+    bundle: path.resolve(__dirname, 'src/components/index.js')
+  },
 
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js',
+    filename: '[name].js',
     libraryTarget: 'commonjs2'
   },
 
@@ -32,13 +41,28 @@ const config = {
         exclude: /node_modules/
       },
       {
+        test: /\.css$/,
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              includePaths: ['./node_modules']
+                .map(d => path.join(__dirname, d))
+                .map(g => glob.sync(g))
+                .reduce((a, c) => a.concat(c), [])
+            }
+          }
+        ]
+      },
+      {
         test: /\.scss$/,
         use: [
           {
-            loader: isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
+            loader: MiniCssExtractPlugin.loader,
             options: {
               filename: isDev ? '[name].css' : '[name].[hash].css',
-              chunkFilename: isDev ? '[id].css' : '[id].[hash].css',
+              chunkFilename: isDev ? '[id].css' :  '[id].[hash].css'
             }
           },
           {
@@ -66,10 +90,6 @@ const config = {
   externals: [
     'react',
     'react-dom',
-    'react-css-modules',
-    'react-input-range',
-    'react-sortable-hoc',
-    'rc-tooltip',
     'leaflet',
     'vega',
     'vega-lib'
@@ -93,18 +113,7 @@ const config = {
         sourceMap: true
       }),
       new OptimizeCSSAssetsPlugin({})
-    ],
-    splitChunks: {
-      chunks: 'async',
-      cacheGroups: {
-        styles: {
-          name: 'styles',
-          test: /\.css$/,
-          chunks: 'all',
-          enforce: true
-        }
-      }
-    }
+    ]
   },
 
   plugins: [

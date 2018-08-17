@@ -47,6 +47,14 @@ To add a new section, go to `styleguide.config.js` file, look for `sections` and
   }
 ```
 
+## Deploy 🚀
+---
+The deploy is set up with [gh-pages](https://github.com/tschaub/gh-pages). To deploy, styleguidist will generate a compiled and production-ready version and gh-pages will deploy it to the `gh-pages` branch automatically. 
+
+Those steps can be run just typing `yarn deploy`.
+
+For more details, check `package.json`, `scripts` section.
+
 ## Troubleshooting ⚠️
 
 `Vega` library uses `canvas` dependency, this one at the same time depends on `cairo`. So if you are

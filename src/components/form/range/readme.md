@@ -3,17 +3,14 @@
 initialState = { value: 100 };
 
 <Range
-  minValue={0}
-  maxValue={100}
-  step={1}
-  value={state.value}
-  formatLabel={(v, string) => {
-    if (string === 'value') {
-      return null;
-    }
-
-    return v.toFixed(2);
+  marks={{
+    0: '0%',
+    100: '100%'
   }}
-  onChange={o => setState({ value: o })}
+  min={0}
+  max={100}
+  step={1}
+  value={100}
+  onAfterChange={o => setState({ value: o })}
 />
 ```

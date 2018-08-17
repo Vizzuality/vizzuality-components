@@ -1,6 +1,6 @@
 {
   "name": "wri-api-components",
-  "version": "2.0.20",
+  "version": "2.0.21",
   "description": "Components to use with WRI's API",
   "main": "dist/bundle.js",
   "module": "dist/bundle.js",
@@ -11,14 +11,14 @@
   "author": "Vizzuality <hello@vizzuality.com>",
   "license": "MIT",
   "scripts": {
-    "start": "npm run styleguide",
+    "start": "yarn styleguide",
     "styleguide": "styleguidist server",
     "styleguide:build": "styleguidist build",
     "lint": "eslint ./src",
     "watch": "webpack --colors --progress --watch",
     "build": "NODE_ENV=production webpack --colors --progress",
-    "prepublishOnly": "NODE_ENV=production webpack --colors --progress",
-    "preyalc": "webpack --colors --progress --watch"
+    "prepublishOnly": "yarn build",
+    "deploy": "yarn styleguide:build && gh-pages -d styleguide"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
@@ -40,6 +40,7 @@
     "eslint-plugin-jsx-a11y": "6.1.1",
     "eslint-plugin-prettier": "2.6.2",
     "eslint-plugin-react": "7.10.0",
+    "gh-pages": "^1.2.0",
     "glob": "^7.1.2",
     "mini-css-extract-plugin": "^0.4.1",
     "node-sass": "^4.9.0",
