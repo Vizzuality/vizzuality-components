@@ -88,6 +88,7 @@ const events = {
         map={map}
         latlng={state.latlng}
         data={{
+          latlng: state.latlng,
           interactions: state.interactions,
           interactionsLayer: state.interactionsLayers.find(l => l.id === state.interactionsSelected),
           interactionsSelected: state.interactionsSelected

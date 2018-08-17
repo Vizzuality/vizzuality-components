@@ -122,7 +122,7 @@ export const layers = [
     "interactionConfig": {
       "type": "intersection",
       "config": {
-        "url": "https://api.resourcewatch.org/v1/query/4828c405-06a2-4460-a78c-90969bce582b?sql=select first(b1) as x from 'users/resourcewatch_wri/foo_024_vegetation_health_index' where system:time_start >= 1533448800000 and ST_INTERSECTS(ST_SetSRID(ST_GeomFromGeoJSON('{\"type\":\"Point\",\"coordinates\":[{{lon}},{{lat}}}}]}'),4326), the_geom)"
+        "url": "https://api.resourcewatch.org/v1/query/4828c405-06a2-4460-a78c-90969bce582b?sql=select first(b1) as x from 'users/resourcewatch_wri/foo_024_vegetation_health_index' where system:time_start >= 1533448800000 and ST_INTERSECTS(ST_SetSRID(ST_GeomFromGeoJSON('{\"type\":\"Point\",\"coordinates\":[{{lng}},{{lat}}}}]}'),4326), the_geom)"
       },
       "pulseConfig": {
         "url": "https://api.resourcewatch.org/v1/query/4828c405-06a2-4460-a78c-90969bce582b?sql=select first(b1) as x from 'users/resourcewatch_wri/foo_024_vegetation_health_index' where system:time_start >= 1533448800000 and st_intersects(the_geom,st_buffer(ST_SetSRID(st_geomfromgeojson('{\"type\":\"Point\",\"coordinates\":{{point}}}'),4326),1))"

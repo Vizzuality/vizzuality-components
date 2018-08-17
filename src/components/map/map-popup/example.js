@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import isEqual from 'lodash/isEqual';
 import Spinner from 'components/spinner';
+
+import { replace } from 'layer-manager';
 
 export class PopupExample extends React.PureComponent {
   static propTypes = {
@@ -11,6 +13,28 @@ export class PopupExample extends React.PureComponent {
   static defaultProps = {
     data: {}
   };
+
+  componentDidMount() {
+    const { data } = this.props;
+
+    const {
+      latlng,
+      interactions,
+      interactionsLayer,
+      interactionsSelected
+    } = data;
+    
+
+    if (
+      !!interactionsLayer.interactionConfig.config &&
+      !!interactionsLayer.interactionConfig.config.url
+    ) {
+      fetch(replace(interactionsLayer.interactionConfig.config.url, latlng))
+        .then((response) => {
+          console.log('response');
+        })
+    }
+  }
 
   render() {
     const { data } = this.props;
@@ -28,9 +52,9 @@ export class PopupExample extends React.PureComponent {
               }
 
               return (
-                <tr key={o.property ||  o.column}>
+                <tr key={o.property || o.column}>
                   <td>
-                    {o.property ||  o.column}
+                    {o.property || o.column}
                   </td>
                   <td>
                     {d[o.column]}
