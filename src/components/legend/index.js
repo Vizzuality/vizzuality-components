@@ -128,3 +128,23 @@ export class Legend extends React.PureComponent {
 }
 
 export default CSSModules(Legend, styles, { allowMultiple: true });
+export { default as LegendListItem } from './components/legend-list-item';
+export {
+  default as LegendItemToolbar,
+  LegendItemButtonBBox,
+  LegendItemButtonLayers,
+  LegendItemButtonOpacity,
+  LegendItemButtonVisibility,
+  LegendItemButtonInfo,
+  LegendItemButtonRemove
+} from './components/legend-item-toolbar';
+
+export {
+  default as LegendItemTypes,
+  LegendItemTypeBasic,
+  LegendItemTypeChoropleth,
+  LegendItemTypeGradient,
+  LegendItemTypeProportional
+} from './components/legend-item-types';
+
+export { default as LegendItemTimeline } from './components/legend-item-timeline';

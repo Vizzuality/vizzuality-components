@@ -38,4 +38,5 @@ export {
 
 export { default as LegendItemTimeline } from './legend/components/legend-item-timeline';
 
+// Widgets
 export { VegaChart, VegaThumbnail } from './widgets';
