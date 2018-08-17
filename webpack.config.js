@@ -16,11 +16,20 @@ const config = {
 
   mode: env,
 
-  entry: { components: path.resolve(__dirname, 'src/components/index.js') },
+  entry: {
+    form: path.resolve(__dirname, 'src/components/form/index.js'),
+    icon: path.resolve(__dirname, 'src/components/icon/index.js'),
+    icons: path.resolve(__dirname, 'src/components/icons/index.js'),
+    legend: path.resolve(__dirname, 'src/components/legend/index.js'),
+    map: path.resolve(__dirname, 'src/components/map/index.js'),
+    tooltip: path.resolve(__dirname, 'src/components/tooltip/index.js'),
+    widgets: path.resolve(__dirname, 'src/components/widgets/index.js'),
+    bundle: path.resolve(__dirname, 'src/components/index.js')
+  },
 
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js',
+    filename: '[name].js',
     libraryTarget: 'commonjs2'
   },
 
@@ -81,10 +90,6 @@ const config = {
   externals: [
     'react',
     'react-dom',
-    'react-css-modules',
-    'react-input-range',
-    'react-sortable-hoc',
-    'rc-tooltip',
     'leaflet',
     'vega',
     'vega-lib'
@@ -108,18 +113,7 @@ const config = {
         sourceMap: true
       }),
       new OptimizeCSSAssetsPlugin({})
-    ],
-    splitChunks: {
-      chunks: 'async',
-      cacheGroups: {
-        styles: {
-          name: 'styles',
-          test: /\.css$/,
-          chunks: 'all',
-          enforce: true
-        }
-      }
-    }
+    ]
   },
 
   plugins: [
