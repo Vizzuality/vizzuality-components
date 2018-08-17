@@ -4,7 +4,7 @@ export { default as Icons } from './icons';
 export { default as Tooltip } from './tooltip';
 
 // Form
-export { default as Range } from './form/range';
+export { Range } from './form/range';
 
 // Map
 export { default as Map } from './map';

@@ -90,10 +90,6 @@ const config = {
   externals: [
     'react',
     'react-dom',
-    'react-css-modules',
-    'react-input-range',
-    'react-sortable-hoc',
-    'rc-tooltip',
     'leaflet',
     'vega',
     'vega-lib'
@@ -117,18 +113,7 @@ const config = {
         sourceMap: true
       }),
       new OptimizeCSSAssetsPlugin({})
-    ],
-    splitChunks: {
-      chunks: 'async',
-      cacheGroups: {
-        styles: {
-          name: 'styles',
-          test: /\.css$/,
-          chunks: 'all',
-          enforce: true
-        }
-      }
-    }
+    ]
   },
 
   plugins: [
