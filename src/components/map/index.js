@@ -237,3 +237,6 @@ export class Maps extends Component {
 }
 
 export default CSSModules(Maps, styles, { allowMultiple: true });
+export { default as MapPopup } from './map-popup';
+export { default as MapControls } from './map-controls';
+export { default as ZoomControl } from './map-controls/zoom-control';
