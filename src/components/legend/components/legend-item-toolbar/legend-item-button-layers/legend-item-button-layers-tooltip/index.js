@@ -24,7 +24,7 @@ class LegendLayersTooltip extends React.Component {
         Layers
 
         <ul styleName="layers-list">
-          {layers.map(l => (
+          {layers.filter(l => l.published).map(l => (
             <li
               key={l.id}
               styleName={classnames({
