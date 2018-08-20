@@ -92,7 +92,7 @@ export const layers = [
       "assetId": "users/resourcewatch_wri/foo_024_vegetation_health_index",
       "isImageCollection": true,
       "position": "last",
-      "type": "gee"
+      "type": "tileLayer"
     },
     "legendConfig": {
       "items": [
