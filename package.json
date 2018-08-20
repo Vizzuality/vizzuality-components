@@ -1,6 +1,6 @@
 {
   "name": "wri-api-components",
-  "version": "2.0.22-alpha-1",
+  "version": "2.0.22-alpha-2",
   "description": "Components to use with WRI's API",
   "main": "dist/bundle.js",
   "module": "dist/bundle.js",
@@ -47,6 +47,7 @@
     "optimize-css-assets-webpack-plugin": "^5.0.0",
     "postcss-loader": "^2.1.1",
     "prettier": "^0.11.0",
+    "react-css-modules": "^4.7.1",
     "raw-loader": "^0.5.1",
     "react": "^16.4.2",
     "react-dom": "^16.4.1",
@@ -66,7 +67,6 @@
     "prop-types": "^15.6.2",
     "rc-slider": "^8.6.1",
     "rc-tooltip": "3.7.0",
-    "react-css-modules": "^4.7.1",
     "react-sortable-hoc": "^0.6.8",
     "react-vega": "^4.0.2",
     "wri-json-api-serializer": "^1.0.1"

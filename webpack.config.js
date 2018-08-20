@@ -90,6 +90,7 @@ const config = {
   externals: [
     'react',
     'react-dom',
+    'react-css-modules',
     'leaflet',
     'vega',
     'vega-lib'
