@@ -5,7 +5,6 @@ import CSSModules from 'react-css-modules';
 import Slider from 'rc-slider';
 
 // Styles
-import 'rc-slider/dist/rc-slider.css';
 import styles from './styles.scss';
 
 export class Range extends React.PureComponent {
