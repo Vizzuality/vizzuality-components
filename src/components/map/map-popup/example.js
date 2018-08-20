@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import isEqual from 'lodash/isEqual';
 import Spinner from 'components/spinner';
 
 import { replace } from 'layer-manager';
@@ -19,9 +18,7 @@ export class PopupExample extends React.PureComponent {
 
     const {
       latlng,
-      interactions,
-      interactionsLayer,
-      interactionsSelected
+      interactionsLayer
     } = data;
     
 
@@ -31,7 +28,19 @@ export class PopupExample extends React.PureComponent {
     ) {
       fetch(replace(interactionsLayer.interactionConfig.config.url, latlng))
         .then((response) => {
-          console.log('response');
+          if (response.ok) return response.json();
+          throw response;
+        })
+        .then((data) => {
+          console.log(data);
+        })
+        .catch((err) => {
+          if (err && err.json && typeof err.json === 'function') {
+            err.json()
+              .then((er) => {
+                console.error(er);
+              })
+          }
         })
     }
   }
