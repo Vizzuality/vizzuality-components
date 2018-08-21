@@ -7,7 +7,6 @@ const CompressionPlugin = require('compression-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
-const context = path.resolve(__dirname, 'src');
 const env = process.env.NODE_ENV || 'development';
 const isDev = env === 'development';
 
