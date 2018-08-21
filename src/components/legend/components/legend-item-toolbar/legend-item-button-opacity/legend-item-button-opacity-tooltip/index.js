@@ -1,14 +1,9 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import CSSModules from 'react-css-modules';
-
-// Components
 import Range from 'components/form/range';
+import './styles.scss';
 
-// Styles
-import styles from './styles.scss';
-
-class LegendOpacityTooltip extends React.Component {
+class LegendOpacityTooltip extends PureComponent {
   static propTypes = {
     // Layers
     activeLayer: PropTypes.object.isRequired,
@@ -27,9 +22,8 @@ class LegendOpacityTooltip extends React.Component {
   }
 
   onChange = (v) => {
-    const { activeLayer } = this.props;
-
-    this.props.onChangeOpacity(activeLayer, v);
+    const { activeLayer, onChangeOpacity } = this.props;
+    onChangeOpacity(activeLayer, v);
   }
 
   render() {
@@ -58,4 +52,4 @@ class LegendOpacityTooltip extends React.Component {
   }
 }
 
-export default CSSModules(LegendOpacityTooltip, styles, { allowMultiple: true });
+export default LegendOpacityTooltip;

@@ -1,19 +1,14 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import CSSModules from 'react-css-modules';
-
-// Components
 import LegendItemButtonBBox from './legend-item-button-bbox';
 import LegendItemButtonLayers from './legend-item-button-layers';
 import LegendItemButtonOpacity from './legend-item-button-opacity';
 import LegendItemButtonVisibility from './legend-item-button-visibility';
 import LegendItemButtonInfo from './legend-item-button-info';
 import LegendItemButtonRemove from './legend-item-button-remove';
+import './styles.scss';
 
-// Styles
-import styles from './styles.scss';
-
-export class LegendItemToolbar extends PureComponent {
+class LegendItemToolbar extends PureComponent {
   static propTypes = {
     // Props
     children: PropTypes.node,
@@ -93,7 +88,7 @@ export class LegendItemToolbar extends PureComponent {
     );
   }
 }
-export default CSSModules(LegendItemToolbar, styles, { allowMultiple: true });
+export default LegendItemToolbar;
 
 export {
   LegendItemButtonBBox,

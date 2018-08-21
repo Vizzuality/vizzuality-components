@@ -1,34 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import CSSModules from 'react-css-modules';
-
-// Tooltip
 import RCTooltip from 'rc-tooltip/lib';
-
-// Styles
-import styles from './styles.scss';
+import './styles.scss';
 
 export class Tooltip extends React.PureComponent {
   static propTypes = {
-    // Props
     children: PropTypes.node
   };
 
   static defaultProps = {
-    // Props
     children: []
   };
 
   render() {
+    const { children } = this.props;
     return (
       <RCTooltip
         {...this.props}
       >
-        {this.props.children}
+        {children}
       </RCTooltip>
     );
   }
 }
 
-export default CSSModules(Tooltip, styles, { allowMultiple: true });
+export default Tooltip;

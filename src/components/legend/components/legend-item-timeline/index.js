@@ -2,20 +2,14 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
 import sortBy from 'lodash/sortBy';
-
-import CSSModules from 'react-css-modules';
-
-// Components
-import Icon from 'components/icon';
 import Range from 'components/form/range';
 
 // Styles
-import styles from './styles.scss';
+import './styles.scss';
 
 class LegendItemTimeline extends PureComponent {
   static propTypes = {
     layers: PropTypes.array,
-
     onChangeLayer: PropTypes.func.isRequired
   }
 
@@ -148,4 +142,4 @@ class LegendItemTimeline extends PureComponent {
   }
 }
 
-export default CSSModules(LegendItemTimeline, styles, { allowMultiple: true });
+export default LegendItemTimeline;

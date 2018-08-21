@@ -1,10 +1,7 @@
 import { SortableContainer } from 'react-sortable-hoc';
-
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import CSSModules from 'react-css-modules';
-
-import styles from './styles.scss';
+import './styles.scss';
 
 class LegendList extends PureComponent {
   static propTypes = {
@@ -33,6 +30,6 @@ class LegendList extends PureComponent {
   }
 }
 
-const LegendListStyled = CSSModules(LegendList, styles, { allowMultiple: true });
+const LegendListStyled = LegendList;
 
 export default SortableContainer(LegendListStyled);

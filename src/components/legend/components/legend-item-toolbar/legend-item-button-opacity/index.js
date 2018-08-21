@@ -1,16 +1,9 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import CSSModules from 'react-css-modules';
-
-// Components
 import Icon from 'components/icon';
-
-// Tooltip
 import Tooltip from 'components/tooltip';
 import LegendOpacityTooltip from './legend-item-button-opacity-tooltip';
-
-// Styles
 import styles from '../styles-button.scss';
 
 class LegendItemButtonOpacity extends PureComponent {
@@ -124,4 +117,4 @@ class LegendItemButtonOpacity extends PureComponent {
   }
 }
 
-export default CSSModules(LegendItemButtonOpacity, styles, { allowMultiple: true });
+export default LegendItemButtonOpacity;

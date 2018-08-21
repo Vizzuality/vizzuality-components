@@ -1,13 +1,12 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import CSSModules from 'react-css-modules';
 import classnames from 'classnames';
 import { SortableElement } from 'react-sortable-hoc';
 
 // Components
 import LegendItemDrag from '../legend-item-drag';
 
-import styles from './styles.scss';
+import './styles.scss';
 
 class LegendListItem extends PureComponent {
   static propTypes = {
@@ -69,7 +68,7 @@ class LegendListItem extends PureComponent {
   }
 }
 
-const LegendItemStyled = CSSModules(LegendListItem, styles, { allowMultiple: true });
+const LegendItemStyled = LegendListItem;
 
 export default SortableElement(({ layerGroup, ...props }) =>
   <LegendItemStyled key={props.dataset} {...layerGroup} {...props} />);

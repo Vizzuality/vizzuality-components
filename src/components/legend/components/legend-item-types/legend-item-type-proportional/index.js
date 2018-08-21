@@ -1,10 +1,8 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import CSSModules from 'react-css-modules';
+import './styles.scss';
 
-import styles from './styles.scss';
-
-export class LegendTypeGradient extends React.PureComponent {
+class LegendTypeGradient extends PureComponent {
   static propTypes = {
     // Props
     activeLayer: PropTypes.object
@@ -41,4 +39,4 @@ export class LegendTypeGradient extends React.PureComponent {
   }
 }
 
-export default CSSModules(LegendTypeGradient, styles, { allowMultiple: true });
+export default LegendTypeGradient;

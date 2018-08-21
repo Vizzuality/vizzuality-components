@@ -1,17 +1,10 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import sortBy from 'lodash/sortBy';
-import CSSModules from 'react-css-modules';
-
-// Components
 import Icon from 'components/icon';
-
-// Tooltip
 import Tooltip from 'components/tooltip';
 import LegendLayersTooltip from './legend-item-button-layers-tooltip';
-
-// Styles
-import styles from '../styles-button.scss';
+import '../styles-button.scss';
 
 class LegendItemButtonLayers extends PureComponent {
   static propTypes = {
@@ -123,4 +116,4 @@ class LegendItemButtonLayers extends PureComponent {
   }
 }
 
-export default CSSModules(LegendItemButtonLayers, styles, { allowMultiple: true });
+export default LegendItemButtonLayers;

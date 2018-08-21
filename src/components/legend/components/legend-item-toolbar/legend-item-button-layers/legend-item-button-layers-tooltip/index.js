@@ -1,12 +1,9 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import CSSModules from 'react-css-modules';
+import './styles.scss';
 
-// Styles
-import styles from './styles.scss';
-
-class LegendLayersTooltip extends React.Component {
+class LegendLayersTooltip extends PureComponent {
   static propTypes = {
     // Layers
     layers: PropTypes.array.isRequired,
@@ -43,4 +40,4 @@ class LegendLayersTooltip extends React.Component {
   }
 }
 
-export default CSSModules(LegendLayersTooltip, styles, { allowMultiple: true });
+export default LegendLayersTooltip;

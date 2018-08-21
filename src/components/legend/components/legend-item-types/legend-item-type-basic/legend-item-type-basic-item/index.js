@@ -1,10 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CSSModules from 'react-css-modules';
+import './styles.scss';
 
-import styles from './styles.scss';
-
-export class LegendItem extends React.PureComponent {
+class LegendItem extends React.PureComponent {
   static propTypes = {
     size: PropTypes.number,
     color: PropTypes.string,
@@ -70,4 +68,4 @@ export class LegendItem extends React.PureComponent {
   }
 }
 
-export default CSSModules(LegendItem, styles, { allowMultiple: true });
+export default LegendItem;
