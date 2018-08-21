@@ -110,6 +110,7 @@ export class Legend extends React.PureComponent {
 
         {/* LEGEND CLOSED */}
         <button
+          type="button"
           styleName={`close-legend ${classnames({ '-active': !this.state.expanded })}`}
           onClick={() => this.onToggleLegend(true)}
         >

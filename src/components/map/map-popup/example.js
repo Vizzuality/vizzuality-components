@@ -13,6 +13,11 @@ export class PopupExample extends React.PureComponent {
     data: {}
   };
 
+  state = {
+    loading: true,
+    data: null
+  }
+
   componentDidMount() {
     const { data } = this.props;
 
@@ -31,10 +36,15 @@ export class PopupExample extends React.PureComponent {
           if (response.ok) return response.json();
           throw response;
         })
-        .then((data) => {
-          console.log(data);
+        .then(({ data: d }) => {
+          this.setState({
+            data: d[0],
+            loading: false
+          })
         })
         .catch((err) => {
+          this.setState({ loading: false });
+
           if (err && err.json && typeof err.json === 'function') {
             err.json()
               .then((er) => {
@@ -47,16 +57,17 @@ export class PopupExample extends React.PureComponent {
 
   render() {
     const { data } = this.props;
+    const { data: stateData, loading } = this.state;
     const { interactions, interactionsLayer, interactionsSelected } = data;
 
-    if (!!interactions[interactionsSelected] && !!interactions[interactionsSelected].data) {
+    const currentData = interactions[interactionsSelected].data || stateData;
+
+    if (currentData) {
       return (
         <table>
           <tbody>
             {interactionsLayer.interactionConfig.output.map(o => {
-              const { data: d } = interactions[interactionsSelected];
-
-              if (!d) {
+              if (!currentData) {
                 return 'No data';
               }
 
@@ -66,7 +77,7 @@ export class PopupExample extends React.PureComponent {
                     {o.property || o.column}
                   </td>
                   <td>
-                    {d[o.column]}
+                    {currentData[o.column]}
                   </td>
                 </tr>
               )
@@ -77,8 +88,7 @@ export class PopupExample extends React.PureComponent {
     }
 
     if (
-      !!interactions[interactionsSelected] &&
-      !interactions[interactionsSelected].data &&
+      loading &&
       !!interactionsLayer.interactionConfig.config &&
       !!interactionsLayer.interactionConfig.config.url
     ) {
