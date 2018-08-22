@@ -1,5 +1,6 @@
+@import 'settings';
+
 :global {
-  // LAYOUT
   .leaflet-sbs-range {
     position: absolute;
     top: 50%;
@@ -44,8 +45,6 @@
     background: rgba(255, 255, 255, 0.25);
   }
 
-  /* Browser thingies */
-
   .leaflet-sbs-range::-moz-range-track {
     opacity: 0;
   }
@@ -57,9 +56,6 @@
   .leaflet-sbs-range::-ms-tooltip {
     display: none;
   }
-
-  /* For whatever reason, these need to be defined
-  * on their own so dont group them */
 
   .leaflet-sbs-range::-webkit-slider-thumb {
     -webkit-appearance: none;
