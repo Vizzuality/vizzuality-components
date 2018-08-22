@@ -1,19 +1,27 @@
-import React from 'react';
-import CSSModules from 'react-css-modules';
-
-// Range
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import Slider from 'rc-slider';
 
-// Styles
-import styles from './styles.scss';
+import 'rc-slider/dist/rc-slider.css';
+import './styles.scss';
 
-export class Range extends React.PureComponent {
+class Range extends PureComponent {
+  static propTypes = {
+    value: PropTypes.number
+  };
+
+  static defaultProps = {
+    value: 0
+  };
+
   constructor(props) {
     super(props);
-    this.state = { value: props.value };
+    const { value } = props;
+    this.state = { value };
   }
 
   render() {
+    const { value } = this.state;
     return (
       <Slider
         trackStyle={[
@@ -26,11 +34,11 @@ export class Range extends React.PureComponent {
         activeDotStyle={{ display: 'none' }}
         dotStyle={{ display: 'none' }}
         {...this.props}
-        value={this.state.value}
-        onChange={value => this.setState({ value })}
+        value={value}
+        onChange={v => this.setState({ value: v })}
       />
     );
   }
 }
 
-export default CSSModules(Range, styles, { allowMultiple: true });
+export default Range;

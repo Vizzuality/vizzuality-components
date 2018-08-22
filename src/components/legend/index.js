@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import CSSModules from 'react-css-modules';
 
 import { arrayMove } from 'react-sortable-hoc';
 
@@ -9,9 +8,9 @@ import { arrayMove } from 'react-sortable-hoc';
 import Icon from 'components/icon';
 import LegendList from './components/legend-list';
 
-import styles from './styles.scss';
+import './styles.scss';
 
-export class Legend extends React.PureComponent {
+class Legend extends PureComponent {
   static propTypes = {
     /** Sortable */
     sortable: PropTypes.bool,
@@ -41,7 +40,11 @@ export class Legend extends React.PureComponent {
     onChangeOrder: ids => console.info(ids)
   }
 
-  state = { expanded: this.props.expanded }
+  constructor(props) {
+    super(props);
+    const { expanded } = props;
+    this.state = { expanded }
+  }
 
   /**
    * UI EVENTS
@@ -53,10 +56,11 @@ export class Legend extends React.PureComponent {
   }
 
   onSortEnd = ({ oldIndex, newIndex }) => {
-    const layers = [...this.props.children.map(c => c.props.layerGroup.dataset)];
+    const { onChangeOrder, children } = this.props;
+    const layers = [...children.map(c => c.props.layerGroup.dataset)];
     const layersDatasets = arrayMove(layers, oldIndex, newIndex);
 
-    this.props.onChangeOrder(layersDatasets);
+    onChangeOrder(layersDatasets);
   }
 
   render() {
@@ -68,6 +72,8 @@ export class Legend extends React.PureComponent {
       children
     } = this.props;
 
+    const { expanded } = this.state;
+
     if (children && !children.length) {
       return null;
     }
@@ -76,15 +82,15 @@ export class Legend extends React.PureComponent {
       <div styleName="c-legend-map" style={{ maxWidth }}>
         {/* LEGEND OPENED */}
         <div
-          styleName={`open-legend ${classnames({ '-active': this.state.expanded })}`}
+          styleName={`open-legend ${classnames({ '-active': expanded })}`}
           style={{ maxHeight }}
         >
           {/* Toggle button */}
           {collapsable && (
-          <button type="button" styleName="toggle-legend" onClick={() => this.onToggleLegend(false)}>
-            <Icon name="icon-arrow-down" className="-small" />
-          </button>
-)}
+            <button type="button" styleName="toggle-legend" onClick={() => this.onToggleLegend(false)}>
+              <Icon name="icon-arrow-down" className="-small" />
+            </button>
+          )}
 
           <LegendList
             helperClass="c-legend-item -sortable"
@@ -111,7 +117,7 @@ export class Legend extends React.PureComponent {
         {/* LEGEND CLOSED */}
         <button
           type="button"
-          styleName={`close-legend ${classnames({ '-active': !this.state.expanded })}`}
+          styleName={`close-legend ${classnames({ '-active': !expanded })}`}
           onClick={() => this.onToggleLegend(true)}
         >
           <h1 styleName="legend-title">
@@ -128,7 +134,7 @@ export class Legend extends React.PureComponent {
   }
 }
 
-export default CSSModules(Legend, styles, { allowMultiple: true });
+export default Legend;
 export { default as LegendListItem } from './components/legend-list-item';
 export {
   default as LegendItemToolbar,

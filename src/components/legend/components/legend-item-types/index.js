@@ -1,16 +1,12 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import CSSModules from 'react-css-modules';
-
-// Styles
-import styles from './styles.scss';
-
 import LegendItemTypeBasic from './legend-item-type-basic';
 import LegendItemTypeChoropleth from './legend-item-type-choropleth';
 import LegendItemTypeGradient from './legend-item-type-gradient';
 import LegendItemTypeProportional from './legend-item-type-proportional';
+import './styles.scss';
 
-class LegendItemTypes extends React.Component {
+class LegendItemTypes extends PureComponent {
   static propTypes = {
     // Props
     children: PropTypes.node
@@ -43,7 +39,7 @@ class LegendItemTypes extends React.Component {
   }
 }
 
-export default CSSModules(LegendItemTypes, styles, { allowMultiple: true });
+export default LegendItemTypes;
 
 export {
   LegendItemTypeBasic,

@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CSSModules from 'react-css-modules';
+
 
 import LegendItem from './legend-item-type-basic-item';
-import styles from './styles.scss';
+import './styles.scss';
 
 export class LegendTypeBasic extends React.PureComponent {
   static propTypes = {
@@ -38,4 +38,4 @@ export class LegendTypeBasic extends React.PureComponent {
   }
 }
 
-export default CSSModules(LegendTypeBasic, styles, { allowMultiple: true });
+export default LegendTypeBasic;

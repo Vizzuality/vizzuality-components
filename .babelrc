@@ -11,6 +11,17 @@
         },
         "cwd": "babelrc"
       }
+    ],
+    [
+      "react-css-modules",
+      {
+        "generateScopedName": "wri_api__[local]",
+        "filetypes": {
+          ".scss": {
+            "syntax": "postcss-scss"
+          }
+        }
+      }
     ]
   ]
 }

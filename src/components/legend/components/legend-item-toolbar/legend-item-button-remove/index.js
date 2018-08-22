@@ -1,15 +1,8 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import CSSModules from 'react-css-modules';
-
-// Components
 import Icon from 'components/icon';
-
-// Tooltip
 import Tooltip from 'components/tooltip';
-
-// Styles
-import styles from '../styles-button.scss';
+import '../styles-button.scss';
 
 class LegendItemButtonRemove extends PureComponent {
   static propTypes = {
@@ -68,4 +61,4 @@ class LegendItemButtonRemove extends PureComponent {
   }
 }
 
-export default CSSModules(LegendItemButtonRemove, styles, { allowMultiple: true });
+export default LegendItemButtonRemove;

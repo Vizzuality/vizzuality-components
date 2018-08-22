@@ -1,13 +1,10 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import CSSModules from 'react-css-modules';
 import classnames from 'classnames';
-
 import Icon from 'components/icon';
+import './styles.scss';
 
-import styles from './styles.scss';
-
-export class ZoomControl extends PureComponent {
+class ZoomControl extends PureComponent {
   static propTypes = {
     map: PropTypes.object.isRequired,
     className: PropTypes.string,
@@ -88,4 +85,4 @@ export class ZoomControl extends PureComponent {
   }
 }
 
-export default CSSModules(ZoomControl, styles, { allowMultiple: true });
+export default ZoomControl;

@@ -1,15 +1,8 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import CSSModules from 'react-css-modules';
-
-// Components
 import Icon from 'components/icon';
-
-// Tooltip
 import Tooltip from 'components/tooltip';
-
-// Styles
-import styles from '../styles-button.scss';
+import '../styles-button.scss';
 
 class LegendItemButtonVisibility extends PureComponent {
   static propTypes = {
@@ -73,4 +66,4 @@ class LegendItemButtonVisibility extends PureComponent {
   }
 }
 
-export default CSSModules(LegendItemButtonVisibility, styles, { allowMultiple: true });
+export default LegendItemButtonVisibility;
