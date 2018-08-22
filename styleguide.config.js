@@ -45,7 +45,8 @@ module.exports = {
       components: () => ([
         path.resolve(__dirname, 'src/components/map', 'index.js'),
         path.resolve(__dirname, 'src/components/map/map-controls', 'index.js'),
-        path.resolve(__dirname, 'src/components/map/map-popup', 'index.js')
+        path.resolve(__dirname, 'src/components/map/map-popup', 'index.js'),
+        path.resolve(__dirname, 'src/components/map/map-side-by-side', 'index.js')
       ])
     },
     {
