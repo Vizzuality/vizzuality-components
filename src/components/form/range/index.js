@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Slider from 'rc-slider';
+
 import 'rc-slider/dist/rc-slider.css';
 import './styles.scss';
 

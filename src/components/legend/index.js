@@ -87,10 +87,10 @@ class Legend extends PureComponent {
         >
           {/* Toggle button */}
           {collapsable && (
-          <button type="button" styleName="toggle-legend" onClick={() => this.onToggleLegend(false)}>
-            <Icon name="icon-arrow-down" className="-small" />
-          </button>
-)}
+            <button type="button" styleName="toggle-legend" onClick={() => this.onToggleLegend(false)}>
+              <Icon name="icon-arrow-down" className="-small" />
+            </button>
+          )}
 
           <LegendList
             helperClass="c-legend-item -sortable"
