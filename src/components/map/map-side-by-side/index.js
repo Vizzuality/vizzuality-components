@@ -13,6 +13,7 @@ export class MapSideBySide extends React.PureComponent {
     map: PropTypes.object.isRequired,
     /**
      * Return side-by-side control instance when this one is ready
+     * @see Check Leaflet control documentation https://github.com/digidem/leaflet-side-by-side
      * @arg {Object} sideBySide sideBySide instance
     */
     onReady: PropTypes.func.isRequired

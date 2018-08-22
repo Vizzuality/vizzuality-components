@@ -104,15 +104,15 @@ const events = {
 ```
 
 
-### Map Swipe
+### Map Side By Side
 ```jsx
 
-const layers = require('./mocks').layers;
+const sideBySideLayers = require('./mocks').sideBySideLayers;
 
 initialState = {
   latlng: null,
   interactions: {},
-  interactionsLayers: layers,
+  interactionsLayers: sideBySideLayers,
   interactionsSelected: 'e9f9d20c-1924-48b2-97ed-6936e233adb2'
   // interactionsSelected: 'e1dc5626-c1c2-4d60-a6a9-746a33fe1cb7'
 }
@@ -150,9 +150,8 @@ const events = {
   {(map) => (
     <React.Fragment>
       <LayerManager map={map} plugin={PluginLeaflet}>
-        {layerManager => layers.map((l, i) => (
+        {layerManager => sideBySideLayers.map((l, i) => (
           <Layer
-            console={console.log(!!l.interactionConfig && !!l.interactionConfig.output && !!l.interactionConfig.output.length)}
             key={l.id}
             layerManager={layerManager}
             {...l}
@@ -178,8 +177,10 @@ const events = {
                 1: 'setRightLayers'
               };
               
-              layers.forEach((lm, i) => {
-                const { mapLayer } = lm;
+              layers.forEach((l, i) => {
+                console.log(l);
+                const { mapLayer } = l;
+
                 if (mapLayer.group) {
                   mapLayer.getLayers().forEach((l, j) => {
                     if (j === 0) {
