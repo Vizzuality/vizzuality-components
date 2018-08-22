@@ -21,7 +21,7 @@ class LegendLayersTooltip extends PureComponent {
         Layers
 
         <ul styleName="layers-list">
-          {layers.map(l => (
+          {layers.filter(l => (typeof l.published !== undefined) ? l.published : true).map(l => (
             <li
               key={l.id}
               styleName={classnames({
