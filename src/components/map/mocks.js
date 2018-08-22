@@ -69,6 +69,63 @@ export const layers = [
     updatedAt: '2018-04-06T14:15:37.360Z'
   },
   {
+    "id": "70e900f1-2c37-470d-9367-7b34567e3084",
+    "type": "layer",
+    "name": "Biodiversity Intactness (%)",
+    "slug": "Biodiversity-Intactness",
+    "dataset": "0e565ddf-74fd-4f90-a6b8-c89d747a89ab",
+    "description": "Modeled average abundance of originally present species, relative to their abundance in an intact ecosystem.",
+    "application": [
+      "rw"
+    ],
+    "iso": [],
+    "provider": "gee",
+    "userId": "58f63c81bd32c60206ed6b12",
+    "default": true,
+    "protected": false,
+    "published": true,
+    "env": "production",
+    "layerConfig": {
+      "type": "gee",
+      "assetId": "users/resourcewatch/bio_014_bio_intactness",
+      "body": {
+        "styleType": "sld",
+        "sldValue": "<RasterSymbolizer><ColorMap type=\"ramp\" extended=\"false\" ><ColorMapEntry color=\"#ffffcc\" quantity=\"0.6\"  opacity=\"1\" /><ColorMapEntry color=\"#c2e699\" quantity=\"0.7\" /><ColorMapEntry color=\"#78c679\" quantity=\"0.8\" /><ColorMapEntry color=\"#31a354\" quantity=\"0.9\"  /><ColorMapEntry color=\"#006837\" quantity=\"1.0\"  /></ColorMap></RasterSymbolizer>"
+      }
+    },
+    "legendConfig": {
+      "type": "choropleth",
+      "items": [
+        {
+          "name": "≤60",
+          "color": "#ffffcc"
+        },
+        {
+          "name": "≤70",
+          "color": "#c2e699"
+        },
+        {
+          "name": "≤80",
+          "color": "#78c679"
+        },
+        {
+          "name": "≤90",
+          "color": "#31a354"
+        },
+        {
+          "name": "≤100",
+          "color": "#006837"
+        }
+      ]
+    },
+    "interactionConfig": {
+      "output": []
+    },
+    "applicationConfig": {},
+    "staticImageConfig": {},
+    "updatedAt": "2018-04-07T20:04:33.019Z"
+  },
+  {
     "id": "e9f9d20c-1924-48b2-97ed-6936e233adb2",
     "name": "Vegetation Health Index (Latest Week)",
     "slug": "Vegetation-Health-Index-Most-Recent",
