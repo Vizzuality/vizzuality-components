@@ -2,7 +2,7 @@ const path = require('path');
 const glob = require('glob');
 
 module.exports = {
-  devtool: 'cheap-module-source-map',
+  devtool: 'cheap-eval-source-map',
   resolve: { extensions: ['.js', '.jsx', '.json'] },
   module: {
     rules: [
@@ -30,8 +30,14 @@ module.exports = {
         test: /\.scss$/,
         use: [
           'style-loader',
-          'css-loader?modules&importLoaders=1&localIdentName=wri_api__[local]',
-          'resolve-url-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              importLoaders: 1,
+              localIdentName: 'wri_api__[local]'
+            }
+          },
           {
             loader: 'sass-loader',
             options: {

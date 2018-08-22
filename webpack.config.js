@@ -12,9 +12,11 @@ const isDev = env === 'development';
 
 const config = {
 
-  devtool: isDev ? 'source-map' : false,
+  devtool: isDev ? 'cheap-eval-source-map' : false,
 
   mode: env,
+
+  target: 'web',
 
   entry: {
     form: path.resolve(__dirname, 'src/components/form/index.js'),
@@ -56,7 +58,7 @@ const config = {
         ]
       },
       {
-        test: /\.(scss)$/,
+        test: /\.scss$/,
         use: [
           {
             loader: MiniCssExtractPlugin.loader,

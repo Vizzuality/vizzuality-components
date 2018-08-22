@@ -61,9 +61,10 @@ class LegendItemToolbar extends PureComponent {
 
   render() {
     const { children, ...rest } = this.props;
+    const { tooltipOpened } = this.state;
     const props = {
       ...rest,
-      tooltipOpened: this.state.tooltipOpened,
+      tooltipOpened,
       onTooltipVisibilityChange: this.onTooltipVisibilityChange
     };
 
