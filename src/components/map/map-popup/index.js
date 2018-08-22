@@ -65,19 +65,22 @@ export class MapPopup extends Component {
 
     if (!latlng || !map) this.removePopup();
 
+    const content = this.buildPopup();
+
     if (latlng && map) {
       this.popup
         .setLatLng(latlng)
-        .setContent(this.buildPopup())
+        .setContent(content)
         .openOn(map);
     }
   }
 
   buildPopup = () => {
+    const { children } = this.props;
     const popupComponent = document.createElement('div');
 
     render(
-      React.Children.map(this.props.children, child => (React.isValidElement(child) && typeof child.type !== 'string' ?
+      React.Children.map(children, child => (React.isValidElement(child) && typeof child.type !== 'string' ?
         React.cloneElement(child, {
           ...this.props,
           popup: this.popup

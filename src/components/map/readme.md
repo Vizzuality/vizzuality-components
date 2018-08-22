@@ -22,8 +22,9 @@ const layers = require('./mocks').layers;
 initialState = {
   latlng: null,
   interactions: {},
-  interactionsLayer: layers.find(l => l.id === 'e1dc5626-c1c2-4d60-a6a9-746a33fe1cb7'),
-  interactionsSelected: 'e1dc5626-c1c2-4d60-a6a9-746a33fe1cb7'
+  interactionsLayers: layers,
+  interactionsSelected: 'e9f9d20c-1924-48b2-97ed-6936e233adb2'
+  // interactionsSelected: 'e1dc5626-c1c2-4d60-a6a9-746a33fe1cb7'
 }
 
 
@@ -39,6 +40,7 @@ const ZoomControl = require('./map-controls/zoom-control').default;
 
 // POPUP
 const MapPopup = require('./map-popup').default;
+const MapPopupExample = require('./map-popup/example').default;
 
 const events = {
   zoomend: (e, map) => { console.info(e, map); },
@@ -46,6 +48,10 @@ const events = {
 };
 
 <Maps
+  mapOptions={{
+    zoom: 5,
+    center: { lat: 56, lng: -119 }
+  }}
   events={events}
 >
   {(map) => (
@@ -53,13 +59,14 @@ const events = {
       <LayerManager map={map} plugin={PluginLeaflet}>
         {layers.map((l, i) => (
           <Layer
+            console={console.log(!!l.interactionConfig && !!l.interactionConfig.output && !!l.interactionConfig.output.length)}
             key={l.id}
             {...l}
             zIndex={1000 - i}
 
             // Interaction
-            {...!!l.interactionConfig && l.interactionConfig.output && l.interactionConfig.output.length && {
-              ...(l.provider === 'carto' || l.provider === 'cartodb') && { interactivity: l.interactionConfig.output.map(o => o.column) },
+            {...!!l.interactionConfig && !!l.interactionConfig.output && !!l.interactionConfig.output.length && {
+              interactivity: (l.provider === 'carto' || l.provider === 'cartodb') ? l.interactionConfig.output.map(o => o.column) : true,
               events: {
                 click: (e) => {
                   setState({
@@ -81,37 +88,13 @@ const events = {
         map={map}
         latlng={state.latlng}
         data={{
-          interactions: state.interactions
+          latlng: state.latlng,
+          interactions: state.interactions,
+          interactionsLayer: state.interactionsLayers.find(l => l.id === state.interactionsSelected),
+          interactionsSelected: state.interactionsSelected
         }}
       >
-        {!!state.interactions[state.interactionsSelected] && !!state.interactions[state.interactionsSelected].data &&
-          <table>
-            <tbody>
-              {state.interactionsLayer.interactionConfig.output.map(o => {
-                const data = state.interactions[state.interactionsSelected].data;
-
-                if (!data) {
-                  return 'No data';
-                }
-
-                return (
-                  <tr key={o.property || o.column}>
-                    <td>
-                      {o.property || o.column}
-                    </td>
-                    <td>
-                      {data[o.column]}
-                    </td>                
-                  </tr>
-                )
-              })}
-            </tbody>
-          </table>
-        }
-
-        {!!state.interactions[state.interactionsSelected] && !state.interactions[state.interactionsSelected].data &&
-          'No data'
-        }
+        <MapPopupExample />
       </MapPopup>
 
     </React.Fragment>

@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
-import CSSModules from 'react-css-modules';
-
 import isEqual from 'lodash/isEqual';
-
-import styles from './styles.scss';
+import './styles.scss';
 
 const { L } = (typeof window !== 'undefined') ? window : {};
 
-export class Maps extends Component {
+class Maps extends Component {
   events = {}
 
   static propTypes = {
@@ -236,7 +233,7 @@ export class Maps extends Component {
   }
 }
 
-export default CSSModules(Maps, styles, { allowMultiple: true });
+export default Maps;
 export { default as MapPopup } from './map-popup';
 export { default as MapControls } from './map-controls';
 export { default as ZoomControl } from './map-controls/zoom-control';

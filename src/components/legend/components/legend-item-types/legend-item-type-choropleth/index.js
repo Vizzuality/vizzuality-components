@@ -1,17 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CSSModules from 'react-css-modules';
+import './styles.scss';
 
-import styles from './styles.scss';
-
-export class LegendTypeChoropleth extends React.PureComponent {
+class LegendTypeChoropleth extends React.PureComponent {
   static propTypes = {
-    // Props
     activeLayer: PropTypes.object
   }
 
   static defaultProps = {
-    // Props
     activeLayer: {}
   }
 
@@ -38,4 +34,4 @@ export class LegendTypeChoropleth extends React.PureComponent {
   }
 }
 
-export default CSSModules(LegendTypeChoropleth, styles, { allowMultiple: true });
+export default LegendTypeChoropleth;

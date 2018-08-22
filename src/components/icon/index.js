@@ -1,11 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import './styles.scss';
 
-import CSSModules from 'react-css-modules';
-import styles from './styles.scss';
-
-export class Icon extends React.PureComponent {
+class Icon extends React.PureComponent {
   static propTypes = {
     name: PropTypes.string,
     className: PropTypes.string,
@@ -31,4 +29,4 @@ export class Icon extends React.PureComponent {
   }
 }
 
-export default CSSModules(Icon, styles, { allowMultiple: true });
+export default Icon;

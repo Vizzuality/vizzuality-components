@@ -2,20 +2,14 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
 import sortBy from 'lodash/sortBy';
-
-import CSSModules from 'react-css-modules';
-
-// Components
-import Icon from 'components/icon';
 import Range from 'components/form/range';
 
 // Styles
-import styles from './styles.scss';
+import './styles.scss';
 
 class LegendItemTimeline extends PureComponent {
   static propTypes = {
     layers: PropTypes.array,
-
     onChangeLayer: PropTypes.func.isRequired
   }
 
@@ -43,19 +37,21 @@ class LegendItemTimeline extends PureComponent {
   }
 
   setPlay = (isPlaying, first, last) => {
+    const { step } = this.state;
+    const { onChangeLayer } = this.props;
     const timelineLayers = this.getTimelineLayers();
 
     if (this.timer) clearInterval(this.timer);
 
     if (isPlaying) {
       this.timer = setInterval(() => {
-        const step = this.state.step || first;
+        const newStep = step || first;
 
-        if (step === last) {
+        if (newStep === last) {
           clearInterval(this.timer);
 
           const currentLayer = timelineLayers[0];
-          this.props.onChangeLayer(currentLayer);
+          onChangeLayer(currentLayer);
 
           return this.setState({
             step: null,
@@ -64,12 +60,12 @@ class LegendItemTimeline extends PureComponent {
         }
 
         const currentLayer = timelineLayers.find(l =>
-          l.layerConfig.order === step);
+          l.layerConfig.order === newStep);
         const currentIndex = timelineLayers.findIndex(l =>
-          l.layerConfig.order === step);
+          l.layerConfig.order === newStep);
 
         requestAnimationFrame(() => {
-          this.props.onChangeLayer(currentLayer);
+          onChangeLayer(currentLayer);
         });
 
         return this.setState({ step: timelineLayers[currentIndex + 1].layerConfig.order });
@@ -80,17 +76,17 @@ class LegendItemTimeline extends PureComponent {
   }
 
   setStep = debounce((step) => {
+    const { onChangeLayer } = this.props;
     const timelineLayers = this.getTimelineLayers();
 
     const currentLayer = timelineLayers.find(l =>
       l.layerConfig.order === step);
 
-    if (currentLayer) {
-      this.props.onChangeLayer(currentLayer);
-    }
+    if (currentLayer) onChangeLayer(currentLayer);
   }, 500)
 
   render() {
+    const { step } = this.state;
     const timelineLayers = this.getTimelineLayers();
 
     // Return null if timeline doesn not exist
@@ -128,24 +124,23 @@ class LegendItemTimeline extends PureComponent {
         } */}
 
         {!!timelineLayers.length && (
-        <Range
-          minValue={first}
-          maxValue={last}
-          formatLabel={(value) => {
-              const layer = timelineLayers.find(l => l.layerConfig.order === value);
-              return (layer) ? layer.layerConfig.timelineLabel : null;
+          <Range
+            minValue={first}
+            maxValue={last}
+            formatLabel={(value) => {
+                const layer = timelineLayers.find(l => l.layerConfig.order === value);
+                return (layer) ? layer.layerConfig.timelineLabel : null;
+              }}
+            value={step || first}
+            onChange={(nextStep) => {
+              this.setState({ step: nextStep });
+              this.setStep(nextStep);
             }}
-          value={this.state.step || first}
-          onChange={(step) => {
-              this.setState({ step });
-
-              this.setStep(step);
-            }}
-        />
-)}
+          />
+        )}
       </div>
     );
   }
 }
 
-export default CSSModules(LegendItemTimeline, styles, { allowMultiple: true });
+export default LegendItemTimeline;

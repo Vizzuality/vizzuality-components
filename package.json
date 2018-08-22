@@ -1,6 +1,6 @@
 {
   "name": "wri-api-components",
-  "version": "2.0.21",
+  "version": "2.1.0",
   "description": "Components to use with WRI's API",
   "main": "dist/bundle.js",
   "module": "dist/bundle.js",
@@ -25,6 +25,7 @@
     "babel-eslint": "^8.2.2",
     "babel-loader": "^7.1.4",
     "babel-plugin-module-resolver": "^3.1.0",
+    "babel-plugin-react-css-modules": "^3.4.2",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
@@ -45,6 +46,7 @@
     "mini-css-extract-plugin": "^0.4.1",
     "node-sass": "^4.9.0",
     "optimize-css-assets-webpack-plugin": "^5.0.0",
+    "postcss-scss": "^2.0.0",
     "postcss-loader": "^2.1.1",
     "prettier": "^0.11.0",
     "raw-loader": "^0.5.1",
@@ -62,11 +64,12 @@
     "webpack-cli": "^3.1.0"
   },
   "dependencies": {
+    "classnames": "^2.2.6",
     "layer-manager": "^1.0.4",
+    "lodash": "^4.17.10",
     "prop-types": "^15.6.2",
     "rc-slider": "^8.6.1",
     "rc-tooltip": "3.7.0",
-    "react-css-modules": "^4.7.1",
     "react-sortable-hoc": "^0.6.8",
     "react-vega": "^4.0.2",
     "wri-json-api-serializer": "^1.0.1"

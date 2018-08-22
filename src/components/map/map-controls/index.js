@@ -1,11 +1,9 @@
 import React, { PureComponent } from 'react';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
-import CSSModules from 'react-css-modules';
+import './styles.scss';
 
-import styles from './styles.scss';
-
-export class MapControls extends PureComponent {
+class MapControls extends PureComponent {
   static propTypes = {
     children: PropTypes.node.isRequired,
     /** Custom css class for styling */
@@ -15,13 +13,13 @@ export class MapControls extends PureComponent {
   static defaultProps = { customClass: null }
 
   render() {
-    const { customClass } = this.props;
+    const { customClass, children } = this.props;
     const externalClass = classnames({ [customClass]: !!customClass });
 
     return (
       <div styleName="c-map-controls" className={externalClass}>
         <ul styleName="map-controls-list">
-          {React.Children.map(this.props.children, (c, i) => (
+          {React.Children.map(children, (c, i) => (
             <li styleName="map-controls-list-item" key={i}>
               {React.cloneElement(c)}
             </li>
@@ -32,4 +30,4 @@ export class MapControls extends PureComponent {
   }
 }
 
-export default CSSModules(MapControls, styles, { allowMultiple: true });
+export default MapControls;
