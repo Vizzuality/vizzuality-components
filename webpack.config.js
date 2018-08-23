@@ -10,11 +10,6 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const env = process.env.NODE_ENV || 'development';
 const isDev = env === 'development';
 
-// Fix server rendering inside Next.js applications
-class ServerMiniCssExtractPlugin extends MiniCssExtractPlugin {
-  getCssChunkObject(mainChunk) { return {}; } // eslint-disable-line
-}
-
 const config = {
 
   devtool: isDev ? 'cheap-eval-source-map' : false,
@@ -50,23 +45,25 @@ const config = {
       {
         test: /\.css$/,
         use: [
-          'style-loader',
+          'isomorphic-style-loader',
           {
             loader: 'css-loader',
             options: {
+              importLoaders: 1,
               includePaths: ['./node_modules']
                 .map(d => path.join(__dirname, d))
                 .map(g => glob.sync(g))
                 .reduce((a, c) => a.concat(c), [])
             }
-          }
+          },
+          'postcss-loader'
         ]
       },
       {
         test: /\.scss$/,
         use: [
           {
-            loader: ServerMiniCssExtractPlugin.loader,
+            loader: MiniCssExtractPlugin.loader,
             options: {
               filename: isDev ? '[name].css' : '[name].[hash].css',
               chunkFilename: isDev ? '[id].css' :  '[id].[hash].css'
@@ -80,6 +77,7 @@ const config = {
               localIdentName: 'wri_api__[local]'
             }
           },
+          'postcss-loader',
           {
             loader: 'sass-loader',
             options: {
