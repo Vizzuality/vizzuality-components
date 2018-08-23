@@ -104,7 +104,7 @@ const events = {
 ```
 
 
-### Map Swipe
+### Map Side by Side
 ```jsx
 
 const layers = require('./mocks').layers;
