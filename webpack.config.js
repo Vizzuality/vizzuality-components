@@ -10,6 +10,11 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const env = process.env.NODE_ENV || 'development';
 const isDev = env === 'development';
 
+// Fix server rendering inside Next.js applications
+class ServerMiniCssExtractPlugin extends MiniCssExtractPlugin {
+  getCssChunkObject(mainChunk) { return {}; } // eslint-disable-line
+}
+
 const config = {
 
   devtool: isDev ? 'cheap-eval-source-map' : false,
@@ -61,7 +66,7 @@ const config = {
         test: /\.scss$/,
         use: [
           {
-            loader: MiniCssExtractPlugin.loader,
+            loader: ServerMiniCssExtractPlugin.loader,
             options: {
               filename: isDev ? '[name].css' : '[name].[hash].css',
               chunkFilename: isDev ? '[id].css' :  '[id].[hash].css'
