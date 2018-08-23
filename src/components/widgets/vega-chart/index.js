@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { parse, changeset, View } from 'vega-lib';
+import debounce from 'lodash/debounce';
 import { capitalize, isDefined, isFunction } from './utils';
 
 const propTypes = {
@@ -22,7 +23,9 @@ const propTypes = {
 };
 
 const defaultProps = {
-  className: '',
+  className: null,
+  style: {},
+  theme: {},
   renderer: 'svg',
   enableHover: true,
   onNewView() {},
@@ -54,8 +57,17 @@ class Vega extends React.Component {
     return `onSignal${capitalize(signalName)}`;
   }
 
+  constructor(props) {
+    super(props);
+
+    this.debouncedUpdateViewDimensions = debounce(() => this.updateViewDimensions(), 60);
+  }
+
   componentDidMount() {
-    this.createView(this.props.spec);
+    const { spec } = this.props;
+
+    this.createView(spec);
+    if(this.view) this.setListeners();
   }
 
   componentDidUpdate(prevProps) {
@@ -115,6 +127,17 @@ class Vega extends React.Component {
     this.clearView();
   }
 
+
+  setListeners() {
+    const { spec } = this.props;
+    if((spec.autoSize || {}).type === 'fit') window.addEventListener('resize', this.debouncedUpdateViewDimensions);
+  }
+
+  removeListeners() {
+    const { spec } = this.props;
+    if((spec.autoSize || {}).type === 'fit') window.removeEventListener('resize', this.debouncedUpdateViewDimensions);
+  }
+
   createView(spec) {
     if (spec) {
       const props = this.props;
@@ -139,12 +162,13 @@ class Vega extends React.Component {
         // store the vega.View object to be used on later updates
         this.view = view;
 
+        if((spec.autoSize || {}).type === 'fit') this.updateViewDimensions(false);
+
         [
           'logLevel',
           'renderer',
           'tooltip',
           'background',
-          'width',
           'height',
           'padding'
         ]
@@ -161,6 +185,7 @@ class Vega extends React.Component {
         if (props.enableHover) {
           view.hover();
         }
+
         view.run();
 
         props.onNewView(view);
@@ -172,6 +197,16 @@ class Vega extends React.Component {
       this.clearView();
     }
     return this;
+  }
+
+  updateViewDimensions(forceRun = true) {
+    if (!this.view) return;
+
+    const containerWidth = this.view.container().getBoundingClientRect().width;
+
+    this.view.width(containerWidth)
+
+    if (forceRun) this.view.run();
   }
 
   updateData(name, value) {
@@ -192,18 +227,21 @@ class Vega extends React.Component {
   clearView() {
     if (this.view) {
       this.view.finalize();
+      this.removeListeners();
       this.view = null;
     }
     return this;
   }
 
   render() {
+    const { style, className } = this.props;
+
     return (
       // Create the container Vega draws inside
       <div
         ref={(c) => { this.element = c; }}
-        className={this.props.className}
-        style={this.props.style}
+        className={className}
+        style={style}
       />
     );
   }
