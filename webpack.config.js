@@ -45,16 +45,18 @@ const config = {
       {
         test: /\.css$/,
         use: [
-          'style-loader',
+          'isomorphic-style-loader',
           {
             loader: 'css-loader',
             options: {
+              importLoaders: 1,
               includePaths: ['./node_modules']
                 .map(d => path.join(__dirname, d))
                 .map(g => glob.sync(g))
                 .reduce((a, c) => a.concat(c), [])
             }
-          }
+          },
+          'postcss-loader'
         ]
       },
       {
@@ -75,6 +77,7 @@ const config = {
               localIdentName: 'wri_api__[local]'
             }
           },
+          'postcss-loader',
           {
             loader: 'sass-loader',
             options: {
