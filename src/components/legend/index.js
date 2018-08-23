@@ -74,7 +74,7 @@ class Legend extends PureComponent {
 
     const { expanded } = this.state;
 
-    if (children && !children.length) {
+    if (!children || !React.Children.count(children)) {
       return null;
     }
 

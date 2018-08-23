@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CSSModules from 'react-css-modules';
 
 import './lib';
 
-import styles from './styles.scss';
+import './styles.scss';
 
 const { L } = (typeof window !== 'undefined') ? window : {};
 
@@ -33,7 +32,7 @@ export class MapSideBySide extends React.PureComponent {
     this.sideBySideControl = L.control.sideBySide();
     this.sideBySideControl.addTo(map);
 
-    if (onReady) onReady(this.sideBySideControl);
+    if (onReady) onReady(this.sideBySideControl);    
   }
 
   render() {
@@ -41,4 +40,4 @@ export class MapSideBySide extends React.PureComponent {
   }
 }
 
-export default CSSModules(MapSideBySide, styles, { allowMultiple: true });
+export default MapSideBySide;
