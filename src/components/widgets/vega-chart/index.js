@@ -169,6 +169,7 @@ class Vega extends React.Component {
           'renderer',
           'tooltip',
           'background',
+          'width',
           'height',
           'padding'
         ]
