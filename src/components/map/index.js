@@ -6,6 +6,28 @@ import './styles.scss';
 
 const { L } = (typeof window !== 'undefined') ? window : {};
 
+if (typeof window !== 'undefined') {
+  /*
+   * Workaround for 1px lines appearing in some browsers due to fractional transforms
+   * and resulting anti-aliasing.
+   * https://github.com/Leaflet/Leaflet/issues/3575
+   */
+  /* eslint-disable */
+  (function () {
+    const originalInitTile = L.GridLayer.prototype._initTile;
+    L.GridLayer.include({
+      _initTile(tile) {
+        originalInitTile.call(this, tile);
+        const tileSize = this.getTileSize();
+        tile.style.width = `${tileSize.x + 1  }px`;
+        tile.style.height = `${tileSize.y + 1  }px`;
+      }
+    });
+  }());
+  /* eslint-enable */
+}
+
+
 class Maps extends Component {
   events = {}
 
