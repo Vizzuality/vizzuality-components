@@ -4,6 +4,7 @@ import { parse, changeset, View } from 'vega-lib';
 import debounce from 'lodash/debounce';
 import { capitalize, isDefined, isFunction } from './utils';
 
+/* eslint-disable */
 const propTypes = {
   className: PropTypes.string,
   style: PropTypes.object,
@@ -21,6 +22,7 @@ const propTypes = {
   onParseError: PropTypes.func,
   theme: PropTypes.object
 };
+/* eslint-enable */
 
 const defaultProps = {
   className: null,
@@ -28,6 +30,13 @@ const defaultProps = {
   theme: {},
   renderer: 'svg',
   enableHover: true,
+  logLevel: 'warn',
+  width: 400,
+  height: 320,
+  background: '',
+  padding: 20,
+  data: {},
+  tooltip() {},
   onNewView() {},
   onParseError() {},
 };
@@ -71,12 +80,13 @@ class Vega extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.spec !== prevProps.spec) {
+    const { props } = this;
+    const { spec } = props;
+
+    if (spec !== prevProps.spec) {
       this.clearView();
-      this.createView(this.props.spec);
+      this.createView(spec);
     } else if (this.view) {
-      const props = this.props;
-      const spec = this.props.spec;
       let changed = false;
 
       // update view properties
@@ -130,20 +140,22 @@ class Vega extends React.Component {
 
   setListeners() {
     const { spec } = this.props;
-    if((spec.autoSize || {}).type === 'fit') window.addEventListener('resize', this.debouncedUpdateViewDimensions);
+    if((spec.autosize || {}).type === 'fit') window.addEventListener('resize', this.debouncedUpdateViewDimensions);
   }
 
   removeListeners() {
     const { spec } = this.props;
-    if((spec.autoSize || {}).type === 'fit') window.removeEventListener('resize', this.debouncedUpdateViewDimensions);
+    if((spec.autosize || {}).type === 'fit') window.removeEventListener('resize', this.debouncedUpdateViewDimensions);
   }
 
   createView(spec) {
     if (spec) {
-      const props = this.props;
+      const { props } = this;
+      const { theme, data, enableHover, onNewView, onParseError } = props;
+
       // Parse the vega spec and create the view
       try {
-        const runtime = parse(spec, props.theme);
+        const runtime = parse(spec, theme);
         const view = new View(runtime)
           .initialize(this.element);
 
@@ -151,7 +163,7 @@ class Vega extends React.Component {
         if (spec.signals) {
           spec.signals.forEach((signal) => {
             view.addSignalListener(signal.name, (...args) => {
-              const listener = this.props[Vega.listenerName(signal.name)];
+              const listener = props[Vega.listenerName(signal.name)];
               if (listener) {
                 listener.apply(this, args);
               }
@@ -162,7 +174,7 @@ class Vega extends React.Component {
         // store the vega.View object to be used on later updates
         this.view = view;
 
-        if((spec.autoSize || {}).type === 'fit') this.updateViewDimensions(false);
+        if((spec.autosize || {}).type === 'fit') this.updateViewDimensions(false);
 
         [
           'logLevel',
@@ -176,23 +188,23 @@ class Vega extends React.Component {
           .filter(field => isDefined(props[field]))
           .forEach((field) => { view[field](props[field]); });
 
-        if (spec.data && props.data) {
+        if (spec.data && data) {
           spec.data
-            .filter(d => props.data[d.name])
+            .filter(d => data[d.name])
             .forEach((d) => {
-              this.updateData(d.name, props.data[d.name]);
+              this.updateData(d.name, data[d.name]);
             });
         }
-        if (props.enableHover) {
+        if (enableHover) {
           view.hover();
         }
 
         view.run();
 
-        props.onNewView(view);
+        onNewView(view);
       } catch (ex) {
         this.clearView();
-        props.onParseError(ex);
+        onParseError(ex);
       }
     } else {
       this.clearView();
