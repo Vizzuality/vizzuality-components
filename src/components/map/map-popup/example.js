@@ -92,7 +92,14 @@ export class PopupExample extends React.PureComponent {
       !!interactionsLayer.interactionConfig.config &&
       !!interactionsLayer.interactionConfig.config.url
     ) {
-      return <Spinner style={{ position: 'relative', minHeight: 75 }} />;
+      return (
+        <Spinner
+          position="relative"
+          style={{
+            box: { width: 16, height: 16 }
+          }}
+        />
+      );
     }
 
     return 'No data';

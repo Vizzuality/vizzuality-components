@@ -28,6 +28,7 @@ class LegendOpacityTooltip extends PureComponent {
 
   render() {
     const { min, max, step, activeLayer: { opacity }, ...rest } = this.props;
+    const value = typeof opacity !== 'undefined' ? opacity : 1;
 
     return (
       <div styleName="c-legend-item-button-opacity-tooltip" ref={(node) => { this.el = node; }}>
@@ -42,7 +43,7 @@ class LegendOpacityTooltip extends PureComponent {
             min={min}
             max={max}
             step={step}
-            value={opacity}
+            value={value}
             onAfterChange={this.onChange}
             {...rest}
           />
