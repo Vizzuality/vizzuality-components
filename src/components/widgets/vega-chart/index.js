@@ -6,6 +6,7 @@ import { capitalize, isDefined, isFunction } from './utils';
 // Opimized resize
 (() => {
   const throttle = (type, name, objOriginal) => {
+    if (typeof window === 'undefined') return;
     const obj = objOriginal || window;
     let running = false;
     const func = () => {
@@ -143,6 +144,7 @@ class Vega extends React.Component {
   setListeners() {
     const { spec } = this.props;
     if((spec.autosize || {}).type === 'fit') {
+      if (typeof window === 'undefined') return;
       window.addEventListener('optimizedResize', this.updateViewDimensions.bind(this));
     }
   }
@@ -150,6 +152,7 @@ class Vega extends React.Component {
   removeListeners() {
     const { spec } = this.props;
     if((spec.autosize || {}).type === 'fit') {
+      if (typeof window === 'undefined') return;
       window.removeEventListener('optimizedResize', this.updateViewDimensions.bind(this));
     }
   }
