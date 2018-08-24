@@ -42,7 +42,7 @@ export class Spinner extends PureComponent {
     const { position, customClass, style } = this.props;
     const classNames = classnames({
       'c-spinner': true,
-      [`-${position}`]: !!position
+      [`-${position}`]: true
     });
 
     const customClassNames = classnames({
