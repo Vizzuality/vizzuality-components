@@ -6,6 +6,28 @@ import './styles.scss';
 
 const { L } = (typeof window !== 'undefined') ? window : {};
 
+if (typeof window !== 'undefined') {
+  /*
+   * Workaround for 1px lines appearing in some browsers due to fractional transforms
+   * and resulting anti-aliasing.
+   * https://github.com/Leaflet/Leaflet/issues/3575
+   */
+  /* eslint-disable */
+  (function () {
+    const originalInitTile = L.GridLayer.prototype._initTile;
+    L.GridLayer.include({
+      _initTile(tile) {
+        originalInitTile.call(this, tile);
+        const tileSize = this.getTileSize();
+        tile.style.width = `${tileSize.x + 1  }px`;
+        tile.style.height = `${tileSize.y + 1  }px`;
+      }
+    });
+  }());
+  /* eslint-enable */
+}
+
+
 class Maps extends Component {
   events = {}
 
@@ -90,6 +112,8 @@ class Maps extends Component {
       return;
     }
 
+    const { interactionEnabled, scrollZoomEnabled, onReady } = this.props;
+
     this.setMap();
 
     this.setBasemap();
@@ -99,7 +123,7 @@ class Maps extends Component {
 
     this.setEvents();
 
-    if (!this.props.interactionEnabled) {
+    if (!interactionEnabled) {
       this.map.dragging.disable();
       this.map.touchZoom.disable();
       this.map.doubleClickZoom.disable();
@@ -108,11 +132,11 @@ class Maps extends Component {
       this.map.keyboard.disable();
     }
 
-    if (!this.props.scrollZoomEnabled) {
+    if (!scrollZoomEnabled) {
       this.map.scrollWheelZoom.disable();
     }
 
-    this.props.onReady(this.map);
+    onReady(this.map);
 
     // As this.map didn't exist before this function
     this.forceUpdate();
@@ -184,15 +208,16 @@ class Maps extends Component {
   }
 
   setBounds = () => {
-    const { bbox, options } = this.props.bounds;
+    const { bounds } = this.props;
+    const { bbox, options } = bounds;
 
     if (bbox) {
-      const bounds = [
+      const mapBounds = [
         [bbox[1], bbox[0]],
         [bbox[3], bbox[2]]
       ];
 
-      this.map.fitBounds(bounds, options);
+      this.map.fitBounds(mapBounds, options);
     }
   }
 
@@ -217,7 +242,7 @@ class Maps extends Component {
   }
 
   render() {
-    const { customClass } = this.props;
+    const { customClass, children } = this.props;
     const externalClass = classnames({ [customClass]: !!customClass });
 
     return (
@@ -227,7 +252,7 @@ class Maps extends Component {
           styleName="map-container"
         />
 
-        {!!this.map && !!this.props.children && this.props.children(this.map)}
+        {!!this.map && typeof children === 'function' && children(this.map)}
       </div>
     );
   }
