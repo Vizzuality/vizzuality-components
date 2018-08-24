@@ -94,7 +94,7 @@ export class PopupExample extends React.PureComponent {
     ) {
       return (
         <Spinner
-          className="-relative"
+          position="relative"
           style={{
             box: { width: 16, height: 16 }
           }}
