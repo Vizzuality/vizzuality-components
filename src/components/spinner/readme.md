@@ -1,12 +1,12 @@
 ### Default
 ```js
-<Spinner className="-relative" />
+<Spinner position="relative" />
 ```
 
 ### Custom
 ```js
 <Spinner
-  className="-relative"
+  position="relative"
   style={{
     box: { width: 20, height: 20 },
     circle: { stroke: '#F00', strokeWidth: 8 }
