@@ -104,7 +104,7 @@ const events = {
 ```
 
 
-### Map Swipe
+### Map Side by Side
 ```jsx
 
 const layers = require('./mocks').layers;
@@ -152,7 +152,6 @@ const events = {
       <LayerManager map={map} plugin={PluginLeaflet}>
         {layerManager => layers.map((l, i) => (
           <Layer
-            console={console.log(!!l.interactionConfig && !!l.interactionConfig.output && !!l.interactionConfig.output.length)}
             key={l.id}
             layerManager={layerManager}
             {...l}
@@ -183,11 +182,11 @@ const events = {
                 if (mapLayer.group) {
                   mapLayer.getLayers().forEach((l, j) => {
                     if (j === 0) {
-                      this.sideBySide[setLayers[i]](l);
+                      if (typeof this.sideBySide[setLayers[i]] === 'function') this.sideBySide[setLayers[i]](l);
                     }
                   });
                 } else {
-                  this.sideBySide[setLayers[i]](mapLayer);
+                  if (typeof this.sideBySide[setLayers[i]] === 'function') this.sideBySide[setLayers[i]](mapLayer);
                 }
               })
             }}
