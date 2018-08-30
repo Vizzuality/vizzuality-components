@@ -14,6 +14,7 @@ class LegendItemButtonLayers extends PureComponent {
     focusStyle: PropTypes.object,
     defaultStyle: PropTypes.object,
     tooltipText: PropTypes.string,
+    dataset: PropTypes.string.isRequired,
 
     onChangeLayer: PropTypes.func,
     onTooltipVisibilityChange: PropTypes.func
@@ -25,7 +26,7 @@ class LegendItemButtonLayers extends PureComponent {
     icon: '',
     focusStyle: {},
     defaultStyle: {},
-    tooltipText: '',
+    tooltipText: null,
 
     onChangeLayer: () => {},
     onTooltipVisibilityChange: () => {}
@@ -51,7 +52,9 @@ class LegendItemButtonLayers extends PureComponent {
     this.setState({ visibilityHover: false });
     this.setState({ visibilityClick: visibility });
 
-    if (multiLayersActive) this.setState({ multiLayersActive: false });
+    if (multiLayersActive) {
+      this.setState({ multiLayersActive: false });
+    }
 
     onTooltipVisibilityChange(visibility);
   }
@@ -73,7 +76,7 @@ class LegendItemButtonLayers extends PureComponent {
     const {
       layers, activeLayer, icon,
       focusStyle, defaultStyle, tooltipText,
-      onChangeLayer
+      onChangeLayer, dataset
     } = this.props;
     const { visibilityClick, visibilityHover, multiLayersActive } = this.state;
     const timelineLayers = this.getTimelineLayers();
@@ -82,41 +85,42 @@ class LegendItemButtonLayers extends PureComponent {
       return null;
     }
 
+
     return (
-      <Tooltip
-        overlay={(
-          <LegendLayersTooltip
-            layers={layers}
-            activeLayer={activeLayer}
-            onChangeLayer={onChangeLayer}
-          />
-)}
-        overlayClassName="c-rc-tooltip -default -layers"
-        placement="top"
-        trigger={['click']}
-        destroyTooltipOnHide
-        onVisibleChange={this.onTooltipVisibilityChange}
-      >
-
+      <div id={`layer-${dataset}-item`}>
         <Tooltip
-          visibile={(!visibilityClick && visibilityHover) || multiLayersActive}
-          overlay={tooltipText || (multiLayersActive ? `${layers.length} layers` : 'Layers')}
-          overlayClassName="c-rc-tooltip -default"
+          overlay={(
+            <LegendLayersTooltip
+              layers={layers}
+              activeLayer={activeLayer}
+              onChangeLayer={onChangeLayer}
+            />
+          )}
+          overlayClassName="c-rc-tooltip -default -layers"
           placement="top"
-          onVisibleChange={visibility => this.setState({ visibilityHover: visibility })}
+          trigger={['click']}
           destroyTooltipOnHide
-          visible={visibilityHover && !visibilityClick}
+          onVisibleChange={this.onTooltipVisibilityChange}
         >
-          <button
-            type="button"
-            styleName="c-legend-button layers"
-            aria-label="Select other layer"
+          <Tooltip
+            visible={multiLayersActive || (!visibilityClick && visibilityHover)}
+            overlay={tooltipText || (multiLayersActive ? `${layers.length} layers` : 'Layers')}
+            overlayClassName="c-rc-tooltip -default"
+            placement="top"
+            onVisibleChange={visibility => this.setState({ visibilityHover: visibility, multiLayersActive: false })}
+            destroyTooltipOnHide
+            getTooltipContainer={() => document.getElementById(`layer-${dataset}-item`)}
           >
-            <Icon name={icon || 'icon-layers'} className="-small" style={visibilityHover || visibilityClick ? focusStyle : defaultStyle} />
-          </button>
+            <button
+              type="button"
+              styleName="c-legend-button layers"
+              aria-label="Select other layer"
+            >
+              <Icon name={icon || 'icon-layers'} className="-small" style={visibilityHover || visibilityClick ? focusStyle : defaultStyle} />
+            </button>
+          </Tooltip>
         </Tooltip>
-      </Tooltip>
-
+      </div>
     );
   }
 }
