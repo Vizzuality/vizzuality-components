@@ -8,30 +8,40 @@ class LegendItemButtonVisibility extends PureComponent {
   static propTypes = {
     activeLayer: PropTypes.object,
     visibility: PropTypes.bool,
-    tooltipOpened: PropTypes.bool,
     onChangeVisibility: PropTypes.func,
     iconShow: PropTypes.string,
     iconHide: PropTypes.string,
     focusStyle: PropTypes.object,
     defaultStyle: PropTypes.object,
-    tooltipText: PropTypes.string
+    tooltipOpened: PropTypes.bool,
+    tooltipText: PropTypes.string,
+    scrolling: PropTypes.bool
   }
 
   static defaultProps = {
     activeLayer: {},
     visibility: true,
-    tooltipOpened: false,
     iconShow: '',
     iconHide: '',
     focusStyle: {},
     defaultStyle: {},
+    tooltipOpened: false,
     tooltipText: '',
+    scrolling: false,
 
     onChangeVisibility: () => {}
   }
 
   state = {
     visible: false
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { scrolling } = nextProps;
+
+    if (scrolling) {
+      this.setState({ visible: false });
+    }
   }
 
   render() {

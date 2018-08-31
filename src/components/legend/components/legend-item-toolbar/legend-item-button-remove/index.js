@@ -7,11 +7,12 @@ import '../styles-button.scss';
 class LegendItemButtonRemove extends PureComponent {
   static propTypes = {
     activeLayer: PropTypes.object,
-    tooltipOpened: PropTypes.bool,
     icon: PropTypes.string,
     focusStyle: PropTypes.object,
     defaultStyle: PropTypes.object,
+    tooltipOpened: PropTypes.bool,
     tooltipText: PropTypes.string,
+    scrolling: PropTypes.bool,
 
     // ACTIONS
     onRemoveLayer: PropTypes.func
@@ -19,11 +20,12 @@ class LegendItemButtonRemove extends PureComponent {
 
   static defaultProps = {
     activeLayer: {},
-    tooltipOpened: false,
     icon: '',
     focusStyle: {},
     defaultStyle: {},
+    tooltipOpened: false,
     tooltipText: '',
+    scrolling: false,
 
     // ACTIONS
     onRemoveLayer: () => {}
@@ -31,6 +33,14 @@ class LegendItemButtonRemove extends PureComponent {
 
   state = {
     visible: false
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { scrolling } = nextProps;
+
+    if (scrolling) {
+      this.setState({ visible: false });
+    }
   }
 
   render() {
