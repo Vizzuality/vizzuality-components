@@ -19,6 +19,7 @@ class LegendItemButtonOpacity extends PureComponent {
     enabledStyle: PropTypes.object,
     disabledStyle: PropTypes.object,
     tooltipText: PropTypes.string,
+    scrolling: PropTypes.bool,
 
     onChangeOpacity: PropTypes.func,
     onTooltipVisibilityChange: PropTypes.func
@@ -28,14 +29,15 @@ class LegendItemButtonOpacity extends PureComponent {
     layers: [],
     activeLayer: {},
     visibility: true,
-    tooltipOpened: false,
     icon: '',
     className: '',
     focusStyle: {},
     defaultStyle: {},
     enabledStyle: {},
     disabledStyle: {},
+    tooltipOpened: false,
     tooltipText: '',
+    scrolling: false,
 
     onChangeOpacity: () => {},
     onTooltipVisibilityChange: () => {}
@@ -46,10 +48,23 @@ class LegendItemButtonOpacity extends PureComponent {
     visibilityClick: false
   }
 
+  componentWillReceiveProps(nextProps) {
+    const { scrolling } = nextProps;
+    
+    if (scrolling) {
+      this.onTooltipVisibilityChange(false);
+    }
+  }
+
   onTooltipVisibilityChange = (visibility) => {
-    this.setState({ visibilityHover: false });
-    this.setState({ visibilityClick: visibility });
-    this.props.onTooltipVisibilityChange(visibility);
+    const { onTooltipVisibilityChange } = this.props;
+    
+    this.setState({
+      visibilityHover: false,
+      visibilityClick: visibility
+    });
+
+    onTooltipVisibilityChange(visibility);
   }
 
   render() {
@@ -65,6 +80,7 @@ class LegendItemButtonOpacity extends PureComponent {
       disabledStyle,
       focusStyle,
       tooltipText,
+      scrolling,
       ...rest
     } = this.props;
 
@@ -86,7 +102,7 @@ class LegendItemButtonOpacity extends PureComponent {
             onChangeOpacity={this.props.onChangeOpacity}
             {...rest}
           />
-)}
+        )}
         visible={visibility && visibilityClick}
         overlayClassName={`c-rc-tooltip ${classnames({ '-default': visibility })} ${className || ''}`}
         placement="top"
@@ -99,6 +115,7 @@ class LegendItemButtonOpacity extends PureComponent {
           overlay={tooltipText || (`Opacity ${opacity ? `(${Math.round(opacity * 100)}%)` : ''}`)}
           overlayClassName="c-rc-tooltip -default"
           placement="top"
+          trigger={tooltipOpened ? '' : 'hover'}
           onVisibleChange={v => this.setState({ visibilityHover: v })}
           destroyTooltipOnHide
           style={styles.tooltip}

@@ -14,15 +14,48 @@ class LegendList extends PureComponent {
     children: []
   }
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      scrolling: false
+    };
+
+    this.timeout = null;
+  }
+
+  onScroll = () => {
+    const { scrolling } = this.state;
+    if (this.timeout) {
+      // if there is already a timeout in process cancel it
+      clearTimeout(this.timeout);
+    }
+    
+    this.timeout = setTimeout(() => {
+      this.timeout = null;
+      this.setState({
+        scrolling: false
+      });
+    }, 250);
+
+    if (!scrolling) {
+      this.setState({
+        scrolling: true
+      });
+    }
+
+  }
+
   render() {
     const { sortable, children } = this.props;
+    const { scrolling } = this.state;
 
     return (
-      <ul styleName="c-legend-list">
+      <ul styleName="c-legend-list" onScroll={this.onScroll}>
         {React.Children.map(children, (child, index) =>
           React.cloneElement(child, {
             sortable,
-            index
+            index,
+            scrolling
           }))
         }
       </ul>

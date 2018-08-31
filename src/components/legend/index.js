@@ -92,26 +92,28 @@ class Legend extends PureComponent {
             </button>
           )}
 
-          <LegendList
-            helperClass="c-legend-item -sortable"
-            onSortStart={(_, event) =>
-              event.preventDefault() // It fixes user select in Safari and IE
-            }
-            onSortEnd={this.onSortEnd}
-            axis="y"
-            lockAxis="y"
-            lockToContainerEdges
-            lockOffset="50%"
-            useDragHandle
-            sortable={sortable}
-          >
-            {React.Children.map(children, (child, index) => (
-              React.isValidElement(child) && child.type === 'LegendItemList' ?
-              React.cloneElement(child, { sortable, index })
-              :
-              child
-            ))}
-          </LegendList>
+          {expanded && (
+            <LegendList
+              helperClass="c-legend-item -sortable"
+              onSortStart={(_, event) =>
+                event.preventDefault() // It fixes user select in Safari and IE
+              }
+              onSortEnd={this.onSortEnd}
+              axis="y"
+              lockAxis="y"
+              lockToContainerEdges
+              lockOffset="50%"
+              useDragHandle
+              sortable={sortable}
+            >
+              {React.Children.map(children, (child, index) => (
+                React.isValidElement(child) && child.type === 'LegendItemList' ?
+                React.cloneElement(child, { sortable, index })
+                :
+                child
+              ))}
+            </LegendList>
+          )}
         </div>
 
         {/* LEGEND CLOSED */}
