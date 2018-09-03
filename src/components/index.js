@@ -2,6 +2,7 @@
 export { default as Icon } from './icon';
 export { default as Icons } from './icons';
 export { default as Tooltip } from './tooltip';
+export { default as Spinner } from './spinner';
 
 // Form
 export { default as Range } from './form/range';
