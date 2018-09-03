@@ -7,11 +7,12 @@ import '../styles-button.scss';
 class LegendItemButtonInfo extends PureComponent {
   static propTypes = {
     activeLayer: PropTypes.object,
-    tooltipOpened: PropTypes.bool,
     icon: PropTypes.string,
     focusStyle: PropTypes.object,
     defaultStyle: PropTypes.object,
+    tooltipOpened: PropTypes.bool,
     tooltipText: PropTypes.string,
+    scrolling: PropTypes.bool,
 
     // ACTIONS
     onChangeInfo: PropTypes.func
@@ -19,17 +20,26 @@ class LegendItemButtonInfo extends PureComponent {
 
   static defaultProps = {
     activeLayer: {},
-    tooltipOpened: false,
     icon: '',
     focusStyle: {},
     defaultStyle: {},
+    tooltipOpened: false,
     tooltipText: '',
+    scrolling: false,
 
     onChangeInfo: () => {}
   }
 
   state = {
     visible: false
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { scrolling } = nextProps;
+
+    if (scrolling) {
+      this.setState({ visible: false });
+    }
   }
 
   render() {
