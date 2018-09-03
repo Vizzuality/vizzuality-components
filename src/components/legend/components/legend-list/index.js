@@ -55,6 +55,7 @@ class LegendList extends PureComponent {
           React.cloneElement(child, {
             sortable,
             index,
+            i: index,
             scrolling
           }))
         }
@@ -63,6 +64,4 @@ class LegendList extends PureComponent {
   }
 }
 
-const LegendListStyled = LegendList;
-
-export default SortableContainer(LegendListStyled);
+export default SortableContainer(LegendList);

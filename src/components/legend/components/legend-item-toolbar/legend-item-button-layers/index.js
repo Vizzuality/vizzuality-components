@@ -38,13 +38,13 @@ class LegendItemButtonLayers extends PureComponent {
   state = {
     visibilityHover: false,
     visibilityClick: false,
-    multiLayersActive: this.props.layers.length > 1
+    multiLayersActive: this.props.i === 0 && this.props.layers.length > 1
   }
 
   componentWillReceiveProps(nextProps) {
-    const { scrolling } = nextProps;
+    const { scrolling, i } = nextProps;
 
-    if (scrolling) {
+    if (scrolling || i) {
       this.onTooltipVisibilityChange(false);
     }
   }
