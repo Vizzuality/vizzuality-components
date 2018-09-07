@@ -11,18 +11,19 @@ import './styles.scss';
 class LegendItemTypes extends PureComponent {
   static propTypes = {
     // Props
-    children: PropTypes.node
+    children: PropTypes.node,
+    activeLayer: PropTypes.object
   }
 
   static defaultProps = {
     // Props
-    children: []
+    children: [],
+    activeLayer: {}
   }
 
   state = {
     activeLayer: {},
-    loading: false,
-    error: null
+    loading: false
   }
 
   componentDidMount() {
@@ -39,10 +40,10 @@ class LegendItemTypes extends PureComponent {
         })
         .then((response) => {
           const parsedActiveLayer = typeof dataParse === 'function' ? dataParse(activeLayer, response) : response;
-          this.setState({ activeLayer: parsedActiveLayer, loading: false, error: null });
+          this.setState({ activeLayer: parsedActiveLayer, loading: false });
         })
-        .catch((error) => {
-          this.setState({ loading: false, error });
+        .catch(() => {
+          this.setState({ loading: false });
         });
     }
   }
@@ -51,13 +52,21 @@ class LegendItemTypes extends PureComponent {
     const { children, activeLayer: propsActiveLayer } = this.props;
     const { loading, activeLayer: stateActiveLayer } = this.state;
     const activeLayer = !isEmpty(stateActiveLayer) ? stateActiveLayer : propsActiveLayer;
+
     const { legendConfig } = activeLayer;
     const { url } = legendConfig;
     const shouldRender = !url || (url && !isEmpty(stateActiveLayer));
 
     return (
       <div styleName="c-legend-item-types">
-        { (url && loading) && <Spinner position="relative" /> }
+        {(url && loading) && (
+          <Spinner
+            position="relative"
+            style={{
+              box: { width: 20, height: 20 }
+            }}            
+          />
+        )}
 
         {shouldRender && !!React.Children.count(children) &&
           React.Children.map(children, child => (React.isValidElement(child) && typeof child.type !== 'string' ?

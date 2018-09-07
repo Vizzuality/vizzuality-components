@@ -128,7 +128,18 @@ export const layerGroups = [
               name: '1 m'
             }
           ],
-          type: 'choropleth'
+          type: 'choropleth',
+          url: 'https://i2i-admin.carto.com/api/v2/sql?q=SELECT%20round(unnest(CDB_JenksBins(array_agg(area_km2%3A%3Anumeric)%2C9))%2C1)%20as%20bucket%0AFROM%20fsp_voronoid%0AWHERE%20type_id%20%3D%20138%0A&api_key=59d0d3f8df199951f80ea077178815179acc090a',
+          dataParse: ((activeLayer, data) => {
+            const { legendConfig } = activeLayer;
+
+            const parsedValues = data.rows.map(r => `<${r.bucket} km\u00B2`);
+            parsedValues.forEach((value, index) => {
+              legendConfig.items[index].name = value;
+            });
+
+            return activeLayer;
+          })
         },
         interactionConfig: {},
         applicationConfig: {},
@@ -849,3 +860,7 @@ export const layerGroups = [
     ]
   }
 ];
+
+export default {
+  layerGroups
+};
