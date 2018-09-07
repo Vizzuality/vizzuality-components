@@ -1,9 +1,11 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import isEmpty from 'lodash/isEmpty';
 import LegendItemTypeBasic from './legend-item-type-basic';
 import LegendItemTypeChoropleth from './legend-item-type-choropleth';
 import LegendItemTypeGradient from './legend-item-type-gradient';
 import LegendItemTypeProportional from './legend-item-type-proportional';
+import Spinner from '../../../spinner';
 import './styles.scss';
 
 class LegendItemTypes extends PureComponent {
@@ -17,12 +19,47 @@ class LegendItemTypes extends PureComponent {
     children: []
   }
 
+  state = {
+    activeLayer: {},
+    loading: false,
+    error: null
+  }
+
+  componentDidMount() {
+    const { activeLayer } = this.props;
+    const { legendConfig } = activeLayer;
+    const { url, dataParse } = legendConfig;
+
+    if(url) {
+      this.setState({ loading: true });
+
+      fetch(url)
+        .then((response) => {
+          if (response.ok) return response.json();
+        })
+        .then((response) => {
+          const parsedActiveLayer = typeof dataParse === 'function' ? dataParse(activeLayer, response) : response;
+          this.setState({ activeLayer: parsedActiveLayer, loading: false, error: null });
+        })
+        .catch((error) => {
+          this.setState({ loading: false, error });
+        });
+    }
+  }
+
   render() {
-    const { children } = this.props;
+    const { children, activeLayer: propsActiveLayer } = this.props;
+    const { loading, activeLayer: stateActiveLayer } = this.state;
+    const activeLayer = !isEmpty(stateActiveLayer) ? stateActiveLayer : propsActiveLayer;
+    const { legendConfig } = activeLayer;
+    const { url } = legendConfig;
+    const shouldRender = !url || (url && !isEmpty(stateActiveLayer));
 
     return (
       <div styleName="c-legend-item-types">
-        {!!React.Children.count(children) &&
+        { (url && loading) && <Spinner position="relative" /> }
+
+        {shouldRender && !!React.Children.count(children) &&
           React.Children.map(children, child => (React.isValidElement(child) && typeof child.type !== 'string' ?
             React.cloneElement(child, { ...this.props })
             :
@@ -30,10 +67,11 @@ class LegendItemTypes extends PureComponent {
         ))}
 
         {/* If there is no children defined, let's use the components we have */}
-        {!React.Children.count(children) && <LegendItemTypeBasic {...this.props} />}
-        {!React.Children.count(children) && <LegendItemTypeChoropleth {...this.props} />}
-        {!React.Children.count(children) && <LegendItemTypeGradient {...this.props} />}
-        {!React.Children.count(children) && <LegendItemTypeProportional {...this.props} />}
+        {(shouldRender && !React.Children.count(children)) && <LegendItemTypeBasic {...this.props} />}
+        {(shouldRender && !React.Children.count(children)) && <LegendItemTypeChoropleth {...this.props} />}
+        {(shouldRender && !React.Children.count(children)) && <LegendItemTypeGradient {...this.props} />}
+        {(shouldRender && !React.Children.count(children)) && <LegendItemTypeProportional {...this.props} />}
+
       </div>
     );
   }
