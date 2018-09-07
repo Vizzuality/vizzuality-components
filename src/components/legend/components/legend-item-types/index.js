@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { replace } from 'layer-manager';
 import PropTypes from 'prop-types';
 import isEmpty from 'lodash/isEmpty';
 import LegendItemTypeBasic from './legend-item-type-basic';
@@ -12,13 +13,17 @@ class LegendItemTypes extends PureComponent {
   static propTypes = {
     // Props
     children: PropTypes.node,
-    activeLayer: PropTypes.object
+    activeLayer: PropTypes.object,
+    params: PropTypes.object,
+    sqlParams: PropTypes.object
   }
 
   static defaultProps = {
     // Props
     children: [],
-    activeLayer: {}
+    activeLayer: {},
+    params: {},
+    sqlParams: {}
   }
 
   state = {
@@ -29,12 +34,18 @@ class LegendItemTypes extends PureComponent {
   componentDidMount() {
     const { activeLayer } = this.props;
     const { legendConfig } = activeLayer;
-    const { url, dataParse } = legendConfig;
+    const { url, dataParse, params, sqlParams } = legendConfig;
+    let parsedUrl;
 
-    if(url) {
+    if(!isEmpty(params)) {
+      const parsedConfig = replace(JSON.stringify(legendConfig), params, sqlParams);
+      parsedUrl = JSON.parse(parsedConfig).url;
+    }
+
+    if (parsedUrl || url) {
       this.setState({ loading: true });
 
-      fetch(url)
+      fetch(parsedUrl || url)
         .then((response) => {
           if (response.ok) return response.json();
         })
@@ -64,7 +75,7 @@ class LegendItemTypes extends PureComponent {
             position="relative"
             style={{
               box: { width: 20, height: 20 }
-            }}            
+            }}
           />
         )}
 
