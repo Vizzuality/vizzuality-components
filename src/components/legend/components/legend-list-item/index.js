@@ -68,7 +68,5 @@ class LegendListItem extends PureComponent {
   }
 }
 
-const LegendItemStyled = LegendListItem;
-
 export default SortableElement(({ layerGroup, ...props }) =>
-  <LegendItemStyled key={props.dataset} {...layerGroup} {...props} />);
+  <LegendListItem key={props.dataset} {...layerGroup} {...props} />);

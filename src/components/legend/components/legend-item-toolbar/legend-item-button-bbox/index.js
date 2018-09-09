@@ -12,16 +12,18 @@ class LegendItemButtonBBox extends PureComponent {
     focusStyle: PropTypes.object,
     defaultStyle: PropTypes.object,
     tooltipText: PropTypes.string,
+    scrolling: PropTypes.bool,
     onChangeBBox: PropTypes.func
   }
 
   static defaultProps = {
     activeLayer: {},
-    tooltipOpened: false,
     icon: '',
     focusStyle: {},
     defaultStyle: {},
+    tooltipOpened: false,
     tooltipText: '',
+    scrolling: false,
 
     onChangeBBox: () => {}
   }
@@ -29,6 +31,15 @@ class LegendItemButtonBBox extends PureComponent {
   state = {
     visible: false
   }
+
+  componentWillReceiveProps(nextProps) {
+    const { scrolling } = nextProps;
+
+    if (scrolling) {
+      this.setState({ visible: false });
+    }
+  }
+
 
   render() {
     const { activeLayer, tooltipOpened, icon, focusStyle, defaultStyle, tooltipText } = this.props;
