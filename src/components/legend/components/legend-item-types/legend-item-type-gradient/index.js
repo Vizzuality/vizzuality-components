@@ -43,13 +43,13 @@ class LegendTypeGradient extends PureComponent {
           />
         </div>
         <ul>
-          {legendConfig.items.map(({ name, color, value }) => (
+          {legendConfig.items.map(({ name, color, value }) => name || value ? (
             <li key={`legend-gradient-item-${color}-${value}-${name}`}>
               <span styleName="name">
                 {name || value}
               </span>
             </li>
-          ))}
+          ) : null)}
         </ul>
       </div>
     );

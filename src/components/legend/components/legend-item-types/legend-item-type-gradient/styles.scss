@@ -15,13 +15,27 @@
     &:before {
       content: none !important; // For the NexGDDP tool
     }
+
+    .name {
+      display: block;
+      font-family: inherit;
+      text-align: center;
+    }
+
+    &:first-child {
+      .name {
+        text-align: left;
+      }
+    }
+
+    &:last-child {
+      .name {
+        text-align: right;
+      }
+    }
   }
 
-  .name {
-    display: block;
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    text-align: center;
-  }
+
 
   .legend-gradient-icon {
     display: flex;
