@@ -42,9 +42,10 @@ class LegendItemButtonLayers extends PureComponent {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { scrolling, i } = nextProps;
+    const { scrolling, i: prevIndex } = this.props;
+    const { i: nextIndex } = nextProps;
 
-    if (scrolling || i) {
+    if (scrolling || prevIndex !== nextIndex) {
       this.onTooltipVisibilityChange(false);
     }
   }
@@ -110,7 +111,7 @@ class LegendItemButtonLayers extends PureComponent {
       >
         <Tooltip
           visible={multiLayersActive || (!visibilityClick && visibilityHover)}
-          overlay={tooltipText || (multiLayersActive ? `${layers.length} layers` : 'Layers')}
+          overlay={tooltipText || `${layers.length} layers`}
           overlayClassName="c-rc-tooltip -default"
           placement="top"
           trigger={tooltipOpened ? '' : 'hover'}

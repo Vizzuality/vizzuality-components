@@ -23,7 +23,11 @@ class LegendList extends PureComponent {
     this.timeout = null;
   }
 
-  onScroll = () => {
+  onScroll = (e) => {
+    if (e.target.id !== 'wri-legend-list') {
+      return false;
+    }
+
     const { scrolling } = this.state;
     if (this.timeout) {
       // if there is already a timeout in process cancel it
@@ -50,7 +54,7 @@ class LegendList extends PureComponent {
     const { scrolling } = this.state;
 
     return (
-      <ul styleName="c-legend-list" onScroll={this.onScroll}>
+      <ul id="wri-legend-list" styleName="c-legend-list" onScroll={this.onScroll}>
         {React.Children.map(children, (child, index) =>
           React.cloneElement(child, {
             sortable,
