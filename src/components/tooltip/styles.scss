@@ -136,7 +136,7 @@
   	//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
   	border-radius: 0;
   	min-height: 34px;
-  	border: 0;
+		border: 0;
   }
 
   .rc-tooltip-arrow {
@@ -365,7 +365,9 @@
         border: 1px solid rgba($border-color-1, 0.15);
         border-radius: 4px;
         box-shadow: 0 20px 30px 0 rgba($color-black, 0.1);
-        font-size: $font-size-small;
+				font-size: $font-size-small;
+				max-height: 400px;
+				overflow: auto;
       }
 
       &.rc-tooltip-placement-top .rc-tooltip-arrow {
