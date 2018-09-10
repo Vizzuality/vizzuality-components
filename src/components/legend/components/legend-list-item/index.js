@@ -56,7 +56,7 @@ class LegendListItem extends PureComponent {
             </header>
 
             {React.Children.map(children, child => (React.isValidElement(child) && typeof child.type !== 'string' ?
-              React.cloneElement(child, { ...props, layers, activeLayer })
+              React.cloneElement(child, { layers, activeLayer })
               :
               child
             ))}
