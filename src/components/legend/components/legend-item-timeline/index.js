@@ -125,14 +125,13 @@ class LegendItemTimeline extends PureComponent {
 
         {!!timelineLayers.length && (
           <Range
-            minValue={first}
-            maxValue={last}
-            formatLabel={(value) => {
-                const layer = timelineLayers.find(l => l.layerConfig.order === value);
-                return (layer) ? layer.layerConfig.timelineLabel : null;
-              }}
+            min={first}
+            max={last}
+            marks={timelineLayers.reduce((acc, val) =>
+              ({ ...acc, [val.layerConfig.timelineLabel]: val.layerConfig.timelineLabel })
+            , {} )}
             value={step || first}
-            onChange={(nextStep) => {
+            onAfterChange={(nextStep) => {
               this.setState({ step: nextStep });
               this.setStep(nextStep);
             }}

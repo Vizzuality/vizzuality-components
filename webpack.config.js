@@ -26,7 +26,8 @@ const config = {
     map: path.resolve(__dirname, 'src/components/map/index.js'),
     tooltip: path.resolve(__dirname, 'src/components/tooltip/index.js'),
     widgets: path.resolve(__dirname, 'src/components/widgets/index.js'),
-    bundle: path.resolve(__dirname, 'src/components/index.js')
+    bundle: path.resolve(__dirname, 'src/components/index.js'),
+    spinner: path.resolve(__dirname, 'src/components/spinner/index.js')
   },
 
   output: {
