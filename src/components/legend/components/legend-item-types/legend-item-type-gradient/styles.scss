@@ -10,7 +10,7 @@
   li {
     padding: 0;
     margin: 0;
-    flex: 1;
+    flex: 1 1 auto;
 
     &:before {
       content: none !important; // For the NexGDDP tool
