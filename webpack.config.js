@@ -110,7 +110,7 @@ const config = {
         cache: true,
         parallel: true,
         uglifyOptions: {
-          ecma: 6,
+          ecma: 5,
           output: { comments: false },
           compress: { dead_code: true, drop_console: true }
         },
