@@ -1,6 +1,6 @@
 {
   "name": "wri-api-components",
-  "version": "2.2.1",
+  "version": "2.2.4",
   "description": "Components to use with WRI's API",
   "main": "dist/bundle.js",
   "module": "dist/bundle.js",
@@ -16,7 +16,7 @@
     "styleguide:build": "styleguidist build",
     "lint": "eslint ./src",
     "watch": "webpack --colors --progress --watch",
-    "build": "NODE_ENV=production webpack --colors --progress",
+    "build": "NODE_ENV=production yarn webpack --colors --progress",
     "prepublishOnly": "yarn build",
     "deploy": "yarn styleguide:build && gh-pages -d styleguide"
   },
