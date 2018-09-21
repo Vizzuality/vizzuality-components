@@ -1,0 +1,30 @@
+{
+  "srcDir": "src/components",
+  "mainModuleFileName": "bundle.js",
+  "mainModuleName": "WRIAPIComponents",
+  "fileExtensions": [".js"],
+  "exclude": [],
+  "include": ["*"],
+  "externalModules": ["react-dom", "react", "vega", "vega-lib", "leaflet"],
+  "copyAssets": false,
+  "uglify": false,
+  "uglifyOnly": false,
+  "interop": false,
+  "sourcemap": true,
+  "watch": {},
+  "globals": {
+    "react-dom": "ReactDOM",
+    "react": "React",
+    "leaflet": "L"
+  },
+  "distConfig": {
+    "disabled": true,
+    "format": "iife",
+    "outDir": "dist"
+  },
+  "libConfig": {
+    "disabled": false,
+    "format": "es",
+    "outDir": "lib"
+  }
+}
