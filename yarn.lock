@@ -1423,6 +1423,14 @@ bcrypt-pbkdf@^1.0.0:
   dependencies:
     tweetnacl "^0.14.3"
 
+better-npm-run@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/better-npm-run/-/better-npm-run-0.1.1.tgz#6bb6008591de1b72554aa8b0cefa0da1572fd481"
+  dependencies:
+    commander "^2.9.0"
+    dotenv "^2.0.0"
+    object-assign "^4.0.1"
+
 bfj-node4@^5.2.0:
   version "5.2.1"
   resolved "https://registry.yarnpkg.com/bfj-node4/-/bfj-node4-5.2.1.tgz#3a6aa2730cf6911ba2afb836c2f88f015d718f3f"
@@ -2987,6 +2995,10 @@ dot-prop@^4.1.1:
   resolved "https://registry.yarnpkg.com/dot-prop/-/dot-prop-4.2.0.tgz#1f19e0c2e1aa0e32797c49799f2837ac6af69c57"
   dependencies:
     is-obj "^1.0.0"
+
+dotenv@^2.0.0:
+  version "2.0.0"
+  resolved "http://registry.npmjs.org/dotenv/-/dotenv-2.0.0.tgz#bd759c357aaa70365e01c96b7b0bec08a6e0d949"
 
 duplexer@^0.1.1:
   version "0.1.1"
@@ -5089,13 +5101,13 @@ last-call-webpack-plugin@^3.0.0:
     lodash "^4.17.5"
     webpack-sources "^1.1.0"
 
-layer-manager@^1.1.8:
-  version "1.1.8"
-  resolved "https://registry.yarnpkg.com/layer-manager/-/layer-manager-1.1.8.tgz#5b578152f32fa6aa694b233b139cdc623191e90b"
+layer-manager@^1.10.0:
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/layer-manager/-/layer-manager-1.10.0.tgz#53b566c0c23eb63076ec09ca9af08723e2683316"
   dependencies:
-    babel-runtime "^6.26.0"
     bluebird "^3.5.2"
     lodash "^4.17.10"
+    prop-types "^15.6.2"
     wri-json-api-serializer "^1.0.1"
 
 lazy-cache@^2.0.2:
