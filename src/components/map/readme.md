@@ -29,8 +29,8 @@ initialState = {
 
 
 // LAYER MANAGER
-const LayerManager = require('layer-manager/dist/react').LayerManager;
-const Layer = require('layer-manager/dist/react').Layer;
+const LayerManager = require('layer-manager/lib/react').LayerManager;
+const Layer = require('layer-manager/lib/react').Layer;
 const PluginLeaflet = require('layer-manager').PluginLeaflet;
 
 // CONTROLS
@@ -119,8 +119,8 @@ initialState = {
 
 
 // LAYER MANAGER
-const LayerManager = require('layer-manager/dist/react').LayerManager;
-const Layer = require('layer-manager/dist/react').Layer;
+const LayerManager = require('layer-manager/lib/react').LayerManager;
+const Layer = require('layer-manager/lib/react').Layer;
 const PluginLeaflet = require('layer-manager').PluginLeaflet;
 
 // CONTROLS
