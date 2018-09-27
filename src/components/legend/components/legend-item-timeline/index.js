@@ -11,14 +11,19 @@ import './styles.scss';
 
 class LegendItemTimeline extends PureComponent {
   static propTypes = {
-    value: PropTypes.string.isRequired,
-    dragging: PropTypes.bool.isRequired,
-    index: PropTypes.number.isRequired,
+    value: PropTypes.number,
+    dragging: PropTypes.bool,
+    index: PropTypes.number,
     layers: PropTypes.array,
     onChangeLayer: PropTypes.func.isRequired
   }
 
-  static defaultProps = { layers: [] }
+  static defaultProps = {
+    layers: [],
+    value: 0,
+    dragging: false,
+    index: 0
+  }
 
   state = {
     step: null,
