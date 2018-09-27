@@ -3,20 +3,22 @@ import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
 import sortBy from 'lodash/sortBy';
 import Range from 'components/form/range';
+import Tooltip from 'components/tooltip';
+import Slider from 'rc-slider';
 
 // Styles
 import './styles.scss';
 
 class LegendItemTimeline extends PureComponent {
   static propTypes = {
+    value: PropTypes.string.isRequired,
+    dragging: PropTypes.bool.isRequired,
+    index: PropTypes.number.isRequired,
     layers: PropTypes.array,
     onChangeLayer: PropTypes.func.isRequired
   }
 
-  static defaultProps = {
-    // defaultProps
-    layers: []
-  }
+  static defaultProps = { layers: [] }
 
   state = {
     step: null,
@@ -85,14 +87,29 @@ class LegendItemTimeline extends PureComponent {
     if (currentLayer) onChangeLayer(currentLayer);
   }, 500)
 
+  renderHandle = (props) => {
+    const { value, dragging, index, ...restProps } = props;
+    const { Handle } = Slider;
+
+    return (
+      <Tooltip
+        overlayClassName="c-rc-tooltip -default -timeline"
+        overlay={value}
+        visible
+        placement="top"
+        key={index}
+      >
+        <Handle value={value} {...restProps} />
+      </Tooltip>
+    );
+  };
+
   render() {
     const { step } = this.state;
     const timelineLayers = this.getTimelineLayers();
 
     // Return null if timeline doesn not exist
-    if (!timelineLayers.length) {
-      return null;
-    }
+    if (!timelineLayers.length) return null;
 
     const first = timelineLayers[0].layerConfig.order;
     const last = timelineLayers[timelineLayers.length - 1].layerConfig.order;
@@ -123,20 +140,19 @@ class LegendItemTimeline extends PureComponent {
           </button>
         } */}
 
-        {!!timelineLayers.length && (
-          <Range
-            min={first}
-            max={last}
-            marks={timelineLayers.reduce((acc, val) =>
-              ({ ...acc, [val.layerConfig.timelineLabel]: val.layerConfig.timelineLabel })
-            , {} )}
-            value={step || first}
-            onAfterChange={(nextStep) => {
-              this.setState({ step: nextStep });
-              this.setStep(nextStep);
-            }}
-          />
-        )}
+        <Range
+          min={first}
+          max={last}
+          handle={this.renderHandle}
+          marks={[first, last].reduce((acc, val) =>
+            ({ ...acc, [val]: val })
+          , {} )}
+          value={step || first}
+          onAfterChange={(nextStep) => {
+            this.setState({ step: nextStep });
+            this.setStep(nextStep);
+          }}
+        />
       </div>
     );
   }

@@ -21,6 +21,7 @@ class Range extends PureComponent {
 
   render() {
     const { value } = this.state;
+
     return (
       <Slider
         trackStyle={[
