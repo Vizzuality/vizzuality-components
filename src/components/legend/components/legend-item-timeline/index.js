@@ -93,9 +93,9 @@ class LegendItemTimeline extends PureComponent {
 
     return (
       <Tooltip
-        overlayClassName="c-rc-tooltip -default -timeline"
+        overlayClassName="c-rc-tooltip -default"
         overlay={value}
-        visible
+        visible={dragging}
         placement="top"
         key={index}
       >

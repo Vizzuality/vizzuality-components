@@ -64,8 +64,6 @@
   }
 
   .rc-slider-handle:focus {
-    border-color: #57c5f7;
-    box-shadow: 0 0 0 5px #96dbfa;
     outline: none;
   }
 
@@ -95,6 +93,7 @@
     width: 100%;
     height: 4px;
     background: transparent;
+    cursor: pointer;
   }
 
   .rc-slider-dot {
