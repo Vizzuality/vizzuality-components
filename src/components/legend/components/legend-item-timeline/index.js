@@ -3,19 +3,26 @@ import PropTypes from 'prop-types';
 import debounce from 'lodash/debounce';
 import sortBy from 'lodash/sortBy';
 import Range from 'components/form/range';
+import Tooltip from 'components/tooltip';
+import Slider from 'rc-slider';
 
 // Styles
 import './styles.scss';
 
 class LegendItemTimeline extends PureComponent {
   static propTypes = {
+    value: PropTypes.number,
+    dragging: PropTypes.bool,
+    index: PropTypes.number,
     layers: PropTypes.array,
     onChangeLayer: PropTypes.func.isRequired
   }
 
   static defaultProps = {
-    // defaultProps
-    layers: []
+    layers: [],
+    value: 0,
+    dragging: false,
+    index: 0
   }
 
   state = {
@@ -85,14 +92,41 @@ class LegendItemTimeline extends PureComponent {
     if (currentLayer) onChangeLayer(currentLayer);
   }, 500)
 
+  renderHandle = (props) => {
+    const { value, dragging, index, ...restProps } = props;
+    const { Handle } = Slider;
+
+    return (
+      <Tooltip
+        overlayClassName="c-rc-tooltip -default"
+        overlay={value}
+        visible={dragging}
+        placement="top"
+        key={index}
+      >
+        <Handle value={value} {...restProps} />
+      </Tooltip>
+    );
+  };
+
   render() {
     const { step } = this.state;
     const timelineLayers = this.getTimelineLayers();
 
     // Return null if timeline doesn not exist
-    if (!timelineLayers.length) {
-      return null;
-    }
+    if (!timelineLayers.length) return null;
+
+    const timelineMarks = {};
+
+    timelineLayers.forEach((val, index) => {
+      const isVisible = (index === 0  || index === timelineLayers.length - 1);
+      timelineMarks[val.layerConfig.timelineLabel] =  {
+        label: val.layerConfig.timelineLabel,
+        style: {
+          visibility: isVisible ? 'visible' : 'hidden'
+        }
+      }
+    });
 
     const first = timelineLayers[0].layerConfig.order;
     const last = timelineLayers[timelineLayers.length - 1].layerConfig.order;
@@ -123,20 +157,15 @@ class LegendItemTimeline extends PureComponent {
           </button>
         } */}
 
-        {!!timelineLayers.length && (
-          <Range
-            min={first}
-            max={last}
-            marks={timelineLayers.reduce((acc, val) =>
-              ({ ...acc, [val.layerConfig.timelineLabel]: val.layerConfig.timelineLabel })
-            , {} )}
-            value={step || first}
-            onAfterChange={(nextStep) => {
-              this.setState({ step: nextStep });
-              this.setStep(nextStep);
-            }}
-          />
-        )}
+        <Range
+          min={first}
+          max={last}
+          step={null}
+          handle={this.renderHandle}
+          marks={timelineMarks}
+          defaultValue={step || first}
+          onAfterChange={(nextStep) => { this.setStep(nextStep); }}
+        />
       </div>
     );
   }
