@@ -116,6 +116,18 @@ class LegendItemTimeline extends PureComponent {
     // Return null if timeline doesn not exist
     if (!timelineLayers.length) return null;
 
+    const timelineMarks = {};
+
+    timelineLayers.forEach((val, index) => {
+      const isVisible = (index === 0  || index === timelineLayers.length - 1);
+      timelineMarks[val.layerConfig.timelineLabel] =  {
+        label: val.layerConfig.timelineLabel,
+        style: {
+          visibility: isVisible ? 'visible' : 'hidden'
+        }
+      }
+    });
+
     const first = timelineLayers[0].layerConfig.order;
     const last = timelineLayers[timelineLayers.length - 1].layerConfig.order;
 
@@ -148,15 +160,11 @@ class LegendItemTimeline extends PureComponent {
         <Range
           min={first}
           max={last}
+          step={null}
           handle={this.renderHandle}
-          marks={[first, last].reduce((acc, val) =>
-            ({ ...acc, [val]: val })
-          , {} )}
-          value={step || first}
-          onAfterChange={(nextStep) => {
-            this.setState({ step: nextStep });
-            this.setStep(nextStep);
-          }}
+          marks={timelineMarks}
+          defaultValue={step || first}
+          onAfterChange={(nextStep) => { this.setStep(nextStep); }}
         />
       </div>
     );
