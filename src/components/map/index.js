@@ -14,8 +14,8 @@ if (typeof window !== 'undefined') {
    */
   /* eslint-disable */
   (function () {
-    const originalInitTile = L.GridLayer.prototype._initTile;
-    L.GridLayer.include({
+    const originalInitTile = L && L.GridLayer.prototype._initTile;
+    L && L.GridLayer.include({
       _initTile(tile) {
         originalInitTile.call(this, tile);
         const tileSize = this.getTileSize();
