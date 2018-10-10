@@ -147,14 +147,16 @@ class Maps extends Component {
       basemap: prevBasemap,
       label: prevLabel,
       bounds: prevBounds,
-      events: prevEvents
+      events: prevEvents,
+      mapOptions: prevMapOptions
     } = prevProps;
 
     const {
       basemap: nextBasemap,
       label: nextLabel,
       bounds: nextBounds,
-      events: nextEvents
+      events: nextEvents,
+      mapOptions: nextMapOptions
     } = this.props;
 
     // Basemap
@@ -176,6 +178,11 @@ class Maps extends Component {
     if (!isEqual(prevEvents, nextEvents)) {
       this.setEvents();
     }
+
+    // mapOptions
+    if (!isEqual(prevMapOptions, nextMapOptions)) {
+      this.setMapOptions();
+    }
   }
 
   componentWillUnmount() {
@@ -185,6 +192,11 @@ class Maps extends Component {
   setMap = () => {
     const { mapOptions } = this.props;
     this.map = L.map(this.mapNode, { ...Maps.defaultProps.mapOptions, ...mapOptions });
+  }
+
+  setMapOptions = () => {
+    const { mapOptions: { center, zoom } } = this.props;
+    this.map.setView({ ...center }, zoom)
   }
 
   setBasemap = () => {
