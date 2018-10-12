@@ -94,6 +94,7 @@
     "rc-tooltip": "3.7.0",
     "react-sortable-hoc": "^0.6.8",
     "react-vega": "^4.0.2",
+    "url-loader": "^1.1.2",
     "wri-json-api-serializer": "^1.0.1"
   },
   "peerDependencies": {
