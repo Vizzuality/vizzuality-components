@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { SortableElement } from 'react-sortable-hoc';
+import Tooltip from 'components/tooltip';
 
 // Components
 import LegendItemDrag from '../legend-item-drag';
@@ -48,11 +49,23 @@ class LegendListItem extends PureComponent {
 
           <div styleName="legend-info">
             <header styleName="legend-item-header">
-              {activeLayer.molLogo && <img
-                styleName='legend-logo'
-                src={molLogo}
-                alt="Mol logo"
-              />}
+              {activeLayer.molLogo && (
+                <Tooltip
+                  overlay="Data from Map of Life"
+                  overlayClassName="c-rc-tooltip -default"
+                  overlayStyle={{ color: '#fff' }}
+                  placement="top"
+                  trigger={['hover']}
+                  mouseLeaveDelay={0}
+                  destroyTooltipOnHide
+                >
+                <img
+                  styleName='legend-logo'
+                  src={molLogo}
+                  alt="logo"
+                />
+                </Tooltip>
+              )}
               <h3>
                 {activeLayer.name}
               </h3>
