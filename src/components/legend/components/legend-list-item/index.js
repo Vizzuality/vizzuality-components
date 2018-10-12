@@ -5,6 +5,7 @@ import { SortableElement } from 'react-sortable-hoc';
 
 // Components
 import LegendItemDrag from '../legend-item-drag';
+import molLogo from '../../assets/mol-short-logo.png';
 
 import './styles.scss';
 
@@ -47,6 +48,11 @@ class LegendListItem extends PureComponent {
 
           <div styleName="legend-info">
             <header styleName="legend-item-header">
+              {activeLayer.molLogo && <img
+                styleName='legend-logo'
+                src={molLogo}
+                alt="Mol logo"
+              />}
               <h3>
                 {activeLayer.name}
               </h3>
