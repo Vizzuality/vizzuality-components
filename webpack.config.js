@@ -58,6 +58,7 @@ const config = {
           'postcss-loader'
         ]
       },
+      { test: /\.(jpg|jpeg|png|gif)$/, use: 'url-loader' },
       {
         test: /\.scss$/,
         use: [
