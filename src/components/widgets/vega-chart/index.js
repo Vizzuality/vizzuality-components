@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { parse, changeset, View } from 'vega-lib';
 import { capitalize, isDefined, isFunction } from './utils';
@@ -52,7 +52,7 @@ const defaultProps = {
   onParseError() {},
 };
 
-class Vega extends React.Component {
+class Vega extends PureComponent {
 
   static isSamePadding(a, b) {
     if (isDefined(a) && isDefined(b)) {
@@ -166,10 +166,10 @@ class Vega extends React.Component {
     if (!this.view) return;
 
     const { props, view } = this;
-    const { width, height } = this.calculateSize();
+    const { width } = this.calculateSize();
+
 
     if (!props.width) view.width(width);
-    if (!props.height) view.height(height);
 
     if (forceRun) view.run();
   }
