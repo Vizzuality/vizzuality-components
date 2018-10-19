@@ -14,7 +14,8 @@ class LegendListItem extends PureComponent {
     layers: PropTypes.array,
     sortable: PropTypes.bool,
     children: PropTypes.node,
-    toolbar: PropTypes.node
+    toolbar: PropTypes.node,
+    title: PropTypes.node
   }
 
   static defaultProps = {
@@ -22,11 +23,12 @@ class LegendListItem extends PureComponent {
     layers: [],
     sortable: true,
     children: [],
-    toolbar: []
+    toolbar: [],
+    title: []
   }
 
   render() {
-    const { layers, sortable, children, toolbar, ...props } = this.props;
+    const { layers, sortable, children, toolbar, title, ...props } = this.props;
     const activeLayer = layers.find(l => l.active);
     return (
       <li
@@ -48,7 +50,10 @@ class LegendListItem extends PureComponent {
           <div styleName="legend-info">
             <header styleName="legend-item-header">
               <h3>
-                {activeLayer.name}
+              {React.isValidElement(title) && typeof title.type !== 'string' ?
+                React.cloneElement(title, { ...props, layers, activeLayer }) :
+                activeLayer.name
+              }
               </h3>
               {React.isValidElement(toolbar) && typeof toolbar.type !== 'string' &&
                 React.cloneElement(toolbar, { ...props, layers, activeLayer })
