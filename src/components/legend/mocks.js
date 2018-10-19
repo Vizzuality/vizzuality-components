@@ -8,6 +8,7 @@ export const layerGroups = [
         id: 'acfc2b99-a06b-4763-83e5-7e14539940b3',
         type: 'layer',
         name: 'Probabilities of Urban Expansion 2030',
+        molLogo: true,
         slug: 'Probabilities-of-Urban-Expansion-2030',
         dataset: '0a59f415-ee0b-4d19-96f7-c7304c152e1b',
         description: 'The Global Grid of Probabilities of Urban Expansion details likely future areas of urban expansion up to 2030.',
