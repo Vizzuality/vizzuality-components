@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { parse, changeset, View } from 'vega-lib';
+import vegaTooltip from 'vega-tooltip';
 import { capitalize, isDefined, isFunction } from './utils';
 
 // Opimized resize
@@ -32,7 +33,7 @@ const propTypes = {
   logLevel: PropTypes.number,
   width: PropTypes.number,
   height: PropTypes.number,
-  tooltip: PropTypes.func,
+  tooltip: PropTypes.bool,
   background: PropTypes.string,
   padding: PropTypes.object,
   renderer: PropTypes.string,
@@ -46,6 +47,7 @@ const propTypes = {
 
 const defaultProps = {
   className: '',
+  tooltip: true,
   renderer: 'svg',
   enableHover: true,
   onNewView() {},
@@ -204,7 +206,6 @@ class Vega extends PureComponent {
         [
           'logLevel',
           'renderer',
-          'tooltip',
           'background',
           'width',
           'height',
@@ -232,9 +233,11 @@ class Vega extends PureComponent {
               this.updateData(d.name, props.data[d.name]);
             });
         }
-        if (props.enableHover) {
-          view.hover();
-        }
+
+        if (props.enableHover) view.hover();
+
+        if (props.tooltip) vegaTooltip(view);
+
         view.run();
 
         props.onNewView(view);
