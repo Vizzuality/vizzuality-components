@@ -1,6 +1,6 @@
 {
   "name": "wri-api-components",
-  "version": "2.2.13",
+  "version": "2.3.1",
   "description": "Components to use with WRI's API",
   "main": "dist/bundle.js",
   "module": "lib/bundle.js",
