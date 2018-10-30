@@ -25,7 +25,9 @@ const config = {
     tooltip: path.resolve(__dirname, 'src/components/tooltip/index.js'),
     widgets: path.resolve(__dirname, 'src/components/widgets/index.js'),
     bundle: path.resolve(__dirname, 'src/components/index.js'),
-    spinner: path.resolve(__dirname, 'src/components/spinner/index.js')
+    spinner: path.resolve(__dirname, 'src/components/spinner/index.js'),
+    // datepicker: path.resolve(__dirname, 'src/components/datepicker/index.js'),
+    slider: path.resolve(__dirname, 'src/components/slider/index.js')
   },
 
   output: {
@@ -97,7 +99,8 @@ const config = {
     'react-dom',
     'leaflet',
     'vega',
-    'vega-lib'
+    'vega-lib',
+    'moment'
   ],
 
   performance: {

@@ -31,7 +31,9 @@ module.exports = {
       components: () => ([
         path.resolve(__dirname, 'src/components/icon', 'index.js'),
         path.resolve(__dirname, 'src/components/spinner', 'index.js'),
-        path.resolve(__dirname, 'src/components/tooltip', 'index.js')
+        path.resolve(__dirname, 'src/components/tooltip', 'index.js'),
+        // path.resolve(__dirname, 'src/components/datepicker', 'index.js'),
+        path.resolve(__dirname, 'src/components/slider', 'index.js')
       ])
     },
     {

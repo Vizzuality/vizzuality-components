@@ -20,8 +20,8 @@ import {
   LegendItemTypeGradient,
   LegendItemTypeProportional
 
-  // Timeline
-  LegendItemTimeline
+  // timestep
+  LegendItemTimestep
 
 } from 'wri-api-components';
 </pre>
@@ -33,7 +33,6 @@ const layerGroups = require('./mocks').layerGroups;
 const LegendListItem = require('./components/legend-list-item').default;
 const LegendItemToolbar = require('./components/legend-item-toolbar').default;
 const LegendItemTypes = require('./components/legend-item-types').default;
-const LegendItemTimeline = require('./components/legend-item-timeline').default;
 const LegendItemButtonVisibility = require('./components/legend-item-toolbar/legend-item-button-visibility').default;
 
 <Legend
@@ -47,7 +46,6 @@ const LegendItemButtonVisibility = require('./components/legend-item-toolbar/leg
       toolbar={<LegendItemToolbar />}
     >
       <LegendItemTypes />
-      <LegendItemTimeline onChangeLayer={l => console.info(l)} />
     </LegendListItem>
   ))}
 </Legend>
@@ -60,7 +58,7 @@ const layerGroups = require('./mocks').layerGroups;
 const LegendListItem = require('./components/legend-list-item').default;
 const LegendItemToolbar = require('./components/legend-item-toolbar').default;
 const LegendItemTypes = require('./components/legend-item-types').default;
-const LegendItemTimeline = require('./components/legend-item-timeline').default;
+const LegendItemTimestep = require('./components/legend-item-timestep').default;
 
 <Legend
   maxWidth={500}
@@ -76,7 +74,6 @@ const LegendItemTimeline = require('./components/legend-item-timeline').default;
       }
     >
       <LegendItemTypes />
-      <LegendItemTimeline onChangeLayer={l => console.info(l)} />
     </LegendListItem>
   ))}
 </Legend>
@@ -90,7 +87,6 @@ const layerGroups = require('./mocks').layerGroups;
 const LegendListItem = require('./components/legend-list-item').default;
 const LegendItemToolbar = require('./components/legend-item-toolbar').default;
 const LegendItemTypes = require('./components/legend-item-types').default;
-const LegendItemTimeline = require('./components/legend-item-timeline').default;
 
 <Legend
   sortable={false}
@@ -105,7 +101,6 @@ const LegendItemTimeline = require('./components/legend-item-timeline').default;
       }
     >
       <LegendItemTypes />
-      <LegendItemTimeline onChangeLayer={l => console.info(l)} />
     </LegendListItem>
   ))}
 </Legend>
@@ -118,7 +113,6 @@ const layerGroups = require('./mocks').layerGroups;
 const LegendListItem = require('./components/legend-list-item').default;
 const LegendItemToolbar = require('./components/legend-item-toolbar').default;
 const LegendItemTypes = require('./components/legend-item-types').default;
-const LegendItemTimeline = require('./components/legend-item-timeline').default;
 
 <Legend
   expanded={false}
@@ -134,8 +128,31 @@ const LegendItemTimeline = require('./components/legend-item-timeline').default;
       }
     >
       <LegendItemTypes />
-      <LegendItemTimeline onChangeLayer={l => console.info(l)} />
     </LegendListItem>
   ))}
 </Legend>
+```
+
+### Timestep legend
+```jsx
+const LegendItemTimestep = require('./components/legend-item-timestep').default;
+
+const timelineConfig = {
+  canPlay: true,
+  dateFormat: "YYYY",
+  interval: "years",
+  minDate: "2001-01-01",
+  maxDate: "2017-12-31",
+  startDate: "2004-09-27",
+  endDate: "2010-09-14",
+  trimEndDate: "2016-09-14",
+  speed: 250,
+  step: 1
+};
+
+<LegendItemTimestep 
+  handleChange={dates => { console.log(dates); }} 
+  {...timelineConfig}
+/>
+  
 ```

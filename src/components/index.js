@@ -3,6 +3,7 @@ export { default as Icon } from './icon';
 export { default as Icons } from './icons';
 export { default as Tooltip } from './tooltip';
 export { default as Spinner } from './spinner';
+export { default as Slider } from './slider';
 
 // Form
 export { default as Range } from './form/range';
@@ -39,6 +40,7 @@ export {
   LegendItemTypeProportional
 } from './legend/components/legend-item-types';
 
+export { default as LegendItemTimeStep } from './legend/components/legend-item-timestep';
 export { default as LegendItemTimeline } from './legend/components/legend-item-timeline';
 
 // Widgets

@@ -1,6 +1,6 @@
 {
   "name": "wri-api-components",
-  "version": "2.3.1",
+  "version": "2.3.3-timeline-update-fix-2",
   "description": "Components to use with WRI's API",
   "main": "dist/bundle.js",
   "module": "lib/bundle.js",
@@ -89,6 +89,7 @@
     "classnames": "^2.2.6",
     "layer-manager": "^1.10.0",
     "lodash": "^4.17.10",
+    "moment": "^2.22.2",
     "prop-types": "^15.6.2",
     "rc-slider": "^8.6.3",
     "rc-tooltip": "3.7.0",

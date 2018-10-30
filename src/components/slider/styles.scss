@@ -1,6 +1,14 @@
+// global styles used for rc-slider component.
+
+// If you need to modify something, please add a className
+// to your slider/range component and write your own styles
+// in your component styles file.
+
+// Please, do NOT touch these styles unless you want to modify
+// the styles for all sliders/ranges of WRI-API components.
+
 @import 'settings';
 
-// Input range styles
 :global {
   .rc-slider {
     position: relative;
@@ -50,7 +58,6 @@
     touch-action: pan-x;
   }
 
-
   .rc-slider-handle:focus,
   .rc-slider-handle:active {
     outline: none;
@@ -66,17 +73,19 @@
     position: absolute;
     top: 18px;
     left: 0;
-    width: 100%;
+    margin-left: 5%;
+    width: 90%;
     font-size: 12px;
   }
 
   .rc-slider-mark-text {
     position: absolute;
     display: inline-block;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
     vertical-align: middle;
     text-align: center;
-    cursor: pointer;
     color: #999;
+    cursor: pointer;
   }
 
   .rc-slider-mark-text-active {
