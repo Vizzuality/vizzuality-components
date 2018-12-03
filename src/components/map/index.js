@@ -4,32 +4,10 @@ import PropTypes from 'prop-types';
 import isEqual from 'lodash/isEqual';
 import './styles.scss';
 
-const { L } = (typeof window !== 'undefined') ? window : {};
-
-if (typeof window !== 'undefined') {
-  /*
-   * Workaround for 1px lines appearing in some browsers due to fractional transforms
-   * and resulting anti-aliasing.
-   * https://github.com/Leaflet/Leaflet/issues/3575
-   */
-  /* eslint-disable */
-  (function () {
-    const originalInitTile = L && L.GridLayer.prototype._initTile;
-    L && L.GridLayer.include({
-      _initTile(tile) {
-        originalInitTile.call(this, tile);
-        const tileSize = this.getTileSize();
-        tile.style.width = `${tileSize.x + 1  }px`;
-        tile.style.height = `${tileSize.y + 1  }px`;
-      }
-    });
-  }());
-  /* eslint-enable */
-}
-
-
 class Maps extends Component {
-  events = {}
+  events = {};
+
+  static L = (typeof window !== 'undefined') && window.L;
 
   static propTypes = {
     /** A function that returns the map instance */
@@ -104,9 +82,31 @@ class Maps extends Component {
     onReady: () => {}
   }
 
+  static patchLeaflet() {
+  /*
+   * Workaround for 1px lines appearing in some browsers due to fractional transforms
+   * and resulting anti-aliasing.
+   * https://github.com/Leaflet/Leaflet/issues/3575
+   */
+    const originalInitTile = Maps.L && Maps.L.GridLayer.prototype._initTile;
+    Maps.L && Maps.L.GridLayer.include({
+      _initTile(tile) {
+        originalInitTile.call(this, tile);
+        const tileSize = this.getTileSize();
+        tile.style.width = `${tileSize.x + 1  }px`;
+        tile.style.height = `${tileSize.y + 1  }px`;
+      }
+    });
+  }
+
+  constructor(props) {
+    super(props);
+    Maps.patchLeaflet();
+  }
+
   componentDidMount() {
     if (
-      typeof L === 'undefined' ||
+      typeof Maps.L === 'undefined' ||
       !this.mapNode
     ) {
       return;
@@ -191,7 +191,7 @@ class Maps extends Component {
 
   setMap = () => {
     const { mapOptions } = this.props;
-    this.map = L.map(this.mapNode, { ...Maps.defaultProps.mapOptions, ...mapOptions });
+    this.map = Maps.L.map(this.mapNode, { ...Maps.defaultProps.mapOptions, ...mapOptions });
   }
 
   setMapOptions = () => {
@@ -204,7 +204,7 @@ class Maps extends Component {
 
     if (this.basemapLayer) this.basemapLayer.remove();
 
-    this.basemapLayer = L.tileLayer(basemap.url, basemap.options)
+    this.basemapLayer = Maps.L.tileLayer(basemap.url, basemap.options)
       .addTo(this.map)
       .setZIndex(0);
   }
@@ -214,7 +214,7 @@ class Maps extends Component {
 
     if (this.labelLayer) this.labelLayer.remove();
 
-    this.labelLayer = L.tileLayer(label.url, label.options)
+    this.labelLayer = Maps.L.tileLayer(label.url, label.options)
       .addTo(this.map)
       .setZIndex(1100);
   }
