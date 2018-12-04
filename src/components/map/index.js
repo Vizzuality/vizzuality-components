@@ -5,9 +5,28 @@ import isEqual from 'lodash/isEqual';
 import './styles.scss';
 
 class Maps extends Component {
-  events = {};
+  static L = (typeof window !== 'undefined') ? window.L : undefined;
 
-  static L = (typeof window !== 'undefined') && window.L;
+  static patchLeaflet() {
+    /*
+     * Workaround for 1px lines appearing in some browsers due to fractional transforms
+     * and resulting anti-aliasing.
+     * https://github.com/Leaflet/Leaflet/issues/3575
+     */
+    /* eslint-disable */
+    const originalInitTile = Maps.L && Maps.L.GridLayer.prototype._initTile;
+    Maps.L && Maps.L.GridLayer.include({
+      _initTile(tile) {
+        originalInitTile.call(this, tile);
+        const tileSize = this.getTileSize();
+        tile.style.width = `${tileSize.x + 1  }px`;
+        tile.style.height = `${tileSize.y + 1  }px`;
+      }
+    });
+    /* eslint-enable */
+  }
+
+  events = {};
 
   static propTypes = {
     /** A function that returns the map instance */
@@ -80,23 +99,6 @@ class Maps extends Component {
     interactionEnabled: true,
     scrollZoomEnabled: true,
     onReady: () => {}
-  }
-
-  static patchLeaflet() {
-  /*
-   * Workaround for 1px lines appearing in some browsers due to fractional transforms
-   * and resulting anti-aliasing.
-   * https://github.com/Leaflet/Leaflet/issues/3575
-   */
-    const originalInitTile = Maps.L && Maps.L.GridLayer.prototype._initTile;
-    Maps.L && Maps.L.GridLayer.include({
-      _initTile(tile) {
-        originalInitTile.call(this, tile);
-        const tileSize = this.getTileSize();
-        tile.style.width = `${tileSize.x + 1  }px`;
-        tile.style.height = `${tileSize.y + 1  }px`;
-      }
-    });
   }
 
   constructor(props) {

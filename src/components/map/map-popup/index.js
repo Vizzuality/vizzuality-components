@@ -4,9 +4,10 @@ import { render } from 'react-dom';
 
 import isEqual from 'lodash/isEqual';
 
-const { L } = (typeof window !== 'undefined') ? window : {};
 
 export class MapPopup extends Component {
+  static L = (typeof window !== 'undefined') ? window.L : undefined;
+
   static propTypes = {
     children: PropTypes.node.isRequired,
     /** Map instance */
@@ -28,16 +29,17 @@ export class MapPopup extends Component {
   }
 
   componentDidMount() {
-    if (typeof L === 'undefined') {
+    if (typeof MapPopup.L === 'undefined') {
       return;
     }
+    const { onReady } = this.props;
 
-    this.popup = this.popup || L.popup({
+    this.popup = this.popup || MapPopup.L.popup({
       maxWidth: 400,
       minWidth: 240
     });
 
-    this.props.onReady(this.popup);
+    onReady(this.popup);
   }
 
   componentDidUpdate(prevProps) {
