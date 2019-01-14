@@ -36,7 +36,8 @@ export {
   LegendItemTypeBasic,
   LegendItemTypeChoropleth,
   LegendItemTypeGradient,
-  LegendItemTypeProportional
+  LegendItemTypeProportional,
+  LegendItemTypeSelector
 } from './legend/components/legend-item-types';
 
 export { default as LegendItemTimeline } from './legend/components/legend-item-timeline';
