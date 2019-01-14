@@ -20,7 +20,7 @@ import {
   LegendItemTypeChoropleth,
   LegendItemTypeGradient,
   LegendItemTypeProportional, 
-  LegendItemTypeSelector
+  LegendItemTypeSelect
 
   // Timeline
   LegendItemTimeline

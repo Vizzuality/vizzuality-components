@@ -12,7 +12,7 @@ import LegendItemTypeBasic from './legend-item-type-basic';
 import LegendItemTypeChoropleth from './legend-item-type-choropleth';
 import LegendItemTypeGradient from './legend-item-type-gradient';
 import LegendItemTypeProportional from './legend-item-type-proportional';
-import LegendItemTypeSelector from './legend-item-type-selector';
+import LegendItemTypeSelect from './legend-item-type-select';
 import './styles.scss';
 
 class LegendItemTypes extends PureComponent {
@@ -154,11 +154,11 @@ class LegendItemTypes extends PureComponent {
           !React.Children.count(children) &&
           <LegendItemTypeProportional {...this.props} />
         }
-        {/* {
+        {
           shouldRender &&
           !React.Children.count(children) &&
-          <LegendItemTypeSelector {...this.props} />
-        } */}
+          <LegendItemTypeSelect {...this.props} />
+        }
       </div>
     );
   }
@@ -171,5 +171,5 @@ export {
   LegendItemTypeChoropleth,
   LegendItemTypeGradient,
   LegendItemTypeProportional,
-  LegendItemTypeSelector
+  LegendItemTypeSelect
 };

@@ -154,7 +154,7 @@ export {
   LegendItemTypeChoropleth,
   LegendItemTypeGradient,
   LegendItemTypeProportional,
-  LegendItemTypeSelector
+  LegendItemTypeSelect
 } from './components/legend-item-types';
 
 export {

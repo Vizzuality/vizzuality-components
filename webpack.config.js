@@ -66,7 +66,7 @@ const config = {
             loader: MiniCssExtractPlugin.loader,
             options: {
               filename: isDev ? '[name].css' : '[name].[hash].css',
-              chunkFilename: isDev ? '[id].css' :  '[id].[hash].css'
+              chunkFilename: isDev ? '[id].css' : '[id].[hash].css'
             }
           },
           {
@@ -95,6 +95,7 @@ const config = {
   externals: [
     'react',
     'react-dom',
+    'react-select',
     'leaflet',
     'vega',
     'vega-lib'
