@@ -15,8 +15,8 @@ class LegendListItem extends PureComponent {
     sortable: PropTypes.bool,
     children: PropTypes.node,
     toolbar: PropTypes.node,
-    title: PropTypes.node
-  }
+    title: PropTypes.node,
+  };
 
   static defaultProps = {
     dataset: '',
@@ -24,48 +24,49 @@ class LegendListItem extends PureComponent {
     sortable: true,
     children: [],
     toolbar: [],
-    title: []
-  }
+    title: [],
+  };
 
   render() {
     const { layers, sortable, children, toolbar, title, ...props } = this.props;
     const activeLayer = layers.find(l => l.active);
     return (
       <li
-        styleName={classnames({
-          'c-legend-item': true,
-          '-sortable': sortable
-        })}
+        styleName={classnames({ 'c-legend-item': true, '-sortable': sortable })}
       >
         <div
           styleName={classnames({
             'legend-item-container': true,
-            '-sortable': sortable
+            '-sortable': sortable,
           })}
         >
-          {sortable &&
-            <LegendItemDrag />
-          }
-
+          {sortable && <LegendItemDrag />}
           <div styleName="legend-info">
             <header styleName="legend-item-header">
               <h3>
-                {React.isValidElement(title) && typeof title.type !== 'string' ?
-                  React.cloneElement(title, { ...props, layers, activeLayer }) :
-                  activeLayer.name
+                {
+                  React.isValidElement(title) && typeof title.type !== 'string'
+                    ? React.cloneElement(title, {
+                      ...props,
+                      layers,
+                      activeLayer,
+                    })
+                    : activeLayer.name
                 }
               </h3>
-              {React.isValidElement(toolbar) && typeof toolbar.type !== 'string' &&
-                React.cloneElement(toolbar, { ...props, layers, activeLayer })
+              {
+                React.isValidElement(toolbar) &&
+                  typeof toolbar.type !== 'string' &&
+                  React.cloneElement(toolbar, { ...props, layers, activeLayer })
               }
             </header>
-
-            {React.Children.map(children, child => (React.isValidElement(child) && typeof child.type !== 'string' ?
-              React.cloneElement(child, { layers, activeLayer })
-              :
-              child
-            ))}
-
+            {React.Children.map(
+              children,
+              child =>
+                React.isValidElement(child) && typeof child.type !== 'string'
+                  ? React.cloneElement(child, { layers, activeLayer })
+                  : child,
+            )}
           </div>
         </div>
       </li>
@@ -73,5 +74,6 @@ class LegendListItem extends PureComponent {
   }
 }
 
-export default SortableElement(({ layerGroup, ...props }) =>
-  <LegendListItem key={props.dataset} {...layerGroup} {...props} />);
+export default SortableElement(({ layerGroup, ...props }) => (
+  <LegendListItem key={props.dataset} {...layerGroup} {...props} />
+));

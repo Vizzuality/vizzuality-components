@@ -114,51 +114,51 @@ class LegendItemTypes extends PureComponent {
       <div styleName="c-legend-item-types">
         {
           url &&
-            loading &&
-            (
-              <Spinner
-                position="relative"
-                style={{ box: { width: 20, height: 20 } }}
-              />
-            )
+          loading &&
+          (
+            <Spinner
+              position="relative"
+              style={{ box: { width: 20, height: 20 } }}
+            />
+          )
         }
         {
           shouldRender &&
-            !!React.Children.count(children) &&
-            React.Children.map(
-              children,
-              child =>
-                React.isValidElement(child) && typeof child.type !== 'string'
-                  ? React.cloneElement(child, { ...this.props })
-                  : child,
-            )
+          !!React.Children.count(children) &&
+          React.Children.map(
+            children,
+            child =>
+              React.isValidElement(child) && typeof child.type !== 'string'
+                ? React.cloneElement(child, { ...this.props })
+                : child,
+          )
         }
         {}
         {
           shouldRender &&
-            !React.Children.count(children) &&
-            <LegendItemTypeBasic {...this.props} />
+          !React.Children.count(children) &&
+          <LegendItemTypeBasic {...this.props} />
         }
         {
           shouldRender &&
-            !React.Children.count(children) &&
-            <LegendItemTypeChoropleth {...this.props} />
+          !React.Children.count(children) &&
+          <LegendItemTypeChoropleth {...this.props} />
         }
         {
           shouldRender &&
-            !React.Children.count(children) &&
-            <LegendItemTypeGradient {...this.props} />
+          !React.Children.count(children) &&
+          <LegendItemTypeGradient {...this.props} />
         }
         {
           shouldRender &&
-            !React.Children.count(children) &&
-            <LegendItemTypeProportional {...this.props} />
+          !React.Children.count(children) &&
+          <LegendItemTypeProportional {...this.props} />
         }
-        {
+        {/* {
           shouldRender &&
-            !React.Children.count(children) &&
-            <LegendItemTypeSelector {...this.props} />
-        }
+          !React.Children.count(children) &&
+          <LegendItemTypeSelector {...this.props} />
+        } */}
       </div>
     );
   }
@@ -171,5 +171,5 @@ export {
   LegendItemTypeChoropleth,
   LegendItemTypeGradient,
   LegendItemTypeProportional,
-  LegendItemTypeSelector,
+  LegendItemTypeSelector
 };

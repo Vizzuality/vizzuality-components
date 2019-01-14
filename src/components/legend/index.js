@@ -27,8 +27,8 @@ class Legend extends PureComponent {
     */
     onChangeOrder: PropTypes.func,
     /** Children for render */
-    children: PropTypes.node
-  }
+    children: PropTypes.node,
+  };
 
   static defaultProps = {
     sortable: true,
@@ -37,13 +37,13 @@ class Legend extends PureComponent {
     maxWidth: null,
     maxHeight: null,
     children: [],
-    onChangeOrder: ids => console.info(ids)
-  }
+    onChangeOrder: ids => console.info(ids),
+  };
 
   constructor(props) {
     super(props);
     const { expanded } = props;
-    this.state = { expanded }
+    this.state = { expanded };
   }
 
   /**
@@ -51,9 +51,9 @@ class Legend extends PureComponent {
    * onToggleLegend
    * onSortEnd
   */
-  onToggleLegend = (bool) => {
+  onToggleLegend = bool => {
     this.setState({ expanded: bool });
-  }
+  };
 
   onSortEnd = ({ oldIndex, newIndex }) => {
     const { onChangeOrder, children } = this.props;
@@ -61,19 +61,12 @@ class Legend extends PureComponent {
     const layersDatasets = arrayMove(layers, oldIndex, newIndex);
 
     onChangeOrder(layersDatasets);
-  }
+  };
 
   render() {
-    const {
-      sortable,
-      collapsable,
-      maxWidth,
-      maxHeight,
-      children
-    } = this.props;
+    const { sortable, collapsable, maxWidth, maxHeight, children } = this.props;
 
     const { expanded } = this.state;
-
 
     if (!children || !React.Children.count(children)) {
       return null;
@@ -81,43 +74,50 @@ class Legend extends PureComponent {
 
     return (
       <div styleName="c-legend-map" style={{ maxWidth }}>
-        {/* LEGEND OPENED */}
+        {}
         <div
           styleName={`open-legend ${classnames({ '-active': expanded })}`}
           style={{ maxHeight }}
         >
-          {/* Toggle button */}
-          {collapsable && (
-            <button type="button" styleName="toggle-legend" onClick={() => this.onToggleLegend(false)}>
-              <Icon name="icon-arrow-down" className="-small" />
-            </button>
-          )}
-
-          {expanded && (
-            <LegendList
-              helperClass="c-legend-item -sortable"
-              onSortStart={(_, event) =>
-                event.preventDefault() // It fixes user select in Safari and IE
-              }
-              onSortEnd={this.onSortEnd}
-              axis="y"
-              lockAxis="y"
-              lockToContainerEdges
-              lockOffset="50%"
-              useDragHandle
-              sortable={sortable}
-            >
-              {React.Children.map(children, (child, index) => (
-                React.isValidElement(child) && child.type === 'LegendItemList' ?
-                React.cloneElement(child, { sortable, index })
-                :
-                child
-              ))}
-            </LegendList>
-          )}
+          {}
+          {
+            collapsable && (
+              <button
+                type="button"
+                styleName="toggle-legend"
+                onClick={() => this.onToggleLegend(false)}
+              >
+                <Icon name="icon-arrow-down" className="-small" />
+              </button>
+            )
+          }
+          {
+            expanded && (
+              <LegendList
+                helperClass="c-legend-item -sortable"
+                onSortStart={// It fixes user select in Safari and IE
+                  (_, event) => event.preventDefault()}
+                onSortEnd={this.onSortEnd}
+                axis="y"
+                lockAxis="y"
+                lockToContainerEdges
+                lockOffset="50%"
+                useDragHandle
+                sortable={sortable}
+              >
+                {React.Children.map(
+                  children,
+                  (child, index) =>
+                    React.isValidElement(child) &&
+                      child.type === 'LegendItemList'
+                      ? React.cloneElement(child, { sortable, index })
+                      : child,
+                )}
+              </LegendList>
+            )
+          }
         </div>
-
-        {/* LEGEND CLOSED */}
+        {}
         <button
           type="button"
           styleName={`close-legend ${classnames({ '-active': !expanded })}`}
@@ -125,8 +125,7 @@ class Legend extends PureComponent {
         >
           <h1 styleName="legend-title">
             Legend
-
-            {/* Toggle button */}
+            {}
             <div styleName="toggle-legend">
               <Icon name="icon-arrow-up" className="-small" />
             </div>
@@ -146,7 +145,7 @@ export {
   LegendItemButtonOpacity,
   LegendItemButtonVisibility,
   LegendItemButtonInfo,
-  LegendItemButtonRemove
+  LegendItemButtonRemove,
 } from './components/legend-item-toolbar';
 
 export {
@@ -154,7 +153,10 @@ export {
   LegendItemTypeBasic,
   LegendItemTypeChoropleth,
   LegendItemTypeGradient,
-  LegendItemTypeProportional
+  LegendItemTypeProportional,
+  LegendItemTypeSelector
 } from './components/legend-item-types';
 
-export { default as LegendItemTimeline } from './components/legend-item-timeline';
+export {
+  default as LegendItemTimeline,
+} from './components/legend-item-timeline';
