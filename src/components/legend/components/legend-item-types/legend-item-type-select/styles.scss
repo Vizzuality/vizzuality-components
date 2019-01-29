@@ -1,5 +1,63 @@
 @import 'settings';
 
 .c-legend-select {
-  z-index: 1;
+  z-index: 11;
+  .Select-menu-outer {
+    z-index: 10000;
+  }
+
+.react-select__Select-menu-outer {
+  z-index: 15!important;
+}
+
+.css-19bqh2r{
+color: red;
+}
+.menu-outer-top .Select-menu-outer {
+      z-index: 11;
+    bottom: 35px!important;
+    border-bottom-right-radius: 0px!important;
+    border-bottom-left-radius: 0px!important;
+    border-top-right-radius: 4px!important;
+    border-top-left-radius: 4px!important;
+}
+.react-select__control {
+    z-index: 15;
+
+}
+.react-select__css-1hwfws3  {
+    border-color: green;
+    z-index: 11;
+  }
+
+  .react-select__value-container {
+       z-index: 12;
+  }
+
+  .react-select__Select-menu-outer{
+    border-color: green;
+    z-index: 11;
+  }
+//     .__value-container {
+//     border-color: orange;
+//     z-index: 11;
+//   }
+// }
+
+//     .value-container {
+//     border-color: orange;
+//     z-index: 11;
+//   }
+//   .__control {
+//     border-color: orange;
+//     z-index: 11;
+//   }
+  .__placeholder {
+    border-color: green;
+    z-index: 11;
+  }
+}
+.react-select__dropdown-indicator {
+      border-color: green;
+    z-index: 11;
 }

@@ -11,15 +11,16 @@ class LegendItemTypeSelect extends PureComponent {
 
   static defaultProps = { activeLayer: {} };
 
-  // state = { selectedOption: 0 };
-
-  handleChange = selectedOption => {
-    this.props.onChange(selectedOption);
-  };
-
   render() {
     const { activeLayer } = this.props;
+    const { selectedOption } = this.props;
     const { layerConfig } = activeLayer;
+    const customStyles = {
+
+      borderBottom: '1px dotted pink',
+      color: 'blue',
+      padding: 20,
+    }
 
 
     if (!layerConfig.uiConfig || !layerConfig.uiConfig.find(item => item.type === "select")) return null;
@@ -30,9 +31,11 @@ class LegendItemTypeSelect extends PureComponent {
       <div styleName="c-legend-select">
         <Select
           placeholder="Select an option"
-          onChange={this.handleChange}
+          onChange={selectedOption}
+          onChangeLanguage
           options={options}
           {...this.props}
+          styles={customStyles}
         />
       </div>
     );
