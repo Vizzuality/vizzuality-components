@@ -1,5 +1,5 @@
 {
-  "name": "wri-api-components",
+  "name": "vizzuality-components",
   "version": "2.3.1",
   "description": "Components to use with WRI's API",
   "main": "dist/bundle.js",
@@ -7,7 +7,7 @@
   "files": [
     "dist/"
   ],
-  "repository": "git@github.com:resource-watch/wri-api-components.git",
+  "repository": "git@github.com:Vizzuality/vizzuality-components.git",
   "author": "Vizzuality <hello@vizzuality.com>",
   "license": "MIT",
   "scripts": {
