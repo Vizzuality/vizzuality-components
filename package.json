@@ -1,7 +1,7 @@
 {
   "name": "vizzuality-components",
-  "version": "2.3.1",
-  "description": "Components to use with WRI's API",
+  "version": "1.0.0",
+  "description": "Vizzuality components set",
   "main": "dist/bundle.js",
   "module": "lib/bundle.js",
   "files": [
