@@ -1,6 +1,6 @@
-# WRI API Components
+# Vizzuality Components
 
-WRI API Components is a collection of React components shared with all WRI applications and they are based on WRI's API.
+Vizzuality Components is a collection of React components shared with any applications and they are based on WRI's API.
 The goal of this project is to centralize all common components and keep the consistency through the different apps.
 
 ## Requirements 🛠️
