@@ -157,4 +157,4 @@ export {
   LegendItemTypeProportional
 } from './components/legend-item-types';
 
-export { default as LegendItemTimeline } from './components/legend-item-timeline';
+// export { default as LegendItemTimeline } from './components/legend-item-timeline';

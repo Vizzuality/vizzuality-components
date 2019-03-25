@@ -852,5 +852,95 @@ export const layerGroups = [
         order: 1
       }
     ]
+  },
+  {
+    dataset: '0448c79d-0ee0-42ff-9331-aeee70cef301',
+    visibility: true,
+    layers: [
+      {
+        active: true,
+        "name": "Tree cover loss",
+        "slug": "Tree-cover-loss",
+        "dataset": "76ef26c3-9d94-4525-b6ac-e46899dabe06",
+        "description": "Tree Cover Loss",
+        "application": [
+          "rw"
+        ],
+        "iso": [],
+        "provider": "leaflet",
+        "userId": "57a0aa1071e394dd32ffe137",
+        "default": true,
+        "protected": false,
+        "published": true,
+        "env": "production",
+        "layerConfig": {
+          "body": {
+            "format": "image/png",
+            "maxZoom": 12,
+            "metadata": "https://production-api.globalforestwatch.org/v1/gfw-metadata/tree_cover_loss",
+            "minZoom": 3,
+            "options": {
+              "useCors": true
+            },
+            "url": "https://storage.googleapis.com/wri-public/Hansen17/tiles/hansen_world/v1/tc{thresh}/{z}/{x}/{y}.png"
+          },
+          "decoder": "tree-cover-loss",
+          "decode_config": [
+            {
+              "default": "2001-01-01",
+              "key": "startDate",
+              "required": true
+            },
+            {
+              "default": "2017-12-31",
+              "key": "endDate",
+              "required": true
+            }
+          ],
+          "params_config": [
+            {
+              "default": 12,
+              "key": "dataMaxZoom",
+              "required": true
+            },
+            {
+              "default": 30,
+              "key": "thresh",
+              "required": true
+            }
+          ],
+          "timeline_config": {
+            "dateFormat": "YYYY",
+            "interval": "years",
+            "speed": 250,
+            "step": 1
+          },
+          "type": "tileLayer"
+        },
+        "legendConfig": {
+          "type": "basic",
+          "items": [
+            {
+              "notes": [
+                "Displaying loss with {thresh} canopy density.",
+                "Tree cover loss is not always deforestation."
+              ],
+              "source": "(annual, 30m, global, Hansen/UMD/Google/USGS/NASA)",
+              "name": "Tree cover loss",
+              "color": "#DC6C9A",
+              "threshold": 30,
+              "dataMaxZoom": 12
+            }
+          ]
+        },
+        "interactionConfig": {},
+        "applicationConfig": {},
+        "staticImageConfig": {},
+        "updatedAt": "2019-01-15T09:23:42.279Z"
+      }
+    ]
   }
 ];
+
+
+export default { layerGroups };
