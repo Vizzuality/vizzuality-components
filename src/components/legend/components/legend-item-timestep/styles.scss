@@ -3,6 +3,8 @@
 .c-timestep {
   display: flex;
   flex-direction: column;
+  min-height: 30px;
+  margin: ($space-1 * 1.5) 0 0;
 
   .date-pickers {
     display: flex;
@@ -69,6 +71,10 @@
             left: calc(50% - 2px);
           }
         }
+      }
+
+      .rc-slider-mark-text {
+        font-size: 10px;
       }
     }
   }

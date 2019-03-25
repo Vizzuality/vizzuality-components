@@ -135,6 +135,11 @@ const LegendItemTypes = require('./components/legend-item-types').default;
 
 ### Timestep legend
 ```jsx
+const layerGroups = require('./mocks').layerGroups;
+
+const LegendListItem = require('./components/legend-list-item').default;
+const LegendItemToolbar = require('./components/legend-item-toolbar').default;
+const LegendItemTypes = require('./components/legend-item-types').default;
 const LegendItemTimestep = require('./components/legend-item-timestep').default;
 
 const timelineConfig = {
@@ -150,9 +155,26 @@ const timelineConfig = {
   step: 1
 };
 
-<LegendItemTimestep 
-  handleChange={dates => { console.log(dates); }} 
-  {...timelineConfig}
-/>
-  
+
+<Legend
+  expanded={true}
+  sortable={true}
+>
+  {layerGroups.map((lg, i) => (
+    <LegendListItem
+      index={i}
+      key={lg.dataset}
+      layerGroup={lg}
+      toolbar={
+        <LegendItemToolbar />
+      }
+    >
+      <LegendItemTypes />
+      <LegendItemTimestep 
+        handleChange={dates => { console.log(dates); }} 
+        {...timelineConfig}
+      />
+    </LegendListItem>
+  ))}
+</Legend>  
 ```
