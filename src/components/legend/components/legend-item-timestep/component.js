@@ -70,8 +70,8 @@ class Timeline extends PureComponent {
 
     const externalClass = classnames({ [customClass]: !!customClass });
     const sliderClass = classnames(
-      'wri_api__range',
-      { 'wri_api__can-play': canPlay }
+      'vizzuality__range',
+      { 'vizzuality__can-play': canPlay }
     );
     const iconStatus = classnames({
       'icon-pause2': isPlaying,
@@ -95,7 +95,7 @@ class Timeline extends PureComponent {
           )}
           <Slider
             range
-            className="wri_api__slider-timestep"
+            className="vizzuality__slider-timestep"
             customClass={sliderClass}
             marks={marks}
             disabled={isPlaying}

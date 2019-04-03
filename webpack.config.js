@@ -76,7 +76,7 @@ const config = {
             options: {
               modules: true,
               importLoaders: 1,
-              localIdentName: 'wri_api__[local]'
+              localIdentName: 'vizzuality__[local]'
             }
           },
           'postcss-loader',
