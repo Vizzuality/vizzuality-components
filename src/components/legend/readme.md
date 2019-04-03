@@ -23,7 +23,7 @@ import {
   // timestep
   LegendItemTimestep
 
-} from 'wri-api-components';
+} from 'vizzuality-components';
 </pre>
 
 ### Legend
@@ -170,11 +170,11 @@ const timelineConfig = {
       }
     >
       <LegendItemTypes />
-      <LegendItemTimestep 
-        handleChange={dates => { console.log(dates); }} 
+      <LegendItemTimestep
+        handleChange={dates => { console.log(dates); }}
         {...timelineConfig}
       />
     </LegendListItem>
   ))}
-</Legend>  
+</Legend>
 ```

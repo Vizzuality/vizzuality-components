@@ -1,7 +1,7 @@
 
 ### Requirements
 <pre>
-` 
+`
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" />
 <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"/>
 <script src="https://unpkg.com/esri-leaflet/dist/esri-leaflet.js" />
@@ -11,7 +11,7 @@
 
 ### Components available
 <pre>
-import { Map, MapControls, ZoomControl } from 'wri-api-components';
+import { Map, MapControls, ZoomControl } from 'vizzuality-components';
 </pre>
 
 ### Map
@@ -176,7 +176,7 @@ const events = {
                 0: 'setLeftLayers',
                 1: 'setRightLayers'
               };
-              
+
               layers.forEach((lm, i) => {
                 const { mapLayer } = lm;
                 if (mapLayer.group) {

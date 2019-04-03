@@ -43,7 +43,13 @@ module.exports = {
       ])
     },
     {
-      name: 'Map-components',
+      name: 'Mapbox-components',
+      components: () => ([
+        path.resolve(__dirname, 'src/components/mapbox/map', 'index.js')
+      ])
+    },
+    {
+      name: 'Leaflet-components',
       components: () => ([
         path.resolve(__dirname, 'src/components/map', 'index.js'),
         path.resolve(__dirname, 'src/components/map/map-controls', 'index.js'),

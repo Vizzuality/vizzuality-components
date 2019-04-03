@@ -52,7 +52,6 @@
     "eslint-config-airbnb": "17.0.0",
     "eslint-config-prettier": "2.9.0",
     "eslint-config-vizzuality": "^1.1.7",
-    "eslint-import-resolver-babel-module": "^4.0.0",
     "eslint-plugin-babel": "^4.1.2",
     "eslint-plugin-import": "2.13.0",
     "eslint-plugin-jsx-a11y": "6.1.1",
@@ -69,8 +68,8 @@
     "prettier": "^0.11.0",
     "react": "^16.4.2",
     "react-dom": "^16.4.1",
+    "react-map-gl": "^4.1.1",
     "react-styleguidist": "^7.2.3",
-    "resolve-url-loader": "^2.3.0",
     "rollup": "^0.66.2",
     "rollup-all": "^1.3.1",
     "rollup-plugin-babel": "3",
@@ -81,9 +80,9 @@
     "uglifyjs-webpack-plugin": "^1.3.0",
     "vega": "^4.2.0",
     "vega-lib": "^4.2.0",
+    "viewport-mercator-project": "^6.1.1",
     "webpack": "^4.16.5",
-    "webpack-bundle-analyzer": "^2.11.1",
-    "webpack-cli": "^3.1.0"
+    "webpack-bundle-analyzer": "^2.11.1"
   },
   "dependencies": {
     "classnames": "^2.2.6",
@@ -94,9 +93,7 @@
     "rc-slider": "^8.6.3",
     "rc-tooltip": "3.7.0",
     "react-sortable-hoc": "^0.6.8",
-    "react-vega": "^4.0.2",
-    "vega-tooltip": "^0.13.0",
-    "wri-json-api-serializer": "^1.0.1"
+    "vega-tooltip": "^0.13.0"
   },
   "peerDependencies": {
     "react": "^16.0.0",
