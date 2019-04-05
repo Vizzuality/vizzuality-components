@@ -10,6 +10,11 @@ import WebMercatorViewport from 'viewport-mercator-project';
 
 import './styles.scss';
 
+const DEFAULT_VIEWPORT = {
+  zoom: 2,
+  lat: 0,
+  lng: 0
+}
 
 class MapboxMap extends Component {
   events = {}
@@ -19,30 +24,33 @@ class MapboxMap extends Component {
     children: PropTypes.func,
     /** Custom css class for styling */
     customClass: PropTypes.string,
-    /** A function that exposes the viewport
+    /** An object that defines the viewport
      * @see https://uber.github.io/react-map-gl/#/Documentation/api-reference/interactive-map?section=initialization
     */
-    viewport: PropTypes.shape({}),
+    viewport: PropTypes.shape({
+
+    }),
+    /** An object that defines the bounds */
     bounds: PropTypes.shape({
       bbox: PropTypes.array,
       options: PropTypes.shape({})
     }),
+    /** A function that exposes when the map is loaded. It has and object with the `this.map` and `this.mapContainer` reference. */
+    onLoad: PropTypes.func,
     /** A function that exposes the viewport */
     onViewportChange: PropTypes.func,
+    /** A function that exposes the viewport */
     getCursor: PropTypes.func
   }
 
   static defaultProps = {
     children: null,
     customClass: null,
-    viewport: {
-      zoom: 2,
-      lat: 0,
-      lng: 0
-    },
+    viewport: DEFAULT_VIEWPORT,
     bounds: {},
 
     onViewportChange: () => {},
+    onLoad: () => {},
     getCursor: ({ isHovering, isDragging }) => {
       if (isHovering) return 'pointer';
       if (isDragging) return 'grabbing';
@@ -52,6 +60,7 @@ class MapboxMap extends Component {
 
   state = {
     viewport: {
+      ...DEFAULT_VIEWPORT,
       ...this.props.viewport // eslint-disable-line
     },
     loaded: false
@@ -107,26 +116,50 @@ class MapboxMap extends Component {
     const { onLoad } = this.props;
 
     this.setState({ loaded: true });
-    onLoad();
+
+    onLoad({
+      map: this.map,
+      mapContainer: this.mapContainer
+    });
+  }
+
+  onMoveEnd = () => {
+    const { viewport } = this.state;
+
+    if (this.map) {
+      const bearing = this.map.getBearing();
+      const pitch = this.map.getPitch();
+      const zoom = this.map.getZoom();
+      const { lng, lat } = this.map.getCenter();
+
+      const newViewport = {
+        ...viewport,
+        bearing,
+        pitch,
+        zoom,
+        latitude: lat,
+        longitude: lng
+      };
+
+      this.setState({
+        viewport: newViewport
+      });
+    }
+
   }
 
   fitBounds = () => {
     const { bounds } = this.props;
     const { bbox, options } = bounds;
 
-    const { viewport } = this.state;
-    const {
-      width = this.mapContainer.clientWidth,
-      height = this.mapContainer.clientHeight
-    } = viewport;
 
-    const webMercatorViewport = new WebMercatorViewport({ width, height });
-    const newViewport = webMercatorViewport.fitBounds(
-      [[bbox[0], bbox[1]], [bbox[2], bbox[3]]],
-      options
-    );
-
-    this.setState({ viewport: newViewport });
+    requestAnimationFrame(() => {
+      this.map.fitBounds(
+        [[bbox[0], bbox[1]], [bbox[2], bbox[3]]],
+        options
+      );
+      this.map.once('moveend', this.onMoveEnd);
+    });
   };
 
   render() {
@@ -144,6 +177,7 @@ class MapboxMap extends Component {
         <ReactMapGL
           ref={map => { this.map = map && map.getMap(); }}
 
+          // CUSTOM PROPS FROM REACT MAPBOX API
           {...mapboxProps}
 
           // VIEWPORT
@@ -151,17 +185,15 @@ class MapboxMap extends Component {
           width="100%"
           height="100%"
 
-          // mapOptions={mapOptions}
+          // DEFAULT FUC IMPLEMENTATIONS
           onViewportChange={this.onViewportChange}
           onResize={this.onResize}
           onLoad={this.onLoad}
           getCursor={getCursor}
-          // onClick={handleMapInteraction}
-          // interactiveLayerIds={interactiveLayers}
         >
           {loaded && (
             <Fragment>
-              <h1>I'm a tittle</h1>
+              {!!this.map && typeof children === 'function' && children(this.map)}
             </Fragment>
           )}
         </ReactMapGL>
