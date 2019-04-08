@@ -30,6 +30,7 @@ initialState = {
     }}
     mapboxApiAccessToken="pk.eyJ1IjoiYWZpbGF0b3JlOTAiLCJhIjoiY2lqcml0bHoyMDBhZHZwbHhzM2Q1bnRwNSJ9.Zm2C1hNemolKnIAAWquGYg"
     mapStyle="mapbox://styles/mapbox/satellite-streets-v10"
+    onViewportChange={(viewport) => { console.log(viewport); }}
   >
     {(map) => {
       <h1>This is a title</h1>
