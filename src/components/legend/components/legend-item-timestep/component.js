@@ -22,19 +22,12 @@ class Timeline extends PureComponent {
     trim: PropTypes.number.isRequired,
     handleOnChange: PropTypes.func.isRequired,
     handleOnAfterChange: PropTypes.func.isRequired,
-    marks: PropTypes.object.isRequired,
+    marks: PropTypes.shape({}).isRequired,
     formatDateString: PropTypes.func.isRequired,
     step: PropTypes.number.isRequired,
     canPlay: PropTypes.bool.isRequired,
-    minDate: PropTypes.string.isRequired,
-    maxDate: PropTypes.string.isRequired,
-    startDate: PropTypes.string.isRequired,
-    trimEndDate: PropTypes.string.isRequired,
-    handleOnDateChange: PropTypes.func.isRequired,
-    dateFormat: PropTypes.string.isRequired,
-    interval: PropTypes.string.isRequired,
     customClass: PropTypes.string,
-    trackStyles: PropTypes.object
+    trackStyles: PropTypes.shape({})
   }
 
   static defaultProps = {
@@ -57,18 +50,14 @@ class Timeline extends PureComponent {
       formatDateString,
       step,
       canPlay,
-      minDate,
-      maxDate,
-      startDate,
-      trimEndDate,
-      handleOnDateChange,
-      dateFormat,
-      interval,
       customClass,
       trackStyles
     } = this.props;
 
-    const externalClass = classnames({ [customClass]: !!customClass });
+    const externalClass = classnames({
+      'wri_api__can-play': canPlay,
+      [customClass]: !!customClass
+    });
     const sliderClass = classnames(
       'wri_api__range',
       { 'wri_api__can-play': canPlay }
@@ -107,7 +96,7 @@ class Timeline extends PureComponent {
             onAfterChange={handleOnAfterChange}
             formatValue={formatDateString}
             trackStyle={trackStyles}
-            showTooltip={index => isPlaying && index === 1}
+            showTooltip={index => isPlaying && index === 1 && trim !== end}
             pushable
             count={2}
           />

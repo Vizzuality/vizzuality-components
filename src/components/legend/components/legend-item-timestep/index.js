@@ -1,8 +1,9 @@
 import { createElement, PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import isEqual from 'lodash/isEqual';
 import moment from 'moment';
+import isEqual from 'lodash/isEqual';
 import debounce from 'lodash/debounce';
+import omit from 'lodash/omit';
 
 import {
   addToDate,
@@ -31,7 +32,7 @@ export class TimestepContainer extends PureComponent {
 
   static propTypes = {
     handleChange: PropTypes.func.isRequired,
-    activeLayer: PropTypes.object
+    activeLayer: PropTypes.shape({})
   }
 
   static defaultProps = { activeLayer: {} };
@@ -43,7 +44,7 @@ export class TimestepContainer extends PureComponent {
     const { layerConfig } = activeLayer;
 
     if ((layerConfig || {}).timeline_config) {
-      this.timelineConfig = getTimelineConfigFromLayer(activeLayer.layerConfig);
+      this.timelineConfig = getTimelineConfigFromLayer(activeLayer);
       const { minDate, maxDate, startDate, endDate, trimEndDate } = this.timelineConfig;
 
       this.state = {
@@ -70,37 +71,6 @@ export class TimestepContainer extends PureComponent {
 
   state = {}
 
-  componentWillReceiveProps(nextProps) {
-    const { activeLayer } = this.props;
-    const { activeLayer: nextActiveLayer  } = nextProps;
-    const activeLayerChanged = !isEqual(activeLayer, nextActiveLayer);
-
-    if (activeLayerChanged && nextActiveLayer.layerConfig.timeline_config) {
-      this.timelineConfig = getTimelineConfigFromLayer(nextActiveLayer.layerConfig);
-      const { minDate, maxDate, startDate, endDate, trimEndDate } = this.timelineConfig;
-
-      this.state = {
-        isPlaying: false,
-        min: 0,
-        max: dateDiffInDays(maxDate, minDate),
-        start: dateDiffInDays(startDate, minDate),
-        end: dateDiffInDays(endDate, minDate),
-        trim: dateDiffInDays(trimEndDate, minDate),
-        loops: 0
-      };
-
-      const dates = {
-        maxDate,
-        minDate,
-        startDate,
-        endDate,
-        trimEndDate
-      };
-
-      this.marks = getTicks(dates);
-    }
-  }
-
   componentDidUpdate(prevProps, prevState) {
     if (!this.timelineConfig) return;
 
@@ -114,6 +84,14 @@ export class TimestepContainer extends PureComponent {
     } else if (isPlaying && !isEqual(end, prevState.end)) {
       this.incrementTimeline(this.state);
     }
+
+    const { activeLayer: { timelineParams } } = this.props;
+    const { activeLayer: { timelineParams: prevTimelineParams } } = this.props;
+    const omitParams = ['startDate', 'startYear', 'startMonth', 'startDay', 'endDate', 'endYear', 'endMonth', 'endDay'];
+
+    if (!isEqual(omit(timelineParams, omitParams), omit(prevTimelineParams, omitParams))) {
+      console.info('newTimelineParams');
+    }
   }
 
   componentWillUnmount() {
@@ -123,6 +101,7 @@ export class TimestepContainer extends PureComponent {
   incrementTimeline = nextState => {
     const { speed, minDate, step, interval } = this.timelineConfig;
     const { start, end, trim } = nextState;
+
     this.interval = setTimeout(() => {
       const currentEndDate = moment(minDate).add(end, 'days');
       const { loops } = this.state;

@@ -140,46 +140,12 @@ export const getTicks = (timelineConfig = {}) => {
   return marks;
 };
 
-export const getTimelineConfigFromLayer = (layerConfig = {}) => {
-  const {
-    timeline_config: timelineConfig,
-    params_config: paramsConfig,
-    decode_config: decodeConfig
-  } = layerConfig;
-
-
-  let timelineConfigParams = {};
-
-  if (paramsConfig) {
-    paramsConfig.forEach((_param) => {
-      timelineConfigParams = {
-        ...timelineConfigParams,
-        [_param.key]: _param.default
-      };
-    });
-  }
-
-  if (decodeConfig) {
-    decodeConfig.forEach((_param) => {
-      timelineConfigParams = {
-        ...timelineConfigParams,
-        [_param.key]: _param.default
-      };
-    });
-  }
-
-  timelineConfigParams = {
-    ...timelineConfigParams,
-    ...{ canPlay: !!decodeConfig },
-    ...!timelineConfigParams.minDate && { minDate: timelineConfigParams.startDate },
-    ...!timelineConfigParams.maxDate && { maxDate: timelineConfigParams.endDate },
-    ...!timelineConfigParams.trimEndDate && { trimEndDate: timelineConfigParams.endDate },
-  }
+export const getTimelineConfigFromLayer = (layer = {}) => {
+  const { timelineParams } = layer;
 
   return {
-    ...timelineConfig,
-    ...timelineConfigParams
-  };
+    ...timelineParams
+  }
 };
 
 export default {
