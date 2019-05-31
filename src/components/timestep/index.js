@@ -11,7 +11,7 @@ import Slider from 'components/slider';
 // styles
 import './styles.scss';
 
-class Timeline extends PureComponent {
+class Timestep extends PureComponent {
   static propTypes = {
     isPlaying: PropTypes.bool.isRequired,
     handleTogglePlay: PropTypes.func.isRequired,
@@ -26,13 +26,6 @@ class Timeline extends PureComponent {
     formatDateString: PropTypes.func.isRequired,
     step: PropTypes.number.isRequired,
     canPlay: PropTypes.bool.isRequired,
-    minDate: PropTypes.string.isRequired,
-    maxDate: PropTypes.string.isRequired,
-    startDate: PropTypes.string.isRequired,
-    trimEndDate: PropTypes.string.isRequired,
-    handleOnDateChange: PropTypes.func.isRequired,
-    dateFormat: PropTypes.string.isRequired,
-    interval: PropTypes.string.isRequired,
     customClass: PropTypes.string,
     trackStyles: PropTypes.object
   }
@@ -54,16 +47,9 @@ class Timeline extends PureComponent {
       handleOnChange,
       handleOnAfterChange,
       marks,
-      formatDateString,
+      formatValue,
       step,
       canPlay,
-      minDate,
-      maxDate,
-      startDate,
-      trimEndDate,
-      handleOnDateChange,
-      dateFormat,
-      interval,
       customClass,
       trackStyles
     } = this.props;
@@ -105,7 +91,7 @@ class Timeline extends PureComponent {
             step={step}
             onChange={handleOnChange}
             onAfterChange={handleOnAfterChange}
-            formatValue={formatDateString}
+            formatValue={formatValue}
             trackStyle={trackStyles}
             showTooltip={index => isPlaying && index === 1}
             pushable
@@ -117,4 +103,4 @@ class Timeline extends PureComponent {
   }
 }
 
-export default Timeline;
+export default Timestep;

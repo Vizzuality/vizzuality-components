@@ -4,6 +4,8 @@ import isEqual from 'lodash/isEqual';
 import moment from 'moment';
 import debounce from 'lodash/debounce';
 
+import Timestep from 'components/timestep';
+
 import {
   addToDate,
   dateDiffInDays,
@@ -12,8 +14,6 @@ import {
   getTicks,
   getTimelineConfigFromLayer
 } from './utils';
-
-import TimelineComponent from './component';
 
 export class TimestepContainer extends PureComponent {
   handleOnAfterChange = debounce(range => {
@@ -208,7 +208,7 @@ export class TimestepContainer extends PureComponent {
   render() {
     if (!this.timelineConfig) return null;
 
-    return createElement(TimelineComponent, {
+    return createElement(Timestep, {
       ...this.props,
       ...this.state,
       ...this.timelineConfig,
