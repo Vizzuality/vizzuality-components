@@ -13,7 +13,7 @@ import './styles.scss';
 export class CustomSlider extends PureComponent {
   static propTypes = {
     customClass: PropTypes.string,
-    settings: PropTypes.object,
+    settings: PropTypes.shape({}),
     value: PropTypes.oneOfType([
       PropTypes.array,
       PropTypes.number
@@ -21,13 +21,13 @@ export class CustomSlider extends PureComponent {
     dragging: PropTypes.bool,
     index: PropTypes.number,
     range: PropTypes.bool,
-    handleStyle: PropTypes.object,
-    trackStyle: PropTypes.object,
-    trackColors: PropTypes.array,
+    handleStyle: PropTypes.shape({}),
+    trackStyle: PropTypes.shape({}),
+    trackColors: PropTypes.shape([]),
     formatValue: PropTypes.func,
     showTooltip: PropTypes.func,
-    railStyle: PropTypes.object,
-    dotStyle: PropTypes.object,
+    railStyle: PropTypes.shape({}),
+    dotStyle: PropTypes.shape({}),
     pushable: PropTypes.bool
   }
 
