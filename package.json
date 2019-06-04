@@ -1,6 +1,6 @@
 {
   "name": "vizzuality-components",
-  "version": "1.1.1",
+  "version": "1.2.1",
   "description": "Vizzuality components set",
   "main": "dist/bundle.js",
   "module": "lib/bundle.js",
@@ -86,6 +86,7 @@
     "webpack-cli": "^3.1.0"
   },
   "dependencies": {
+    "axios": "^0.19.0",
     "classnames": "^2.2.6",
     "layer-manager": "^1.10.0",
     "lodash": "^4.17.10",
