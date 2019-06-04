@@ -11,7 +11,7 @@ import Slider from 'components/slider';
 // styles
 import './styles.scss';
 
-class Timeline extends PureComponent {
+class Timestep extends PureComponent {
   static propTypes = {
     isPlaying: PropTypes.bool.isRequired,
     handleTogglePlay: PropTypes.func.isRequired,
@@ -22,24 +22,35 @@ class Timeline extends PureComponent {
     trim: PropTypes.number.isRequired,
     handleOnChange: PropTypes.func.isRequired,
     handleOnAfterChange: PropTypes.func.isRequired,
-    marks: PropTypes.object.isRequired,
-    formatDateString: PropTypes.func.isRequired,
+    marks: PropTypes.shape({}).isRequired,
+    formatValue: PropTypes.func.isRequired,
     step: PropTypes.number.isRequired,
     canPlay: PropTypes.bool.isRequired,
-    minDate: PropTypes.string.isRequired,
-    maxDate: PropTypes.string.isRequired,
-    startDate: PropTypes.string.isRequired,
-    trimEndDate: PropTypes.string.isRequired,
-    handleOnDateChange: PropTypes.func.isRequired,
-    dateFormat: PropTypes.string.isRequired,
-    interval: PropTypes.string.isRequired,
     customClass: PropTypes.string,
-    trackStyles: PropTypes.object
+    range: PropTypes.bool,
+    value: PropTypes.number,
+    trackStyle: PropTypes.shape({}),
+    railStyle: PropTypes.shape({}),
+    trackColors: PropTypes.shape([]),
+    handleStyle: PropTypes.shape({}),
   }
 
   static defaultProps = {
+    range: true,
+    value: null,
     customClass: null,
-    trackStyles: {}
+    trackColors: [],
+    trackStyle: {},
+    railStyle: {},
+    handleStyle: {}
+  }
+
+  getValue() {
+    const { range, canPlay, start, end, trim, value } = this.props;
+    if (range) {
+      return canPlay ? [start, end, trim] : [start, end];
+    }
+    return value;
   }
 
   render() {
@@ -48,24 +59,18 @@ class Timeline extends PureComponent {
       handleTogglePlay,
       min,
       max,
-      start,
-      end,
-      trim,
       handleOnChange,
       handleOnAfterChange,
       marks,
-      formatDateString,
+      formatValue,
       step,
       canPlay,
-      minDate,
-      maxDate,
-      startDate,
-      trimEndDate,
-      handleOnDateChange,
-      dateFormat,
-      interval,
       customClass,
-      trackStyles
+      trackStyle,
+      railStyle,
+      trackColors,
+      handleStyle,
+      range
     } = this.props;
 
     const externalClass = classnames({ [customClass]: !!customClass });
@@ -93,28 +98,32 @@ class Timeline extends PureComponent {
               <Icon name={iconStatus} />
             </button>
           )}
+
           <Slider
-            range
+            range={range}
             className="wri_api__slider-timestep"
             customClass={sliderClass}
             marks={marks}
             disabled={isPlaying}
             min={min}
             max={max}
-            value={canPlay ? [start, end, trim] : [start, end]}
+            value={this.getValue()}
             step={step}
             onChange={handleOnChange}
             onAfterChange={handleOnAfterChange}
-            formatValue={formatDateString}
-            trackStyle={trackStyles}
+            formatValue={formatValue}
+            railStyle={railStyle}
+            trackStyle={trackStyle}
+            trackColors={trackColors}
+            handleStyle={handleStyle}
             showTooltip={index => isPlaying && index === 1}
             pushable
-            count={2}
           />
+
         </div>
       </div>
     );
   }
 }
 
-export default Timeline;
+export default Timestep;
