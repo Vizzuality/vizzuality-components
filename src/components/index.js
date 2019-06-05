@@ -4,6 +4,7 @@ export { default as Icons } from './icons';
 export { default as Tooltip } from './tooltip';
 export { default as Spinner } from './spinner';
 export { default as Slider } from './slider';
+export { default as Timestep } from './timestep';
 
 // Form
 export { default as Range } from './form/range';
