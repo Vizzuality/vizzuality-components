@@ -15,6 +15,8 @@ class Range extends PureComponent {
       PropTypes.array
     ]),
     range: PropTypes.bool,
+    trackStyle: PropTypes.array,
+    handleStyle: PropTypes.array,
     showTooltip: PropTypes.func,
     formatValue: PropTypes.func
   };
@@ -23,7 +25,14 @@ class Range extends PureComponent {
     value: 0,
     range: false,
     showTooltip: null,
-    formatValue: null
+    formatValue: null,
+    trackStyle: [
+      { backgroundColor: '#c32d7b' },
+      { backgroundColor: 'grey' }
+    ],
+    handleStyle: [
+      { backgroundColor: '#c32d7b', width: '14px', height: '14px', border: 0 }
+    ]
   };
 
   constructor(props) {
@@ -61,13 +70,6 @@ class Range extends PureComponent {
 
     return (
       <Component
-        trackStyle={[
-          { backgroundColor: '#c32d7b' },
-          { backgroundColor: 'grey' }
-        ]}
-        handleStyle={[
-          { backgroundColor: '#c32d7b', width: '14px', height: '14px', border: 0 }
-        ]}
         activeDotStyle={{ display: 'none' }}
         dotStyle={{ display: 'none' }}
         {...this.props}

@@ -15,6 +15,8 @@ class LegendItemTimeline extends PureComponent {
     dragging: PropTypes.bool,
     index: PropTypes.number,
     layers: PropTypes.array,
+    trackStyle: PropTypes.array,
+    handleStyle: PropTypes.array,
     onChangeLayer: PropTypes.func.isRequired
   }
 
@@ -22,7 +24,9 @@ class LegendItemTimeline extends PureComponent {
     layers: [],
     value: 0,
     dragging: false,
-    index: 0
+    index: 0,
+    trackStyle: null,
+    handleStyle: null
   }
 
   state = {
@@ -110,6 +114,7 @@ class LegendItemTimeline extends PureComponent {
   };
 
   render() {
+    const { trackStyle, handleStyle } = this.props;
     const { step } = this.state;
     const timelineLayers = this.getTimelineLayers();
 
@@ -130,6 +135,8 @@ class LegendItemTimeline extends PureComponent {
 
     const first = timelineLayers[0].layerConfig.order;
     const last = timelineLayers[timelineLayers.length - 1].layerConfig.order;
+    const activeLayer = timelineLayers.find(_layer => _layer.active);
+    const defaultValue = activeLayer ? activeLayer.layerConfig.order : first;
 
     return (
       <div styleName="c-legend-timeline">
@@ -163,8 +170,11 @@ class LegendItemTimeline extends PureComponent {
           step={null}
           handle={this.renderHandle}
           marks={timelineMarks}
-          defaultValue={step || first}
+          defaultValue={defaultValue}
+          value={step || defaultValue}
           onAfterChange={(nextStep) => { this.setStep(nextStep); }}
+          {...trackStyle && { trackStyle }}
+          {...handleStyle && { handleStyle }}
         />
       </div>
     );
