@@ -6,8 +6,9 @@
   // max-width: 400px;
   background: $color-white;
   z-index: 2;
-  border-radius: 4px;
   border: 1px solid $border-color-1;
+  border-radius: 4px;
+  border-top-right-radius: 0;
 
   .legend-title {
     display: flex;
@@ -23,12 +24,13 @@
 
   .toggle-legend {
     position: absolute;
-    right: 0px;
+    right: -1px;
     width: 40px;
     height: 32px;
     bottom: 100%;
     border: 0;
     border-radius: 2px 2px 0 0;
+    transform: translate(0, -1px);
     background-color: rgba($color-dark-2, .8);
     cursor: pointer;
 
