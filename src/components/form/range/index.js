@@ -8,7 +8,6 @@ import Tooltip from 'components/tooltip';
 const RangeRender = createSliderWithTooltip(Slider.Range);
 
 class Range extends PureComponent {
-
   static propTypes = {
     value: PropTypes.oneOfType([
       PropTypes.number,
@@ -17,6 +16,9 @@ class Range extends PureComponent {
     range: PropTypes.bool,
     trackStyle: PropTypes.array,
     handleStyle: PropTypes.array,
+    railStyle: PropTypes.object,
+    dotStyle: PropTypes.object,
+    activeDotStyle: PropTypes.object,
     showTooltip: PropTypes.func,
     formatValue: PropTypes.func
   };
@@ -26,13 +28,16 @@ class Range extends PureComponent {
     range: false,
     showTooltip: null,
     formatValue: null,
+    railStyle: null,
     trackStyle: [
       { backgroundColor: '#c32d7b' },
       { backgroundColor: 'grey' }
     ],
     handleStyle: [
       { backgroundColor: '#c32d7b', width: '14px', height: '14px', border: 0 }
-    ]
+    ],
+    dotStyle: { display: 'none' },
+    activeDotStyle: { display: 'none' }
   };
 
   constructor(props) {
@@ -70,8 +75,6 @@ class Range extends PureComponent {
 
     return (
       <Component
-        activeDotStyle={{ display: 'none' }}
-        dotStyle={{ display: 'none' }}
         {...this.props}
         handle={this.renderHandle}
         value={value}
