@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import debounce from 'lodash/debounce';
 import sortBy from 'lodash/sortBy';
 import Range from 'components/form/range';
@@ -14,7 +15,14 @@ class LegendItemTimeline extends PureComponent {
     value: PropTypes.number,
     dragging: PropTypes.bool,
     index: PropTypes.number,
+    customClass: PropTypes.string,
     layers: PropTypes.array,
+    trackStyle: PropTypes.array,
+    handleStyle: PropTypes.array,
+    railStyle: PropTypes.object,
+    dotStyle: PropTypes.object,
+    activeDotStyle: PropTypes.object,
+    markStyle: PropTypes.object,
     onChangeLayer: PropTypes.func.isRequired
   }
 
@@ -22,7 +30,14 @@ class LegendItemTimeline extends PureComponent {
     layers: [],
     value: 0,
     dragging: false,
-    index: 0
+    index: 0,
+    customClass: null,
+    trackStyle: null,
+    handleStyle: null,
+    railStyle: null,
+    dotStyle: null,
+    activeDotStyle: null,
+    markStyle: {}
   }
 
   state = {
@@ -110,7 +125,17 @@ class LegendItemTimeline extends PureComponent {
   };
 
   render() {
+    const {
+      trackStyle,
+      handleStyle,
+      railStyle,
+      dotStyle,
+      activeDotStyle,
+      markStyle,
+      customClass
+    } = this.props;
     const { step } = this.state;
+    const externalClass = classnames({ [customClass]: !!customClass });
     const timelineLayers = this.getTimelineLayers();
 
     // Return null if timeline doesn not exist
@@ -123,6 +148,7 @@ class LegendItemTimeline extends PureComponent {
       timelineMarks[val.layerConfig.timelineLabel] =  {
         label: val.layerConfig.timelineLabel,
         style: {
+          ...markStyle,
           visibility: isVisible ? 'visible' : 'hidden'
         }
       }
@@ -130,9 +156,14 @@ class LegendItemTimeline extends PureComponent {
 
     const first = timelineLayers[0].layerConfig.order;
     const last = timelineLayers[timelineLayers.length - 1].layerConfig.order;
+    const activeLayer = timelineLayers.find(_layer => _layer.active);
+    const defaultValue = activeLayer ? activeLayer.layerConfig.order : first;
 
     return (
-      <div styleName="c-legend-timeline">
+      <div
+        styleName="c-legend-timeline"
+        className={externalClass}
+      >
         {/* {this.state.isPlaying &&
           <button
             styleName="timeline-play-button"
@@ -163,8 +194,14 @@ class LegendItemTimeline extends PureComponent {
           step={null}
           handle={this.renderHandle}
           marks={timelineMarks}
-          defaultValue={step || first}
+          defaultValue={defaultValue}
+          value={step || defaultValue}
           onAfterChange={(nextStep) => { this.setStep(nextStep); }}
+          {...trackStyle && { trackStyle }}
+          {...railStyle && { railStyle }}
+          {...handleStyle && { handleStyle }}
+          {...dotStyle && { dotStyle }}
+          {...activeDotStyle && { activeDotStyle }}
         />
       </div>
     );
