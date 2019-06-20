@@ -12,8 +12,7 @@ import {
   dateDiffInDays,
   formatDatePretty,
   formatDate,
-  getTicks,
-  getTimelineConfigFromLayer
+  getTicks
 } from './utils';
 
 export class TimestepContainer extends PureComponent {
@@ -28,7 +27,7 @@ export class TimestepContainer extends PureComponent {
     handleChange(formattedRange, activeLayer);
   }, 50);
 
-  timelineConfig = null
+  timelineParams = null
 
   static propTypes = {
     handleChange: PropTypes.func.isRequired,
@@ -44,8 +43,8 @@ export class TimestepContainer extends PureComponent {
     const { layerConfig } = activeLayer;
 
     if ((layerConfig || {}).timeline_config) {
-      this.timelineConfig = getTimelineConfigFromLayer(activeLayer);
-      const { minDate, maxDate, startDate, endDate, trimEndDate } = this.timelineConfig;
+      this.timelineParams = activeLayer.timelineParams;
+      const { minDate, maxDate, startDate, endDate, trimEndDate } = this.timelineParams;
 
       this.state = {
         isPlaying: false,
@@ -72,7 +71,7 @@ export class TimestepContainer extends PureComponent {
   state = {}
 
   componentDidUpdate(prevProps, prevState) {
-    if (!this.timelineConfig) return;
+    if (!this.timelineParams) return;
 
     const { isPlaying, end, loops, trim } = this.state;
     if (isPlaying && loops > 1 && end >= trim) {
@@ -99,7 +98,7 @@ export class TimestepContainer extends PureComponent {
   }
 
   incrementTimeline = nextState => {
-    const { speed, minDate, step, interval } = this.timelineConfig;
+    const { speed, minDate, step, interval } = this.timelineParams;
     const { start, end, trim } = nextState;
 
     this.interval = setTimeout(() => {
@@ -149,6 +148,7 @@ export class TimestepContainer extends PureComponent {
 
   handleOnChange = range => {
     const newRange = this.checkRange(range);
+
     this.setState({
       start: newRange[0],
       end: newRange[1],
@@ -158,12 +158,14 @@ export class TimestepContainer extends PureComponent {
 
   handleOnDateChange = (date, position) => {
     const { handleChange } = this.props;
-    const { minDate, startDate, endDate, trimEndDate } = this.timelineConfig;
+    const { minDate, startDate, endDate, trimEndDate } = this.timelineParams;
     const newRange = [startDate, endDate, trimEndDate];
     newRange[position] = date.format('YYYY-MM-DD');
+
     if (position) {
       newRange[position - 1] = date.format('YYYY-MM-DD');
     }
+
     handleChange(newRange);
     const mappedRange = newRange.map(d => moment(d).diff(minDate, 'days'));
 
@@ -175,30 +177,30 @@ export class TimestepContainer extends PureComponent {
   };
 
   formatRange = range => {
-    const { minDate } = this.timelineConfig;
+    const { minDate } = this.timelineParams;
     return range.map(r => formatDate(addToDate(minDate, r)));
   };
 
-  formatDateString = value => {
-    const { minDate, dateFormat } = this.timelineConfig;
+  formatValue = value => {
+    const { minDate, dateFormat } = this.timelineParams;
     return formatDatePretty(addToDate(minDate, value), dateFormat);
   };
 
   render() {
-    if (!this.timelineConfig) return null;
+    if (!this.timelineParams) return null;
 
     return createElement(Timestep, {
       ...this.props,
       ...this.state,
-      ...this.timelineConfig,
+      ...this.timelineParams,
       marks: this.marks,
       startTimeline: this.startTimeline,
       stopTimeline: this.stopTimeline,
       handleTogglePlay: this.handleTogglePlay,
       handleOnChange: this.handleOnChange,
       handleOnAfterChange: this.handleOnAfterChange,
-      formatDateString: this.formatDateString,
-      handleOnDateChange: this.handleOnDateChange
+      handleOnDateChange: this.handleOnDateChange,
+      formatValue: this.formatValue
     });
   }
 }

@@ -140,14 +140,6 @@ export const getTicks = (timelineConfig = {}) => {
   return marks;
 };
 
-export const getTimelineConfigFromLayer = (layer = {}) => {
-  const { timelineParams } = layer;
-
-  return {
-    ...timelineParams
-  }
-};
-
 export default {
   getRangeForDates,
   addToDate,
@@ -155,6 +147,5 @@ export default {
   getYear,
   getDayOfYear,
   formatDatePretty,
-  dateDiffInDays,
-  getTimelineConfigFromLayer
+  dateDiffInDays
 };
