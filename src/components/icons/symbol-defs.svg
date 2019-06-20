@@ -1,20 +1,13 @@
 <svg aria-hidden="true" style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <defs>
-<symbol id="icon-arrow-down-2" viewBox="0 0 32 32">
-<title>arrow-down-2</title>
-<path d="M3.75 4.875l12.25 12.25 12.25-12.25 3.75 3.75-16 16-16-16z"></path>
+<symbol id="icon-pause2" viewBox="0 0 32 32">
+<title>pause2</title>
+<path d="M10.864 4h-5.16c-1.008 0-1.704 0.696-1.704 1.704v20.568c0 1.032 0.696 1.728 1.704 1.728h5.136c1.032 0 1.704-0.696 1.704-1.704v-20.592c0.024-1.008-0.648-1.704-1.68-1.704z"></path>
+<path d="M26.296 4h-5.136c-1.032 0-1.704 0.696-1.704 1.704v20.568c0 1.032 0.696 1.704 1.704 1.704h5.136c1.032 0 1.704-0.696 1.704-1.704v-20.568c0-1.008-0.696-1.704-1.704-1.704z"></path>
 </symbol>
-<symbol id="icon-arrow-up-2" viewBox="0 0 32 32">
-<title>arrow-up-2</title>
-<path d="M3.75 25.125l-3.75-3.75 16-16 16 16-3.75 3.75-12.25-12.25z"></path>
-</symbol>
-<symbol id="icon-arrow-left-2" viewBox="0 0 32 32">
-<title>arrow-left-2</title>
-<path d="M25.125 3.75l-12.25 12.25 12.25 12.25-3.75 3.75-16-16 16-16z"></path>
-</symbol>
-<symbol id="icon-arrow-right-2" viewBox="0 0 32 32">
-<title>arrow-right-2</title>
-<path d="M10.625 0l16 16-16 16-3.75-3.75 12.25-12.25-12.25-12.25z"></path>
+<symbol id="icon-play3" viewBox="0 0 32 32">
+<title>play3</title>
+<path d="M8.827 2.76l19.487 13.24-19.487 13.24z"></path>
 </symbol>
 <symbol id="icon-external" viewBox="0 0 32 32">
 <title>external</title>
@@ -180,14 +173,6 @@
 <title>star-full</title>
 <path d="M32 12.408l-11.056-1.607-4.944-10.018-4.944 10.018-11.056 1.607 8 7.798-1.889 11.011 9.889-5.199 9.889 5.199-1.889-11.011 8-7.798z"></path>
 </symbol>
-<symbol id="icon-play3" viewBox="0 0 32 32">
-<title>play3</title>
-<path d="M6 4l20 12-20 12z"></path>
-</symbol>
-<symbol id="icon-pause2" viewBox="0 0 32 32">
-<title>pause2</title>
-<path d="M4 4h10v24h-10zM18 4h10v24h-10z"></path>
-</symbol>
 <symbol id="icon-stop2" viewBox="0 0 32 32">
 <title>stop2</title>
 <path d="M4 4h24v24h-24z"></path>
@@ -195,6 +180,22 @@
 <symbol id="icon-table2" viewBox="0 0 32 32">
 <title>table2</title>
 <path d="M0 2v28h32v-28h-32zM12 20v-6h8v6h-8zM20 22v6h-8v-6h8zM20 6v6h-8v-6h8zM10 6v6h-8v-6h8zM2 14h8v6h-8v-6zM22 14h8v6h-8v-6zM22 12v-6h8v6h-8zM2 22h8v6h-8v-6zM22 28v-6h8v6h-8z"></path>
+</symbol>
+<symbol id="icon-arrow-down-2" viewBox="0 0 32 32">
+<title>arrow-down-2</title>
+<path d="M3.75 4.875l12.25 12.25 12.25-12.25 3.75 3.75-16 16-16-16z"></path>
+</symbol>
+<symbol id="icon-arrow-up-2" viewBox="0 0 32 32">
+<title>arrow-up-2</title>
+<path d="M3.75 25.125l-3.75-3.75 16-16 16 16-3.75 3.75-12.25-12.25z"></path>
+</symbol>
+<symbol id="icon-arrow-left-2" viewBox="0 0 32 32">
+<title>arrow-left-2</title>
+<path d="M25.125 3.75l-12.25 12.25 12.25 12.25-3.75 3.75-16-16 16-16z"></path>
+</symbol>
+<symbol id="icon-arrow-right-2" viewBox="0 0 32 32">
+<title>arrow-right-2</title>
+<path d="M10.625 0l16 16-16 16-3.75-3.75 12.25-12.25-12.25-12.25z"></path>
 </symbol>
 </defs>
 </svg>

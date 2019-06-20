@@ -14,25 +14,26 @@ import './styles.scss';
 class Timestep extends PureComponent {
   static propTypes = {
     isPlaying: PropTypes.bool.isRequired,
-    handleTogglePlay: PropTypes.func.isRequired,
+    handleTogglePlay: PropTypes.func,
+    handleOnChange: PropTypes.func.isRequired,
+    handleOnAfterChange: PropTypes.func,
     min: PropTypes.number.isRequired,
     max: PropTypes.number.isRequired,
     start: PropTypes.number.isRequired,
     end: PropTypes.number.isRequired,
     trim: PropTypes.number.isRequired,
-    handleOnChange: PropTypes.func.isRequired,
-    handleOnAfterChange: PropTypes.func.isRequired,
     marks: PropTypes.shape({}).isRequired,
-    formatValue: PropTypes.func.isRequired,
     step: PropTypes.number.isRequired,
     canPlay: PropTypes.bool.isRequired,
     customClass: PropTypes.string,
+    formatValue: PropTypes.func.isRequired,
     range: PropTypes.bool,
     value: PropTypes.number,
-    trackStyle: PropTypes.shape({}),
+    trackStyle: PropTypes.arrayOf(PropTypes.string),
     railStyle: PropTypes.shape({}),
     trackColors: PropTypes.shape([]),
     handleStyle: PropTypes.shape({}),
+    playButton: PropTypes.shape({})
   }
 
   static defaultProps = {
@@ -42,7 +43,10 @@ class Timestep extends PureComponent {
     trackColors: [],
     trackStyle: {},
     railStyle: {},
-    handleStyle: {}
+    handleStyle: {},
+    playButton: null,
+    handleTogglePlay: () => {},
+    handleOnAfterChange: () => {}
   }
 
   getValue() {
@@ -53,12 +57,36 @@ class Timestep extends PureComponent {
     return value;
   }
 
+  playButton() {
+    const { handleTogglePlay, isPlaying, playButton } = this.props;
+
+     if (playButton) {
+      return playButton;
+    }
+
+     const iconStatus = classnames({
+      'icon-pause2': isPlaying,
+      'icon-play3': !isPlaying
+    });
+
+    return (
+      <button
+        type="button"
+        styleName="player-btn"
+        onClick={handleTogglePlay}
+      >
+        <Icon name={iconStatus} />
+      </button>
+    )
+  }
+
   render() {
     const {
       isPlaying,
-      handleTogglePlay,
       min,
       max,
+      trim,
+      end,
       handleOnChange,
       handleOnAfterChange,
       marks,
@@ -73,15 +101,14 @@ class Timestep extends PureComponent {
       range
     } = this.props;
 
-    const externalClass = classnames({ [customClass]: !!customClass });
+    const externalClass = classnames({
+      'wri_api__can-play': canPlay,
+      [customClass]: !!customClass
+    });
     const sliderClass = classnames(
       'wri_api__range',
       { 'wri_api__can-play': canPlay }
     );
-    const iconStatus = classnames({
-      'icon-pause2': isPlaying,
-      'icon-play3': !isPlaying
-    });
 
     return (
       <div
@@ -89,15 +116,7 @@ class Timestep extends PureComponent {
         className={externalClass}
       >
         <div styleName="range-slider">
-          {canPlay && (
-            <button
-              type="button"
-              styleName="player-btn"
-              onClick={handleTogglePlay}
-            >
-              <Icon name={iconStatus} />
-            </button>
-          )}
+          {canPlay && this.playButton()}
 
           <Slider
             range={range}
@@ -116,7 +135,7 @@ class Timestep extends PureComponent {
             trackStyle={trackStyle}
             trackColors={trackColors}
             handleStyle={handleStyle}
-            showTooltip={index => isPlaying && index === 1}
+            showTooltip={index => isPlaying && index === 1 && trim !== end}
             pushable
           />
 
