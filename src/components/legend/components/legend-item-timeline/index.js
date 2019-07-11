@@ -42,7 +42,7 @@ class LegendItemTimeline extends PureComponent {
 
   state = {
     step: null,
-    isPlaying: false
+    playing: false
   }
 
   /**
@@ -58,14 +58,14 @@ class LegendItemTimeline extends PureComponent {
     );
   }
 
-  setPlay = (isPlaying, first, last) => {
+  setPlay = (playing, first, last) => {
     const { step } = this.state;
     const { onChangeLayer } = this.props;
     const timelineLayers = this.getTimelineLayers();
 
     if (this.timer) clearInterval(this.timer);
 
-    if (isPlaying) {
+    if (playing) {
       this.timer = setInterval(() => {
         const newStep = step || first;
 
@@ -77,7 +77,7 @@ class LegendItemTimeline extends PureComponent {
 
           return this.setState({
             step: null,
-            isPlaying: false
+            playing: false
           });
         }
 
@@ -94,7 +94,7 @@ class LegendItemTimeline extends PureComponent {
       }, 3000, true);
     }
 
-    this.setState({ isPlaying });
+    this.setState({ playing });
   }
 
   setStep = debounce((step) => {
@@ -164,7 +164,7 @@ class LegendItemTimeline extends PureComponent {
         styleName="c-legend-timeline"
         className={externalClass}
       >
-        {/* {this.state.isPlaying &&
+        {/* {this.state.playing &&
           <button
             styleName="timeline-play-button"
             type="button"
@@ -176,7 +176,7 @@ class LegendItemTimeline extends PureComponent {
           </button>
         } */}
 
-        {/* {!this.state.isPlaying &&
+        {/* {!this.state.playing &&
           <button
             styleName="timeline-play-button"
             type="button"

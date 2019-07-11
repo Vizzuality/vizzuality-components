@@ -4,7 +4,7 @@ Based on rc-slider, for more configuration, take a look at the offical [document
 
 ```js
 <Timestep
-  isPlaying={true}
+  playing={true}
   canPlay={Boolean}
 
   handleTogglePlay={callback}
@@ -35,7 +35,7 @@ You can pass your custom play button down as a react component using the `playBu
       onClick={this.togglePlay}
       className="my_play_button"
     >
-      {isPlaying ? 'Pause' : 'Play'}
+      {playing ? 'Pause' : 'Play'}
     </button>
   )}
 />

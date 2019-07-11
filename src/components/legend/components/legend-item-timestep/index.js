@@ -1,4 +1,4 @@
-import { createElement, PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import isEqual from 'lodash/isEqual';
@@ -9,24 +9,13 @@ import Timestep from 'components/timestep';
 
 import {
   addToDate,
-  dateDiffInDays,
+  dateDiff,
   formatDatePretty,
   formatDate,
   getTicks
 } from './utils';
 
 export class TimestepContainer extends PureComponent {
-  handleOnAfterChange = debounce(range => {
-    const { handleChange, activeLayer } = this.props;
-    const newRange = this.checkRange(range);
-    const formattedRange = this.formatRange([
-      newRange[0],
-      newRange[1],
-      newRange[2]
-    ]);
-    handleChange(formattedRange, activeLayer);
-  }, 50);
-
   timelineParams = null
 
   static propTypes = {
@@ -40,47 +29,34 @@ export class TimestepContainer extends PureComponent {
     super(props);
 
     const { activeLayer } = props;
-    const { layerConfig } = activeLayer;
+    const { timelineParams } = activeLayer;
 
-    if ((layerConfig || {}).timeline_config) {
-      this.timelineParams = activeLayer.timelineParams;
-      const { minDate, maxDate, startDate, endDate, trimEndDate } = this.timelineParams;
+    if (timelineParams) {
+      this.timelineParams = timelineParams;
+      const { minDate, maxDate, startDate, endDate, trimEndDate, interval } = this.timelineParams;
 
       this.state = {
-        isPlaying: false,
+        playing: false,
         min: 0,
-        max: dateDiffInDays(maxDate, minDate),
-        start: dateDiffInDays(startDate, minDate),
-        end: dateDiffInDays(endDate, minDate),
-        trim: dateDiffInDays(trimEndDate, minDate),
-        loops: 0
+        max: dateDiff(maxDate, minDate, interval),
+        start: dateDiff(startDate, minDate, interval),
+        end: dateDiff(endDate, minDate, interval),
+        trim: dateDiff(trimEndDate, minDate, interval),
+        marks: getTicks(this.timelineParams)
       };
-
-      const dates = {
-        maxDate,
-        minDate,
-        startDate,
-        endDate,
-        trimEndDate
-      };
-
-      this.marks = getTicks(dates);
     }
   }
-
-  state = {}
 
   componentDidUpdate(prevProps, prevState) {
     if (!this.timelineParams) return;
 
-    const { isPlaying, end, loops, trim } = this.state;
-    if (isPlaying && loops > 1 && end >= trim) {
-      this.handleResetTimeline();
-    } else if (isPlaying && isPlaying !== prevState.isPlaying) {
+    const { playing, end } = this.state;
+
+    if (playing && playing !== prevState.playing) {
       this.startTimeline();
-    } else if (!isPlaying && isPlaying !== prevState.isPlaying) {
+    } else if (!playing && playing !== prevState.playing) {
       this.stopTimeline();
-    } else if (isPlaying && !isEqual(end, prevState.end)) {
+    } else if (playing && !isEqual(end, prevState.end)) {
       this.incrementTimeline(this.state);
     }
 
@@ -97,53 +73,44 @@ export class TimestepContainer extends PureComponent {
     if (this.interval) this.stopTimeline();
   }
 
-  incrementTimeline = nextState => {
-    const { speed, minDate, step, interval } = this.timelineParams;
-    const { start, end, trim } = nextState;
+  startTimeline = () => {
+    const { start, end, trim } = this.state;
 
-    this.interval = setTimeout(() => {
-      const currentEndDate = moment(minDate).add(end, 'days');
-      const { loops } = this.state;
-      const newEndDate = moment(currentEndDate).add(step, interval);
-      let newEndDays = moment(newEndDate).diff(minDate, 'days');
-
-      if (end === trim) {
-        newEndDays = start;
-        this.setState({ loops: loops + 1 });
-      } else if (newEndDays >= trim) {
-        newEndDays = trim;
-        this.setState({ loops: loops + 1 });
-      }
-
-      this.handleOnChange([start, newEndDays, trim]);
-      this.handleOnAfterChange([start, newEndDays, trim]);
-    }, speed);
+    this.setState({ end: (end >= trim) ? start : end }, () => {
+      this.incrementTimeline();
+    });
   };
-
-  startTimeline = () => { this.incrementTimeline(this.state); };
 
   stopTimeline = () => { clearInterval(this.interval); };
 
+  incrementTimeline = () => {
+    const { speed, minDate, step, interval } = this.timelineParams;
+    const { start, end, trim } = this.state;
+
+    this.interval = setTimeout(() => {
+      const endDate = moment(minDate).add(end, interval);
+      const newEndDate = moment(endDate).add(step, interval);
+      let newEnd = moment(newEndDate).diff(minDate, interval);
+
+      this.handleOnChange([start, newEnd, trim]);
+      this.handleOnAfterChange([start, newEnd, trim]);
+
+      if (newEnd > trim) {
+        newEnd = trim;
+        this.handleResetTimeline();
+      }
+    }, speed);
+  };
+
   handleResetTimeline = () => {
-    this.handleTogglePlay();
+    const { trim } = this.state;
     this.stopTimeline();
-    this.setState({ loops: 0 });
+    this.setState({ playing: false, end: trim });
   };
 
   handleTogglePlay = () => {
-    const { isPlaying } = this.state;
-    this.setState({ isPlaying: !isPlaying });
-  };
-
-  checkRange = range => {
-    const { start, trim } = this.state;
-    if (
-      (range[2] && range[0] !== start) ||
-      (range[2] && range[2] !== trim)
-    ) {
-      return [range[0], range[2], range[2]];
-    }
-    return range;
+    const { playing } = this.state;
+    this.setState({ playing: !playing });
   };
 
   handleOnChange = range => {
@@ -156,52 +123,57 @@ export class TimestepContainer extends PureComponent {
     });
   };
 
-  handleOnDateChange = (date, position) => {
-    const { handleChange } = this.props;
-    const { minDate, startDate, endDate, trimEndDate } = this.timelineParams;
-    const newRange = [startDate, endDate, trimEndDate];
-    newRange[position] = date.format('YYYY-MM-DD');
+  handleOnAfterChange = debounce(range => {
+    const { handleChange, activeLayer } = this.props;
+    const newRange = this.checkRange(range);
+    const formattedRange = this.formatRange([
+      newRange[0],
+      newRange[1],
+      newRange[2]
+    ]);
 
-    if (position) {
-      newRange[position - 1] = date.format('YYYY-MM-DD');
+    handleChange(formattedRange, activeLayer);
+  }, 50);
+
+  checkRange = range => {
+    const { start, trim } = this.state;
+
+    if (
+      (range[2] && range[0] !== start) ||
+      (range[2] && range[2] !== trim)
+    ) {
+      return [range[0], range[2], range[2]];
     }
-
-    handleChange(newRange);
-    const mappedRange = newRange.map(d => moment(d).diff(minDate, 'days'));
-
-    this.setState({
-      start: mappedRange[0],
-      end: mappedRange[1],
-      trim: mappedRange[2]
-    });
+    return range;
   };
 
   formatRange = range => {
-    const { minDate } = this.timelineParams;
-    return range.map(r => formatDate(addToDate(minDate, r)));
+    const { minDate, interval } = this.timelineParams;
+    return range.map(r => formatDate(addToDate(minDate, r, interval)));
   };
 
   formatValue = value => {
-    const { minDate, dateFormat } = this.timelineParams;
-    return formatDatePretty(addToDate(minDate, value), dateFormat);
+    const { minDate, dateFormat, interval } = this.timelineParams;
+    return formatDatePretty(addToDate(minDate, value, interval), dateFormat);
   };
 
   render() {
     if (!this.timelineParams) return null;
 
-    return createElement(Timestep, {
-      ...this.props,
-      ...this.state,
-      ...this.timelineParams,
-      marks: this.marks,
-      startTimeline: this.startTimeline,
-      stopTimeline: this.stopTimeline,
-      handleTogglePlay: this.handleTogglePlay,
-      handleOnChange: this.handleOnChange,
-      handleOnAfterChange: this.handleOnAfterChange,
-      handleOnDateChange: this.handleOnDateChange,
-      formatValue: this.formatValue
-    });
+    const { marks } = this.state;
+
+    return (
+      <Timestep
+        {...this.props}
+        {...this.state}
+        {...this.timelineParams}
+        marks={marks}
+        formatValue={this.formatValue}
+        handleTogglePlay={this.handleTogglePlay}
+        handleOnChange={this.handleOnChange}
+        handleOnAfterChange={this.handleOnAfterChange}
+      />
+    )
   }
 }
 

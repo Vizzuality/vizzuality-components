@@ -88,7 +88,6 @@ export class CustomSlider extends PureComponent {
       customClass,
       range,
       trackColors,
-      trackStyle,
       handleStyle,
       value,
       ...rest
@@ -104,17 +103,13 @@ export class CustomSlider extends PureComponent {
       marginTop: '-3px',
       borderRadius: 0,
       border: 0,
-      zIndex: 1
+      zIndex: 1,
+      pointerEvents: 'none',
+      touchAction: 'none'
     });
     handleStyles[0] = handleStyle;
     handleStyles[handleNum - 1] = handleStyle;
 
-    const trackStyles = fill(Array(handleNum - 1 || 1), trackStyle).map(
-      (t, i) => ({
-        ...t,
-        backgroundColor: trackColors[i]
-      })
-    );
     const externalClass = classnames(
       'wri-api-slider',
       { [customClass]: !!customClass }
@@ -125,7 +120,6 @@ export class CustomSlider extends PureComponent {
         <Component
           handle={this.renderHandle}
           handleStyle={handleStyles}
-          trackStyle={trackStyles}
           value={value}
           {...rest}
         />
