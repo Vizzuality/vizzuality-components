@@ -21,14 +21,13 @@ export class CustomSlider extends PureComponent {
     dragging: PropTypes.bool,
     index: PropTypes.number,
     range: PropTypes.bool,
-    handleStyle: PropTypes.shape({}),
-    trackStyle: PropTypes.shape({}),
-    trackColors: PropTypes.shape([]),
+    trackStyle: PropTypes.oneOfType([PropTypes.array, PropTypes.shape({})]),
+    handleStyle: PropTypes.oneOfType([PropTypes.array, PropTypes.shape({})]),
     formatValue: PropTypes.func,
     showTooltip: PropTypes.func,
     railStyle: PropTypes.shape({}),
     dotStyle: PropTypes.shape({}),
-    pushable: PropTypes.bool
+    pushable: PropTypes.oneOfType([PropTypes.bool, PropTypes.number])
   }
 
   static defaultProps = {
@@ -39,7 +38,6 @@ export class CustomSlider extends PureComponent {
       backgroundColor: '#d6d6d9',
       borderRadius: '0px'
     },
-    trackColors: ['#dc6c9a', '#c32d7b'],
     dragging: false,
     index: 0,
     range: false,
@@ -87,7 +85,6 @@ export class CustomSlider extends PureComponent {
     const {
       customClass,
       range,
-      trackColors,
       handleStyle,
       value,
       ...rest

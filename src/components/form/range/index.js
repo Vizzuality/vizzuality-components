@@ -14,11 +14,11 @@ class Range extends PureComponent {
       PropTypes.array
     ]),
     range: PropTypes.bool,
-    trackStyle: PropTypes.array,
-    handleStyle: PropTypes.array,
-    railStyle: PropTypes.object,
-    dotStyle: PropTypes.object,
-    activeDotStyle: PropTypes.object,
+    trackStyle: PropTypes.oneOfType([PropTypes.array, PropTypes.shape({})]),
+    handleStyle: PropTypes.oneOfType([PropTypes.array, PropTypes.shape({})]),
+    railStyle: PropTypes.shape({}),
+    dotStyle: PropTypes.shape({}),
+    activeDotStyle: PropTypes.shape({}),
     showTooltip: PropTypes.func,
     formatValue: PropTypes.func
   };

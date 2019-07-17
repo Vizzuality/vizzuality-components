@@ -21,7 +21,7 @@ Based on rc-slider, for more configuration, take a look at the offical [document
   marks={{} || Array}
   step={Number}
   customClass={String}
-  trackStyles={Object}
+  trackStyles={Array | Object}
 />
 ```
 

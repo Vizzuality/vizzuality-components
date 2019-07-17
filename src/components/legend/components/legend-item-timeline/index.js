@@ -17,12 +17,12 @@ class LegendItemTimeline extends PureComponent {
     index: PropTypes.number,
     customClass: PropTypes.string,
     layers: PropTypes.array,
-    trackStyle: PropTypes.array,
-    handleStyle: PropTypes.array,
-    railStyle: PropTypes.object,
-    dotStyle: PropTypes.object,
-    activeDotStyle: PropTypes.object,
-    markStyle: PropTypes.object,
+    trackStyle: PropTypes.oneOfType([PropTypes.array, PropTypes.shape({})]),
+    handleStyle: PropTypes.oneOfType([PropTypes.array, PropTypes.shape({})]),
+    railStyle: PropTypes.shape({}),
+    dotStyle: PropTypes.shape({}),
+    activeDotStyle: PropTypes.shape({}),
+    markStyle: PropTypes.shape({}),
     onChangeLayer: PropTypes.func.isRequired
   }
 
