@@ -9,6 +9,10 @@ initialState = { value: 50 };
   max={100}
   value={state.value}
   onChange={(value) => { setState({ value }); }}
+  trackStyle={{
+    backgroundColor: '#c32d7b',
+    borderRadius: '0px'
+  }}
 />
 ```
 
@@ -25,5 +29,9 @@ initialState = { value: [25, 75] };
   range
   value={state.value}
   onChange={(value) => { setState({ value }); }}
+  trackStyle={[{
+    backgroundColor: '#c32d7b',
+    borderRadius: '0px'
+  }]}
 />
 ```

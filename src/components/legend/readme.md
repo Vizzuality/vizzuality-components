@@ -142,25 +142,31 @@ const LegendItemToolbar = require('./components/legend-item-toolbar').default;
 const LegendItemTypes = require('./components/legend-item-types').default;
 const LegendItemTimestep = require('./components/legend-item-timestep').default;
 
-const timelineConfig = {
-  canPlay: true,
-  dateFormat: "YYYY",
-  interval: "years",
-  minDate: "2001-01-01",
-  maxDate: "2017-12-31",
-  startDate: "2004-09-27",
-  endDate: "2010-09-14",
-  trimEndDate: "2016-09-14",
-  speed: 250,
-  step: 1
-};
+const layerGroupsParsed = layerGroups.map(lg => ({
+  ...lg,
+  layers: lg.layers.map(layer => ({
+    ...layer,
+    ...layer.layerConfig && layer.layerConfig.timeline_config && {
+      timelineParams: {
+        ...layer.layerConfig.timeline_config,
+        canPlay: true,
+        minDate: "2001-01-01",
+        maxDate: "2017-12-31",
+        startDate: "2004-09-27",
+        endDate: "2010-09-14",
+        trimEndDate: "2016-09-14"
+      }
+    }
+  }))
+}));
 
+console.log(layerGroupsParsed);
 
 <Legend
   expanded={true}
   sortable={true}
 >
-  {layerGroups.map((lg, i) => (
+  {layerGroupsParsed.map((lg, i) => (
     <LegendListItem
       index={i}
       key={lg.dataset}
@@ -171,8 +177,17 @@ const timelineConfig = {
     >
       <LegendItemTypes />
       <LegendItemTimestep 
-        handleChange={dates => {}} 
-        {...timelineConfig}
+        handleChange={dates => {}}
+        trackStyle={[
+          {
+            backgroundColor: '#c32d7b',
+            borderRadius: '0px'
+          },
+          {
+            backgroundColor: '#F660AE',
+            borderRadius: '0px'
+          }
+        ]}
       />
     </LegendListItem>
   ))}

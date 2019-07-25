@@ -25,7 +25,6 @@ export class TimestepContainer extends PureComponent {
 
   constructor(props) {
     super(props);
-
     const { activeLayer } = props;
     const { timelineParams } = activeLayer;
 
@@ -58,18 +57,17 @@ export class TimestepContainer extends PureComponent {
 
   handleOnChange = range => {
     const { activeLayer, handleChange } = this.props;
-    const newRange = this.checkRange(range);
 
     this.setState({
-      start: newRange[0],
-      end: newRange[1],
-      trim: newRange[2]
+      start: range[0],
+      end: range[1],
+      trim: range[2]
     });
 
     const formattedRange = this.formatRange([
-      newRange[0],
-      newRange[1],
-      newRange[2]
+      range[0],
+      range[1],
+      range[2]
     ]);
 
     handleChange(formattedRange, activeLayer);

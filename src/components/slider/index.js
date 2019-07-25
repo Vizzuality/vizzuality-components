@@ -21,7 +21,7 @@ export class Slider extends PureComponent {
     dragging: PropTypes.bool,
     index: PropTypes.number,
     range: PropTypes.bool,
-    trackStyle: PropTypes.oneOfType([PropTypes.array, PropTypes.shape({})]),
+    trackStyle: PropTypes.oneOfType([PropTypes.array, PropTypes.shape({})]).isRequired,
     handleStyle: PropTypes.oneOfType([PropTypes.array, PropTypes.shape({})]),
     formatValue: PropTypes.func,
     showTooltip: PropTypes.func,
@@ -34,10 +34,6 @@ export class Slider extends PureComponent {
     customClass: null,
     settings: {},
     value: [0],
-    trackStyle: {
-      backgroundColor: '#c32d7b',
-      borderRadius: '0px'
-    },
     dragging: false,
     index: 0,
     range: false,

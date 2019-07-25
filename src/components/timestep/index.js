@@ -156,7 +156,7 @@ class Timestep extends PureComponent {
     const { handleOnChange } = this.props;
     const newRange = this.checkRange(range);
 
-    handleOnChange(range);
+    handleOnChange(newRange);
   }, 50);
 
   handleTogglePlay = () => {
@@ -173,8 +173,8 @@ class Timestep extends PureComponent {
     }
 
      const iconStatus = classnames({
-      'icon-pause2': playing,
-      'icon-play3': !playing
+      'icon-pause': playing,
+      'icon-play': !playing
     });
 
     return (

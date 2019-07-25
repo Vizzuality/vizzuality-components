@@ -28,5 +28,15 @@ initialState = {
     75: '75%',
     100: '100%',
   }}
+  trackStyle={[
+    {
+      backgroundColor: '#c32d7b',
+      borderRadius: '0px'
+    },
+    {
+      backgroundColor: '#F660AE',
+      borderRadius: '0px'
+    }
+  ]}
 />
 ```
