@@ -43,6 +43,3 @@ export {
 
 export { default as LegendItemTimeStep } from './legend/components/legend-item-timestep';
 export { default as LegendItemTimeline } from './legend/components/legend-item-timeline';
-
-// Widgets
-export { VegaChart, VegaThumbnail } from './widgets';

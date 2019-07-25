@@ -23,7 +23,6 @@ const config = {
     legend: path.resolve(__dirname, 'src/components/legend/index.js'),
     map: path.resolve(__dirname, 'src/components/map/index.js'),
     tooltip: path.resolve(__dirname, 'src/components/tooltip/index.js'),
-    widgets: path.resolve(__dirname, 'src/components/widgets/index.js'),
     bundle: path.resolve(__dirname, 'src/components/index.js'),
     spinner: path.resolve(__dirname, 'src/components/spinner/index.js'),
     // datepicker: path.resolve(__dirname, 'src/components/datepicker/index.js'),
@@ -76,7 +75,7 @@ const config = {
             options: {
               modules: true,
               importLoaders: 1,
-              localIdentName: 'wri_api__[local]'
+              localIdentName: 'vizzuality__[local]'
             }
           },
           'postcss-loader',

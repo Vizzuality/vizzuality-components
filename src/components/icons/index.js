@@ -145,12 +145,6 @@ const Icons = () => (
           d="M20.7 7.2h19.8v4.4h-19.8v-4.4zM20.7 20.4h15.4v4.4h-15.4v-4.4zM11.9 13.8c-2.43 0-4.4-1.97-4.4-4.4s1.97-4.4 4.4-4.4c2.43 0 4.4 1.97 4.4 4.4s-1.97 4.4-4.4 4.4zM11.9 27c-2.43 0-4.4-1.97-4.4-4.4s1.97-4.4 4.4-4.4c2.43 0 4.4 1.97 4.4 4.4s-1.97 4.4-4.4 4.4z"
         />
       </symbol>
-      <symbol id="icon-widgets" viewBox="0 0 37 32">
-        <title>widgets</title>
-        <path
-          d="M7.463 23v-14h6v14h-6zM15.463 23v-10h6v10h-6zM23.463 23v-20h6v20h-6zM3.463 29v-4h30v4h-30z"
-        />
-      </symbol>
       <symbol id="icon-check" viewBox="0 0 32 32">
         <title>check</title>
         <path
