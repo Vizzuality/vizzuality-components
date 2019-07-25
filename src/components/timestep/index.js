@@ -56,13 +56,13 @@ class Timestep extends PureComponent {
 
   constructor(props) {
     super(props);
-    const { start, end, trim, max } = this.props;
+    const { start, end, trim } = this.props;
 
     this.state = {
       playing: false,
       start,
       end,
-      trim: trim || max
+      trim
     };
   }
 

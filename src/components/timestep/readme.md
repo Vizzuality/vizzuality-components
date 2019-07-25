@@ -17,6 +17,7 @@ initialState = {
   max={100}
   start={state.start}
   end={state.end}
+  trim={state.max}
   value={state.end}
   step={1}
   speed={200}
