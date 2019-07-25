@@ -1,7 +1,5 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import isEqual from 'lodash/isEqual';
-import omit from 'lodash/omit';
 
 import Timestep from 'components/timestep';
 
@@ -40,18 +38,6 @@ export class TimestepContainer extends PureComponent {
         trim: dateDiff(trimEndDate, minDate, interval),
         marks: getTicks(this.timelineParams)
       };
-    }
-  }
-
-  componentDidUpdate(prevProps) {
-    if (!this.timelineParams) return;
-
-    const { activeLayer: { timelineParams } } = this.props;
-    const { activeLayer: { timelineParams: prevTimelineParams } } = prevProps;
-    const omitParams = ['startDate', 'startYear', 'startMonth', 'startDay', 'endDate', 'endYear', 'endMonth', 'endDay'];
-
-    if (!isEqual(omit(timelineParams, omitParams), omit(prevTimelineParams, omitParams))) {
-      console.info('newTimelineParams');
     }
   }
 

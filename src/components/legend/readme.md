@@ -160,8 +160,6 @@ const layerGroupsParsed = layerGroups.map(lg => ({
   }))
 }));
 
-console.log(layerGroupsParsed);
-
 <Legend
   expanded={true}
   sortable={true}
