@@ -45,6 +45,10 @@ class LegendOpacityTooltip extends PureComponent {
             step={step}
             value={value}
             onAfterChange={this.onChange}
+            trackStyle={{
+              backgroundColor: '#c32d7b',
+              borderRadius: '0px'
+            }}
             {...rest}
           />
         </div>

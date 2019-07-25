@@ -334,4 +334,33 @@
     border-width: 4px 4px 0;
     border-top-color: #6c6c6c;
   }
+
+  // sdsadsads
+  .rc-slider-handle {
+    &:active {
+      box-shadow: none;
+    }
+
+    &.rc-slider-handle-1,
+    &:nth-last-child(2) {
+      &::after {
+        content: '';
+        width: 4px;
+        height: 4px;
+        background-color: 'green';
+        position: absolute;
+        border-radius: 4px;
+        top: calc(50% - 2px);
+        left: calc(50% - 2px);
+      }
+    }
+  }
+
+  .rc-slider-disabled {
+    background-color: transparent;
+  }
+
+  .rc-slider-mark {
+    width: 90%;
+  }
 }

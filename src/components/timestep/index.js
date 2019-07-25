@@ -25,7 +25,6 @@ class Timestep extends PureComponent {
     step: PropTypes.number.isRequired,
     speed: PropTypes.number.isRequired,
     formatValue: PropTypes.func.isRequired,
-    value: PropTypes.number,
 
     trackStyle: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.object])),
     railStyle: PropTypes.shape({}),
@@ -39,7 +38,6 @@ class Timestep extends PureComponent {
     range: true,
     pushable: 0,
     canPlay: false,
-    value: null,
     customClass: null,
     trackStyle: {
       backgroundColor: '#c32d7b',
@@ -58,14 +56,13 @@ class Timestep extends PureComponent {
 
   constructor(props) {
     super(props);
-    const { start, end, trim, value } = this.props;
+    const { start, end, trim, max } = this.props;
 
     this.state = {
       playing: false,
       start,
       end,
-      trim,
-      value
+      trim: trim || max
     };
   }
 
@@ -86,13 +83,14 @@ class Timestep extends PureComponent {
   }
 
   getValue() {
-    const { start, end, trim, value } = this.state;
+    const { start, end, trim } = this.state;
     const { range, canPlay } = this.props;
 
     if (range) {
       return canPlay ? [start, end, trim] : [start, end];
     }
-    return value;
+
+    return end;
   }
 
   startTimeline = () => {
@@ -110,7 +108,7 @@ class Timestep extends PureComponent {
 
   incrementTimeline = () => {
     const { start, end, trim } = this.state;
-    const { speed, step } = this.props;
+    const { speed, step, range, max } = this.props;
 
     this.interval = setTimeout(() => {
       const newEnd = end + step;
@@ -118,7 +116,7 @@ class Timestep extends PureComponent {
       this.handleOnChange([start, newEnd, trim]);
       this.handleOnAfterChange([start, newEnd, trim]);
 
-      if (newEnd > trim) {
+      if ((newEnd > trim && range) || (!range && newEnd > max)) {
         this.handleResetTimeline();
       }
     }, speed);
@@ -132,6 +130,9 @@ class Timestep extends PureComponent {
 
   checkRange = range => {
     const { start, trim } = this.state;
+    if (!Array.isArray(range)) {
+      return [start, range, trim];
+    }
 
     if (
       (range[2] && range[0] !== start) ||
