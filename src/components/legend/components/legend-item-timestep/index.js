@@ -11,6 +11,8 @@ import {
   getTicks
 } from './utils';
 
+import './styles.scss';
+
 export class TimestepContainer extends PureComponent {
   timelineParams = null
 
@@ -75,14 +77,16 @@ export class TimestepContainer extends PureComponent {
     const { marks } = this.state;
 
     return (
-      <Timestep
-        {...this.props}
-        {...this.state}
-        {...this.timelineParams}
-        marks={marks}
-        formatValue={this.formatValue}
-        handleOnChange={this.handleOnChange}
-      />
+      <div styleName="c-legend-timestep">
+        <Timestep
+          {...this.props}
+          {...this.state}
+          {...this.timelineParams}
+          marks={marks}
+          formatValue={this.formatValue}
+          handleOnChange={this.handleOnChange}
+        />
+      </div>
     )
   }
 }
