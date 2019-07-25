@@ -33,7 +33,7 @@ class LegendList extends PureComponent {
       // if there is already a timeout in process cancel it
       clearTimeout(this.timeout);
     }
-    
+
     this.timeout = setTimeout(() => {
       this.timeout = null;
       this.setState({

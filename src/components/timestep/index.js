@@ -6,7 +6,6 @@ import classnames from 'classnames';
 // components
 import Icon from 'components/icon';
 import Slider from 'components/slider';
-// import Datepicker from 'components/datepicker';
 
 // styles
 import './styles.scss';
@@ -104,12 +103,12 @@ class Timestep extends PureComponent {
     } = this.props;
 
     const externalClass = classnames({
-      'wri_api__can-play': canPlay,
+      'can-play': canPlay,
       [customClass]: !!customClass
     });
     const sliderClass = classnames(
-      'wri_api__range',
-      { 'wri_api__can-play': canPlay }
+      'range',
+      { 'can-play': canPlay }
     );
 
     return (
@@ -122,7 +121,7 @@ class Timestep extends PureComponent {
 
           <Slider
             range={range}
-            className="wri_api__slider-timestep"
+            className="slider-timestep"
             customClass={sliderClass}
             marks={marks}
             disabled={playing}

@@ -6,17 +6,6 @@
   min-height: 30px;
   margin: ($space-1 * 1.5) 0 0;
 
-  .date-pickers {
-    display: flex;
-    margin: 5px 0 10px 30px;
-    align-items: center;
-
-    .datepicker {
-      margin: 0 5px;
-      width: 90px;
-    }
-  }
-
   > .range-slider {
     display: flex;
     flex-direction: row;
