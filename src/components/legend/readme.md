@@ -171,7 +171,7 @@ const timelineConfig = {
     >
       <LegendItemTypes />
       <LegendItemTimestep 
-        handleChange={dates => { console.log(dates); }} 
+        handleChange={dates => {}} 
         {...timelineConfig}
       />
     </LegendListItem>

@@ -3,40 +3,51 @@
 Based on rc-slider, for more configuration, take a look at the offical [documentation](http://react-component.github.io/slider/)
 
 ```js
+
+initialState = {
+  start: 25,
+  end: 50,
+  trim: 75,
+  playing: false
+};
+
 <Timestep
-  playing={true}
-  canPlay={Boolean}
-
-  handleTogglePlay={callback}
-  handleOnChange={callback}
-  handleOnAfterChange={callback}
-  formatValue={callback}
-
-  min={Number}
-  max={Number}
-  start={Number}
-  end={Number}
-  trim={Number}
-
-  marks={{} || Array}
-  step={Number}
-  customClass={String}
-  trackStyles={Array | Object}
-/>
-```
-
-You can pass your custom play button down as a react component using the `playButton` property.
-
-```js
-<Timestep
-  playButton={(
-    <button
-      type="button"
-      onClick={this.togglePlay}
-      className="my_play_button"
-    >
-      {playing ? 'Pause' : 'Play'}
-    </button>
-  )}
+  playing={state.playing}
+  canPlay={true}
+  formatValue={value => value}
+  min={0}
+  max={100}
+  start={state.start}
+  end={state.end}
+  trim={state.trim}
+  step={1}
+  handleOnChange={values => { setState({ start: values[0], end: values[1], trim: values[2] })}}
+  handleTogglePlay={() => { setState({ playing: !state.playing })}}
+  // handleStyle={{
+  //   backgroundColor: 'white',
+  //   borderRadius: '2px',
+  //   boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.29)',
+  //   border: '0px',
+  //   zIndex: 2
+  // }}
+  // railStyle={{
+  //   background: '#d6d6d9',
+  //   borderRadius: '0px'
+  // }}
+  // trackStyle={[
+  //   {
+  //     background: 'red'
+  //   },
+  //   {
+  //     background: 'green'
+  //   }
+  // ]}
+  marks={{
+    0: '2015',
+    25: '2016',
+    50: '2017',
+    75: '2018',
+    100: '2019'
+  }}
 />
 ```

@@ -32,14 +32,8 @@ module.exports = {
         path.resolve(__dirname, 'src/components/icon', 'index.js'),
         path.resolve(__dirname, 'src/components/spinner', 'index.js'),
         path.resolve(__dirname, 'src/components/tooltip', 'index.js'),
-        // path.resolve(__dirname, 'src/components/datepicker', 'index.js'),
-        path.resolve(__dirname, 'src/components/slider', 'index.js')
-      ])
-    },
-    {
-      name: 'Form-components',
-      components: () => ([
-        path.resolve(__dirname, 'src/components/form/range', 'index.js')
+        path.resolve(__dirname, 'src/components/slider', 'index.js'),
+        path.resolve(__dirname, 'src/components/timestep', 'index.js')
       ])
     },
     {

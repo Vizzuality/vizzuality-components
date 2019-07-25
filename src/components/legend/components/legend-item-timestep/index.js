@@ -15,8 +15,6 @@ import {
   getTicks
 } from './utils';
 
-import './styles.scss';
-
 export class TimestepContainer extends PureComponent {
   timelineParams = null
 

@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import Range from 'components/form/range';
+import Slider from 'components/slider';
 import './styles.scss';
 
 class LegendOpacityTooltip extends PureComponent {
@@ -35,7 +35,7 @@ class LegendOpacityTooltip extends PureComponent {
         Opacity
 
         <div styleName="slider-tooltip-container">
-          <Range
+          <Slider
             marks={{
               [min]: '0%',
               [max]: '100%'

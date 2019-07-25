@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-// import moment from 'moment';
 
 // components
 import Icon from 'components/icon';
@@ -44,9 +43,18 @@ class Timestep extends PureComponent {
     canPlay: false,
     value: null,
     customClass: null,
-    trackStyle: {},
-    railStyle: {},
-    handleStyle: {},
+    trackStyle: {
+      backgroundColor: '#c32d7b',
+      borderRadius: '0px'
+    },
+    railStyle: { backgroundColor: '#d9d9d9' },
+    handleStyle: {
+      backgroundColor: '#c32d7b',
+      borderRadius: '10px',
+      boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.29)',
+      border: '0px',
+      zIndex: 2
+    },
     playButton: null,
     handleTogglePlay: () => {},
     handleOnAfterChange: () => {}
@@ -102,27 +110,15 @@ class Timestep extends PureComponent {
       pushable
     } = this.props;
 
-    const externalClass = classnames({
-      'can-play': canPlay,
-      [customClass]: !!customClass
-    });
-    const sliderClass = classnames(
-      'range',
-      { 'can-play': canPlay }
-    );
-
     return (
       <div
         styleName="c-timestep"
-        className={externalClass}
+        className={customClass}
       >
-        <div styleName="range-slider">
-          {canPlay && this.playButton()}
-
+        {canPlay && this.playButton()}
+        <div styleName={classnames('timestep-slider', { 'can-play': canPlay })}>
           <Slider
             range={range}
-            className="slider-timestep"
-            customClass={sliderClass}
             marks={marks}
             disabled={playing}
             min={min}
@@ -138,7 +134,6 @@ class Timestep extends PureComponent {
             showTooltip={index => playing && index === 1}
             pushable={pushable}
           />
-
         </div>
       </div>
     );

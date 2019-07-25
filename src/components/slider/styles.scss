@@ -9,6 +9,47 @@
 
 @import 'settings';
 
+.c-slider {
+  display: flex;
+  align-items: center;
+  min-height: 30px;
+  // margin: ($space-1 * 1.5) 0 0;
+  padding-bottom: 10px;
+
+  .player-btn {
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    padding: 0;
+    cursor: pointer;
+    width: 16px;
+    margin-top: 1px;
+    flex-shrink: 0;
+    display: flex;
+
+    &:focus {
+      outline: none;
+    }
+
+    > svg {
+      fill: #4a4a4a;
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  .timestep-slider {
+    width: 100%;
+    cursor: pointer;
+
+    &.can-play {
+      width: calc(100% - 20px);
+      margin-left: 15px;
+    }
+  }
+}
+
+
 :global {
   .rc-slider {
     position: relative;
@@ -71,11 +112,11 @@
   }
 
   .rc-slider-mark {
-    position: absolute;
-    top: 18px;
-    left: 0;
-    margin-left: 5%;
-    width: 90%;
+    // position: absolute;
+    margin-top: 18px;
+    // left: 0;
+    // margin-left: 5%;
+    // width: 90%;
     font-size: 12px;
   }
 

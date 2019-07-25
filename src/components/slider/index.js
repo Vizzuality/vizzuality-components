@@ -10,7 +10,7 @@ import Tooltip from 'components/tooltip';
 // styles
 import './styles.scss';
 
-export class CustomSlider extends PureComponent {
+export class Slider extends PureComponent {
   static propTypes = {
     customClass: PropTypes.string,
     settings: PropTypes.shape({}),
@@ -35,22 +35,22 @@ export class CustomSlider extends PureComponent {
     settings: {},
     value: [0],
     trackStyle: {
-      backgroundColor: '#d6d6d9',
+      backgroundColor: '#c32d7b',
       borderRadius: '0px'
     },
     dragging: false,
     index: 0,
     range: false,
     handleStyle: {
-      backgroundColor: 'white',
-      borderRadius: '2px',
+      backgroundColor: '#c32d7b',
+      borderRadius: '10px',
       boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.29)',
       border: '0px',
       zIndex: 2
     },
     formatValue: null,
     showTooltip: null,
-    railStyle: { backgroundColor: '#d6d6d9' },
+    railStyle: { backgroundColor: '#d9d9d9' },
     dotStyle: { visibility: 'hidden', border: '0px' },
     pushable: true
   }
@@ -125,4 +125,4 @@ export class CustomSlider extends PureComponent {
   }
 }
 
-export default CustomSlider;
+export default Slider;
