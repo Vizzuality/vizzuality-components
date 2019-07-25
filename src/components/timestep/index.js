@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import debounce from 'lodash/debounce';
 
 // components
 import Icon from 'components/icon';
@@ -15,7 +16,6 @@ class Timestep extends PureComponent {
     range: PropTypes.bool,
     pushable: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
     canPlay: PropTypes.bool,
-    playing: PropTypes.bool,
     min: PropTypes.number.isRequired,
     max: PropTypes.number.isRequired,
     start: PropTypes.number.isRequired,
@@ -23,6 +23,7 @@ class Timestep extends PureComponent {
     trim: PropTypes.number.isRequired,
     marks: PropTypes.shape({}).isRequired,
     step: PropTypes.number.isRequired,
+    speed: PropTypes.number.isRequired,
     formatValue: PropTypes.func.isRequired,
     value: PropTypes.number,
 
@@ -31,15 +32,12 @@ class Timestep extends PureComponent {
     handleStyle: PropTypes.shape({}),
     playButton: PropTypes.shape({}),
 
-    handleTogglePlay: PropTypes.func,
-    handleOnChange: PropTypes.func.isRequired,
-    handleOnAfterChange: PropTypes.func,
+    handleOnChange: PropTypes.func.isRequired
   }
 
   static defaultProps = {
     range: true,
     pushable: 0,
-    playing: false,
     canPlay: false,
     value: null,
     customClass: null,
@@ -55,21 +53,120 @@ class Timestep extends PureComponent {
       border: '0px',
       zIndex: 2
     },
-    playButton: null,
-    handleTogglePlay: () => {},
-    handleOnAfterChange: () => {}
+    playButton: null
+  }
+
+  constructor(props) {
+    super(props);
+    const { start, end, trim, value } = this.props;
+
+    this.state = {
+      playing: false,
+      start,
+      end,
+      trim,
+      value
+    };
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { playing, end } = this.state;
+
+    if (playing && playing !== prevState.playing) {
+      this.startTimeline();
+    } else if (!playing && playing !== prevState.playing) {
+      this.stopTimeline();
+    } else if (playing && end !== prevState.end) {
+      this.incrementTimeline();
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.interval) this.stopTimeline();
   }
 
   getValue() {
-    const { range, canPlay, start, end, trim, value } = this.props;
+    const { start, end, trim, value } = this.state;
+    const { range, canPlay } = this.props;
+
     if (range) {
       return canPlay ? [start, end, trim] : [start, end];
     }
     return value;
   }
 
+  startTimeline = () => {
+    const { start, end, trim } = this.state;
+    if (end < trim) {
+      this.incrementTimeline();
+    } else if (end >= trim) {
+      this.setState({ end: start }, () => {
+        this.incrementTimeline();
+      });
+    }
+  };
+
+  stopTimeline = () => { clearInterval(this.interval); };
+
+  incrementTimeline = () => {
+    const { start, end, trim } = this.state;
+    const { speed, step } = this.props;
+
+    this.interval = setTimeout(() => {
+      const newEnd = end + step;
+
+      this.handleOnChange([start, newEnd, trim]);
+      this.handleOnAfterChange([start, newEnd, trim]);
+
+      if (newEnd > trim) {
+        this.handleResetTimeline();
+      }
+    }, speed);
+  };
+
+  handleResetTimeline = () => {
+    const { trim } = this.state;
+    this.stopTimeline();
+    this.setState({ playing: false, end: trim });
+  };
+
+  checkRange = range => {
+    const { start, trim } = this.state;
+
+    if (
+      (range[2] && range[0] !== start) ||
+      (range[2] && range[2] !== trim)
+    ) {
+      return [range[0], range[2], range[2]];
+    }
+    return range;
+  };
+
+  handleOnChange = range => {
+    const newRange = this.checkRange(range);
+
+    this.setState({
+      start: newRange[0],
+      end: newRange[1],
+      trim: newRange[2]
+    });
+  };
+
+  handleOnAfterChange = debounce(range => {
+    const { handleOnChange } = this.props;
+    const newRange = this.checkRange(range);
+
+    handleOnChange(range);
+  }, 50);
+
+  handleTogglePlay = () => {
+    const { playing } = this.state;
+    this.setState({ playing: !playing });
+  };
+
   playButton() {
-    const { handleTogglePlay, playing, playButton } = this.props;
+    const { playButton } = this.props;
+    const { playing } = this.state;
 
      if (playButton) {
       return playButton;
@@ -84,7 +181,7 @@ class Timestep extends PureComponent {
       <button
         type="button"
         styleName="player-btn"
-        onClick={handleTogglePlay}
+        onClick={this.handleTogglePlay}
       >
         <Icon name={iconStatus} />
       </button>
@@ -93,11 +190,8 @@ class Timestep extends PureComponent {
 
   render() {
     const {
-      playing,
       min,
       max,
-      handleOnChange,
-      handleOnAfterChange,
       marks,
       formatValue,
       step,
@@ -109,6 +203,7 @@ class Timestep extends PureComponent {
       range,
       pushable
     } = this.props;
+    const { playing } = this.state;
 
     return (
       <div
@@ -125,8 +220,8 @@ class Timestep extends PureComponent {
             max={max}
             value={this.getValue()}
             step={step}
-            onChange={handleOnChange}
-            onAfterChange={handleOnAfterChange}
+            onChange={this.handleOnChange}
+            onAfterChange={this.handleOnAfterChange}
             formatValue={formatValue}
             railStyle={railStyle}
             trackStyle={trackStyle}
