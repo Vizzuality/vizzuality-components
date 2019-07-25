@@ -6,7 +6,7 @@ const webpackConfig = require('./styleguide.webpack.js');
 const { name, version } = require('./package.json');
 
 module.exports = {
-  title: `WRI components | ${version}`,
+  title: `Vizzuality components | ${version}`,
   template: {
     head: {
       links: [{
