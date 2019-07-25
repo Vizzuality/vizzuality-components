@@ -6,8 +6,8 @@ const Icons = () => (
     style={{ position: "absolute", width: 0, height: 0, overflow: "hidden" }}
   >
     <defs>
-      <symbol id="icon-pause2" viewBox="0 0 32 32">
-        <title>pause2</title>
+      <symbol id="icon-pause" viewBox="0 0 32 32">
+        <title>pause</title>
         <path
           d="M10.864 4h-5.16c-1.008 0-1.704 0.696-1.704 1.704v20.568c0 1.032 0.696 1.728 1.704 1.728h5.136c1.032 0 1.704-0.696 1.704-1.704v-20.592c0.024-1.008-0.648-1.704-1.68-1.704z"
         />
@@ -15,8 +15,8 @@ const Icons = () => (
           d="M26.296 4h-5.136c-1.032 0-1.704 0.696-1.704 1.704v20.568c0 1.032 0.696 1.704 1.704 1.704h5.136c1.032 0 1.704-0.696 1.704-1.704v-20.568c0-1.008-0.696-1.704-1.704-1.704z"
         />
       </symbol>
-      <symbol id="icon-play3" viewBox="0 0 32 32">
-        <title>play3</title>
+      <symbol id="icon-play" viewBox="0 0 32 32">
+        <title>play</title>
         <path d="M8.827 2.76l19.487 13.24-19.487 13.24z" />
       </symbol>
       <symbol id="icon-external" viewBox="0 0 32 32">

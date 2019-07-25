@@ -25,7 +25,7 @@
       "properties": {
         "order": 111,
         "id": 47,
-        "name": "pause2",
+        "name": "pause",
         "prevSize": 32
       },
       "setIdx": 0,
@@ -53,7 +53,7 @@
       "properties": {
         "order": 112,
         "id": 46,
-        "name": "play3",
+        "name": "play",
         "prevSize": 32
       },
       "setIdx": 0,
