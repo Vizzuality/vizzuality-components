@@ -79,7 +79,7 @@ class Range extends PureComponent {
         handle={this.renderHandle}
         value={value}
         onChange={v => this.setState({ value: v })}
-        className="wri_api__slider-range"
+        className="vizzuality__slider-range"
       />
     );
   }

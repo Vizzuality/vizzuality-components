@@ -23,7 +23,7 @@ import {
   // timestep
   LegendItemTimestep
 
-} from 'wri-api-components';
+} from 'vizzuality-components';
 </pre>
 
 ### Legend

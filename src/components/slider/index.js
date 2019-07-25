@@ -108,7 +108,7 @@ export class CustomSlider extends PureComponent {
     handleStyles[handleNum - 1] = handleStyle;
 
     const externalClass = classnames(
-      'wri-api-slider',
+      'vizzuality-slider',
       { [customClass]: !!customClass }
     );
 
