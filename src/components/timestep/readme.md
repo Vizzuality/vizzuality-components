@@ -21,5 +21,12 @@ initialState = {
   step={1}
   speed={500}
   handleOnChange={values => { setState({ start: values[0], end: values[1], trim: values[2] })}}
+  marks={{
+    0: '0%',
+    25: '25%',
+    50: '50%',
+    75: '75%',
+    100: '100%',
+  }}
 />
 ```
