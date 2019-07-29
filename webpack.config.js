@@ -17,7 +17,6 @@ const config = {
   mode: env,
 
   entry: {
-    form: path.resolve(__dirname, 'src/components/form/index.js'),
     icon: path.resolve(__dirname, 'src/components/icon/index.js'),
     icons: path.resolve(__dirname, 'src/components/icons/index.js'),
     legend: path.resolve(__dirname, 'src/components/legend/index.js'),

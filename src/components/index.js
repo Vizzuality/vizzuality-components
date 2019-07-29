@@ -39,4 +39,3 @@ export {
 } from './legend/components/legend-item-types';
 
 export { default as LegendItemTimeStep } from './legend/components/legend-item-timestep';
-export { default as LegendItemTimeline } from './legend/components/legend-item-timeline';

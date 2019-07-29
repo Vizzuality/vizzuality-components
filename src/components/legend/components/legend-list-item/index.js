@@ -53,7 +53,7 @@ class LegendListItem extends PureComponent {
               <h3>
                 {React.isValidElement(title) && typeof title.type !== 'string' ?
                   React.cloneElement(title, { ...props, layers, activeLayer }) :
-                  activeLayer.name
+                  (activeLayer && activeLayer.name)
                 }
               </h3>
               {React.isValidElement(toolbar) && typeof toolbar.type !== 'string' &&
