@@ -111,18 +111,20 @@
   }
 
   .rc-slider-mark {
-    margin-top: 18px;
+    position: absolute;
+    top: 18px;
+    left: 0;
+    width: 100%;
     font-size: 12px;
   }
 
   .rc-slider-mark-text {
     position: absolute;
     display: inline-block;
-    font-family: 'Helvetica Neue', Arial, sans-serif;
     vertical-align: middle;
     text-align: center;
-    color: #999;
     cursor: pointer;
+    color: #999;
   }
 
   .rc-slider-mark-text-active {
