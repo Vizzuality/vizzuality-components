@@ -44,6 +44,7 @@ class LegendOpacityTooltip extends PureComponent {
             max={max}
             step={step}
             value={value}
+            formatValue={perc => `${perc * 100}%`}
             onAfterChange={this.onChange}
             trackStyle={{
               backgroundColor: '#c32d7b',

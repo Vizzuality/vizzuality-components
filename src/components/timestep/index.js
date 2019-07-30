@@ -67,14 +67,29 @@ class Timestep extends PureComponent {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { playing, end } = this.state;
+    const { playing, start: stateStart, end: stateEnd, trim: stateTrim } = this.state;
+
+    const { start, end, trim } = this.props;
+    const { start: prevPropsStart, end: prevPropsEnd, trim: prevPropsTrim } = prevProps;
 
     if (playing && playing !== prevState.playing) {
       this.startTimeline();
     } else if (!playing && playing !== prevState.playing) {
       this.stopTimeline();
-    } else if (playing && end !== prevState.end) {
+    } else if (playing && stateEnd !== prevState.end) {
       this.incrementTimeline();
+    }
+
+    if (start !== prevPropsStart && start !== stateStart) {
+      this.setState({ start });
+    }
+
+    if (end !== prevPropsEnd && end !== stateEnd) {
+      this.setState({ end });
+    }
+
+    if (trim !== prevPropsTrim && trim !== stateTrim) {
+      this.setState({ trim, end: trim });
     }
   }
 

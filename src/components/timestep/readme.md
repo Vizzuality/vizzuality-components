@@ -6,7 +6,7 @@ Based on rc-slider, for more configuration, take a look at the offical [document
 
 initialState = {
   start: 0,
-  end: 50,
+  end: 50
 };
 
 <Timestep

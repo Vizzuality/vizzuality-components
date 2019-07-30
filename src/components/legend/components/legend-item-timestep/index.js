@@ -18,7 +18,14 @@ export class TimestepContainer extends PureComponent {
 
   static propTypes = {
     handleChange: PropTypes.func.isRequired,
-    activeLayer: PropTypes.shape({})
+    activeLayer: PropTypes.shape({}),
+    marks: PropTypes.object.isRequired,
+    maxDate: PropTypes.string.isRequired,
+    minDate: PropTypes.string.isRequired,
+    interval: PropTypes.string.isRequired,
+    startDate: PropTypes.string.isRequired,
+    endDate: PropTypes.string.isRequired,
+    trimEndDate: PropTypes.string.isRequired
   }
 
   static defaultProps = { activeLayer: {} };
@@ -30,28 +37,11 @@ export class TimestepContainer extends PureComponent {
 
     if (timelineParams) {
       this.timelineParams = timelineParams;
-      const { minDate, maxDate, startDate, endDate, trimEndDate, interval } = this.timelineParams;
-
-      this.state = {
-        min: 0,
-        max: dateDiff(maxDate, minDate, interval),
-        start: dateDiff(startDate, minDate, interval),
-        end: dateDiff(endDate, minDate, interval),
-        trim: dateDiff(trimEndDate, minDate, interval),
-        marks: getTicks(this.timelineParams)
-      };
     }
   }
 
   handleOnChange = range => {
     const { activeLayer, handleChange } = this.props;
-
-    this.setState({
-      start: range[0],
-      end: range[1],
-      trim: range[2]
-    });
-
     const formattedRange = this.formatRange([
       range[0],
       range[1],
@@ -73,16 +63,19 @@ export class TimestepContainer extends PureComponent {
 
   render() {
     if (!this.timelineParams) return null;
-
-    const { marks } = this.state;
+    const { marks, maxDate, minDate, interval, startDate, endDate, trimEndDate } = this.props;
 
     return (
       <div styleName="c-legend-timestep">
         <Timestep
           {...this.props}
-          {...this.state}
           {...this.timelineParams}
-          marks={marks}
+          min={0}
+          max={dateDiff(maxDate, minDate, interval)}
+          start={dateDiff(startDate, minDate, interval)}
+          end={dateDiff(endDate, minDate, interval)}
+          trim={dateDiff(trimEndDate, minDate, interval)}
+          marks={marks || getTicks(this.timelineParams)}
           formatValue={this.formatValue}
           handleOnChange={this.handleOnChange}
         />
