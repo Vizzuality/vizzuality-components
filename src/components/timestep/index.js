@@ -68,6 +68,7 @@ class Timestep extends PureComponent {
 
   componentDidUpdate(prevProps, prevState) {
     const { playing, start: stateStart, end: stateEnd, trim: stateTrim } = this.state;
+    const { start: prevStateStart, end: prevStateEnd, trim: prevStateTrim } = prevState;
 
     const { start, end, trim } = this.props;
     const { start: prevPropsStart, end: prevPropsEnd, trim: prevPropsTrim } = prevProps;
@@ -80,16 +81,16 @@ class Timestep extends PureComponent {
       this.incrementTimeline();
     }
 
-    if (start !== prevPropsStart && start !== stateStart) {
+    if (!playing && start !== prevPropsStart && start !== stateStart && prevStateStart === stateStart) {
       this.setState({ start });
     }
 
-    if (end !== prevPropsEnd && end !== stateEnd) {
+    if (!playing && end !== prevPropsEnd && end !== stateEnd && prevStateEnd === stateEnd) {
       this.setState({ end });
     }
 
-    if (trim !== prevPropsTrim && trim !== stateTrim) {
-      this.setState({ trim, end: trim });
+    if (!playing && trim !== prevPropsTrim && trim !== stateTrim && prevStateTrim === stateTrim) {
+      this.setState({ trim });
     }
   }
 
@@ -128,11 +129,11 @@ class Timestep extends PureComponent {
     this.interval = setTimeout(() => {
       const newEnd = end + step;
 
-      this.handleOnChange([start, newEnd, trim]);
-      this.handleOnAfterChange([start, newEnd, trim]);
-
       if ((newEnd > trim && range) || (!range && newEnd > max)) {
         this.handleResetTimeline();
+      } else {
+        this.handleOnChange([start, newEnd, trim]);
+        this.handleOnAfterChange([start, newEnd, trim]);
       }
     }, speed);
   };
@@ -171,6 +172,13 @@ class Timestep extends PureComponent {
   handleOnAfterChange = debounce(range => {
     const { handleOnChange } = this.props;
     const newRange = this.checkRange(range);
+
+    // this.setState({
+    //   start: newRange[0],
+    //   end: newRange[1],
+    //   trim: newRange[2]
+    // }, () => {
+    // });
 
     handleOnChange(newRange);
   }, 50);

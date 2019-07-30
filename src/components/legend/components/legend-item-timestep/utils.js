@@ -1,13 +1,5 @@
 import moment from 'moment';
-import find from 'lodash/find';
 import compact from 'lodash/compact';
-
-export function getRangeForDates(dates, _range) {
-  const duration = moment(dates[1]).diff(moment(dates[0]), 'hours');
-  const dateRange = find(_range, duration);
-
-  return dateRange ? [dateRange.start, dateRange.end] : [dates[0], dates[1]];
-}
 
 export const addToDate = (date, count, interval = 'days') => {
   const result = new Date(date);
@@ -71,7 +63,8 @@ export const formatDatePretty = (date, dateFormat = 'YYYY-MM-DD') => {
 
 // startDate and endDate are string dates
 export const dateDiff = (startDate, endDate, interval) => {
-  const diff = moment.utc(endDate).diff(startDate, interval);
+  const diff = moment.utc(endDate).diff(moment.utc(startDate), interval);
+
   return Math.abs(diff);
 };
 
