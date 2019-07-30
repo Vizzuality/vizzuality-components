@@ -34,8 +34,8 @@ class LegendItemTypes extends PureComponent {
 
   componentDidMount() {
     const { activeLayer } = this.props;
-    const { legendConfig } = activeLayer;
-    const { params = {}, sqlParams = {} } = legendConfig;
+    const { legendConfig } = activeLayer || {};
+    const { params = {}, sqlParams = {} } = legendConfig || {};
 
     const parsedConfig = replace(JSON.stringify(legendConfig), params, sqlParams);
     const { url } = JSON.parse(parsedConfig);
@@ -56,9 +56,10 @@ class LegendItemTypes extends PureComponent {
 
 
     if (!isEqual(nextParams, prevParams) || !isEqual(nextSqlParams, prevSqlParams)) {
-      const parsedConfig = replace(JSON.stringify(nextLegendConfig), nextParams, nextSqlParams);
-      const { url } = JSON.parse(parsedConfig);
-  
+      const stringifyConfig = replace(JSON.stringify(nextLegendConfig), nextParams, nextSqlParams);
+      const parsedConfig = JSON.parse(stringifyConfig);
+      const { url } = parsedConfig || {};
+
       if (url) {
         this.fetchLegend(url);
       }
@@ -67,8 +68,8 @@ class LegendItemTypes extends PureComponent {
 
   fetchLegend = (url) => {
     const { activeLayer } = this.props;
-    const { legendConfig } = activeLayer;
-    const { dataParse } = legendConfig;
+    const { legendConfig } = activeLayer || {};
+    const { dataParse } = legendConfig || {};
     this.setState({ loading: true });
 
     fetch(url)
@@ -90,8 +91,8 @@ class LegendItemTypes extends PureComponent {
     const { loading, activeLayer: stateActiveLayer } = this.state;
     const activeLayer = !isEmpty(stateActiveLayer) ? stateActiveLayer : propsActiveLayer;
 
-    const { legendConfig } = activeLayer;
-    const { url } = legendConfig;
+    const { legendConfig } = activeLayer || {};
+    const { url } = legendConfig || {};
     const shouldRender = !url || (url && !isEmpty(stateActiveLayer));
 
     return (

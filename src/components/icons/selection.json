@@ -25,7 +25,7 @@
       "properties": {
         "order": 111,
         "id": 47,
-        "name": "pause2",
+        "name": "pause",
         "prevSize": 32
       },
       "setIdx": 0,
@@ -53,7 +53,7 @@
       "properties": {
         "order": 112,
         "id": 46,
-        "name": "play3",
+        "name": "play",
         "prevSize": 32
       },
       "setIdx": 0,
@@ -699,31 +699,6 @@
       "setIdx": 0,
       "setId": 8,
       "iconIdx": 26
-    },
-    {
-      "icon": {
-        "width": 1182,
-        "paths": [
-          "M238.811 735.999v-448h192.001v448h-192.001zM494.812 735.999v-320.001h192.001v320.001h-192.001zM750.813 735.999v-639.999h192.001v639.999h-192.001zM110.813 928v-128h960v128h-960z"
-        ],
-        "attrs": [],
-        "isMulticolor": false,
-        "isMulticolor2": false,
-        "tags": [
-          "widgets"
-        ],
-        "grid": 16
-      },
-      "attrs": [],
-      "properties": {
-        "order": 236,
-        "id": 25,
-        "name": "widgets",
-        "prevSize": 32
-      },
-      "setIdx": 0,
-      "setId": 8,
-      "iconIdx": 27
     },
     {
       "icon": {

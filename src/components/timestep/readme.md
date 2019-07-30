@@ -3,40 +3,76 @@
 Based on rc-slider, for more configuration, take a look at the offical [documentation](http://react-component.github.io/slider/)
 
 ```js
+
+initialState = {
+  start: 0,
+  end: 50,
+};
+
 <Timestep
-  playing={true}
-  canPlay={Boolean}
-
-  handleTogglePlay={callback}
-  handleOnChange={callback}
-  handleOnAfterChange={callback}
-  formatValue={callback}
-
-  min={Number}
-  max={Number}
-  start={Number}
-  end={Number}
-  trim={Number}
-
-  marks={{} || Array}
-  step={Number}
-  customClass={String}
-  trackStyles={Array | Object}
+  range={false}
+  canPlay={true}
+  formatValue={value => `${value}%`}
+  min={0}
+  max={100}
+  start={state.start}
+  end={state.end}
+  trim={100}
+  value={state.end}
+  step={1}
+  speed={200}
+  handleOnChange={values => { setState({ start: values[0], end: values[1] })}}
+  marks={{
+    0: '0%',
+    25: '25%',
+    50: '50%',
+    75: '75%',
+    100: '100%',
+  }}
+  trackStyle={[
+    {
+      backgroundColor: '#c32d7b',
+      borderRadius: '0px'
+    }
+  ]}
 />
 ```
 
-You can pass your custom play button down as a react component using the `playButton` property.
-
 ```js
+
+initialState = {
+  start: 25,
+  end: 50,
+  trim: 75
+};
+
 <Timestep
-  playButton={(
-    <button
-      type="button"
-      onClick={this.togglePlay}
-      className="my_play_button"
-    >
-      {playing ? 'Pause' : 'Play'}
-    </button>
-  )}
+  canPlay={true}
+  formatValue={value => `${value}%`}
+  min={0}
+  max={100}
+  start={state.start}
+  end={state.end}
+  trim={state.trim}
+  step={1}
+  speed={500}
+  handleOnChange={values => { setState({ start: values[0], end: values[1], trim: values[2] })}}
+  marks={{
+    0: '0%',
+    25: '25%',
+    50: '50%',
+    75: '75%',
+    100: '100%',
+  }}
+  trackStyle={[
+    {
+      backgroundColor: '#c32d7b',
+      borderRadius: '0px'
+    },
+    {
+      backgroundColor: '#F660AE',
+      borderRadius: '0px'
+    }
+  ]}
 />
 ```

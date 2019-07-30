@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import arrayMove from 'array-move';
 
-import { arrayMove } from 'react-sortable-hoc';
 
 // Components
 import Icon from 'components/icon';

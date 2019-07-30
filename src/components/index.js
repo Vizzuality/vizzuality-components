@@ -6,9 +6,6 @@ export { default as Spinner } from './spinner';
 export { default as Slider } from './slider';
 export { default as Timestep } from './timestep';
 
-// Form
-export { default as Range } from './form/range';
-
 // Map
 export { default as Map } from './map';
 
@@ -42,7 +39,3 @@ export {
 } from './legend/components/legend-item-types';
 
 export { default as LegendItemTimeStep } from './legend/components/legend-item-timestep';
-export { default as LegendItemTimeline } from './legend/components/legend-item-timeline';
-
-// Widgets
-export { VegaChart, VegaThumbnail } from './widgets';
