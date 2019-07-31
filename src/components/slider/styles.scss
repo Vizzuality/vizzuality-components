@@ -113,18 +113,18 @@
   .rc-slider-mark {
     position: absolute;
     top: 18px;
-    left: 0;
-    width: 100%;
+    left: -8px;
+    width: calc(100% + 16px);
     font-size: 12px;
+    display: flex;
+    justify-content: space-between;
   }
 
   .rc-slider-mark-text {
-    position: absolute;
-    display: inline-block;
-    vertical-align: middle;
-    text-align: center;
-    cursor: pointer;
-    color: #999;
+    position: relative !important;
+    width: auto !important;
+    margin-left: 0 !important;
+    left: 0 !important;
   }
 
   .rc-slider-mark-text-active {
@@ -338,31 +338,31 @@
   }
 
   // sdsadsads
-  .rc-slider-handle {
-    &:active {
-      box-shadow: none;
-    }
+  // .rc-slider-handle {
+  //   &:active {
+  //     box-shadow: none;
+  //   }
 
-    &.rc-slider-handle-1,
-    &:nth-last-child(2) {
-      &::after {
-        content: '';
-        width: 4px;
-        height: 4px;
-        background-color: 'green';
-        position: absolute;
-        border-radius: 4px;
-        top: calc(50% - 2px);
-        left: calc(50% - 2px);
-      }
-    }
-  }
+  //   &.rc-slider-handle-1,
+  //   &:nth-last-child(2) {
+  //     &::after {
+  //       content: '';
+  //       width: 4px;
+  //       height: 4px;
+  //       background-color: 'green';
+  //       position: absolute;
+  //       border-radius: 4px;
+  //       top: calc(50% - 2px);
+  //       left: calc(50% - 2px);
+  //     }
+  //   }
+  // }
 
-  .rc-slider-disabled {
-    background-color: transparent;
-  }
+  // .rc-slider-disabled {
+  //   background-color: transparent;
+  // }
 
-  .rc-slider-mark {
-    width: 90%;
-  }
+  // .rc-slider-mark {
+  //   width: 90%;
+  // }
 }
