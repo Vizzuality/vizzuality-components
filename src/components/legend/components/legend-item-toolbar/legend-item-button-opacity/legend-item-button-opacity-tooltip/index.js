@@ -21,14 +21,29 @@ class LegendOpacityTooltip extends PureComponent {
     step: 0.01
   }
 
+  state = {
+    opacity: this.props.activeLayer && this.props.activeLayer.opacity || 1
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { activeLayer: { opacity } } = this.props;
+    const { activeLayer: { opacity: prevOpacity } } = prevProps;
+    const { opacity: stateOpacity } = this.state
+    const { opacity: prevStateOpacity } = prevState;
+
+    if (opacity !== prevOpacity && stateOpacity === prevStateOpacity) {
+      this.setState({ opacity });
+    }
+  }
+
   onChange = (v) => {
     const { activeLayer, onChangeOpacity } = this.props;
     onChangeOpacity(activeLayer, v);
   }
 
   render() {
-    const { min, max, step, activeLayer: { opacity }, ...rest } = this.props;
-    const value = typeof opacity !== 'undefined' ? opacity : 1;
+    const { min, max, step, ...rest } = this.props;
+    const { opacity } = this.state;
 
     return (
       <div styleName="c-legend-item-button-opacity-tooltip" ref={(node) => { this.el = node; }}>
@@ -43,8 +58,9 @@ class LegendOpacityTooltip extends PureComponent {
             min={min}
             max={max}
             step={step}
-            value={value}
+            value={opacity}
             formatValue={perc => `${perc * 100}%`}
+            onChange={value => this.setState({ opacity: value })}
             onAfterChange={this.onChange}
             trackStyle={{
               backgroundColor: '#c32d7b',
