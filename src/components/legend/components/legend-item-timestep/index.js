@@ -1,31 +1,29 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
 
-import Timestep from 'components/timestep';
+import Timestep from "components/timestep";
 
 import {
   addToDate,
   dateDiff,
+  gradientConverter,
   formatDatePretty,
   formatDate,
-  getTicks
-} from './utils';
+  getTicks,
+} from "./utils";
 
-import './styles.scss';
+import "./styles.scss";
 
 export class TimestepContainer extends PureComponent {
-  timelineParams = null
+  timelineParams = null;
 
   static propTypes = {
     defaultStyles: PropTypes.shape({}),
     activeLayer: PropTypes.shape({}),
-    handleChange: PropTypes.func.isRequired
-  }
-
-  static defaultProps = {
-    defaultStyles: {},
-    activeLayer: {}
+    handleChange: PropTypes.func.isRequired,
   };
+
+  static defaultProps = { defaultStyles: {}, activeLayer: {} };
 
   constructor(props) {
     super(props);
@@ -35,13 +33,43 @@ export class TimestepContainer extends PureComponent {
     this.timelineParams = timelineParams;
   }
 
+  getTrackStyle = () => {
+    const {
+      minDate,
+      interval,
+      trackStyle
+    } = this.timelineParams;
+
+    if (Array.isArray(trackStyle)) {
+      return trackStyle.map((t) => {
+        const { gradient } = t;
+
+        if (!gradient) return t;
+
+        const styles = {
+          ...t,
+          gradient: gradientConverter(gradient, minDate, interval)
+        }
+
+        return styles;
+      })
+    }
+
+    const { gradient } = trackStyle;
+
+    if (gradient) {
+      return {
+        ...trackStyle,
+        gradient: gradientConverter(gradient, minDate, interval)
+      }
+    }
+
+    return trackStyle;
+  };
+
   handleOnChange = range => {
     const { activeLayer, handleChange } = this.props;
-    const formattedRange = this.formatRange([
-      range[0],
-      range[1],
-      range[2]
-    ]);
+    const formattedRange = this.formatRange([ range[0], range[1], range[2] ]);
 
     handleChange(formattedRange, activeLayer);
   };
@@ -59,7 +87,15 @@ export class TimestepContainer extends PureComponent {
   render() {
     if (!this.timelineParams) return null;
     const { defaultStyles } = this.props;
-    const { marks, maxDate, minDate, interval, startDate, endDate, trimEndDate } = this.timelineParams;
+    const {
+      marks,
+      maxDate,
+      minDate,
+      interval,
+      startDate,
+      endDate,
+      trimEndDate,
+    } = this.timelineParams;
 
     return (
       <div styleName="c-legend-timestep">
@@ -67,6 +103,7 @@ export class TimestepContainer extends PureComponent {
           {...this.props}
           {...defaultStyles}
           {...this.timelineParams}
+          trackStyle={this.getTrackStyle()}
           min={0}
           max={dateDiff(maxDate, minDate, interval)}
           start={dateDiff(startDate, minDate, interval)}
@@ -77,7 +114,7 @@ export class TimestepContainer extends PureComponent {
           handleOnChange={this.handleOnChange}
         />
       </div>
-    )
+    );
   }
 }
 

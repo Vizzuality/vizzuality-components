@@ -75,7 +75,7 @@ export const getTicks = (timelineConfig = {}) => {
   if (marks) {
     const newMarks = Object.keys(marks).reduce((acc, m) => {
       if (typeof m === 'string') {
-        const key = moment(m).diff(minDate, interval);
+        const key = moment.utc(m).diff(moment.utc(minDate), interval);
 
         return {
           ...acc,
@@ -95,16 +95,27 @@ export const getTicks = (timelineConfig = {}) => {
 
   // Otherwise, let's add default marks at the begginig and the end
   const minMark = 0;
-  const maxMark = moment(maxDate).diff(minDate, interval);
+  const maxMark = moment.utc(maxDate).diff(moment.utc(minDate), interval);
 
   const newMarks = {
     [minMark]: {
-      label: moment(minDate).format(dateFormat)
+      label: moment.utc(minDate).format(dateFormat)
     },
     [maxMark]: {
-      label: moment(maxDate).format(dateFormat)
+      label: moment.utc(maxDate).format(dateFormat)
     }
   };
 
   return newMarks;
 };
+
+// startDate and endDate are string dates
+export const gradientConverter = (gradient, minDate, interval) => (
+  Object
+    .keys(gradient)
+    .reduce((acc, val) => ({
+      ...acc,
+      [dateDiff(val, minDate, interval)]: gradient[val],
+    }), {})
+);
+

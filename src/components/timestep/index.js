@@ -109,6 +109,79 @@ class Timestep extends PureComponent {
     return end;
   }
 
+  getTrackStyle() {
+    const { start, end, trim } = this.state;
+    const { trackStyle } = this.props;
+
+    if (Array.isArray(trackStyle)) {
+      const diff = end - start;
+      const diff2 = trim - end;
+      let stringArr = [];
+
+      return trackStyle.map((t, i) => {
+        const { gradient } = t;
+
+        if (gradient) {
+          const stringKeys = Object.keys(gradient);
+
+          // It could be better, no more neurons
+          if (i === 0) {
+            stringArr = stringKeys
+              .filter((g, j) => {
+                const next = stringKeys[j + 1] || g;
+                const di = start - (g + next);
+
+                return g >= di && g <= end;
+              })
+
+              .map((g, j) => {
+                const first = j === 0;
+                const perc = ((g - start) / diff) * 100;
+                const index = stringKeys.findIndex(ix => ix === g);
+
+                if (first) {
+                  return `${gradient[g]}`;
+                }
+                return `${gradient[stringKeys[index - 1]]} ${perc}%, ${gradient[g]} ${perc}%`;
+              })
+          }
+
+          // It could be better, no more neurons
+          if (i === 1) {
+            stringArr = stringKeys
+              .filter((g, j) => {
+                const last = stringKeys[j - 1] || g;
+                const di = end - (g - last);
+
+                return g > di && g <= trim;
+              })
+
+              .map((g, j) => {
+                const first = j === 0;
+                const perc = ((g - end) / diff2) * 100;
+                const index = stringKeys.findIndex(ix => ix === g);
+
+                if (first) {
+                  return `${gradient[g]}`;
+                }
+
+                return `${gradient[stringKeys[index - 1]]} ${perc}%, ${gradient[g]} ${perc}%`;
+              })
+          }
+
+          return {
+            ...t,
+            background: stringArr.length > 1 ? `linear-gradient(to right, ${stringArr.join(',')})` : stringArr.toString()
+          }
+        }
+
+        return t;
+      })
+    }
+
+    return trackStyle;
+  }
+
   startTimeline = () => {
     const { start, end, trim } = this.state;
     if (end < trim) {
@@ -218,7 +291,6 @@ class Timestep extends PureComponent {
       step,
       canPlay,
       customClass,
-      trackStyle,
       railStyle,
       handleStyle,
       range,
@@ -245,7 +317,7 @@ class Timestep extends PureComponent {
             onAfterChange={this.handleOnAfterChange}
             formatValue={formatValue}
             railStyle={railStyle}
-            trackStyle={trackStyle}
+            trackStyle={this.getTrackStyle()}
             handleStyle={handleStyle}
             showTooltip={index => playing && index === 1}
             pushable={pushable}
