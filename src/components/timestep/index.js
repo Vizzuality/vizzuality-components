@@ -82,15 +82,15 @@ class Timestep extends PureComponent {
     }
 
     if (!playing && start !== prevPropsStart && start !== stateStart && prevStateStart === stateStart) {
-      this.setState({ start });
+      this.setState({ start }); // eslint-disable-line
     }
 
     if (!playing && end !== prevPropsEnd && end !== stateEnd && prevStateEnd === stateEnd) {
-      this.setState({ end });
+      this.setState({ end }); // eslint-disable-line
     }
 
     if (!playing && trim !== prevPropsTrim && trim !== stateTrim && prevStateTrim === stateTrim) {
-      this.setState({ trim });
+      this.setState({ trim }); // eslint-disable-line
     }
   }
 
@@ -169,16 +169,10 @@ class Timestep extends PureComponent {
     });
   };
 
+  /* eslint-disable-next-line */
   handleOnAfterChange = debounce(range => {
     const { handleOnChange } = this.props;
     const newRange = this.checkRange(range);
-
-    // this.setState({
-    //   start: newRange[0],
-    //   end: newRange[1],
-    //   trim: newRange[2]
-    // }, () => {
-    // });
 
     handleOnChange(newRange);
   }, 50);
@@ -205,6 +199,9 @@ class Timestep extends PureComponent {
       <button
         type="button"
         styleName="player-btn"
+        className={classnames({
+          "-playing": playing
+        })}
         onClick={this.handleTogglePlay}
       >
         <Icon name={iconStatus} />

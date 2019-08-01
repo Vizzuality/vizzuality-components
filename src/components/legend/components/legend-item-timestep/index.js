@@ -17,27 +17,22 @@ export class TimestepContainer extends PureComponent {
   timelineParams = null
 
   static propTypes = {
-    handleChange: PropTypes.func.isRequired,
+    defaultStyles: PropTypes.shape({}),
     activeLayer: PropTypes.shape({}),
-    marks: PropTypes.object.isRequired,
-    maxDate: PropTypes.string.isRequired,
-    minDate: PropTypes.string.isRequired,
-    interval: PropTypes.string.isRequired,
-    startDate: PropTypes.string.isRequired,
-    endDate: PropTypes.string.isRequired,
-    trimEndDate: PropTypes.string.isRequired
+    handleChange: PropTypes.func.isRequired
   }
 
-  static defaultProps = { activeLayer: {} };
+  static defaultProps = {
+    defaultStyles: {},
+    activeLayer: {}
+  };
 
   constructor(props) {
     super(props);
     const { activeLayer } = props;
     const { timelineParams } = activeLayer;
 
-    if (timelineParams) {
-      this.timelineParams = timelineParams;
-    }
+    this.timelineParams = timelineParams;
   }
 
   handleOnChange = range => {
@@ -63,12 +58,14 @@ export class TimestepContainer extends PureComponent {
 
   render() {
     if (!this.timelineParams) return null;
-    const { marks, maxDate, minDate, interval, startDate, endDate, trimEndDate } = this.props;
+    const { defaultStyles } = this.props;
+    const { marks, maxDate, minDate, interval, startDate, endDate, trimEndDate } = this.timelineParams;
 
     return (
       <div styleName="c-legend-timestep">
         <Timestep
           {...this.props}
+          {...defaultStyles}
           {...this.timelineParams}
           min={0}
           max={dateDiff(maxDate, minDate, interval)}
