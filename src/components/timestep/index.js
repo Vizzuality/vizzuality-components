@@ -82,7 +82,7 @@ class Timestep extends PureComponent {
     }
 
     if (start !== prevPropsStart && start !== stateStart && prevStateStart === stateStart) {
-      this.setState({ start }); // eslint-disable-line
+      this.setState({ start, end: trim }); // eslint-disable-line
     }
 
     if (end !== prevPropsEnd && end !== stateEnd && prevStateEnd === stateEnd) {
@@ -90,7 +90,7 @@ class Timestep extends PureComponent {
     }
 
     if (trim !== prevPropsTrim && trim !== stateTrim && prevStateTrim === stateTrim) {
-      this.setState({ trim }); // eslint-disable-line
+      this.setState({ trim, end: trim }); // eslint-disable-line
     }
   }
 
