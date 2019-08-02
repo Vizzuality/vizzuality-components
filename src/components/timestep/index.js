@@ -26,7 +26,7 @@ class Timestep extends PureComponent {
     speed: PropTypes.number.isRequired,
     formatValue: PropTypes.func.isRequired,
 
-    trackStyle: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.object])),
+    trackStyle: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.array, PropTypes.object])),
     railStyle: PropTypes.shape({}),
     handleStyle: PropTypes.shape({}),
     playButton: PropTypes.shape({}),
