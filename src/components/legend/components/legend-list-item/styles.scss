@@ -28,8 +28,8 @@
     flex-grow: 1;
 
     > * {
-      margin: $space-1 0 0;
-      &:first-child { margin: 0; }
+      margin-top: $space-1;
+      &:first-child { margin-top: 0; }
     }
   }
 
