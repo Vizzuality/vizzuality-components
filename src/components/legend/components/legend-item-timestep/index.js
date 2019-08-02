@@ -1,5 +1,6 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
+import isEqual from 'lodash/isEqual';
 
 import Timestep from "components/timestep";
 
@@ -31,6 +32,20 @@ export class TimestepContainer extends PureComponent {
     const { timelineParams } = activeLayer;
 
     this.timelineParams = timelineParams;
+  }
+
+  componentDidUpdate(prevProps) {
+    const { activeLayer } = this.props;
+    const { activeLayer: prevActiveLayer } = prevProps;
+
+    const { timelineParams } = activeLayer;
+    const { timelineParams: prevTimelineParams } = prevActiveLayer;
+
+    // Should we use timelineParams directly from params instead of doing this? I think so
+    if (!isEqual(timelineParams, prevTimelineParams)) {
+      this.timelineParams = timelineParams;
+      this.forceUpdate();
+    }
   }
 
   getTrackStyle = () => {

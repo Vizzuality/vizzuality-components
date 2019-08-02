@@ -81,15 +81,15 @@ class Timestep extends PureComponent {
       this.incrementTimeline();
     }
 
-    if (!playing && start !== prevPropsStart && start !== stateStart && prevStateStart === stateStart) {
+    if (start !== prevPropsStart && start !== stateStart && prevStateStart === stateStart) {
       this.setState({ start }); // eslint-disable-line
     }
 
-    if (!playing && end !== prevPropsEnd && end !== stateEnd && prevStateEnd === stateEnd) {
+    if (end !== prevPropsEnd && end !== stateEnd && prevStateEnd === stateEnd) {
       this.setState({ end }); // eslint-disable-line
     }
 
-    if (!playing && trim !== prevPropsTrim && trim !== stateTrim && prevStateTrim === stateTrim) {
+    if (trim !== prevPropsTrim && trim !== stateTrim && prevStateTrim === stateTrim) {
       this.setState({ trim }); // eslint-disable-line
     }
   }
