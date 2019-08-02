@@ -57,7 +57,7 @@ export class TimestepContainer extends PureComponent {
 
     if (Array.isArray(trackStyle)) {
       return trackStyle.map((t) => {
-        const { gradient } = t;
+        const { gradient } = t || {};
 
         if (!gradient) return t;
 
@@ -70,7 +70,7 @@ export class TimestepContainer extends PureComponent {
       })
     }
 
-    const { gradient } = trackStyle;
+    const { gradient } = trackStyle || {};
 
     if (gradient) {
       return {
