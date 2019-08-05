@@ -83,19 +83,24 @@ class Timestep extends PureComponent {
 
     if (start !== prevPropsStart && start !== stateStart && prevStateStart === stateStart) {
       this.setState({ // eslint-disable-line
+        playing: false,
         start,
         ...start > end && {
-          end: start
+          end: trim
         }
       });
     }
 
     if (end !== prevPropsEnd && end !== stateEnd && prevStateEnd === stateEnd) {
-      this.setState({ end }); // eslint-disable-line
+      this.setState({ // eslint-disable-line
+        playing: false,
+        end
+      });
     }
 
     if (trim !== prevPropsTrim && trim !== stateTrim && prevStateTrim === stateTrim) {
       this.setState({ // eslint-disable-line
+        playing: false,
         trim,
         ...trim < end && {
           end: trim
@@ -228,9 +233,25 @@ class Timestep extends PureComponent {
   };
 
   checkRange = range => {
-    const { start, trim } = this.state;
+    const { playing, start, end, trim } = this.state;
+
     if (!Array.isArray(range)) {
       return [start, range, trim];
+    }
+
+    // If end is different from trim, and trim is different from current state
+    if (!playing && range[1] !== range[2] && trim !== range[2]) {
+      return [range[0], range[2], range[2]];
+    }
+
+    // If end is different from trim, and end is different from current state
+    if (!playing && range[1] !== range[2] && end !== range[1]) {
+      return [range[0], range[1], range[1]];
+    }
+
+    // If end is different from trim, and trim is different from current state
+    if (!playing && trim !== range[0]) {
+      return [range[0], range[2], range[2]];
     }
 
     return range;
