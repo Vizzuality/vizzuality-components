@@ -111,10 +111,10 @@ class Timestep extends PureComponent {
 
   getValue() {
     const { start, end, trim } = this.state;
-    const { range, canPlay } = this.props;
+    const { range } = this.props;
 
     if (range) {
-      return canPlay ? [start, end, trim] : [start, end];
+      return [start, end, trim];
     }
 
     return end;
