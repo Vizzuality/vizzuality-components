@@ -43,7 +43,7 @@ const layerGroupsParsed = layerGroups.map(lg => ({
     ...layer.layerConfig && layer.layerConfig.timeline_config && {
       timelineParams: {
         ...layer.layerConfig.timeline_config,
-        canPlay: true,
+        canPlay: false,
         minDate: "2001-01-01",
         maxDate: "2017-12-31",
         startDate: "2004-09-27",
