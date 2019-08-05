@@ -85,9 +85,7 @@ class Timestep extends PureComponent {
       this.setState({ // eslint-disable-line
         playing: false,
         start,
-        ...start > end && {
-          end: trim
-        }
+        end: trim
       });
     }
 
@@ -102,9 +100,7 @@ class Timestep extends PureComponent {
       this.setState({ // eslint-disable-line
         playing: false,
         trim,
-        ...trim < end && {
-          end: trim
-        }
+        end: trim
       });
     }
   }
