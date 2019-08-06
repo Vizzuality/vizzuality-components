@@ -20,25 +20,37 @@ class Timestep extends PureComponent {
     max: PropTypes.number.isRequired,
     start: PropTypes.number.isRequired,
     end: PropTypes.number.isRequired,
-    trim: PropTypes.number.isRequired,
+    trim: PropTypes.number,
     marks: PropTypes.shape({}).isRequired,
-    step: PropTypes.number.isRequired,
-    speed: PropTypes.number.isRequired,
+    step: PropTypes.number,
+    speed: PropTypes.number,
+    loop: PropTypes.bool,
     formatValue: PropTypes.func.isRequired,
 
     trackStyle: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.array, PropTypes.object])),
     railStyle: PropTypes.shape({}),
     handleStyle: PropTypes.shape({}),
-    playButton: PropTypes.shape({}),
 
-    handleOnChange: PropTypes.func.isRequired
+    playing: PropTypes.bool,
+    PlayButton: PropTypes.node,
+
+    handleOnChange: PropTypes.func,
+    handleOnAfterChange: PropTypes.func,
+    handleOnPlay: PropTypes.func
   }
 
   static defaultProps = {
+    customClass: null,
     range: true,
     pushable: 0,
     canPlay: false,
-    customClass: null,
+
+    trim: null,
+
+    step: 1,
+    speed: 100,
+    loop: false,
+
     trackStyle: {
       backgroundColor: '#c32d7b',
       borderRadius: '0px'
@@ -51,15 +63,21 @@ class Timestep extends PureComponent {
       border: '0px',
       zIndex: 2
     },
-    playButton: null
+
+    playing: undefined,
+    PlayButton: null,
+
+    handleOnChange: null,
+    handleOnAfterChange: null,
+    handleOnPlay: null
   }
 
   constructor(props) {
     super(props);
-    const { start, end, trim } = this.props;
+    const { playing, start, end, trim } = this.props;
 
     this.state = {
-      playing: false,
+      playing,
       start,
       end,
       trim
@@ -67,23 +85,26 @@ class Timestep extends PureComponent {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { playing, start: stateStart, end: stateEnd, trim: stateTrim } = this.state;
-    const { start: prevStateStart, end: prevStateEnd, trim: prevStateTrim } = prevState;
+    const { playing: statePlaying, start: stateStart, end: stateEnd, trim: stateTrim } = this.state;
+    const { playing: prevStatePlaying, start: prevStateStart, end: prevStateEnd, trim: prevStateTrim } = prevState;
 
-    const { start, end, trim } = this.props;
-    const { start: prevPropsStart, end: prevPropsEnd, trim: prevPropsTrim } = prevProps;
+    const { playing, start, end, trim } = this.props;
+    const { playing: prevPropsPlaying, start: prevPropsStart, end: prevPropsEnd, trim: prevPropsTrim } = prevProps;
 
-    if (playing && playing !== prevState.playing) {
+    if (playing !== prevPropsPlaying) {
+      this.setState({ playing }) // eslint-disable-line
+    }
+
+    if ((statePlaying && statePlaying !== prevStatePlaying)) {
       this.startTimeline();
-    } else if (!playing && playing !== prevState.playing) {
+    } else if (!statePlaying && statePlaying !== prevStatePlaying) {
       this.stopTimeline();
-    } else if (playing && stateEnd !== prevState.end) {
+    } else if (statePlaying && stateEnd !== prevStateEnd) {
       this.incrementTimeline();
     }
 
     if (start !== prevPropsStart && start !== stateStart && prevStateStart === stateStart) {
       this.setState({ // eslint-disable-line
-        playing: false,
         start,
         end: trim
       });
@@ -91,14 +112,12 @@ class Timestep extends PureComponent {
 
     if (end !== prevPropsEnd && end !== stateEnd && prevStateEnd === stateEnd) {
       this.setState({ // eslint-disable-line
-        playing: false,
         end
       });
     }
 
     if (trim !== prevPropsTrim && trim !== stateTrim && prevStateTrim === stateTrim) {
       this.setState({ // eslint-disable-line
-        playing: false,
         trim,
         end: trim
       });
@@ -223,9 +242,15 @@ class Timestep extends PureComponent {
   };
 
   handleResetTimeline = () => {
+    const { loop } = this.props;
     const { trim } = this.state;
     this.stopTimeline();
-    this.setState({ playing: false, end: trim });
+
+    if (loop) {
+      this.startTimeline();
+    } else {
+      this.setState({ playing: false, end: trim });
+    }
   };
 
   checkRange = range => {
@@ -254,6 +279,7 @@ class Timestep extends PureComponent {
   };
 
   handleOnChange = range => {
+    const { handleOnChange } = this.props;
     const newRange = this.checkRange(range);
 
     this.setState({
@@ -261,32 +287,36 @@ class Timestep extends PureComponent {
       end: newRange[1],
       trim: newRange[2]
     });
+
+    if (handleOnChange) handleOnChange(newRange);
   };
 
   /* eslint-disable-next-line */
   handleOnAfterChange = debounce(range => {
-    const { handleOnChange } = this.props;
+    const { handleOnAfterChange } = this.props;
     const newRange = this.checkRange(range);
 
-    handleOnChange(newRange);
+    if (handleOnAfterChange) handleOnAfterChange(newRange);
   }, 50);
 
   handleTogglePlay = () => {
-    const { playing } = this.state;
-    this.setState({ playing: !playing });
+    const { handleOnPlay } = this.props;
+    const { playing: statePlaying } = this.state;
+
+    const p = !statePlaying;
+
+    this.setState({ playing: p });
+
+    if (handleOnPlay) handleOnPlay(p);
+
   };
 
-  playButton() {
-    const { playButton } = this.props;
-    const { playing } = this.state;
-
-     if (playButton) {
-      return playButton;
-    }
+  renderPlay() {
+    const { playing: statePlaying } = this.state;
 
      const iconStatus = classnames({
-      'icon-pause': playing,
-      'icon-play': !playing
+      'icon-pause': statePlaying,
+      'icon-play': !statePlaying
     });
 
     return (
@@ -294,7 +324,7 @@ class Timestep extends PureComponent {
         type="button"
         styleName="player-btn"
         className={classnames({
-          "-playing": playing
+          "-playing": statePlaying
         })}
         onClick={this.handleTogglePlay}
       >
@@ -315,8 +345,10 @@ class Timestep extends PureComponent {
       railStyle,
       handleStyle,
       range,
-      pushable
+      pushable,
+      PlayButton
     } = this.props;
+
     const { playing } = this.state;
 
     return (
@@ -324,7 +356,9 @@ class Timestep extends PureComponent {
         styleName="c-timestep"
         className={customClass}
       >
-        {canPlay && this.playButton()}
+        {canPlay && !PlayButton && this.renderPlay()}
+        {canPlay && !!PlayButton && PlayButton}
+
         <div styleName={classnames('timestep-slider', { 'can-play': canPlay })}>
           <Slider
             range={range}

@@ -82,7 +82,7 @@ export class TimestepContainer extends PureComponent {
     return trackStyle;
   };
 
-  handleOnChange = range => {
+  handleOnAfterChange = range => {
     const { activeLayer, handleChange } = this.props;
     const formattedRange = this.formatRange([ range[0], range[1], range[2] ]);
 
@@ -126,7 +126,7 @@ export class TimestepContainer extends PureComponent {
           trim={dateDiff(trimEndDate, minDate, interval)}
           marks={marks || getTicks(this.timelineParams)}
           formatValue={this.formatValue}
-          handleOnChange={this.handleOnChange}
+          handleOnAfterChange={this.handleOnAfterChange}
         />
       </div>
     );
