@@ -1,6 +1,6 @@
 {
   "name": "vizzuality-components",
-  "version": "3.0.0-beta.3",
+  "version": "3.0.0-beta.5",
   "description": "Vizzuality components set",
   "main": "dist/bundle.js",
   "module": "lib/bundle.js",

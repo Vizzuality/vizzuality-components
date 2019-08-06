@@ -1,6 +1,7 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import isEqual from 'lodash/isEqual';
+import classnames from 'classnames';
 
 import Timestep from "components/timestep";
 
@@ -110,10 +111,16 @@ export class TimestepContainer extends PureComponent {
       startDate,
       endDate,
       trimEndDate,
+      canPlay
     } = this.timelineParams;
 
     return (
-      <div styleName="c-legend-timestep">
+      <div
+        styleName={classnames({
+          'c-legend-timestep': true,
+          '-can-play': canPlay
+        })}
+      >
         <Timestep
           {...this.props}
           {...defaultStyles}
