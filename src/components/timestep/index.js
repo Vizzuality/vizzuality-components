@@ -374,7 +374,7 @@ class Timestep extends PureComponent {
             railStyle={railStyle}
             trackStyle={this.getTrackStyle()}
             handleStyle={handleStyle}
-            showTooltip={index => playing && index === 1}
+            showTooltip={index => (playing && index === 1)}
             pushable={pushable}
           />
         </div>

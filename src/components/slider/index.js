@@ -66,7 +66,7 @@ export class Slider extends PureComponent {
         placement="top"
         mouseLeaveDelay={0}
         destroyTooltipOnHide
-        visible={dragging || tooltipVisible}
+        visible={!!dragging || !!tooltipVisible}
       >
         <Handle
           className="drag-handle"
