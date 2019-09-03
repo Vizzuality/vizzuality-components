@@ -292,12 +292,12 @@ class Timestep extends PureComponent {
   };
 
   /* eslint-disable-next-line */
-  handleOnAfterChange = debounce(range => {
+  handleOnAfterChange = range => {
     const { handleOnAfterChange } = this.props;
     const newRange = this.checkRange(range);
 
     if (handleOnAfterChange) handleOnAfterChange(newRange);
-  }, 50);
+  };
 
   handleTogglePlay = () => {
     const { handleOnPlay } = this.props;
