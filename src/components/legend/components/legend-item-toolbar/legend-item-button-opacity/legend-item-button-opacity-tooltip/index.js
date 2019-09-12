@@ -6,7 +6,7 @@ import './styles.scss';
 class LegendOpacityTooltip extends PureComponent {
   static propTypes = {
     // Layers
-    activeLayer: PropTypes.object.isRequired,
+    activeLayer: PropTypes.shape({}).isRequired,
     min: PropTypes.number,
     max: PropTypes.number,
     step: PropTypes.number,
@@ -21,8 +21,15 @@ class LegendOpacityTooltip extends PureComponent {
     step: 0.01
   }
 
-  state = {
-    opacity: this.props.activeLayer && this.props.activeLayer.opacity || 1
+  constructor(props) {
+    super(props);
+
+    const { activeLayer = {} } = this.props;
+    const { opacity } = activeLayer;
+
+    this.state = {
+      opacity: typeof opacity !== 'undefined' ? opacity : 1
+    }
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -59,7 +66,7 @@ class LegendOpacityTooltip extends PureComponent {
             max={max}
             step={step}
             value={opacity}
-            formatValue={perc => `${perc * 100}%`}
+            formatValue={perc => `${Math.round(perc * 100)}%`}
             onChange={value => this.setState({ opacity: value })}
             onAfterChange={this.onChange}
             trackStyle={{
