@@ -5,7 +5,7 @@ import './styles.scss';
 class LegendTypeGradient extends PureComponent {
   static propTypes = {
     // Props
-    activeLayer: PropTypes.object
+    activeLayer: PropTypes.shape({})
   }
 
   static defaultProps = {
@@ -29,11 +29,11 @@ class LegendTypeGradient extends PureComponent {
       <div styleName="c-legend-type-gradient">
         <div styleName="legend-gradient-icon">
           {itemTransparent && (
-          <div
-            style={{ width: `${(1 / legendConfig.items.length) * 100}%` }}
-            styleName="icon-gradient-transparent"
-          />
-)}
+            <div
+              style={{ width: `${(1 / legendConfig.items.length) * 100}%` }}
+              styleName="icon-gradient-transparent"
+            />
+          )}
           <div
             styleName="icon-gradient"
             style={{
