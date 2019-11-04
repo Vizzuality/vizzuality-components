@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import debounce from 'lodash/debounce';
 
 // components
 import Icon from 'components/icon';
@@ -17,7 +16,9 @@ class Timestep extends PureComponent {
     pushable: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
     canPlay: PropTypes.bool,
     min: PropTypes.number.isRequired,
+    minAbs: PropTypes.number,
     max: PropTypes.number.isRequired,
+    maxAbs: PropTypes.number,
     start: PropTypes.number.isRequired,
     end: PropTypes.number.isRequired,
     trim: PropTypes.number,
@@ -47,6 +48,9 @@ class Timestep extends PureComponent {
 
     trim: null,
 
+    minAbs: null,
+    maxAbs: null,
+
     step: 1,
     speed: 100,
     loop: false,
@@ -74,13 +78,13 @@ class Timestep extends PureComponent {
 
   constructor(props) {
     super(props);
-    const { playing, start, end, trim } = this.props;
+    const { playing, start, end, trim, minAbs, maxAbs } = this.props;
 
     this.state = {
       playing,
-      start,
-      end,
-      trim
+      start: start <= minAbs ? minAbs : start,
+      end: end >= maxAbs ? maxAbs : end,
+      trim: trim >= maxAbs ? maxAbs : trim,
     };
   }
 
@@ -88,8 +92,8 @@ class Timestep extends PureComponent {
     const { playing: statePlaying, start: stateStart, end: stateEnd, trim: stateTrim } = this.state;
     const { playing: prevStatePlaying, start: prevStateStart, end: prevStateEnd, trim: prevStateTrim } = prevState;
 
-    const { playing, start, end, trim } = this.props;
-    const { playing: prevPropsPlaying, start: prevPropsStart, end: prevPropsEnd, trim: prevPropsTrim } = prevProps;
+    const { playing, start, end, trim, minAbs, maxAbs } = this.props;
+    const { playing: prevPropsPlaying, start: prevPropsStart, end: prevPropsEnd, trim: prevPropsTrim, minAbs: prevPropsMinAbs, maxAbs: prevPropsMaxAbs } = prevProps;
 
     if (playing !== prevPropsPlaying) {
       this.setState({ playing }) // eslint-disable-line
@@ -105,22 +109,31 @@ class Timestep extends PureComponent {
 
     if (start !== prevPropsStart && start !== stateStart && prevStateStart === stateStart) {
       this.setState({ // eslint-disable-line
-        start,
-        end: trim
+        start: start <= minAbs ? minAbs : start,
+        end: trim >= maxAbs ? maxAbs : trim
       });
     }
 
     if (end !== prevPropsEnd && end !== stateEnd && prevStateEnd === stateEnd) {
       this.setState({ // eslint-disable-line
-        end
+        end: end >= maxAbs ? maxAbs : end
       });
     }
 
     if (trim !== prevPropsTrim && trim !== stateTrim && prevStateTrim === stateTrim) {
       this.setState({ // eslint-disable-line
         trim,
-        end: trim
+        end: trim >= maxAbs ? maxAbs : trim
       });
+    }
+
+    if (minAbs !== prevPropsMinAbs || maxAbs !== prevPropsMaxAbs) {
+      this.setState({ // eslint-disable-line
+        start: start <= minAbs ? minAbs : start,
+        trim: trim >= maxAbs ? maxAbs : trim,
+        end: end >= maxAbs ? maxAbs : end
+      });
+
     }
   }
 
@@ -227,12 +240,14 @@ class Timestep extends PureComponent {
 
   incrementTimeline = () => {
     const { start, end, trim } = this.state;
-    const { speed, step, range, max } = this.props;
+    const { speed, step, range, max, maxAbs } = this.props;
+
+    const maxCurrent = max >= maxAbs ? maxAbs : max;
 
     this.interval = setTimeout(() => {
       const newEnd = end + step;
 
-      if ((newEnd > trim && range) || (!range && newEnd > max)) {
+      if ((newEnd > trim && range) || (!range && newEnd >= maxCurrent)) {
         this.handleResetTimeline();
       } else {
         this.handleOnChange([start, newEnd, trim]);
@@ -255,24 +270,30 @@ class Timestep extends PureComponent {
 
   checkRange = range => {
     const { playing, start, end, trim } = this.state;
+    const { minAbs, maxAbs } = this.props;
 
     if (!Array.isArray(range)) {
       return [start, range, trim];
     }
 
+    const min = range[0] <= minAbs ? minAbs : range[0];
+
     // If end is different from trim, and trim is different from current state
     if (!playing && range[1] !== range[2] && trim !== range[2]) {
-      return [range[0], range[2], range[2]];
+      const max = range[2] >= maxAbs ? maxAbs : range[2];
+      return [min, max, max];
     }
 
     // If end is different from trim, and end is different from current state
     if (!playing && range[1] !== range[2] && end !== range[1]) {
-      return [range[0], range[1], range[1]];
+      const max = range[1] >= maxAbs ? maxAbs : range[1];
+      return [min, max, max];
     }
 
     // If end is different from trim, and trim is different from current state
     if (!playing && trim !== range[0]) {
-      return [range[0], range[2], range[2]];
+      const max = range[2] >= maxAbs ? maxAbs : range[2];
+      return [min, max, max];
     }
 
     return range;

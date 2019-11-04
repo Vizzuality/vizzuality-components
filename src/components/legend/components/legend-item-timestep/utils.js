@@ -42,7 +42,7 @@ export const formatDatePretty = (date, dateFormat = 'YYYY-MM-DD') => {
 export const dateDiff = (startDate, endDate, interval) => {
   const diff = moment.utc(endDate).diff(moment.utc(startDate), interval);
 
-  return Math.abs(diff);
+  return diff * -1
 };
 
 export const getTicks = (timelineConfig = {}) => {
