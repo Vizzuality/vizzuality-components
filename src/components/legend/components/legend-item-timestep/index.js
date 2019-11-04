@@ -108,6 +108,7 @@ export class TimestepContainer extends PureComponent {
       maxDate,
       maxAbsoluteDate,
       minDate,
+      minAbsoluteDate,
       interval,
       startDate,
       endDate,
@@ -128,8 +129,9 @@ export class TimestepContainer extends PureComponent {
           {...this.timelineParams}
           trackStyle={this.getTrackStyle()}
           min={0}
+          minAbs={dateDiff(minAbsoluteDate || minDate, minDate, interval, false)}
           max={dateDiff(maxDate, minDate, interval)}
-          maxAbs={dateDiff(maxAbsoluteDate, minDate, interval)}
+          maxAbs={dateDiff(maxAbsoluteDate || maxDate, minDate, interval)}
           start={dateDiff(startDate, minDate, interval)}
           end={dateDiff(endDate, minDate, interval)}
           trim={dateDiff(trimEndDate, minDate, interval)}
