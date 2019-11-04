@@ -55,7 +55,7 @@ export class MapPopup extends Component {
       this.setPopup();
     }
 
-    if (!isEqual(prevData, nextData)) {
+    if (!isEqual(prevData, nextData) && prevLatLng) {
       this.updatePopup();
     }
   }
