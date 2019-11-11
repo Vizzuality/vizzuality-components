@@ -27,7 +27,8 @@ const config = {
     bundle: path.resolve(__dirname, 'src/components/index.js'),
     spinner: path.resolve(__dirname, 'src/components/spinner/index.js'),
     // datepicker: path.resolve(__dirname, 'src/components/datepicker/index.js'),
-    slider: path.resolve(__dirname, 'src/components/slider/index.js')
+    slider: path.resolve(__dirname, 'src/components/slider/index.js'),
+    timestep: path.resolve(__dirname, 'src/components/timestep/index.js')
   },
 
   output: {
