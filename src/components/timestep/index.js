@@ -48,8 +48,8 @@ class Timestep extends PureComponent {
 
     trim: null,
 
-    minAbs: null,
-    maxAbs: null,
+    minAbs: -Infinity,
+    maxAbs: Infinity,
 
     step: 1,
     speed: 100,
