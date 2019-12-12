@@ -56,15 +56,26 @@ class LegendItemButtonOpacity extends PureComponent {
     }
   }
 
-  onTooltipVisibilityChange = (visibility) => {
-    const { onTooltipVisibilityChange } = this.props;
+  onTooltipVisibilityChange = (v) => {
+    const { visibility, onTooltipVisibilityChange } = this.props;
 
-    this.setState({
-      visibilityHover: false,
-      visibilityClick: visibility
-    });
+    if (visibility) {
+      this.setState({
+        visibilityHover: false,
+        visibilityClick: v
+      });
 
-    onTooltipVisibilityChange(visibility);
+      onTooltipVisibilityChange(v);
+    }
+
+  }
+
+  setHoverText = (tooltipText, opacity, visibility) => {
+    if (tooltipText) return tooltipText;
+
+    if (!visibility) return 'Opacity (disabled)';
+
+    return `Opacity ${(typeof opacity !== 'undefined') ? `(${Math.round(opacity * 100)}%)` : ''}`;
   }
 
   render() {
@@ -112,8 +123,8 @@ class LegendItemButtonOpacity extends PureComponent {
         destroyTooltipOnHide
       >
         <Tooltip
-          visible={visibilityHover && !visibilityClick && visibility}
-          overlay={tooltipText || (`Opacity ${typeof opacity !== 'undefined' ? `(${Math.round(opacity * 100)}%)` : ''}`)}
+          visible={visibilityHover && !visibilityClick}
+          overlay={this.setHoverText(tooltipText, opacity, visibility)}
           overlayClassName="c-rc-tooltip -default"
           placement="top"
           trigger={tooltipOpened ? '' : 'hover'}
