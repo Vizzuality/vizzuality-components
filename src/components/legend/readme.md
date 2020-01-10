@@ -26,6 +26,122 @@ import {
 } from 'vizzuality-components';
 </pre>
 
+### Types
+
+#### Basic
+
+```json
+{
+  type: 'basic',
+  items: [
+    {
+      name: 'Riots/Protests',
+      color: '#cab2d6'
+    },
+    {
+      name: 'Violence against civilians',
+      color: '#8dd3c7'
+    },
+    {
+      name: 'Battle-No change of territory',
+      color: '#b15928'
+    },
+    {
+      name: 'Remote violence',
+      color: '#e31a1c'
+    },
+    {
+      name: 'Strategic development',
+      color: '#fb9a99'
+    },
+    {
+      name: 'Battle-Government regains territory',
+      color: '#33a02c'
+    },
+    {
+      name: 'Battle-Non-state actor overtakes territory',
+      color: '#b2df8a'
+    },
+    {
+      name: 'Non-violent transfer of territory',
+      color: '#1f78b4'
+    },
+    {
+      name: 'Headquarters or base established',
+      color: '#a6cee3'
+    }
+  ]
+}
+```
+
+#### Choropleth
+```json
+{
+  type: 'choropleth',
+  items: [
+    {
+      name: '0 h',
+      color: '#FFFFFF'
+    }, {
+      color: '#C0F09C',
+      name: '1 h'
+    }, {
+      color: '#E3DA64',
+      name: '2 h'
+    }, {
+      color: '#D16638',
+      name: '3 h'
+    }, {
+      color: '#BA2D2F',
+      name: '6 h'
+    }, {
+      color: '#A11F4A',
+      name: '12 h'
+    }, {
+      color: '#730D6F',
+      name: '1 d'
+    }, {
+      color: '#0D0437',
+      name: '14 d'
+    }, {
+      color: '#00030F',
+      name: '1 m'
+    }
+  ]
+}
+```
+
+#### Gradient
+```json
+{
+  type: 'gradient',
+  items: [
+    {
+      color: '#fef0d9',
+      name: '1%'
+    }, {
+      color: '#fef0d9',
+      name: '20%'
+    }, {
+      color: '#fdbb84',
+      name: '40%'
+    }, {
+      color: '#fc8d59',
+      name: '60%'
+    }, {
+      color: '#e34a33',
+      name: '80%'
+    }, {
+      color: '#b30000',
+      name: '100%'
+    }, {
+      color: '#7f0000',
+      name: 'Urban'
+    }
+  ]
+}
+```
+
 ### Legend
 ```jsx
 const layerGroups = require('./mocks').layerGroups;
@@ -65,7 +181,7 @@ const layerGroupsParsed = layerGroups.map(lg => ({
       toolbar={<LegendItemToolbar />}
     >
       <LegendItemTypes />
-      <LegendItemTimestep 
+      <LegendItemTimestep
         handleChange={dates => {}}
         trackStyle={[
           {
@@ -124,7 +240,7 @@ const layerGroupsParsed = layerGroups.map(lg => ({
       }
     >
       <LegendItemTypes />
-      <LegendItemTimestep 
+      <LegendItemTimestep
         handleChange={dates => {}}
         trackStyle={[
           {
@@ -183,7 +299,7 @@ const layerGroupsParsed = layerGroups.map(lg => ({
       }
     >
       <LegendItemTypes />
-      <LegendItemTimestep 
+      <LegendItemTimestep
         handleChange={dates => {}}
         trackStyle={[
           {
@@ -242,7 +358,7 @@ const layerGroupsParsed = layerGroups.map(lg => ({
       }
     >
       <LegendItemTypes />
-      <LegendItemTimestep 
+      <LegendItemTimestep
         handleChange={dates => {}}
         trackStyle={[
           {
