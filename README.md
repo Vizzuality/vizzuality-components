@@ -15,7 +15,7 @@ Once you have the project locally, run `yarn install` to install project's depen
 Then install peer dependencies running:
 
 ```
-yarn add react react-dom vega vega-lib
+yarn add react react-dom
 ```
 
 And that's all! No need of more setup.
@@ -56,10 +56,6 @@ Those steps can be run just typing `yarn deploy`.
 For more details, check `package.json`, `scripts` section.
 
 ## Troubleshooting ⚠️
-
-`Vega` library uses `canvas` dependency, this one at the same time depends on `cairo`. So if you are
-suffering installing `canvas` or related go to [https://github.com/Automattic/node-canvas#compiling](https://github.com/Automattic/node-canvas#compiling) and follow the steps.
-
 
 ## Recommendations 🐰
 ---
