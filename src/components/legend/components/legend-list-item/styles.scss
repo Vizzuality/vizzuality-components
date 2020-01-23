@@ -26,6 +26,11 @@
 
   .legend-info {
     flex-grow: 1;
+
+    > * {
+      margin-top: $space-1;
+      &:first-child { margin-top: 0; }
+    }
   }
 
   .legend-item-header {

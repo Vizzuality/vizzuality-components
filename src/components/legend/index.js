@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
+import arrayMove from 'array-move';
 
-import { arrayMove } from 'react-sortable-hoc';
 
 // Components
 import Icon from 'components/icon';
@@ -15,9 +15,9 @@ class Legend extends PureComponent {
     /** Sortable */
     sortable: PropTypes.bool,
     /** Max width */
-    maxWidth: PropTypes.number,
+    maxWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     /** Max height */
-    maxHeight: PropTypes.number,
+    maxHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     /** Should the legend be expanded by default? */
     expanded: PropTypes.bool,
     /** Should the legend be collapsable */

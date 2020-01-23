@@ -10,7 +10,7 @@ import Tooltip from 'components/tooltip';
 // styles
 import './styles.scss';
 
-export class CustomSlider extends PureComponent {
+export class Slider extends PureComponent {
   static propTypes = {
     customClass: PropTypes.string,
     settings: PropTypes.shape({}),
@@ -21,38 +21,32 @@ export class CustomSlider extends PureComponent {
     dragging: PropTypes.bool,
     index: PropTypes.number,
     range: PropTypes.bool,
-    handleStyle: PropTypes.shape({}),
-    trackStyle: PropTypes.shape({}),
-    trackColors: PropTypes.shape([]),
+    trackStyle: PropTypes.oneOfType([PropTypes.array, PropTypes.shape({})]).isRequired,
+    handleStyle: PropTypes.oneOfType([PropTypes.array, PropTypes.shape({})]),
     formatValue: PropTypes.func,
     showTooltip: PropTypes.func,
     railStyle: PropTypes.shape({}),
     dotStyle: PropTypes.shape({}),
-    pushable: PropTypes.bool
+    pushable: PropTypes.oneOfType([PropTypes.bool, PropTypes.number])
   }
 
   static defaultProps = {
     customClass: null,
     settings: {},
     value: [0],
-    trackStyle: {
-      backgroundColor: '#d6d6d9',
-      borderRadius: '0px'
-    },
-    trackColors: ['#dc6c9a', '#c32d7b'],
     dragging: false,
     index: 0,
     range: false,
     handleStyle: {
-      backgroundColor: 'white',
-      borderRadius: '2px',
+      backgroundColor: '#c32d7b',
+      borderRadius: '10px',
       boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.29)',
       border: '0px',
       zIndex: 2
     },
     formatValue: null,
     showTooltip: null,
-    railStyle: { backgroundColor: '#d6d6d9' },
+    railStyle: { backgroundColor: '#d9d9d9' },
     dotStyle: { visibility: 'hidden', border: '0px' },
     pushable: true
   }
@@ -72,7 +66,7 @@ export class CustomSlider extends PureComponent {
         placement="top"
         mouseLeaveDelay={0}
         destroyTooltipOnHide
-        visible={dragging || tooltipVisible}
+        visible={!!dragging || !!tooltipVisible}
       >
         <Handle
           className="drag-handle"
@@ -87,8 +81,6 @@ export class CustomSlider extends PureComponent {
     const {
       customClass,
       range,
-      trackColors,
-      trackStyle,
       handleStyle,
       value,
       ...rest
@@ -104,19 +96,15 @@ export class CustomSlider extends PureComponent {
       marginTop: '-3px',
       borderRadius: 0,
       border: 0,
-      zIndex: 1
+      zIndex: 1,
+      pointerEvents: 'none',
+      touchAction: 'none'
     });
     handleStyles[0] = handleStyle;
     handleStyles[handleNum - 1] = handleStyle;
 
-    const trackStyles = fill(Array(handleNum - 1 || 1), trackStyle).map(
-      (t, i) => ({
-        ...t,
-        backgroundColor: trackColors[i]
-      })
-    );
     const externalClass = classnames(
-      'wri-api-slider',
+      'vizzuality-slider',
       { [customClass]: !!customClass }
     );
 
@@ -125,7 +113,6 @@ export class CustomSlider extends PureComponent {
         <Component
           handle={this.renderHandle}
           handleStyle={handleStyles}
-          trackStyle={trackStyles}
           value={value}
           {...rest}
         />
@@ -134,4 +121,4 @@ export class CustomSlider extends PureComponent {
   }
 }
 
-export default CustomSlider;
+export default Slider;

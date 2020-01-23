@@ -11,7 +11,7 @@ import './styles.scss';
 class LegendListItem extends PureComponent {
   static propTypes = {
     dataset: PropTypes.string,
-    layers: PropTypes.array,
+    layers: PropTypes.arrayOf(PropTypes.shape({})),
     sortable: PropTypes.bool,
     children: PropTypes.node,
     toolbar: PropTypes.node,
@@ -29,7 +29,8 @@ class LegendListItem extends PureComponent {
 
   render() {
     const { layers, sortable, children, toolbar, title, ...props } = this.props;
-    const activeLayer = layers.find(l => l.active);
+    const activeLayer = layers.find(l => l.active) || layers[0];
+
     return (
       <li
         styleName={classnames({
@@ -52,7 +53,7 @@ class LegendListItem extends PureComponent {
               <h3>
                 {React.isValidElement(title) && typeof title.type !== 'string' ?
                   React.cloneElement(title, { ...props, layers, activeLayer }) :
-                  activeLayer.name
+                  (activeLayer && activeLayer.name)
                 }
               </h3>
               {React.isValidElement(toolbar) && typeof toolbar.type !== 'string' &&

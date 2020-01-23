@@ -1,12 +1,12 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import Range from 'components/form/range';
+import Slider from 'components/slider';
 import './styles.scss';
 
 class LegendOpacityTooltip extends PureComponent {
   static propTypes = {
     // Layers
-    activeLayer: PropTypes.object.isRequired,
+    activeLayer: PropTypes.shape({}).isRequired,
     min: PropTypes.number,
     max: PropTypes.number,
     step: PropTypes.number,
@@ -21,21 +21,43 @@ class LegendOpacityTooltip extends PureComponent {
     step: 0.01
   }
 
+  constructor(props) {
+    super(props);
+
+    const { activeLayer = {} } = this.props;
+    const { opacity } = activeLayer;
+
+    this.state = {
+      opacity: typeof opacity !== 'undefined' ? opacity : 1
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { activeLayer: { opacity } } = this.props;
+    const { activeLayer: { opacity: prevOpacity } } = prevProps;
+    const { opacity: stateOpacity } = this.state
+    const { opacity: prevStateOpacity } = prevState;
+
+    if (opacity !== prevOpacity && stateOpacity === prevStateOpacity) {
+      this.setState({ opacity });
+    }
+  }
+
   onChange = (v) => {
     const { activeLayer, onChangeOpacity } = this.props;
     onChangeOpacity(activeLayer, v);
   }
 
   render() {
-    const { min, max, step, activeLayer: { opacity }, ...rest } = this.props;
-    const value = typeof opacity !== 'undefined' ? opacity : 1;
+    const { min, max, step, ...rest } = this.props;
+    const { opacity } = this.state;
 
     return (
       <div styleName="c-legend-item-button-opacity-tooltip" ref={(node) => { this.el = node; }}>
         Opacity
 
         <div styleName="slider-tooltip-container">
-          <Range
+          <Slider
             marks={{
               [min]: '0%',
               [max]: '100%'
@@ -43,8 +65,14 @@ class LegendOpacityTooltip extends PureComponent {
             min={min}
             max={max}
             step={step}
-            value={value}
+            value={opacity}
+            formatValue={perc => `${Math.round(perc * 100)}%`}
+            onChange={value => this.setState({ opacity: value })}
             onAfterChange={this.onChange}
+            trackStyle={{
+              backgroundColor: '#c32d7b',
+              borderRadius: '0px'
+            }}
             {...rest}
           />
         </div>

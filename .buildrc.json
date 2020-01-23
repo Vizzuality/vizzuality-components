@@ -1,7 +1,7 @@
 {
   "srcDir": "src/components",
   "mainModuleFileName": "bundle.js",
-  "mainModuleName": "WRIAPIComponents",
+  "mainModuleName": "VizzualityComponents",
   "fileExtensions": [".js"],
   "exclude": [],
   "include": ["*"],

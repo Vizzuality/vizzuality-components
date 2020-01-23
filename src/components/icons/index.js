@@ -6,8 +6,8 @@ const Icons = () => (
     style={{ position: "absolute", width: 0, height: 0, overflow: "hidden" }}
   >
     <defs>
-      <symbol id="icon-pause2" viewBox="0 0 32 32">
-        <title>pause2</title>
+      <symbol id="icon-pause" viewBox="0 0 32 32">
+        <title>pause</title>
         <path
           d="M10.864 4h-5.16c-1.008 0-1.704 0.696-1.704 1.704v20.568c0 1.032 0.696 1.728 1.704 1.728h5.136c1.032 0 1.704-0.696 1.704-1.704v-20.592c0.024-1.008-0.648-1.704-1.68-1.704z"
         />
@@ -15,8 +15,8 @@ const Icons = () => (
           d="M26.296 4h-5.136c-1.032 0-1.704 0.696-1.704 1.704v20.568c0 1.032 0.696 1.704 1.704 1.704h5.136c1.032 0 1.704-0.696 1.704-1.704v-20.568c0-1.008-0.696-1.704-1.704-1.704z"
         />
       </symbol>
-      <symbol id="icon-play3" viewBox="0 0 32 32">
-        <title>play3</title>
+      <symbol id="icon-play" viewBox="0 0 32 32">
+        <title>play</title>
         <path d="M8.827 2.76l19.487 13.24-19.487 13.24z" />
       </symbol>
       <symbol id="icon-external" viewBox="0 0 32 32">
@@ -143,12 +143,6 @@ const Icons = () => (
         <title>metadata</title>
         <path
           d="M20.7 7.2h19.8v4.4h-19.8v-4.4zM20.7 20.4h15.4v4.4h-15.4v-4.4zM11.9 13.8c-2.43 0-4.4-1.97-4.4-4.4s1.97-4.4 4.4-4.4c2.43 0 4.4 1.97 4.4 4.4s-1.97 4.4-4.4 4.4zM11.9 27c-2.43 0-4.4-1.97-4.4-4.4s1.97-4.4 4.4-4.4c2.43 0 4.4 1.97 4.4 4.4s-1.97 4.4-4.4 4.4z"
-        />
-      </symbol>
-      <symbol id="icon-widgets" viewBox="0 0 37 32">
-        <title>widgets</title>
-        <path
-          d="M7.463 23v-14h6v14h-6zM15.463 23v-10h6v10h-6zM23.463 23v-20h6v20h-6zM3.463 29v-4h30v4h-30z"
         />
       </symbol>
       <symbol id="icon-check" viewBox="0 0 32 32">

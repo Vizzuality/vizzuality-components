@@ -11,7 +11,7 @@
 
 ### Components available
 <pre>
-import { Map, MapControls, ZoomControl } from 'wri-api-components';
+import { Map, MapControls, ZoomControl } from 'vizzuality-components';
 </pre>
 
 ### Map

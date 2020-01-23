@@ -99,10 +99,7 @@ export const layerGroups = [
         },
         legendConfig: {
           url: 'https://api.resourcewatch.org/v1/query/098b33df-6871-4e53-a5ff-b56a7d989f9a?sql=SELECT%20name_1%20as%20x,%20area_ha%20as%20y%20FROM%20gadm28_adm1%20WHERE%20type_1%20IN%20(%27County%27)%20%20ORDER%20BY%20area_ha%20desc%20LIMIT%2015',
-          dataParse: (activeLayer, response) => {
-            console.info(activeLayer, response);
-            return activeLayer;
-          },
+          dataParse: (activeLayer) => activeLayer,
           items: [
             {
               name: '0 h',

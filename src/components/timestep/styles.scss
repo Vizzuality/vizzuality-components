@@ -2,81 +2,39 @@
 
 .c-timestep {
   display: flex;
-  flex-direction: column;
+  align-items: center;
   min-height: 30px;
-  margin: ($space-1 * 1.5) 0 0;
+  padding-bottom: 10px;
 
-  .date-pickers {
+  .player-btn {
+    border-color: transparent;
+    border-style: none;
+    border-width: 0;
+    padding: 0;
+    cursor: pointer;
+    width: 16px;
+    margin-top: 1px;
+    flex-shrink: 0;
     display: flex;
-    margin: 5px 0 10px 30px;
-    align-items: center;
 
-    .datepicker {
-      margin: 0 5px;
-      width: 90px;
+    &:focus {
+      outline: none;
+    }
+
+    > svg {
+      fill: #4a4a4a;
+      width: 16px;
+      height: 16px;
     }
   }
 
-  > .range-slider {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
+  .timestep-slider {
+    width: 100%;
+    cursor: pointer;
 
-    .range {
-      width: 100%;
-      margin-left: 30px;
-      cursor: pointer;
-
-      &.can-play {
-        margin-left: 10px;
-      }
-    }
-
-    > .player-btn {
-      border-color: transparent;
-      border-style: none;
-      border-width: 0;
-      padding: 0;
-      cursor: pointer;
-      width: 20px;
-      margin-top: 3px;
-      flex-shrink: 0;
-
-      &:focus {
-        outline: none;
-      }
-
-      > svg {
-        fill: #4a4a4a;
-        width: 16px;
-        height: 16px;
-      }
-    }
-  }
-
-  .slider-timestep {
-    background-color: transparent;
-
-    :global {
-      .rc-slider-handle {
-        &:nth-child(odd) {
-          &:after {
-            content: '';
-            width: 4px;
-            height: 4px;
-            background-color: #444;
-            position: absolute;
-            border-radius: 4px;
-            top: calc(50% - 2px);
-            left: calc(50% - 2px);
-          }
-        }
-      }
-
-      .rc-slider-mark-text {
-        font-size: 10px;
-      }
+    &.can-play {
+      width: calc(100% - 20px);
+      margin-left: 15px;
     }
   }
 }

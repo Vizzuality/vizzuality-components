@@ -1,15 +1,18 @@
 @import 'settings';
 
 .c-legend-type-choropleth {
-  display: flex;
-  margin: 0;
-  padding: 0;
-  list-style: none;
+  padding: 10px 0 0;
 
-  > li {
+  ul {
+    display: flex;
+    margin: 0;
     padding: 0;
-    margin: 10px 0 0;
-    flex: 1 1 auto;
+    list-style: none;
+
+    > li {
+      padding: 0;
+      flex: 1 1 auto;
+    }
   }
 
   .name {
