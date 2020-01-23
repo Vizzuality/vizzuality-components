@@ -5,7 +5,7 @@
   "fileExtensions": [".js"],
   "exclude": [],
   "include": ["*"],
-  "externalModules": ["react-dom", "react", "vega", "vega-lib", "leaflet"],
+  "externalModules": ["react-dom", "react", "leaflet"],
   "copyAssets": false,
   "uglify": false,
   "uglifyOnly": false,

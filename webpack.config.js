@@ -97,8 +97,6 @@ const config = {
     'react',
     'react-dom',
     'leaflet',
-    'vega',
-    'vega-lib',
     'moment'
   ],
 
