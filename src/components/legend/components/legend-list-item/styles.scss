@@ -10,6 +10,9 @@
   width: 100%;
   border-bottom: 1px solid $border-color-1;
   background: rgba($color-white, 0.75);
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-size: 12px;
+
 
   &:last-child {
     border-bottom: 0;

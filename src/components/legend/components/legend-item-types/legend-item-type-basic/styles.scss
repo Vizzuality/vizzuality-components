@@ -1,5 +1,5 @@
 .c-legend-type-basic {
-  > ul {
+  ul {
     margin: 0;
     padding: 0;
     list-style: none;
@@ -39,7 +39,11 @@
     }
   }
 
-  > li {
+  .legend-basic-group {
+    padding: 8px 0 0 10px;
+  }
+
+  li {
     padding: 0;
   }
 }
