@@ -41,9 +41,9 @@ initialState = {
 ```js
 
 initialState = {
-  start: 25,
-  end: 50,
-  trim: 75
+  start: 0,
+  end: 20,
+  trim: 20
 };
 
 <Timestep
@@ -51,6 +51,8 @@ initialState = {
   formatValue={value => `${value}%`}
   min={0}
   max={100}
+  minGap={5}
+  maxGap={20}
   start={state.start}
   end={state.end}
   trim={state.trim}
