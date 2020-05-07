@@ -328,7 +328,7 @@ class Timestep extends PureComponent {
       }
 
       if (maxGap) {
-        min = (max - (min + maxGap) > 0) ? max - maxGap : min;        // console.log(min);
+        min = (max - (min + maxGap) > 0) ? max - maxGap : min;
       }
 
       return [min, max, max];
@@ -345,7 +345,7 @@ class Timestep extends PureComponent {
       }
 
       if (maxGap) {
-        min = (max - (min + maxGap) > 0) ? max - maxGap : min;        // console.log(min);
+        min = (max - (min + maxGap) > 0) ? max - maxGap : min;
       }
 
 
