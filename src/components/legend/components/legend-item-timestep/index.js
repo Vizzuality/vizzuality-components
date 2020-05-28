@@ -92,7 +92,12 @@ export class TimestepContainer extends PureComponent {
 
   formatRange = range => {
     const { minDate, interval } = this.timelineParams;
-    return range.map(r => formatDate(addToDate(minDate, r, interval)));
+    return range.map((r, i) => {
+      // if date is not the start date we should select the end of the interval
+      const toEnd = i !== 0;
+
+      return formatDate(addToDate(minDate, r, interval, toEnd));
+    });
   };
 
   formatValue = value => {
