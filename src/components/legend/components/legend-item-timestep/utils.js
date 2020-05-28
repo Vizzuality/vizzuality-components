@@ -1,9 +1,9 @@
 import moment from 'moment';
 
-export const addToDate = (date, count, interval = 'days') => {
+export const addToDate = (date, count, interval = 'days', toEnd) => {
   const d = moment.utc(date);
 
-  return d.add(count, interval);
+  return toEnd ? d.add(count, interval).endOf(interval) : d.add(count, interval);
 };
 
 export const formatDate = (date, format = 'YYYY-MM-DD') => {
@@ -95,4 +95,3 @@ export const gradientConverter = (gradient, minDate, interval) => (
       [dateDiff(val, minDate, interval)]: gradient[val],
     }), {})
 );
-
