@@ -270,29 +270,85 @@ class Timestep extends PureComponent {
 
   checkRange = range => {
     const { playing, start, end, trim } = this.state;
-    const { minAbs, maxAbs } = this.props;
+    const { min: minProp, max: maxProp, minAbs, maxAbs, minGap, maxGap } = this.props;
 
     if (!Array.isArray(range)) {
       return [start, range, trim];
     }
 
-    const min = range[0] <= minAbs ? minAbs : range[0];
+    let min = range[0] <= minAbs ? minAbs : range[0];
+    let max = range[2] >= maxAbs ? maxAbs : range[2];
+
+    // If start is different from current state
+    if (!playing && range[0] !== start) {
+
+      if (minGap && max - min < minGap) {
+        if (max === maxAbs || max === maxProp) {
+          min = max - minGap;
+        } else {
+          max = min + minGap;
+        }
+      }
+
+      if (maxGap) {
+        max = (max - min > maxGap) ? min + maxGap : max;
+      }
+
+      return [min, max, max];
+    }
 
     // If end is different from trim, and trim is different from current state
     if (!playing && range[1] !== range[2] && trim !== range[2]) {
-      const max = range[2] >= maxAbs ? maxAbs : range[2];
+      if (minGap && (max - (min + minGap) < 0)) {
+        if (min === minAbs || min === minProp) {
+          max = min + minGap;
+        } else {
+          min = max - minGap;
+        }
+      }
+
+      if (maxGap) {
+        min = (max - (min + maxGap) > 0) ? max - maxGap : min;
+      }
+
       return [min, max, max];
     }
 
     // If end is different from trim, and end is different from current state
     if (!playing && range[1] !== range[2] && end !== range[1]) {
-      const max = range[1] >= maxAbs ? maxAbs : range[1];
+      max = range[1] >= maxAbs ? maxAbs : range[1];
+
+      if (minGap && (max - (min + minGap) < 0)) {
+        if (min === minAbs || min === minProp) {
+          max = min + minGap;
+        } else {
+          min = max - minGap;
+        }
+
+      }
+
+      if (maxGap) {
+        min = (max - (min + maxGap) > 0) ? max - maxGap : min;
+      }
+
       return [min, max, max];
     }
 
     // If end is different from trim, and trim is different from current state
     if (!playing && trim !== range[0]) {
-      const max = range[2] >= maxAbs ? maxAbs : range[2];
+      if (minGap && (max - (min + minGap) < 0)) {
+        if (min === minAbs || min === minProp) {
+          max = min + minGap;
+        } else {
+          min = max - minGap;
+        }
+      }
+
+      if (maxGap) {
+        min = (max - (min + maxGap) > 0) ? max - maxGap : min;
+      }
+
+
       return [min, max, max];
     }
 
@@ -389,14 +445,15 @@ class Timestep extends PureComponent {
             max={max}
             value={this.getValue()}
             step={step}
-            onChange={this.handleOnChange}
-            onAfterChange={this.handleOnAfterChange}
             formatValue={formatValue}
             railStyle={railStyle}
             trackStyle={this.getTrackStyle()}
             handleStyle={handleStyle}
             showTooltip={index => (playing && index === 1)}
             pushable={pushable}
+
+            onChange={this.handleOnChange}
+            onAfterChange={this.handleOnAfterChange}
           />
         </div>
       </div>
