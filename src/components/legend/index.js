@@ -12,6 +12,8 @@ import './styles.scss';
 
 class Legend extends PureComponent {
   static propTypes = {
+    /** Title */
+    title: PropTypes.string,
     /** Sortable */
     sortable: PropTypes.bool,
     /** Max width */
@@ -31,6 +33,7 @@ class Legend extends PureComponent {
   }
 
   static defaultProps = {
+    title: 'Legend',
     sortable: true,
     expanded: true,
     collapsable: true,
@@ -65,6 +68,7 @@ class Legend extends PureComponent {
 
   render() {
     const {
+      title,
       sortable,
       collapsable,
       maxWidth,
@@ -124,7 +128,7 @@ class Legend extends PureComponent {
           onClick={() => this.onToggleLegend(true)}
         >
           <h1 styleName="legend-title">
-            Legend
+            {title}
 
             {/* Toggle button */}
             <div styleName="toggle-legend">
