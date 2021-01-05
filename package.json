@@ -86,7 +86,7 @@
   },
   "dependencies": {
     "array-move": "^2.1.0",
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "classnames": "^2.2.6",
     "layer-manager": "^1.10.0",
     "lodash": "^4.17.10",
