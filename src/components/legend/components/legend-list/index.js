@@ -6,18 +6,18 @@ import './styles.scss';
 class LegendList extends PureComponent {
   static propTypes = {
     sortable: PropTypes.bool,
-    children: PropTypes.node
-  }
+    children: PropTypes.node,
+  };
 
   static defaultProps = {
     sortable: true,
-    children: []
-  }
+    children: [],
+  };
 
   constructor(props) {
     super(props);
     this.state = {
-      scrolling: false
+      scrolling: false,
     };
 
     this.timeout = null;
@@ -37,17 +37,16 @@ class LegendList extends PureComponent {
     this.timeout = setTimeout(() => {
       this.timeout = null;
       this.setState({
-        scrolling: false
+        scrolling: false,
       });
     }, 250);
 
     if (!scrolling) {
       this.setState({
-        scrolling: true
+        scrolling: true,
       });
     }
-
-  }
+  };
 
   render() {
     const { sortable, children } = this.props;
@@ -60,9 +59,9 @@ class LegendList extends PureComponent {
             sortable,
             index,
             i: index,
-            scrolling
-          }))
-        }
+            scrolling,
+          })
+        )}
       </ul>
     );
   }

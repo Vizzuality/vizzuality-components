@@ -8,7 +8,7 @@ class LegendItem extends React.PureComponent {
     color: PropTypes.string,
     name: PropTypes.string,
     icon: PropTypes.string, // triangle, circle, square, line
-    hideIcon: PropTypes.bool
+    hideIcon: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -16,7 +16,7 @@ class LegendItem extends React.PureComponent {
     color: 'transparent',
     name: '',
     icon: 'square',
-    hideIcon: false
+    hideIcon: false,
   };
 
   getIconHtml = (iconName) => {
@@ -31,17 +31,17 @@ class LegendItem extends React.PureComponent {
         <div
           styleName={`icon-${icon}`}
           style={{
-            boderRightWidth: (size / 2),
-            boderLeftWidth: (size / 2),
+            boderRightWidth: size / 2,
+            boderLeftWidth: size / 2,
             boderBottomWidth: size,
-            borderBottomColor: color
+            borderBottomColor: color,
           }}
         />
       );
     }
 
     if (iconName === 'line') {
-      return (<div styleName={`icon-${icon}`} style={{ width: size, backgroundColor: color }} />);
+      return <div styleName={`icon-${icon}`} style={{ width: size, backgroundColor: color }} />;
     }
 
     if (iconName === 'square' || iconName === 'circle') {
@@ -67,9 +67,7 @@ class LegendItem extends React.PureComponent {
       <div styleName="c-legend-item-basic">
         {this.getIconHtml(icon)}
 
-        <span styleName="name">
-          {name}
-        </span>
+        <span styleName="name">{name}</span>
       </div>
     );
   }

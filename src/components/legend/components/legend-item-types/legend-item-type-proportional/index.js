@@ -5,13 +5,13 @@ import './styles.scss';
 class LegendTypeGradient extends PureComponent {
   static propTypes = {
     // Props
-    activeLayer: PropTypes.object
-  }
+    activeLayer: PropTypes.object,
+  };
 
   static defaultProps = {
     // Props
-    activeLayer: {}
-  }
+    activeLayer: {},
+  };
 
   render() {
     const { activeLayer } = this.props;
@@ -29,9 +29,7 @@ class LegendTypeGradient extends PureComponent {
               styleName="icon-proportional"
               style={{ backgroundColor: color, width: size, height: size }}
             />
-            <span styleName="name">
-              {name}
-            </span>
+            <span styleName="name">{name}</span>
           </li>
         ))}
       </ul>
