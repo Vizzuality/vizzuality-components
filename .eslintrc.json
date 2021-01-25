@@ -4,23 +4,21 @@
     "node": true,
     "es6": true
   },
-  "extends": "vizzuality",
-  "rules": {
-    "import/no-named-as-default": 0,
-    "import/no-extraneous-dependencies": [2, {
-      "devDependencies": true,
-      "optionalDependencies": false,
-      "peerDependencies": false
-    }]
+  "extends": ["eslint:recommended", "plugin:prettier/recommended", "plugin:react/recommended"],
+  "rules": {},
+  "plugins": ["@babel", "react", "react-hooks"],
+  "parser": "@babel/eslint-parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    }
   },
-  "parser": "babel-eslint",
-  "plugins": [
-    "babel"
-  ],
   "settings": {
     "import/resolver": {
-      "babel-module": {
-      }
+      "babel-module": {}
+    },
+    "react": {
+      "version": "detect"
     }
   }
 }
