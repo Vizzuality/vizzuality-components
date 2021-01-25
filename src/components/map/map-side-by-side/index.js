@@ -5,7 +5,7 @@ import './lib';
 
 import './styles.scss';
 
-const { L } = (typeof window !== 'undefined') ? window : {};
+const { L } = typeof window !== 'undefined' ? window : {};
 
 export class MapSideBySide extends React.PureComponent {
   static propTypes = {
@@ -13,9 +13,9 @@ export class MapSideBySide extends React.PureComponent {
     /**
      * Return side-by-side control instance when this one is ready
      * @arg {Object} sideBySide sideBySide instance
-    */
-    onReady: PropTypes.func.isRequired
-  }
+     */
+    onReady: PropTypes.func.isRequired,
+  };
 
   componentDidMount() {
     const { map, onReady } = this.props;
@@ -32,7 +32,7 @@ export class MapSideBySide extends React.PureComponent {
     this.sideBySideControl = L.control.sideBySide();
     this.sideBySideControl.addTo(map);
 
-    if (onReady) onReady(this.sideBySideControl);    
+    if (onReady) onReady(this.sideBySideControl);
   }
 
   render() {

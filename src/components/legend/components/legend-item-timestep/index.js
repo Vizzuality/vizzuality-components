@@ -1,9 +1,9 @@
-import React, { PureComponent } from "react";
-import PropTypes from "prop-types";
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 import isEqual from 'lodash/isEqual';
 import classnames from 'classnames';
 
-import Timestep from "components/timestep";
+import Timestep from 'components/timestep';
 
 import {
   addToDate,
@@ -12,9 +12,9 @@ import {
   formatDatePretty,
   formatDate,
   getTicks,
-} from "./utils";
+} from './utils';
 
-import "./styles.scss";
+import './styles.scss';
 
 export class TimestepContainer extends PureComponent {
   timelineParams = null;
@@ -50,11 +50,7 @@ export class TimestepContainer extends PureComponent {
   }
 
   getTrackStyle = () => {
-    const {
-      minDate,
-      interval,
-      trackStyle
-    } = this.timelineParams;
+    const { minDate, interval, trackStyle } = this.timelineParams;
 
     if (Array.isArray(trackStyle)) {
       return trackStyle.map((t) => {
@@ -64,11 +60,11 @@ export class TimestepContainer extends PureComponent {
 
         const styles = {
           ...t,
-          gradient: gradientConverter(gradient, minDate, interval)
-        }
+          gradient: gradientConverter(gradient, minDate, interval),
+        };
 
         return styles;
-      })
+      });
     }
 
     const { gradient } = trackStyle || {};
@@ -76,21 +72,21 @@ export class TimestepContainer extends PureComponent {
     if (gradient) {
       return {
         ...trackStyle,
-        gradient: gradientConverter(gradient, minDate, interval)
-      }
+        gradient: gradientConverter(gradient, minDate, interval),
+      };
     }
 
     return trackStyle;
   };
 
-  handleOnAfterChange = range => {
+  handleOnAfterChange = (range) => {
     const { activeLayer, handleChange } = this.props;
-    const formattedRange = this.formatRange([ range[0], range[1], range[2] ]);
+    const formattedRange = this.formatRange([range[0], range[1], range[2]]);
 
     handleChange(formattedRange, activeLayer);
   };
 
-  formatRange = range => {
+  formatRange = (range) => {
     const { minDate, interval } = this.timelineParams;
     return range.map((r, i) => {
       // if date is not the start date we should select the end of the interval
@@ -100,7 +96,7 @@ export class TimestepContainer extends PureComponent {
     });
   };
 
-  formatValue = value => {
+  formatValue = (value) => {
     const { minDate, dateFormat, interval } = this.timelineParams;
     return formatDatePretty(addToDate(minDate, value, interval), dateFormat);
   };
@@ -118,14 +114,14 @@ export class TimestepContainer extends PureComponent {
       startDate,
       endDate,
       trimEndDate,
-      canPlay
+      canPlay,
     } = this.timelineParams;
 
     return (
       <div
         styleName={classnames({
           'c-legend-timestep': true,
-          '-can-play': canPlay
+          '-can-play': canPlay,
         })}
       >
         <Timestep

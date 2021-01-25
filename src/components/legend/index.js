@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import arrayMove from 'array-move';
 
-
 // Components
 import Icon from 'components/icon';
 import LegendList from './components/legend-list';
@@ -25,12 +24,12 @@ class Legend extends PureComponent {
     /** Should the legend be collapsable */
     collapsable: PropTypes.bool,
     /** `onChangeOrder = (layerGroupsIds) => {}`
-      * @arg {Array} layerGroupIds The new order
-    */
+     * @arg {Array} layerGroupIds The new order
+     */
     onChangeOrder: PropTypes.func,
     /** Children for render */
-    children: PropTypes.node
-  }
+    children: PropTypes.node,
+  };
 
   static defaultProps = {
     title: 'Legend',
@@ -40,44 +39,36 @@ class Legend extends PureComponent {
     maxWidth: null,
     maxHeight: null,
     children: [],
-    onChangeOrder: ids => console.info(ids)
-  }
+    onChangeOrder: (ids) => console.info(ids),
+  };
 
   constructor(props) {
     super(props);
     const { expanded } = props;
-    this.state = { expanded }
+    this.state = { expanded };
   }
 
   /**
    * UI EVENTS
    * onToggleLegend
    * onSortEnd
-  */
+   */
   onToggleLegend = (bool) => {
     this.setState({ expanded: bool });
-  }
+  };
 
   onSortEnd = ({ oldIndex, newIndex }) => {
     const { onChangeOrder, children } = this.props;
-    const layers = [...children.map(c => c.props.layerGroup.dataset)];
+    const layers = [...children.map((c) => c.props.layerGroup.dataset)];
     const layersDatasets = arrayMove(layers, oldIndex, newIndex);
 
     onChangeOrder(layersDatasets);
-  }
+  };
 
   render() {
-    const {
-      title,
-      sortable,
-      collapsable,
-      maxWidth,
-      maxHeight,
-      children
-    } = this.props;
+    const { title, sortable, collapsable, maxWidth, maxHeight, children } = this.props;
 
     const { expanded } = this.state;
-
 
     if (!children || !React.Children.count(children)) {
       return null;
@@ -86,13 +77,14 @@ class Legend extends PureComponent {
     return (
       <div styleName="c-legend-map" style={{ maxWidth }}>
         {/* LEGEND OPENED */}
-        <div
-          styleName={`open-legend ${classnames({ '-active': expanded })}`}
-          style={{ maxHeight }}
-        >
+        <div styleName={`open-legend ${classnames({ '-active': expanded })}`} style={{ maxHeight }}>
           {/* Toggle button */}
           {collapsable && (
-            <button type="button" styleName="toggle-legend" onClick={() => this.onToggleLegend(false)}>
+            <button
+              type="button"
+              styleName="toggle-legend"
+              onClick={() => this.onToggleLegend(false)}
+            >
               <Icon name="icon-arrow-down" className="-small" />
             </button>
           )}
@@ -100,8 +92,8 @@ class Legend extends PureComponent {
           {expanded && (
             <LegendList
               helperClass="c-legend-item -sortable"
-              onSortStart={(_, event) =>
-                event.preventDefault() // It fixes user select in Safari and IE
+              onSortStart={
+                (_, event) => event.preventDefault() // It fixes user select in Safari and IE
               }
               onSortEnd={this.onSortEnd}
               axis="y"
@@ -111,12 +103,11 @@ class Legend extends PureComponent {
               useDragHandle
               sortable={sortable}
             >
-              {React.Children.map(children, (child, index) => (
-                React.isValidElement(child) && child.type === 'LegendItemList' ?
-                React.cloneElement(child, { sortable, index })
-                :
-                child
-              ))}
+              {React.Children.map(children, (child, index) =>
+                React.isValidElement(child) && child.type === 'LegendItemList'
+                  ? React.cloneElement(child, { sortable, index })
+                  : child
+              )}
             </LegendList>
           )}
         </div>
@@ -150,7 +141,7 @@ export {
   LegendItemButtonOpacity,
   LegendItemButtonVisibility,
   LegendItemButtonInfo,
-  LegendItemButtonRemove
+  LegendItemButtonRemove,
 } from './components/legend-item-toolbar';
 
 export {
@@ -158,7 +149,7 @@ export {
   LegendItemTypeBasic,
   LegendItemTypeChoropleth,
   LegendItemTypeGradient,
-  LegendItemTypeProportional
+  LegendItemTypeProportional,
 } from './components/legend-item-types';
 
 // export { default as LegendItemTimeline } from './components/legend-item-timeline';

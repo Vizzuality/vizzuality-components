@@ -6,26 +6,22 @@ import { replace } from 'layer-manager';
 
 export class PopupExample extends React.PureComponent {
   static propTypes = {
-    data: PropTypes.object
+    data: PropTypes.object,
   };
 
   static defaultProps = {
-    data: {}
+    data: {},
   };
 
   state = {
     loading: true,
-    data: null
-  }
+    data: null,
+  };
 
   componentDidMount() {
     const { data } = this.props;
 
-    const {
-      latlng,
-      interactionsLayer
-    } = data;
-    
+    const { latlng, interactionsLayer } = data;
 
     if (
       !!interactionsLayer.interactionConfig.config &&
@@ -39,19 +35,18 @@ export class PopupExample extends React.PureComponent {
         .then(({ data: d }) => {
           this.setState({
             data: d[0],
-            loading: false
-          })
+            loading: false,
+          });
         })
         .catch((err) => {
           this.setState({ loading: false });
 
           if (err && err.json && typeof err.json === 'function') {
-            err.json()
-              .then((er) => {
-                console.error(er);
-              })
+            err.json().then((er) => {
+              console.error(er);
+            });
           }
-        })
+        });
     }
   }
 
@@ -66,25 +61,21 @@ export class PopupExample extends React.PureComponent {
       return (
         <table>
           <tbody>
-            {interactionsLayer.interactionConfig.output.map(o => {
+            {interactionsLayer.interactionConfig.output.map((o) => {
               if (!currentData) {
                 return 'No data';
               }
 
               return (
                 <tr key={o.property || o.column}>
-                  <td>
-                    {o.property || o.column}
-                  </td>
-                  <td>
-                    {currentData[o.column]}
-                  </td>
+                  <td>{o.property || o.column}</td>
+                  <td>{currentData[o.column]}</td>
                 </tr>
-              )
+              );
             })}
           </tbody>
         </table>
-      )
+      );
     }
 
     if (
@@ -96,7 +87,7 @@ export class PopupExample extends React.PureComponent {
         <Spinner
           position="relative"
           style={{
-            box: { width: 16, height: 16 }
+            box: { width: 16, height: 16 },
           }}
         />
       );

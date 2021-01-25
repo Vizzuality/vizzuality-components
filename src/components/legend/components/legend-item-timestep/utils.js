@@ -27,22 +27,20 @@ export const formatDatePretty = (date, dateFormat = 'YYYY-MM-DD') => {
     'SEPT',
     'OCT',
     'NOV',
-    'DEC'
+    'DEC',
   ];
   const day = d.format('DD');
   const month = d.month();
   const year = d.year();
 
-  return `${hasDays ? `${day} ` : ''}${hasMonths ? `${months[month]} ` : ''}${
-    year
-  }`;
+  return `${hasDays ? `${day} ` : ''}${hasMonths ? `${months[month]} ` : ''}${year}`;
 };
 
 // startDate and endDate are string dates
 export const dateDiff = (startDate, endDate, interval) => {
   const diff = moment.utc(endDate).diff(moment.utc(startDate), interval);
 
-  return diff * -1
+  return diff * -1;
 };
 
 export const getTicks = (timelineConfig = {}) => {
@@ -56,19 +54,18 @@ export const getTicks = (timelineConfig = {}) => {
 
         return {
           ...acc,
-          [key]: marks[m]
-        }
+          [key]: marks[m],
+        };
       }
 
       return {
         ...acc,
-        [m]: marks[m]
-      }
+        [m]: marks[m],
+      };
     }, {});
 
     return newMarks;
   }
-
 
   // Otherwise, let's add default marks at the begginig and the end
   const minMark = 0;
@@ -76,22 +73,22 @@ export const getTicks = (timelineConfig = {}) => {
 
   const newMarks = {
     [minMark]: {
-      label: moment.utc(minDate).format(dateFormat)
+      label: moment.utc(minDate).format(dateFormat),
     },
     [maxMark]: {
-      label: moment.utc(maxDate).format(dateFormat)
-    }
+      label: moment.utc(maxDate).format(dateFormat),
+    },
   };
 
   return newMarks;
 };
 
 // startDate and endDate are string dates
-export const gradientConverter = (gradient, minDate, interval) => (
-  Object
-    .keys(gradient)
-    .reduce((acc, val) => ({
+export const gradientConverter = (gradient, minDate, interval) =>
+  Object.keys(gradient).reduce(
+    (acc, val) => ({
       ...acc,
       [dateDiff(val, minDate, interval)]: gradient[val],
-    }), {})
-);
+    }),
+    {}
+  );

@@ -5,22 +5,16 @@ import './styles.scss';
 
 export class Tooltip extends React.PureComponent {
   static propTypes = {
-    children: PropTypes.node
+    children: PropTypes.node,
   };
 
   static defaultProps = {
-    children: []
+    children: [],
   };
 
   render() {
     const { children } = this.props;
-    return (
-      <RCTooltip
-        {...this.props}
-      >
-        {children}
-      </RCTooltip>
-    );
+    return <RCTooltip {...this.props}>{children}</RCTooltip>;
   }
 }
 

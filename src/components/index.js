@@ -27,7 +27,7 @@ export {
   LegendItemButtonOpacity,
   LegendItemButtonVisibility,
   LegendItemButtonInfo,
-  LegendItemButtonRemove
+  LegendItemButtonRemove,
 } from './legend/components/legend-item-toolbar';
 
 export {
@@ -35,7 +35,7 @@ export {
   LegendItemTypeBasic,
   LegendItemTypeChoropleth,
   LegendItemTypeGradient,
-  LegendItemTypeProportional
+  LegendItemTypeProportional,
 } from './legend/components/legend-item-types';
 
 export { default as LegendItemTimeStep } from './legend/components/legend-item-timestep';
