@@ -5,10 +5,17 @@ import Component from './index';
 export default {
   title: 'Slider',
   component: Component,
+  argTypes: {
+    value: {
+      control: {
+        disable: true,
+      },
+    },
+  },
 };
 
-const Template = (props) => {
-  const [value, setValue] = React.useState(props.defaultValue);
+const Template = ({ defaultValue, ...props }) => {
+  const [value, setValue] = React.useState(defaultValue);
   return <Component {...props} value={value} onChange={setValue} />;
 };
 
@@ -22,6 +29,15 @@ Default.args = {
     backgroundColor: '#c32d7b',
     borderRadius: '0px',
   },
+  handleStyle: {
+    backgroundColor: '#c32d7b',
+    borderRadius: '10px',
+    boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.29)',
+    border: '0px',
+    zIndex: 2,
+  },
+  railStyle: { backgroundColor: '#d9d9d9' },
+  dotStyle: { visibility: 'hidden', border: '0px' },
 };
 
 export const Range = Template.bind({});
@@ -35,4 +51,13 @@ Range.args = {
     backgroundColor: '#c32d7b',
     borderRadius: '0px',
   },
+  handleStyle: {
+    backgroundColor: '#c32d7b',
+    borderRadius: '10px',
+    boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.29)',
+    border: '0px',
+    zIndex: 2,
+  },
+  railStyle: { backgroundColor: '#d9d9d9' },
+  dotStyle: { visibility: 'hidden', border: '0px' },
 };

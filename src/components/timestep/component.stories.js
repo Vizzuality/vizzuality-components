@@ -25,10 +25,27 @@ export default {
       </div>
     ),
   ],
+  argTypes: {
+    start: {
+      control: {
+        disable: true,
+      },
+    },
+    end: {
+      control: {
+        disable: true,
+      },
+    },
+    trim: {
+      control: {
+        disable: true,
+      },
+    },
+  },
 };
 
-export const Default = (props) => {
-  const [value, setValue] = React.useState(props.defaultValue);
+export const Default = ({ defaultValue, ...props }) => {
+  const [value, setValue] = React.useState(defaultValue);
   return (
     <Component
       {...props}
@@ -50,6 +67,14 @@ Default.args = {
       borderRadius: '0px',
     },
   ],
+  railStyle: { backgroundColor: '#d9d9d9' },
+  handleStyle: {
+    backgroundColor: '#c32d7b',
+    borderRadius: '10px',
+    boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.29)',
+    border: '0px',
+    zIndex: 2,
+  },
   range: false,
   canPlay: true,
   formatValue: (value) => `${value}%`,
@@ -65,8 +90,8 @@ Default.args = {
   },
 };
 
-export const Range = (props) => {
-  const [value, setValue] = React.useState(props.defaultValue);
+export const Range = ({ defaultValue, ...props }) => {
+  const [value, setValue] = React.useState(defaultValue);
   return (
     <Component
       {...props}
@@ -92,6 +117,14 @@ Range.args = {
       borderRadius: '0px',
     },
   ],
+  railStyle: { backgroundColor: '#d9d9d9' },
+  handleStyle: {
+    backgroundColor: '#c32d7b',
+    borderRadius: '10px',
+    boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.29)',
+    border: '0px',
+    zIndex: 2,
+  },
   range: true,
   canPlay: true,
   formatValue: (value) => `${value}%`,

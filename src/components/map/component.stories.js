@@ -55,14 +55,7 @@ export const Simple = (props) => {
   };
 
   return (
-    <Component
-      mapOptions={{
-        zoom: 5,
-        center: { lat: 56, lng: -119 },
-      }}
-      events={events}
-      {...props}
-    >
+    <Component events={events} {...props}>
       {(map) => (
         <>
           <LayerManager map={map} plugin={PluginLeaflet}>
@@ -114,7 +107,30 @@ export const Simple = (props) => {
     </Component>
   );
 };
-Simple.args = {};
+Simple.args = {
+  mapOptions: {
+    zoom: 5,
+    center: { lat: 56, lng: -119 },
+  },
+  basemap: {
+    url: 'http://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png',
+    options: {
+      maxZoom: 20,
+      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    },
+  },
+  label: {
+    url: 'http://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}.png',
+    options: {
+      maxZoom: 20,
+      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    },
+  },
+  bounds: {
+    bbox: null,
+    options: {}, // fitBounds options
+  },
+};
 
 export const SideBySide = (props) => {
   const [latlng, setLatlng] = React.useState(null);
@@ -134,14 +150,7 @@ export const SideBySide = (props) => {
   let sideBySide = {};
 
   return (
-    <Component
-      mapOptions={{
-        zoom: 2,
-        center: { lat: 0, lng: 0 },
-      }}
-      events={events}
-      {...props}
-    >
+    <Component events={events} {...props}>
       {(map) => (
         <>
           <LayerManager map={map} plugin={PluginLeaflet}>
@@ -222,4 +231,27 @@ export const SideBySide = (props) => {
   );
 };
 SideBySide.storyName = 'Side by side';
-SideBySide.args = {};
+SideBySide.args = {
+  mapOptions: {
+    zoom: 2,
+    center: { lat: 0, lng: 0 },
+  },
+  basemap: {
+    url: 'http://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png',
+    options: {
+      maxZoom: 20,
+      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    },
+  },
+  label: {
+    url: 'http://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}.png',
+    options: {
+      maxZoom: 20,
+      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    },
+  },
+  bounds: {
+    bbox: null,
+    options: {}, // fitBounds options
+  },
+};
