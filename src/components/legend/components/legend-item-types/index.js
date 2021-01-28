@@ -1,13 +1,12 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
-import { replace } from 'layer-manager';
-
 import isEmpty from 'lodash/isEmpty';
 import isEqual from 'lodash/isEqual';
 
 import Spinner from 'components/spinner';
 
+import { replace } from './utils';
 import LegendItemTypeBasic from './legend-item-type-basic';
 import LegendItemTypeChoropleth from './legend-item-type-choropleth';
 import LegendItemTypeGradient from './legend-item-type-gradient';
