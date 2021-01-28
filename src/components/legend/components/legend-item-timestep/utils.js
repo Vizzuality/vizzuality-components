@@ -1,17 +1,42 @@
-import moment from 'moment';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+
+dayjs.extend(utc);
+
+/**
+ * Translate Moment units into DayJS units
+ */
+const getDayJsInterval = (interval) => {
+  // Shorthand units don't have to be translated
+  const momentToDayJSUnit = {
+    years: 'year',
+    quarters: 'quarter',
+    months: 'month',
+    weeks: 'week',
+    days: 'day',
+    hours: 'hour',
+    minutes: 'minute',
+    seconds: 'second',
+    milliseconds: 'millisecond',
+  };
+
+  return momentToDayJSUnit[interval] || interval;
+};
 
 export const addToDate = (date, count, interval = 'days', toEnd) => {
-  const d = moment.utc(date);
+  const d = dayjs(date).utc();
 
-  return toEnd ? d.add(count, interval).endOf(interval) : d.add(count, interval);
+  return toEnd
+    ? d.add(count, getDayJsInterval(interval)).endOf(getDayJsInterval(interval))
+    : d.add(count, getDayJsInterval(interval));
 };
 
 export const formatDate = (date, format = 'YYYY-MM-DD') => {
-  return moment.utc(date).format(format);
+  return dayjs(date).utc().format(format);
 };
 
 export const formatDatePretty = (date, dateFormat = 'YYYY-MM-DD') => {
-  const d = moment.utc(date);
+  const d = dayjs(date).utc();
   const hasDays = dateFormat.includes('DD');
   const hasMonths = dateFormat.includes('MM');
 
@@ -38,7 +63,7 @@ export const formatDatePretty = (date, dateFormat = 'YYYY-MM-DD') => {
 
 // startDate and endDate are string dates
 export const dateDiff = (startDate, endDate, interval) => {
-  const diff = moment.utc(endDate).diff(moment.utc(startDate), interval);
+  const diff = dayjs(endDate).utc().diff(dayjs(startDate).utc(), getDayJsInterval(interval));
 
   return diff * -1;
 };
@@ -50,7 +75,7 @@ export const getTicks = (timelineConfig = {}) => {
   if (marks) {
     const newMarks = Object.keys(marks).reduce((acc, m) => {
       if (typeof m === 'string') {
-        const key = moment.utc(m).diff(moment.utc(minDate), interval);
+        const key = dayjs(m).utc().diff(dayjs(minDate).utc(), getDayJsInterval(interval));
 
         return {
           ...acc,
@@ -69,14 +94,14 @@ export const getTicks = (timelineConfig = {}) => {
 
   // Otherwise, let's add default marks at the begginig and the end
   const minMark = 0;
-  const maxMark = moment.utc(maxDate).diff(moment.utc(minDate), interval);
+  const maxMark = dayjs(maxDate).utc().diff(dayjs(minDate).utc(), getDayJsInterval(interval));
 
   const newMarks = {
     [minMark]: {
-      label: moment.utc(minDate).format(dateFormat),
+      label: dayjs(minDate).utc().format(dateFormat),
     },
     [maxMark]: {
-      label: moment.utc(maxDate).format(dateFormat),
+      label: dayjs(maxDate).utc().format(dateFormat),
     },
   };
 
