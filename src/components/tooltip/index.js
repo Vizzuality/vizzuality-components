@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import RCTooltip from 'rc-tooltip/lib';
+import RCTooltip from 'rc-tooltip';
 import './styles.scss';
 
 export class Tooltip extends React.PureComponent {
