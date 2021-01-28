@@ -76,8 +76,8 @@
     "dayjs": "^1.10.4",
     "lodash": "^4.17.10",
     "prop-types": "^15.6.2",
-    "rc-slider": "^8.6.3",
-    "rc-tooltip": "3.7.0",
+    "rc-slider": "^9.7.1",
+    "rc-tooltip": "^5.0.2",
     "react-sortable-hoc": "^1.9.1",
     "wri-json-api-serializer": "^1.0.1"
   },

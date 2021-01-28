@@ -1,11 +1,8 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import RCSlider, { Range, Handle } from 'rc-slider';
+import RCSlider, { Range, Handle, SliderTooltip } from 'rc-slider';
 import fill from 'lodash/fill';
-
-// components
-import Tooltip from 'components/tooltip';
 
 // styles
 import './styles.scss';
@@ -55,7 +52,7 @@ export class Slider extends PureComponent {
     const tooltipVisible = showTooltip ? showTooltip(index) : false;
 
     return (
-      <Tooltip
+      <SliderTooltip
         key={index}
         overlay={formattedValue}
         overlayClassName="c-rc-tooltip -default"
@@ -66,7 +63,7 @@ export class Slider extends PureComponent {
         visible={!!dragging || !!tooltipVisible}
       >
         <Handle className="drag-handle" value={value} {...restProps} />
-      </Tooltip>
+      </SliderTooltip>
     );
   };
 
