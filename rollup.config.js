@@ -38,6 +38,7 @@ const configuration = {
     ...Object.keys(packageJson.peerDependencies),
     ...Object.keys(packageJson.dependencies),
     /^lodash\/.*$/, // Mark all lodash/* as external
+    /^dayjs\/.*$/, // Mark all dayjs/* as external
     /^babel-plugin-react-css-modules\/.*$/, // The babel config requires this
   ],
   plugins: [
