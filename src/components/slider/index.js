@@ -4,6 +4,8 @@ import classnames from 'classnames';
 import RCSlider, { Range, Handle, SliderTooltip } from 'rc-slider';
 import fill from 'lodash/fill';
 
+import { getStyledMarks } from './utils';
+
 // styles
 import './styles.scss';
 
@@ -68,7 +70,7 @@ export class Slider extends PureComponent {
   };
 
   render() {
-    const { customClass, range, handleStyle, value, ...rest } = this.props;
+    const { customClass, range, handleStyle, value, marks, ...rest } = this.props;
 
     const Component = range ? Range : RCSlider;
     const handleNum = Array.isArray(value) ? value.length : 1;
@@ -91,7 +93,13 @@ export class Slider extends PureComponent {
 
     return (
       <div className={externalClass}>
-        <Component handle={this.renderHandle} handleStyle={handleStyles} value={value} {...rest} />
+        <Component
+          handle={this.renderHandle}
+          handleStyle={handleStyles}
+          value={value}
+          marks={marks ? getStyledMarks(marks) : marks}
+          {...rest}
+        />
       </div>
     );
   }
