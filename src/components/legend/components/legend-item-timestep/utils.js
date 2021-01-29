@@ -1,7 +1,4 @@
 import dayjs from 'dayjs';
-import utc from 'dayjs/plugin/utc';
-
-dayjs.extend(utc);
 
 /**
  * Translate Moment units into DayJS units
@@ -24,7 +21,7 @@ const getDayJsInterval = (interval) => {
 };
 
 export const addToDate = (date, count, interval = 'days', toEnd) => {
-  const d = dayjs(date).utc();
+  const d = dayjs(date);
 
   return toEnd
     ? d.add(count, getDayJsInterval(interval)).endOf(getDayJsInterval(interval))
@@ -32,11 +29,11 @@ export const addToDate = (date, count, interval = 'days', toEnd) => {
 };
 
 export const formatDate = (date, format = 'YYYY-MM-DD') => {
-  return dayjs(date).utc().format(format);
+  return dayjs(date).format(format);
 };
 
 export const formatDatePretty = (date, dateFormat = 'YYYY-MM-DD') => {
-  const d = dayjs(date).utc();
+  const d = dayjs(date);
   const hasDays = dateFormat.includes('DD');
   const hasMonths = dateFormat.includes('MM');
 
@@ -63,7 +60,7 @@ export const formatDatePretty = (date, dateFormat = 'YYYY-MM-DD') => {
 
 // startDate and endDate are string dates
 export const dateDiff = (startDate, endDate, interval) => {
-  const diff = dayjs(endDate).utc().diff(dayjs(startDate).utc(), getDayJsInterval(interval));
+  const diff = dayjs(endDate).diff(dayjs(startDate), getDayJsInterval(interval));
 
   return diff * -1;
 };
@@ -75,7 +72,7 @@ export const getTicks = (timelineConfig = {}) => {
   if (marks) {
     const newMarks = Object.keys(marks).reduce((acc, m) => {
       if (typeof m === 'string') {
-        const key = dayjs(m).utc().diff(dayjs(minDate).utc(), getDayJsInterval(interval));
+        const key = dayjs(m).diff(dayjs(minDate), getDayJsInterval(interval));
 
         return {
           ...acc,
@@ -94,14 +91,14 @@ export const getTicks = (timelineConfig = {}) => {
 
   // Otherwise, let's add default marks at the begginig and the end
   const minMark = 0;
-  const maxMark = dayjs(maxDate).utc().diff(dayjs(minDate).utc(), getDayJsInterval(interval));
+  const maxMark = dayjs(maxDate).diff(dayjs(minDate), getDayJsInterval(interval));
 
   const newMarks = {
     [minMark]: {
-      label: dayjs(minDate).utc().format(dateFormat),
+      label: dayjs(minDate).format(dateFormat),
     },
     [maxMark]: {
-      label: dayjs(maxDate).utc().format(dateFormat),
+      label: dayjs(maxDate).format(dateFormat),
     },
   };
 
