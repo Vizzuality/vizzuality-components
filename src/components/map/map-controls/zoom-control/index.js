@@ -8,15 +8,15 @@ class ZoomControl extends PureComponent {
   static propTypes = {
     map: PropTypes.object.isRequired,
     className: PropTypes.string,
-    customClass: PropTypes.string
-  }
+    customClass: PropTypes.string,
+  };
 
   static defaultProps = {
     className: null,
-    customClass: null
-  }
+    customClass: null,
+  };
 
-  state = { zoom: this.props.map.getZoom() }
+  state = { zoom: this.props.map.getZoom() };
 
   componentWillMount() {
     this.props.map.on('zoomend', this.getZoom);
@@ -28,7 +28,7 @@ class ZoomControl extends PureComponent {
 
   getZoom = () => {
     this.setState({ zoom: this.props.map.getZoom() });
-  }
+  };
 
   increaseZoom = () => {
     const zoom = this.props.map.getZoom();
@@ -37,7 +37,7 @@ class ZoomControl extends PureComponent {
     this.setState({ zoom: zoom === maxZoom ? zoom : zoom + 1 }, () => {
       this.props.map.setZoom(this.state.zoom);
     });
-  }
+  };
 
   decreaseZoom = () => {
     const zoom = this.props.map.getZoom();
@@ -46,7 +46,7 @@ class ZoomControl extends PureComponent {
     this.setState({ zoom: zoom === minZoom ? zoom : zoom - 1 }, () => {
       this.props.map.setZoom(this.state.zoom);
     });
-  }
+  };
 
   render() {
     const { className, customClass } = this.props;
@@ -54,10 +54,7 @@ class ZoomControl extends PureComponent {
     const maxZoom = this.props.map.getMaxZoom();
     const minZoom = this.props.map.getMinZoom();
 
-    const componentClass = classnames(
-      'c-zoom-control',
-      { [className]: !!className }
-    );
+    const componentClass = classnames('c-zoom-control', { [className]: !!className });
     const externalClass = classnames({ [customClass]: !!customClass });
     const zoomInClass = classnames('zoom-control-btn', { '-disabled': zoom === maxZoom });
     const zoomOutClass = classnames('zoom-control-btn', { '-disabled': zoom === minZoom });

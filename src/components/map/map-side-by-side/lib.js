@@ -1,4 +1,4 @@
-const { L } = (typeof window !== 'undefined') ? window : {};
+const { L } = typeof window !== 'undefined' ? window : {};
 
 module.exports = (() => {
   if (typeof L === 'undefined') {
@@ -45,7 +45,7 @@ module.exports = (() => {
 
   // convert arg to an array - returns empty array if arg is undefined
   function asArray(arg) {
-    return (arg === 'undefined') ? [] : Array.isArray(arg) ? arg : [arg]
+    return arg === 'undefined' ? [] : Array.isArray(arg) ? arg : [arg];
   }
 
   function noop() {}
@@ -53,7 +53,7 @@ module.exports = (() => {
   L.Control.SideBySide = L.Control.extend({
     options: {
       thumbSize: 42,
-      padding: 0
+      padding: 0,
     },
 
     initialize(leftLayers, rightLayers, options) {
@@ -76,10 +76,14 @@ module.exports = (() => {
       this.remove();
       this._map = map;
 
-      const container = this._container = L.DomUtil.create('div', 'leaflet-sbs', map._controlContainer);
+      const container = (this._container = L.DomUtil.create(
+        'div',
+        'leaflet-sbs',
+        map._controlContainer
+      ));
 
       this._divider = L.DomUtil.create('div', 'leaflet-sbs-divider', container);
-      const range = this._range = L.DomUtil.create('input', 'leaflet-sbs-range', container);
+      const range = (this._range = L.DomUtil.create('input', 'leaflet-sbs-range', container));
       range.type = 'range';
       range.min = 0;
       range.max = 1;
@@ -162,8 +166,8 @@ module.exports = (() => {
         this._leftLayer && this.fire('leftlayeradd', { layer: this._leftLayer });
       }
       if (prevRight !== this._rightLayer) {
-        prevRight && this.fire('rightlayerremove', {layer: prevRight});
-        this._rightLayer && this.fire('rightlayeradd', {layer: this._rightLayer});
+        prevRight && this.fire('rightlayerremove', { layer: prevRight });
+        this._rightLayer && this.fire('rightlayeradd', { layer: this._rightLayer });
       }
       this._updateClip();
     },
@@ -191,10 +195,11 @@ module.exports = (() => {
         map.off('layeradd layerremove', this._updateLayers, this);
         map.off('move', this._updateClip, this);
       }
-    }
+    },
   });
 
-  L.control.sideBySide = (leftLayers, rightLayers, options) => new L.Control.SideBySide(leftLayers, rightLayers, options);
+  L.control.sideBySide = (leftLayers, rightLayers, options) =>
+    new L.Control.SideBySide(leftLayers, rightLayers, options);
 
   return L.Control.SideBySide;
 })();

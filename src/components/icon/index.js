@@ -7,13 +7,13 @@ class Icon extends React.PureComponent {
   static propTypes = {
     name: PropTypes.string,
     className: PropTypes.string,
-    style: PropTypes.object
+    style: PropTypes.object,
   };
 
   static defaultProps = {
     name: '',
     className: '',
-    style: {}
+    style: {},
   };
 
   render() {

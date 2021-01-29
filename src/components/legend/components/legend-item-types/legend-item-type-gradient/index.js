@@ -5,13 +5,13 @@ import './styles.scss';
 class LegendTypeGradient extends PureComponent {
   static propTypes = {
     // Props
-    activeLayer: PropTypes.shape({})
-  }
+    activeLayer: PropTypes.shape({}),
+  };
 
   static defaultProps = {
     // Props
-    activeLayer: {}
-  }
+    activeLayer: {},
+  };
 
   render() {
     const { activeLayer } = this.props;
@@ -21,9 +21,9 @@ class LegendTypeGradient extends PureComponent {
       return null;
     }
 
-    const items = legendConfig.items.filter(item => item.color !== 'transparent');
-    const itemTransparent = legendConfig.items.find(item => item.color === 'transparent');
-    const gradient = items.map(item => item.color);
+    const items = legendConfig.items.filter((item) => item.color !== 'transparent');
+    const itemTransparent = legendConfig.items.find((item) => item.color === 'transparent');
+    const gradient = items.map((item) => item.color);
 
     return (
       <div styleName="c-legend-type-gradient">
@@ -38,18 +38,18 @@ class LegendTypeGradient extends PureComponent {
             styleName="icon-gradient"
             style={{
               width: `${(items.length / legendConfig.items.length) * 100}%`,
-              backgroundImage: `linear-gradient(to right, ${gradient.join(',')})`
+              backgroundImage: `linear-gradient(to right, ${gradient.join(',')})`,
             }}
           />
         </div>
         <ul>
-          {legendConfig.items.map(({ name, color, value }) => name || value ? (
-            <li key={`legend-gradient-item-${color}-${value}-${name}`}>
-              <span styleName="name">
-                {name || value}
-              </span>
-            </li>
-          ) : null)}
+          {legendConfig.items.map(({ name, color, value }) =>
+            name || value ? (
+              <li key={`legend-gradient-item-${color}-${value}-${name}`}>
+                <span styleName="name">{name || value}</span>
+              </li>
+            ) : null
+          )}
         </ul>
       </div>
     );

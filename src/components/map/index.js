@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import isEqual from 'lodash/isEqual';
 import './styles.scss';
 
-const { L } = (typeof window !== 'undefined') ? window : {};
+const { L } = typeof window !== 'undefined' ? window : {};
 
 if (typeof window !== 'undefined') {
   /*
@@ -27,9 +27,8 @@ if (typeof window !== 'undefined') {
   /* eslint-enable */
 }
 
-
 class Maps extends Component {
-  events = {}
+  events = {};
 
   static propTypes = {
     /** A function that returns the map instance */
@@ -38,26 +37,26 @@ class Maps extends Component {
     customClass: PropTypes.string,
     /** Leaflet props for creating a map
      * @see Check Leaflet documentation  https://leafletjs.com/reference-1.3.0.html#map
-    */
+     */
     mapOptions: PropTypes.object,
     /** `{ url: 'http://example/{x}/{y}/{z}', options: {}}`
      * @see Check Leaflet documentation  https://leafletjs.com/reference-1.3.0.html#tilelayer
-    */
+     */
     basemap: PropTypes.object,
     /** `{ url: 'http://example/{x}/{y}/{z}', options: {} }` Options for L.tileLayer
      * @see Check Leaflet documentation  https://leafletjs.com/reference-1.3.0.html#tilelayer
-    */
+     */
     label: PropTypes.object,
     /** `{ bbox: [10, 5, 20, 10], options: {} }`
      * @see Check Leaflet documentation  https://leafletjs.com/reference-1.3.0.html#fitbounds-options
-    */
+     */
     bounds: PropTypes.object,
     /**
      * `{ click: (e, map) => {} }` All the functions return 2 params
      * @arg {Object} e event
      * @arg {Object} map Map instance
      * @see Cheack Leaflet documentation https://leafletjs.com/reference-1.3.0.html#map-event
-    */
+     */
     events: PropTypes.object,
     /** Removes all interactions available on the map  */
     interactionEnabled: PropTypes.bool,
@@ -66,9 +65,9 @@ class Maps extends Component {
     /**
      * Return map instance when this one is ready
      * @arg {Object} map Map instance
-    */
-    onReady: PropTypes.func
-  }
+     */
+    onReady: PropTypes.func,
+  };
 
   static defaultProps = {
     children: null,
@@ -78,37 +77,34 @@ class Maps extends Component {
       center: [27, 12],
       zoom: 3,
       maxZoom: 20,
-      minZoom: 2
+      minZoom: 2,
     },
     basemap: {
       url: 'http://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png',
       options: {
         maxZoom: 20,
-        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-      }
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      },
     },
     label: {
       url: 'http://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}.png',
       options: {
         maxZoom: 20,
-        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-      }
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      },
     },
     bounds: {
       bbox: null,
-      options: {} // fitBounds options
+      options: {}, // fitBounds options
     },
     events: {},
     interactionEnabled: true,
     scrollZoomEnabled: true,
-    onReady: () => {}
-  }
+    onReady: () => {},
+  };
 
   componentDidMount() {
-    if (
-      typeof L === 'undefined' ||
-      !this.mapNode
-    ) {
+    if (typeof L === 'undefined' || !this.mapNode) {
       return;
     }
 
@@ -148,7 +144,7 @@ class Maps extends Component {
       label: prevLabel,
       bounds: prevBounds,
       events: prevEvents,
-      mapOptions: prevMapOptions
+      mapOptions: prevMapOptions,
     } = prevProps;
 
     const {
@@ -156,7 +152,7 @@ class Maps extends Component {
       label: nextLabel,
       bounds: nextBounds,
       events: nextEvents,
-      mapOptions: nextMapOptions
+      mapOptions: nextMapOptions,
     } = this.props;
 
     // Basemap
@@ -192,32 +188,30 @@ class Maps extends Component {
   setMap = () => {
     const { mapOptions } = this.props;
     this.map = L.map(this.mapNode, { ...Maps.defaultProps.mapOptions, ...mapOptions });
-  }
+  };
 
   setMapOptions = () => {
-    const { mapOptions: { center, zoom } } = this.props;
-    this.map.setView({ ...center }, zoom)
-  }
+    const {
+      mapOptions: { center, zoom },
+    } = this.props;
+    this.map.setView({ ...center }, zoom);
+  };
 
   setBasemap = () => {
     const { basemap } = this.props;
 
     if (this.basemapLayer) this.basemapLayer.remove();
 
-    this.basemapLayer = L.tileLayer(basemap.url, basemap.options)
-      .addTo(this.map)
-      .setZIndex(0);
-  }
+    this.basemapLayer = L.tileLayer(basemap.url, basemap.options).addTo(this.map).setZIndex(0);
+  };
 
   setLabel = () => {
     const { label } = this.props;
 
     if (this.labelLayer) this.labelLayer.remove();
 
-    this.labelLayer = L.tileLayer(label.url, label.options)
-      .addTo(this.map)
-      .setZIndex(1100);
-  }
+    this.labelLayer = L.tileLayer(label.url, label.options).addTo(this.map).setZIndex(1100);
+  };
 
   setBounds = () => {
     const { bounds } = this.props;
@@ -226,12 +220,12 @@ class Maps extends Component {
     if (bbox) {
       const mapBounds = [
         [bbox[1], bbox[0]],
-        [bbox[3], bbox[2]]
+        [bbox[3], bbox[2]],
       ];
 
       this.map.fitBounds(mapBounds, options);
     }
-  }
+  };
 
   setEvents() {
     const { events } = this.props;
@@ -241,7 +235,7 @@ class Maps extends Component {
     Object.keys(events).forEach((key) => {
       this.events[key] = (e) => {
         events[key](e, this.map);
-      }
+      };
 
       this.map.on(key, this.events[key]);
     });
@@ -260,7 +254,9 @@ class Maps extends Component {
     return (
       <div styleName="c-map" className={externalClass}>
         <div
-          ref={(node) => { this.mapNode = node; }}
+          ref={(node) => {
+            this.mapNode = node;
+          }}
           styleName="map-container"
         />
 

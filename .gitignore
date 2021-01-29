@@ -2,6 +2,7 @@
 /node_modules
 /dist
 *.log*
-/styleguide
+/storybook
 /lib
 .vscode/
+stats.html

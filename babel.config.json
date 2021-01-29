@@ -1,17 +1,21 @@
 {
   "presets": [
     [
-      "env", {
+      "@babel/preset-env",
+      {
         "modules": false
       }
     ],
-    "react", "stage-0"
+    "@babel/preset-react"
   ],
   "plugins": [
     [
       "module-resolver",
       {
-        "root": [".", "./src"],
+        "root": [
+          ".",
+          "./src"
+        ],
         "alias": {
           "components": "./src/components",
           "css": "./src/css"
@@ -29,6 +33,7 @@
           }
         }
       }
-    ]
+    ],
+    "@babel/plugin-proposal-class-properties"
   ]
 }

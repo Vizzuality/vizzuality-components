@@ -4,22 +4,16 @@ Vizzuality Components is a collection of React components shared across many app
 
 ## Requirements 🛠️
 ```
-  node 8.11.2
+  nvm use
 ```
 
 ## Getting Started 👨‍💻
 ---
 Once you have the project locally, run `yarn install` to install project's dependencies.
 
-Then install peer dependencies running:
-
-```
-yarn add react react-dom
-```
-
 And that's all! No need of more setup.
 
-To start working run `yarn start`. This will run [styleguidist](https://github.com/styleguidist/react-styleguidist) responsible of generating our styleguide. Now you are ready to code!
+To start working run `yarn start`. This will run [Storybook](https://storybook.js.org) responsible of generating our styleguide. Now you are ready to code!
 
 
 ### Adding a new component 👾

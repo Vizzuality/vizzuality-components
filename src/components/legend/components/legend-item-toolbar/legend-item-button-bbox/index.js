@@ -13,8 +13,8 @@ class LegendItemButtonBBox extends PureComponent {
     defaultStyle: PropTypes.object,
     tooltipText: PropTypes.string,
     scrolling: PropTypes.bool,
-    onChangeBBox: PropTypes.func
-  }
+    onChangeBBox: PropTypes.func,
+  };
 
   static defaultProps = {
     activeLayer: {},
@@ -25,12 +25,12 @@ class LegendItemButtonBBox extends PureComponent {
     tooltipText: '',
     scrolling: false,
 
-    onChangeBBox: () => {}
-  }
+    onChangeBBox: () => {},
+  };
 
   state = {
-    visible: false
-  }
+    visible: false,
+  };
 
   componentWillReceiveProps(nextProps) {
     const { scrolling } = nextProps;
@@ -39,7 +39,6 @@ class LegendItemButtonBBox extends PureComponent {
       this.setState({ visible: false });
     }
   }
-
 
   render() {
     const { activeLayer, tooltipOpened, icon, focusStyle, defaultStyle, tooltipText } = this.props;
@@ -56,7 +55,7 @@ class LegendItemButtonBBox extends PureComponent {
         trigger={tooltipOpened ? '' : 'hover'}
         mouseLeaveDelay={0}
         destroyTooltipOnHide
-        onVisibleChange={v => this.setState({ visible: v })}
+        onVisibleChange={(v) => this.setState({ visible: v })}
         visible={visible}
       >
         <button
@@ -65,7 +64,11 @@ class LegendItemButtonBBox extends PureComponent {
           aria-label="Fit to bounds"
           onClick={() => this.props.onChangeBBox(activeLayer)}
         >
-          <Icon name={icon || 'icon-bbox'} className="-small" style={visible ? focusStyle : defaultStyle} />
+          <Icon
+            name={icon || 'icon-bbox'}
+            className="-small"
+            style={visible ? focusStyle : defaultStyle}
+          />
         </button>
       </Tooltip>
     );

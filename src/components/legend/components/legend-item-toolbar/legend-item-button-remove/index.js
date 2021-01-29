@@ -15,8 +15,8 @@ class LegendItemButtonRemove extends PureComponent {
     scrolling: PropTypes.bool,
 
     // ACTIONS
-    onRemoveLayer: PropTypes.func
-  }
+    onRemoveLayer: PropTypes.func,
+  };
 
   static defaultProps = {
     activeLayer: {},
@@ -28,12 +28,12 @@ class LegendItemButtonRemove extends PureComponent {
     scrolling: false,
 
     // ACTIONS
-    onRemoveLayer: () => {}
-  }
+    onRemoveLayer: () => {},
+  };
 
   state = {
-    visible: false
-  }
+    visible: false,
+  };
 
   componentWillReceiveProps(nextProps) {
     const { scrolling } = nextProps;
@@ -55,7 +55,7 @@ class LegendItemButtonRemove extends PureComponent {
         trigger={tooltipOpened ? '' : 'hover'}
         mouseLeaveDelay={0}
         destroyTooltipOnHide
-        onVisibleChange={v => this.setState({ visible: v })}
+        onVisibleChange={(v) => this.setState({ visible: v })}
         visible={visible}
       >
         <button
@@ -64,7 +64,11 @@ class LegendItemButtonRemove extends PureComponent {
           onClick={() => this.props.onRemoveLayer(activeLayer)}
           aria-label="Remove"
         >
-          <Icon name={icon || 'icon-cross'} className="-small" style={visible ? focusStyle : defaultStyle} />
+          <Icon
+            name={icon || 'icon-cross'}
+            className="-small"
+            style={visible ? focusStyle : defaultStyle}
+          />
         </button>
       </Tooltip>
     );

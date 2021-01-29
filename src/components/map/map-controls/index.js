@@ -7,10 +7,10 @@ class MapControls extends PureComponent {
   static propTypes = {
     children: PropTypes.node.isRequired,
     /** Custom css class for styling */
-    customClass: PropTypes.string
-  }
+    customClass: PropTypes.string,
+  };
 
-  static defaultProps = { customClass: null }
+  static defaultProps = { customClass: null };
 
   render() {
     const { customClass, children } = this.props;
@@ -19,12 +19,15 @@ class MapControls extends PureComponent {
     return (
       <div styleName="c-map-controls" className={externalClass}>
         <ul styleName="map-controls-list">
-          {React.Children.map(children, (c, i) => (
-            React.isValidElement(c) && (
-            <li styleName="map-controls-list-item" key={i}>
-              {React.cloneElement(c)}
-            </li>)
-          ))}
+          {React.Children.map(
+            children,
+            (c, i) =>
+              React.isValidElement(c) && (
+                <li styleName="map-controls-list-item" key={i}>
+                  {React.cloneElement(c)}
+                </li>
+              )
+          )}
         </ul>
       </div>
     );

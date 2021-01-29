@@ -18,8 +18,8 @@ class LegendItemButtonLayers extends PureComponent {
     scrolling: PropTypes.bool,
 
     onChangeLayer: PropTypes.func,
-    onTooltipVisibilityChange: PropTypes.func
-  }
+    onTooltipVisibilityChange: PropTypes.func,
+  };
 
   static defaultProps = {
     layers: [],
@@ -32,14 +32,14 @@ class LegendItemButtonLayers extends PureComponent {
     scrolling: false,
 
     onChangeLayer: () => {},
-    onTooltipVisibilityChange: () => {}
-  }
+    onTooltipVisibilityChange: () => {},
+  };
 
   state = {
     visibilityHover: false,
     visibilityClick: false,
-    multiLayersActive: this.props.i === 0 && this.props.layers.length > 1
-  }
+    multiLayersActive: this.props.i === 0 && this.props.layers.length > 1,
+  };
 
   componentWillReceiveProps(nextProps) {
     const { scrolling, i: prevIndex } = this.props;
@@ -50,7 +50,6 @@ class LegendItemButtonLayers extends PureComponent {
     }
   }
 
-
   onTooltipVisibilityChange = (visibility) => {
     const { onTooltipVisibilityChange } = this.props;
     const { multiLayersActive } = this.state;
@@ -58,32 +57,37 @@ class LegendItemButtonLayers extends PureComponent {
     this.setState({
       visibilityHover: false,
       visibilityClick: visibility,
-      ...multiLayersActive && {
-        multiLayersActive: false
-      }
+      ...(multiLayersActive && {
+        multiLayersActive: false,
+      }),
     });
 
     onTooltipVisibilityChange(visibility);
-  }
+  };
 
   /**
    * HELPERS
    * - getTimelineLayers
-  */
+   */
   getTimelineLayers = () => {
     const { layers } = this.props;
 
     return sortBy(
-      layers.filter(l => l.layerConfig.timeline),
-      l => l.layerConfig.order
+      layers.filter((l) => l.layerConfig.timeline),
+      (l) => l.layerConfig.order
     );
-  }
+  };
 
   render() {
     const {
-      layers, activeLayer, icon,
-      focusStyle, defaultStyle, tooltipText,
-      onChangeLayer, tooltipOpened
+      layers,
+      activeLayer,
+      icon,
+      focusStyle,
+      defaultStyle,
+      tooltipText,
+      onChangeLayer,
+      tooltipOpened,
     } = this.props;
     const { visibilityClick, visibilityHover, multiLayersActive } = this.state;
     const timelineLayers = this.getTimelineLayers();
@@ -92,16 +96,15 @@ class LegendItemButtonLayers extends PureComponent {
       return null;
     }
 
-
     return (
       <Tooltip
-        overlay={(
+        overlay={
           <LegendLayersTooltip
             layers={layers}
             activeLayer={activeLayer}
             onChangeLayer={onChangeLayer}
           />
-        )}
+        }
         overlayClassName="c-rc-tooltip -default -layers"
         placement="top"
         trigger={['click']}
@@ -115,15 +118,17 @@ class LegendItemButtonLayers extends PureComponent {
           overlayClassName="c-rc-tooltip -default"
           placement="top"
           trigger={tooltipOpened ? '' : 'hover'}
-          onVisibleChange={visibility => this.setState({ visibilityHover: visibility, multiLayersActive: false })}
+          onVisibleChange={(visibility) =>
+            this.setState({ visibilityHover: visibility, multiLayersActive: false })
+          }
           destroyTooltipOnHide
         >
-          <button
-            type="button"
-            styleName="c-legend-button layers"
-            aria-label="Select other layer"
-          >
-            <Icon name={icon || 'icon-layers'} className="-small" style={visibilityHover || visibilityClick ? focusStyle : defaultStyle} />
+          <button type="button" styleName="c-legend-button layers" aria-label="Select other layer">
+            <Icon
+              name={icon || 'icon-layers'}
+              className="-small"
+              style={visibilityHover || visibilityClick ? focusStyle : defaultStyle}
+            />
           </button>
         </Tooltip>
       </Tooltip>

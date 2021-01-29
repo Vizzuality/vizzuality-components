@@ -1,17 +1,39 @@
-import moment from 'moment';
+import dayjs from 'dayjs';
+
+/**
+ * Translate Moment units into DayJS units
+ */
+const getDayJsInterval = (interval) => {
+  // Shorthand units don't have to be translated
+  const momentToDayJSUnit = {
+    years: 'year',
+    quarters: 'quarter',
+    months: 'month',
+    weeks: 'week',
+    days: 'day',
+    hours: 'hour',
+    minutes: 'minute',
+    seconds: 'second',
+    milliseconds: 'millisecond',
+  };
+
+  return momentToDayJSUnit[interval] || interval;
+};
 
 export const addToDate = (date, count, interval = 'days', toEnd) => {
-  const d = moment.utc(date);
+  const d = dayjs(date);
 
-  return toEnd ? d.add(count, interval).endOf(interval) : d.add(count, interval);
+  return toEnd
+    ? d.add(count, getDayJsInterval(interval)).endOf(getDayJsInterval(interval))
+    : d.add(count, getDayJsInterval(interval));
 };
 
 export const formatDate = (date, format = 'YYYY-MM-DD') => {
-  return moment.utc(date).format(format);
+  return dayjs(date).format(format);
 };
 
 export const formatDatePretty = (date, dateFormat = 'YYYY-MM-DD') => {
-  const d = moment.utc(date);
+  const d = dayjs(date);
   const hasDays = dateFormat.includes('DD');
   const hasMonths = dateFormat.includes('MM');
 
@@ -27,22 +49,20 @@ export const formatDatePretty = (date, dateFormat = 'YYYY-MM-DD') => {
     'SEPT',
     'OCT',
     'NOV',
-    'DEC'
+    'DEC',
   ];
   const day = d.format('DD');
   const month = d.month();
   const year = d.year();
 
-  return `${hasDays ? `${day} ` : ''}${hasMonths ? `${months[month]} ` : ''}${
-    year
-  }`;
+  return `${hasDays ? `${day} ` : ''}${hasMonths ? `${months[month]} ` : ''}${year}`;
 };
 
 // startDate and endDate are string dates
 export const dateDiff = (startDate, endDate, interval) => {
-  const diff = moment.utc(endDate).diff(moment.utc(startDate), interval);
+  const diff = dayjs(endDate).diff(dayjs(startDate), getDayJsInterval(interval));
 
-  return diff * -1
+  return diff * -1;
 };
 
 export const getTicks = (timelineConfig = {}) => {
@@ -52,46 +72,45 @@ export const getTicks = (timelineConfig = {}) => {
   if (marks) {
     const newMarks = Object.keys(marks).reduce((acc, m) => {
       if (typeof m === 'string') {
-        const key = moment.utc(m).diff(moment.utc(minDate), interval);
+        const key = dayjs(m).diff(dayjs(minDate), getDayJsInterval(interval));
 
         return {
           ...acc,
-          [key]: marks[m]
-        }
+          [key]: marks[m],
+        };
       }
 
       return {
         ...acc,
-        [m]: marks[m]
-      }
+        [m]: marks[m],
+      };
     }, {});
 
     return newMarks;
   }
 
-
   // Otherwise, let's add default marks at the begginig and the end
   const minMark = 0;
-  const maxMark = moment.utc(maxDate).diff(moment.utc(minDate), interval);
+  const maxMark = dayjs(maxDate).diff(dayjs(minDate), getDayJsInterval(interval));
 
   const newMarks = {
     [minMark]: {
-      label: moment.utc(minDate).format(dateFormat)
+      label: dayjs(minDate).format(dateFormat),
     },
     [maxMark]: {
-      label: moment.utc(maxDate).format(dateFormat)
-    }
+      label: dayjs(maxDate).format(dateFormat),
+    },
   };
 
   return newMarks;
 };
 
 // startDate and endDate are string dates
-export const gradientConverter = (gradient, minDate, interval) => (
-  Object
-    .keys(gradient)
-    .reduce((acc, val) => ({
+export const gradientConverter = (gradient, minDate, interval) =>
+  Object.keys(gradient).reduce(
+    (acc, val) => ({
       ...acc,
       [dateDiff(val, minDate, interval)]: gradient[val],
-    }), {})
-);
+    }),
+    {}
+  );

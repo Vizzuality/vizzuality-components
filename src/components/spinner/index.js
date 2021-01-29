@@ -7,14 +7,14 @@ import './styles.scss';
 const STYLES = {
   box: {
     width: 40,
-    height: 40
+    height: 40,
   },
   circle: {
     fill: 'none',
     stroke: '#000',
     strokeWidth: 5,
-    strokeMiterlimit: 10
-  }
+    strokeMiterlimit: 10,
+  },
 };
 
 export class Spinner extends PureComponent {
@@ -24,9 +24,9 @@ export class Spinner extends PureComponent {
     customClass: PropTypes.string,
     style: PropTypes.shape({
       box: PropTypes.object,
-      circle: PropTypes.object
-    })
-  }
+      circle: PropTypes.object,
+    }),
+  };
 
   static defaultProps = {
     position: 'absolute',
@@ -34,20 +34,20 @@ export class Spinner extends PureComponent {
     customClass: null,
     style: {
       box: {},
-      circle: {}
-    }
-  }
+      circle: {},
+    },
+  };
 
   render() {
     const { position, customClass, style } = this.props;
     const classNames = classnames({
       'c-spinner': true,
-      [`-${position}`]: true
+      [`-${position}`]: true,
     });
 
     const customClassNames = classnames({
       'c-spinner': true,
-      [customClass]: !!customClass
+      [customClass]: !!customClass,
     });
 
     const boxStyles = { ...STYLES.box, ...style.box };
@@ -57,13 +57,7 @@ export class Spinner extends PureComponent {
       <div styleName={classNames} className={customClassNames}>
         <div styleName="spinner-box" style={boxStyles}>
           <svg styleName="spinner-icon" viewBox="25 25 50 50">
-            <circle
-              {...circleStyles}
-              styleName="spinner-circle"
-              cx={50}
-              cy={50}
-              r={20}
-            />
+            <circle {...circleStyles} styleName="spinner-circle" cx={50} cy={50} r={20} />
           </svg>
         </div>
       </div>
