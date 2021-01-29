@@ -28,7 +28,7 @@ class Timestep extends PureComponent {
     loop: PropTypes.bool,
     formatValue: PropTypes.func.isRequired,
 
-    trackStyle: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.array, PropTypes.object])),
+    trackStyle: PropTypes.oneOfType([PropTypes.array, PropTypes.shape({})]),
     railStyle: PropTypes.shape({}),
     handleStyle: PropTypes.shape({}),
 
@@ -108,7 +108,7 @@ class Timestep extends PureComponent {
     } = prevProps;
 
     if (playing !== prevPropsPlaying) {
-      this.setState({ playing }) // eslint-disable-line
+      this.setState({ playing }); // eslint-disable-line
     }
 
     if (statePlaying && statePlaying !== prevStatePlaying) {
@@ -120,27 +120,31 @@ class Timestep extends PureComponent {
     }
 
     if (start !== prevPropsStart && start !== stateStart && prevStateStart === stateStart) {
-      this.setState({ // eslint-disable-line
+      this.setState({
+        // eslint-disable-line
         start: start <= minAbs ? minAbs : start,
         end: trim >= maxAbs ? maxAbs : trim,
       });
     }
 
     if (end !== prevPropsEnd && end !== stateEnd && prevStateEnd === stateEnd) {
-      this.setState({ // eslint-disable-line
+      this.setState({
+        // eslint-disable-line
         end: end >= maxAbs ? maxAbs : end,
       });
     }
 
     if (trim !== prevPropsTrim && trim !== stateTrim && prevStateTrim === stateTrim) {
-      this.setState({ // eslint-disable-line
+      this.setState({
+        // eslint-disable-line
         trim,
         end: trim >= maxAbs ? maxAbs : trim,
       });
     }
 
     if (minAbs !== prevPropsMinAbs || maxAbs !== prevPropsMaxAbs) {
-      this.setState({ // eslint-disable-line
+      this.setState({
+        // eslint-disable-line
         start: start <= minAbs ? minAbs : start,
         trim: trim >= maxAbs ? maxAbs : trim,
         end: end >= maxAbs ? maxAbs : end,
@@ -382,7 +386,7 @@ class Timestep extends PureComponent {
   };
 
   /* eslint-disable-next-line */
-  handleOnAfterChange = range => {
+  handleOnAfterChange = (range) => {
     const { handleOnAfterChange } = this.props;
     const newRange = this.checkRange(range);
 
