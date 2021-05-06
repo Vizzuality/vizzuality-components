@@ -3487,7 +3487,7 @@ dot-prop@^4.1.0, dot-prop@^4.1.1:
 
 dotenv@^2.0.0:
   version "2.0.0"
-  resolved "http://registry.npmjs.org/dotenv/-/dotenv-2.0.0.tgz#bd759c357aaa70365e01c96b7b0bec08a6e0d949"
+  resolved "https://registry.npmjs.org/dotenv/-/dotenv-2.0.0.tgz#bd759c357aaa70365e01c96b7b0bec08a6e0d949"
   integrity sha1-vXWcNXqqcDZeAclrewvsCKbg2Uk=
 
 duplexer3@^0.1.4:
@@ -9602,7 +9602,7 @@ rollup-plugin-uglify@^6.0.0:
 
 rollup-pluginutils@^1.5.0:
   version "1.5.2"
-  resolved "http://registry.npmjs.org/rollup-pluginutils/-/rollup-pluginutils-1.5.2.tgz#1e156e778f94b7255bfa1b3d0178be8f5c552408"
+  resolved "https://registry.npmjs.org/rollup-pluginutils/-/rollup-pluginutils-1.5.2.tgz#1e156e778f94b7255bfa1b3d0178be8f5c552408"
   integrity sha1-HhVud4+UtyVb+hs9AXi+j1xVJAg=
   dependencies:
     estree-walker "^0.2.1"
@@ -10772,9 +10772,9 @@ typedarray@^0.0.6:
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
 ua-parser-js@^0.7.9:
-  version "0.7.17"
-  resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-0.7.17.tgz#e9ec5f9498b9ec910e7ae3ac626a805c4d09ecac"
-  integrity sha512-uRdSdu1oA1rncCQL7sCj8vSyZkgtL7faaw9Tc9rZ3mGgraQ7+Pdx7w5mnOSF3gw9ZNG6oc+KXfkon3bKuROm0g==
+  version "0.7.28"
+  resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-0.7.28.tgz#8ba04e653f35ce210239c64661685bf9121dec31"
+  integrity sha512-6Gurc1n//gjp9eQNXjD9O3M/sMwVtN5S8Lv9bvOYBfKfDNiIIhqiyi01vMBO45u4zkDE420w/e0se7Vs+sIg+g==
 
 uglify-es@^3.3.4:
   version "3.3.9"
